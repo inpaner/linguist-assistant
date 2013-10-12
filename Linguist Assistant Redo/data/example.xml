@@ -1,0 +1,150 @@
+   <top>
+		<label>CL</label>
+		<subcons>
+		<const>
+			<label>SubCL</label>
+			 <features>
+				<feature>
+				   <name> salience band </name>
+				   <value> backgrounded actions </value>
+				</feature> 
+				<feature>
+				   <name> focus type </name>
+				   <value> agent focus </value>
+				</feature> 
+			 </features>
+			 <subcons>
+			<const>
+				<label>Adp</label>
+				<concept> while-A </concept>
+			 </const>
+			 <const>
+				<label>NP</label>
+				<features>
+				   <feature>
+					  <name> semantic role </name>
+					  <value> most agent-like </value>
+				   </feature> 
+				   <feature>
+					  <name> grammatical relation </name>
+					  <value> object </value>
+				   </feature> 
+				</features>
+				<subcons>
+				<const>
+					<label>N</label>
+				  <concept> John-A </concept>
+				   <features>
+					  <feature>
+						 <name> participant tracking </name>
+						 <value> routine </value>
+					  </feature> 
+					  <feature>
+						 <name> person </name>
+						 <value> first </value>
+					  </feature> 
+					  <feature>
+						 <name> noun list index </name>
+						 <value> 1 </value>
+					  </feature> 
+				   </features>
+				</const>   
+				</subcons>
+			 </const>
+			 <const>
+				<label>VP</label>
+				<subcons>
+				<const>
+					<label>V</label>
+				  <concept> walk-A </concept>
+				   <features>
+					  <feature>
+						 <name> time </name>
+						 <value> yesterday </value>
+					  </feature> 
+				   </features>
+				</const>
+				</subcons>
+			 </const>
+			 </subcons>
+      </const>
+      <const>
+		<label>NP</label>
+         <features>
+            <feature>
+               <name> semantic role </name>
+               <value> most agent-like </value>
+            </feature> 
+         </features>
+		 <subcons>
+         <const>
+			<label>N</label>
+            <concept> Mary-A </concept>
+            <features>
+               <feature>
+                  <name> participant tracking </name>
+                  <value> routine </value>
+               </feature> 
+                  <feature>
+                     <name> noun list index </name>
+                     <value> 2 </value>
+                  </feature> 
+            </features>
+         </const>  
+		</subcons>
+      </const>
+      <const>
+		<label>VP</label>
+		<subcons>
+         <const>
+		 <label>V</label>
+         <concept> read-A </concept>
+            <features>
+               <feature>
+                  <name> time </name>
+                  <value> yesterday </value>
+               </feature> 
+               <feature>
+                  <name> aspect </name>
+                  <value> completive </value>
+               </feature> 
+               <feature>
+                  <name> polarity </name>
+                  <value> emphatic affirmative </value>
+               </feature> 
+            </features>
+         </const>    
+		</subcons>
+      </const>
+      <const>
+		<label>NP</label>
+         <features>
+            <feature>
+               <name> semantic role </name>
+               <value> most patient-like </value>
+            </feature> 
+         </features>
+		 <subcons>
+         <const>
+			<label>N</label>
+            <concept> book-A </concept>
+            <features>
+               <feature>
+                  <name> participant tracking </name>
+                  <value> routine </value>
+               </feature> 
+               <feature>
+                  <name> proximity </name>
+                  <value> near speaker </value>
+               </feature> 
+                  <feature>
+                     <name> noun list index </name>
+                     <value> 3 </value>
+                  </feature> 
+            </features>
+         </const>   
+		</subcons>
+      </const>
+	  </subcons>
+   </top>
+
