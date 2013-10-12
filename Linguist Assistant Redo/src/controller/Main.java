@@ -1,7 +1,10 @@
-package model;
+package controller;
 
 import java.awt.Dimension;
 
+import model.Constituent;
+import model.Root;
+import model.XMLParser;
 import uitextgen.UITEXTGEN;
 import display.Block;
 
