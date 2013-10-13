@@ -24,7 +24,8 @@ public class Constituent extends Node {
         features = new ArrayList<>();
     }
     
-    protected void setLabel(String label) {
+    //TODO protected
+    public void setLabel(String label) {
         this.label = label;
     }
     
@@ -36,7 +37,8 @@ public class Constituent extends Node {
         return parent;
     }
     
-    protected void addChild(Constituent child) {
+    //TODO to protected
+    public void addChild(Constituent child) {
         children.add(child);
     }
     

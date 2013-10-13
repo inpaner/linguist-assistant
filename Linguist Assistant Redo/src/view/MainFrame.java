@@ -37,7 +37,7 @@ public class MainFrame extends JFrame {
         setMaximumSize(FrameDimension);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        setResizable(false);
+        setResizable(true);
         setVisible(true);
     }
 

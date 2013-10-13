@@ -2,10 +2,14 @@ package controller;
 
 import java.awt.Dimension;
 
+import javax.swing.JPanel;
+
 import model.Constituent;
 import model.Root;
 import model.XMLParser;
 import uitextgen.UITEXTGEN;
+import view.MainFrame;
+import view.SemanticDisplay;
 import display.Block;
 
 public class Main {
@@ -13,7 +17,13 @@ public class Main {
 	/**
 	 * @param args
 	 */
-	public static void main(String argv[]) {
+    public static void main(String[] args) {
+        MainFrame frame = new MainFrame();
+        JPanel panel = new SemanticDisplay();
+        frame.setPanel(panel);
+    }
+    
+	public static void main2(String argv[]) {
     	UITEXTGEN ui = null;
     	Dimension size;
 		try {
