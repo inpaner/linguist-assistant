@@ -17,13 +17,13 @@ public class Main {
 	/**
 	 * @param args
 	 */
-    public static void main(String[] args) {
+    public static void main2(String[] args) {
         MainFrame frame = new MainFrame();
-        JPanel panel = new SemanticDisplay();
-        frame.setPanel(panel);
+        //JPanel panel = new SemanticDisplay();
+        //frame.setPanel(panel);
     }
     
-	public static void main2(String argv[]) {
+	public static void main(String argv[]) {
     	UITEXTGEN ui = null;
     	Dimension size;
 		try {
@@ -42,7 +42,7 @@ public class Main {
         for(Constituent c : root.getConstituents())
         {
         	
-        	b=new Block(c,x,y, 0);
+        	b=new Block(c,x,y, 0, ui);
         	if(ui!=null)
         	{
         		//

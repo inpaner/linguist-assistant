@@ -12,11 +12,11 @@
             </features>
             <subcons>
                 <const>
-                    <label>ADP</label>
+                    <label>Adp</label>
                     <concept>Begin Episode-A</concept>
                 </const>
                 <const>
-                    <label>ADP</label>
+                    <label>Adp</label>
                     <concept>Begin Scene-A</concept>
                 </const>
                 <const>
@@ -42,7 +42,7 @@
                             </features>
                             <subcons>
                                 <const>
-                                    <label>ADP</label>
+                                    <label>Adp</label>
                                     <concept>name-A</concept>
                                 </const>
                                 <const>
@@ -84,7 +84,7 @@
                     </features>
                     <subcons>
                         <const>
-                            <label>ADP</label>
+                            <label>Adp</label>
                             <concept>outside</concept>
                         </const>
                         <const>
@@ -111,7 +111,7 @@
                             </features>
                             <subcons>
                                 <const>
-                                    <label>ADP</label>
+                                    <label>Adp</label>
                                     <concept>Owner</concept>
                                 </const>
                                 <const>
@@ -144,7 +144,7 @@
             </features>
             <subcons>
                 <const>
-                    <label>CONJ</label>
+                    <label>conj</label>
                     <concept>but</concept>
                 </const>
                 <const>
@@ -191,7 +191,7 @@
                     </features>
                     <subcons>
                         <const>
-                            <label>ADJ</label>
+                            <label>Adj</label>
                             <concept>happy</concept>
                         </const>
                     </subcons>
@@ -210,7 +210,7 @@
                     </features>
                     <subcons>
                         <const>
-                            <label>ADP</label>
+                            <label>Adp</label>
                             <concept>because-A</concept>
                         </const>
                         <const>
@@ -244,7 +244,7 @@
                                     </features>
                                     <subcons>
                                         <const>
-                                            <label>ADP</label>
+                                            <label>Adp</label>
                                             <concept>Bodypart</concept>
                                         </const>
                                         <const>
@@ -290,7 +290,7 @@
                             </features>
                             <subcons>
                                 <const>
-                                    <label>ADJ</label>
+                                    <label>Adj</label>
                                     <features>
                                         <feature>
                                             <name>degree</name>
