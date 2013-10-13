@@ -1,22 +1,60 @@
 package model;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class Constituent extends Node {
-    private String label;
+    private String syntacticCategory;
+    private String syntacticAbbreviation;
+    private String semanticCategory;
+    private String semanticAbbreviation;
+    private String deepAbbreviation;
     private Constituent parent;
     private ArrayList<Constituent> children;
     private ArrayList<Feature> features;
     private Concept concept;
     private Translation translation;
     
+    public static void main(String[] args) {
+        Constituent con = new Constituent("C", null);
+    }
+    
+    public Constituent(String abbreviation, Constituent parent) {
+        this(parent); 
+        try {
+            String query =
+                    "SELECT SemanticCategory.name AS semName, " +
+                    "       SemanticCategory.abbreviation AS semAbbr, " +
+                    "       SemanticCategory.deepAbbreviation AS deepAbbr, " +
+                    "       SyntacticCategory.name AS synName, " +
+                    "       SyntacticCategory.abbreviation AS synAbbr " +
+                    "  FROM SemanticCategory " +
+                    "       JOIN SyntacticCategory " +
+                    "         ON SemanticCategory.syntacticCategoryPk = SyntacticCategory.pk " +
+                    " WHERE SyntacticCategory.abbreviation = '" + abbreviation + "'; ";
+            ResultSet rs = DBUtil.executeQuery(query);
+            rs.next();
+            syntacticCategory = rs.getString("synName");
+            syntacticAbbreviation = rs.getString("synAbbr");
+            semanticCategory = rs.getString("semName");
+            semanticAbbreviation = rs.getString("semAbbr");
+            deepAbbreviation = rs.getString("deepAbbr");
+
+            DBUtil.finishQuery();
+        } 
+        catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        
+    }
+    
     public Constituent(Constituent parent) {
         if (parent == null) {
             level = 0;
-        } 
-        else {
+        } else {
             level = parent.getLevel() + 1;
         }
         
@@ -26,11 +64,11 @@ public class Constituent extends Node {
     
     //TODO protected
     public void setLabel(String label) {
-        this.label = label;
+        this.syntacticCategory = label;
     }
     
     public String getLabel() {
-        return label;
+        return syntacticCategory;
     }
     
     public Constituent getParent() {
@@ -78,7 +116,7 @@ public class Constituent extends Node {
         char[] chars = new char[level + 1];
         Arrays.fill(chars, '-');
         String result = new String(chars);
-        System.out.println(result + label);
+        System.out.println(result + syntacticCategory);
         for (Feature feature : features) {
             feature.sysout();
         }
@@ -92,7 +130,7 @@ public class Constituent extends Node {
     
     @Override
     public String toString() {
-        return label;
+        return syntacticCategory;
     }
     
     @Override
