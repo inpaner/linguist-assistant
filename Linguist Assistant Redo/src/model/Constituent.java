@@ -1,5 +1,6 @@
 package model;
 
+import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -13,7 +14,11 @@ import java.util.List;
  * @author Ivan
  * 
  */
-public class Constituent extends Node {
+public class Constituent extends Node implements Serializable {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 6629558606105511101L;
     private String syntacticCategory;
     private String syntacticAbbreviation;
     private String semanticCategory;
