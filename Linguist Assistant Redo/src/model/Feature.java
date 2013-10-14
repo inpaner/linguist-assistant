@@ -17,6 +17,46 @@ public class Feature extends Node {
         level = parent.getLevel() + 1;
     }
     
+    
+    /**
+     * The constructor. Sets value to default.
+     * 
+     * @param name  Name of feature
+     * @param parent  Constituent that contains the feature
+     */
+    protected Feature(String name, Constituent parent) {
+        this(name, null, parent);
+        value = getDefaultValue();
+    }
+    
+    public String getDefaultValue() {
+        String defaultValue = null;
+        try {
+            String query = 
+                    "SELECT FeatureValue.name AS name " +
+                    "  FROM FeatureValue " +
+                    "       JOIN Feature " +
+                    "         ON FeatureValue.featurePk = Feature.pk " +
+                    "       JOIN SemanticCategory " +
+                    "         ON Feature.semanticCategoryPk = SemanticCategory.pk " +
+                    "       JOIN SyntacticCategory " +
+                    "         ON SemanticCategory.syntacticCategoryPk = SyntacticCategory.pk " +
+                    " WHERE SyntacticCategory.name = '" + parent.getSyntacticCategory() + "'  " +
+                    "       AND " +
+                    "       Feature.name = '" + name + "'" +
+                    " LIMIT 1; ";
+
+            ResultSet rs = DBUtil.executeQuery(query);
+            rs.next();
+            defaultValue = rs.getString("name"); 
+            DBUtil.finishQuery();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return defaultValue;
+    }
+    
     public String getName() {
         return name;
     }
