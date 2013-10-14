@@ -4,8 +4,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
+/**
+ * Blah di blah
+ * 
+ * @author Ivan
+ * 
+ */
 public class Constituent extends Node {
     private String syntacticCategory;
     private String syntacticAbbreviation;
@@ -19,7 +26,29 @@ public class Constituent extends Node {
     private Translation translation;
     
     public static void main(String[] args) {
-        Constituent con = new Constituent("C", null);
+        Constituent con = new Constituent("C", null);   
+    }
+    
+    public static List<Constituent> getAllConstituents() {
+        ArrayList<Constituent> allConstituents = new ArrayList<Constituent>();
+        try {
+            String query =
+                    "SELECT SyntacticCategory.abbreviation AS synAbbr " +
+                    "  FROM SemanticCategory " +
+                    "       JOIN SyntacticCategory " +
+                    "         ON SemanticCategory.syntacticCategoryPk = SyntacticCategory.pk ";
+            ResultSet rs = DBUtil.executeQuery(query);
+            while (rs.next()) {
+                String abbr = rs.getString("synAbbr");
+                Constituent constituent = new Constituent(abbr, null);
+                allConstituents.add(constituent);
+            }
+            DBUtil.finishQuery();
+        } 
+        catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return allConstituents;
     }
     
     public Constituent(String abbreviation, Constituent parent) {
@@ -42,13 +71,12 @@ public class Constituent extends Node {
             semanticCategory = rs.getString("semName");
             semanticAbbreviation = rs.getString("semAbbr");
             deepAbbreviation = rs.getString("deepAbbr");
-
+            
             DBUtil.finishQuery();
         } 
         catch (SQLException ex) {
             ex.printStackTrace();
         }
-        
     }
     
     public Constituent(Constituent parent) {
@@ -94,10 +122,66 @@ public class Constituent extends Node {
     
     protected void addFeature(Feature newFeature) {
         features.add(newFeature);
+        
     }
     
     public boolean hasFeatures() {
         return features.size() > 0;
+    }
+    
+    /**
+     * Gets all features including those with default values.
+     * 
+     * @return The list of all features.
+     */
+    public List<Feature> getAllFeatures() {
+        ArrayList<Feature> allFeatures = new ArrayList<Feature>();
+        
+        try {
+            String query =
+                    "SELECT Feature.name AS name " +
+                    "  FROM Feature " +
+                    "       JOIN SemanticCategory " +
+                    "         ON Feature.semanticCategoryPk = SemanticCategory.pk " +
+                    "       JOIN SyntacticCategory " +
+                    "         ON SemanticCategory.syntacticCategoryPk = SyntacticCategory.pk " +
+                    " WHERE SyntacticCategory.name = '" + syntacticCategory + "'; ";
+
+            ResultSet rs = DBUtil.executeQuery(query);
+            while (rs.next()) {
+                String featureName = rs.getString("name");
+                Feature feature = getFeature(featureName);
+                allFeatures.add(feature);
+            }
+            DBUtil.finishQuery();
+        } 
+        catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        
+        return allFeatures;
+    }
+    
+    
+    /**
+     * Returns the requested feature.
+     * @param name Name of the feature
+     * @return The feature with the appropriate name
+     */
+    // TODO return null if feature is not valid
+    private Feature getFeature(String name) {
+        Feature valid = null;
+        for (Feature feature : features) {
+            // TODO improve equivalence checking
+            if (feature.getName().equals(name)) {
+                valid = feature;
+                break;
+            }
+        }
+        if (valid == null) {
+            valid = new Feature(name, this);
+        }
+        return valid;
     }
     
     protected void setConcept(Concept concept) {
@@ -112,6 +196,7 @@ public class Constituent extends Node {
         return concept != null;
     }
     
+    // TODO remove
     public void sysout() {
         char[] chars = new char[level + 1];
         Arrays.fill(chars, '-');
@@ -148,5 +233,9 @@ public class Constituent extends Node {
     @Override
     public int hashCode() {
         return this.toString().hashCode();
+    }
+
+    public String getSyntacticCategory() {
+        return syntacticCategory;
     }
 }
