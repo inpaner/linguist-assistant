@@ -51,7 +51,7 @@ public class Constituent extends Node {
         return allConstituents;
     }
     
-    public Constituent(String abbreviation, Constituent parent) {
+    public Constituent(String syntacticAbbr, Constituent parent) {
         this(parent); 
         try {
             String query =
@@ -63,7 +63,7 @@ public class Constituent extends Node {
                     "  FROM SemanticCategory " +
                     "       JOIN SyntacticCategory " +
                     "         ON SemanticCategory.syntacticCategoryPk = SyntacticCategory.pk " +
-                    " WHERE SyntacticCategory.abbreviation = '" + abbreviation + "'; ";
+                    " WHERE SyntacticCategory.abbreviation = '" + syntacticAbbr + "'; ";
             ResultSet rs = DBUtil.executeQuery(query);
             rs.next();
             syntacticCategory = rs.getString("synName");
