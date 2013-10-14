@@ -19,24 +19,16 @@ import model.Constituent;
 import model.Feature;
 
 // http://stackoverflow.com/a/4211552
+@SuppressWarnings("serial")
 public class FeatureValuesPanel extends JPanel {
-    List<TableCellEditor> editors = new ArrayList<TableCellEditor>(3);
-
+    private List<TableCellEditor> editors;
+    private JTable table;
+    private List<FeatureValuesListener> listeners;
+    private List<Feature> features;
+    
     public FeatureValuesPanel() {
-        Constituent con = new Constituent("C", null);
-        for (Feature feature : con.getAllFeatures()) {
-            JComboBox<String> comboBox = new JComboBox<>(new Vector<>(feature.getPossibleValues()));
-            DefaultCellEditor cellEditor = new DefaultCellEditor(comboBox);
-            comboBox.setActionCommand(feature.getName());
-            comboBox.setSelectedItem(feature.getValue());
-            comboBox.addItemListener(comboListener());
-            editors.add(cellEditor);
-        }
-
-        FeatureTableModel model = new FeatureTableModel(con);
-        
-        @SuppressWarnings("serial")
-        JTable table = new JTable(model) {
+        listeners = new ArrayList<>();
+        table = new JTable() {
             public TableCellEditor getCellEditor(int row, int column) {
                 int modelColumn = convertColumnIndexToModel(column);
                 if (modelColumn == 1)
@@ -50,17 +42,52 @@ public class FeatureValuesPanel extends JPanel {
         add(scrollPane);
     }
     
-    @SuppressWarnings("serial")
-    private class FeatureTableModel extends AbstractTableModel {
-        List<Feature> features;
-        public FeatureTableModel(Constituent constituent) {
-            features = constituent.getAllFeatures();
+    public void setConstituent(Constituent constituent) {
+        editors = new ArrayList<>();
+        features = constituent.getAllFeatures();
+        for (Feature feature : constituent.getAllFeatures()) {
+            FeatureComboBox comboBox = new FeatureComboBox(feature);
+            DefaultCellEditor cellEditor = new DefaultCellEditor(comboBox);
+            editors.add(cellEditor);
         }
 
+        FeatureTableModel model = new FeatureTableModel();
+        table.setModel(model);
+    }
+    
+    public static void main(String[] args) {
+        MainFrame frame = new MainFrame();
+        FeatureValuesPanel panel = new FeatureValuesPanel();
+        Constituent con = new Constituent("C", null);
+        panel.setConstituent(con);
+        frame.setPanel(panel);
+    }
+    
+    private class FeatureComboBox extends JComboBox<String> {
+        private Feature feature;
+        private FeatureComboBox(Feature feature) {
+            super(new Vector<String>(feature.getPossibleValues()));
+            this.feature = feature;
+            setSelectedItem(feature.getValue());
+            addItemListener(new ComboListener());
+        }
+        
+        private Feature getFeature() {
+            return feature;
+        }
+        
+        private String getValue() {
+            return (String) getSelectedItem();
+        }
+    }
+
+    private class FeatureTableModel extends AbstractTableModel {
+        public FeatureTableModel() {}
+    
         public int getColumnCount() {
             return 2;
         }
-
+    
         public int getRowCount() {
             return features.size();
         }
@@ -76,37 +103,35 @@ public class FeatureValuesPanel extends JPanel {
             }
             return colName;
         }
-
+    
         public Object getValueAt(int rowIndex, int columnIndex) {
             Feature feature = features.get(rowIndex);
+            Object value;
             switch (columnIndex) {
-                case 0: return feature.getName();
-                case 1: return feature.getValue();
-                default: return feature.getValue(); // questionable
+                case 0: value = feature.getName();
+                        break;
+                case 1: value = feature.getValue();
+                        break;
+                default: value = feature.getValue(); // questionable
             }
+            
+            return value;
         }
         
         public boolean isCellEditable(int rowIndex, int columnIndex) {
             return (columnIndex == 1);
         }
     }
-    
-    private ItemListener comboListener() {
-        return new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent ev) {
-                if (ev.getStateChange() == ItemEvent.SELECTED) {
-                    JComboBox<String> comboBox = (JComboBox<String>) ev.getSource();
-                    System.out.println(comboBox.getActionCommand() + " : " + comboBox.getSelectedItem());
+
+    private class ComboListener implements ItemListener {
+        @Override
+        public void itemStateChanged(ItemEvent ev) {
+            if (ev.getStateChange() == ItemEvent.SELECTED) {
+                FeatureComboBox comboBox = (FeatureComboBox) ev.getSource();
+                for (FeatureValuesListener listener : listeners) {
+                    listener.featureValueChanged(comboBox.getFeature(), comboBox.getValue());
                 }
-                
             }
-        };
-    }
-    
-    public static void main(String[] args) {
-        MainFrame frame = new MainFrame();
-        FeatureValuesPanel panel = new FeatureValuesPanel();
-        frame.setPanel(panel);
+        }
     }
 }
