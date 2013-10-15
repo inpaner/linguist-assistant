@@ -7,9 +7,8 @@ import javax.swing.JPanel;
 import model.Constituent;
 import model.Root;
 import model.XMLParser;
-import uitextgen.UITEXTGEN;
 import view.MainFrame;
-import view.SemanticDisplay;
+import view.SemanticEditorPanel;
 
 public class Main {
 

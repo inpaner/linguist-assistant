@@ -2,22 +2,26 @@ package controller;
 
 import model.Constituent;
 import model.Feature;
+import view.AddConstituentListener;
 import view.AddConstituentPanel;
 import view.BlockListener;
 import view.FeatureValuesListener;
+import view.GenericDialog;
 import view.MainFrame;
-import view.SemanticDisplay;
+import view.SemanticEditorPanel;
 
-public class SemanticEditor {
-    SemanticDisplay display;
+public class SemanticEditorController {
+    private SemanticEditorPanel display;
+    private AddConstituentPanel addConstituentPanel;
+    private GenericDialog dialog;
     
     public static void main(String[] args) {
-        new SemanticEditor();
+        new SemanticEditorController();
     }
     
-    public SemanticEditor() {
+    public SemanticEditorController() {
         MainFrame frame = new MainFrame();
-        display = new SemanticDisplay();
+        display = new SemanticEditorPanel();
         display.addBlockListener(new ImpBlockListener());
         display.addFeatureValuesListener(new ImpFeatureValuesListener());
         frame.setPanel(display);
@@ -48,7 +52,10 @@ public class SemanticEditor {
         @Override
         public void droppedButton(Constituent dropped, Constituent destination, int index) {
             System.out.println("wee");
-            new AddConstituentPanel();
+            dialog = new GenericDialog();
+            addConstituentPanel = new AddConstituentPanel(dropped);
+            addConstituentPanel.addListener(new AddConstituentListener_());
+            dialog.setPanel(addConstituentPanel);
         }
     }
     
@@ -61,5 +68,18 @@ public class SemanticEditor {
         }
     }
     
-    
+    private class AddConstituentListener_ implements AddConstituentListener {
+        @Override
+        public void clickedOk(Constituent constituent) {
+            
+            dialog.closeDialog(); // Y U DO DIS
+        }
+
+        @Override
+        public void clickedCancel() {
+            dialog.closeDialog();
+            
+        }
+        
+    }
 }

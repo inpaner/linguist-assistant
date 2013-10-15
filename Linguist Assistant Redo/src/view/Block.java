@@ -37,6 +37,7 @@ import net.miginfocom.swing.MigLayout;
 //TODO drag, drop, selection border
 //TODO don't show selection if can't drag onto
 
+//https://gist.github.com/edpichler/840867
 @SuppressWarnings("serial")
 public class Block extends Box {
     private static ArrayList<Color> colors;
@@ -196,6 +197,9 @@ public class Block extends Box {
         public void mouseExited(MouseEvent e) {}
 
         public void mousePressed(MouseEvent e) {
+            Border lineEdge = BorderFactory.createLineBorder(colors.get(1)); 
+            setBorder(lineEdge);
+            
             if (e.getClickCount() == 1) {
                 for (BlockListener listener : listeners) {
                     listener.selectedConstituent(constituent);
@@ -204,7 +208,10 @@ public class Block extends Box {
             
         }
 
-        public void mouseReleased(MouseEvent e) {}
+        public void mouseReleased(MouseEvent e) {
+            Border lineEdge = BorderFactory.createLineBorder(colors.get(2)); 
+            setBorder(lineEdge);
+        }
     }
     
     private class TransferableBlock implements Transferable {
@@ -279,7 +286,6 @@ public class Block extends Box {
                 // dragged a Button
                 else if (event.isDataFlavorSupported(DraggableButton.getFlavor())) {
                     DraggableButton source = (DraggableButton) tr.getTransferData(blockFlavor);
-                    
                     for (BlockListener listener : listeners) {
                         listener.droppedButton(source.getConstituent(), constituent, index);
                     }

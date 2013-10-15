@@ -6,7 +6,7 @@ import model.Constituent;
 import net.miginfocom.swing.MigLayout;
 
 @SuppressWarnings("serial")
-public class SemanticDisplay extends JPanel {
+public class SemanticEditorPanel extends JPanel {
     Constituent root;
     BlocksPanel blocksPanel;
     FeatureValuesPanel featureValuesPanel;
@@ -25,12 +25,12 @@ public class SemanticDisplay extends JPanel {
         con.addChild(con4);
         con.addChild(con5);
         
-        SemanticDisplay panel = new SemanticDisplay();
+        SemanticEditorPanel panel = new SemanticEditorPanel();
         panel.updateConstituent(con);
         frame.setPanel(panel);
     }
     
-    public SemanticDisplay() {
+    public SemanticEditorPanel() {
         initComponents();
         addComponents();
     }

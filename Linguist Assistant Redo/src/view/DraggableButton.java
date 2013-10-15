@@ -38,7 +38,7 @@ public class DraggableButton extends JButton {
         addMouseListener(new ClickedBox());
         DragSource ds = new DragSource();
         ds.createDefaultDragGestureRecognizer(
-                this, DnDConstants.ACTION_COPY, new DragGestureListenerImp());
+                this, DnDConstants.ACTION_COPY, new DragGestureListener_());
         
     }
     
@@ -94,7 +94,7 @@ public class DraggableButton extends JButton {
         }
     }
     
-    private class DragGestureListenerImp implements DragGestureListener {
+    private class DragGestureListener_ implements DragGestureListener {
         @Override
         public void dragGestureRecognized(DragGestureEvent event) {
             Cursor cursor = null;
