@@ -254,7 +254,6 @@ public class Block extends Box {
                 if (!Block.this.equals(source) 
                         && event.isDataFlavorSupported(blockFlavor)) {
                     event.acceptDrop(DnDConstants.ACTION_COPY);
-                    System.out.println("Drag success");
                     spacer.setBackground(null);
                     for (BlockListener listener : blockListeners) {
                         int index = spacers.indexOf(spacer);
@@ -276,10 +275,10 @@ public class Block extends Box {
                 Transferable tr = event.getTransferable();
                 Block source = (Block) tr.getTransferData(blockFlavor);
                 if (Block.this.equals(source)) {
-                    System.out.println("Hover self");
+                    // System.out.println("Hover self");
                 }
                 else if (event.isDataFlavorSupported(blockFlavor)) {
-                    System.out.println("Hover other");
+                    // System.out.println("Hover other");
                     spacer.setBackground(Color.BLACK);
                 }
             } 
