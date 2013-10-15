@@ -35,7 +35,7 @@ public class AddConstituentPanel extends JPanel {
     }
     
     private void initComponents() {        
-        setLayout(new MigLayout("wrap 2"));
+        setLayout(new MigLayout("wrap 1"));
         
         constituentLabel = new JLabel("Constituent: " + constituent.getLabel());
         
@@ -85,15 +85,6 @@ public class AddConstituentPanel extends JPanel {
         featureValuesPanel.setConstituent(constituent);
     }
     
-    private class ComboListener implements ItemListener {
-        @Override
-        public void itemStateChanged(ItemEvent ev) {
-            if (ev.getStateChange() == ItemEvent.SELECTED) {
-                updateFeatureValuesPanel();
-            }
-        }
-    }
-    
     private class ClickedOk implements MouseListener {
         @Override
         public void mouseClicked(MouseEvent e) {
@@ -126,5 +117,10 @@ public class AddConstituentPanel extends JPanel {
         public void mousePressed(MouseEvent e) {}
 
         public void mouseReleased(MouseEvent e) {}
+    }
+    
+    public interface Listener {
+        public abstract void clickedOk(Constituent constituent);
+        public abstract void clickedCancel();
     }
 }
