@@ -107,7 +107,7 @@ public class Block extends Box {
             conceptLabel.setText(constituent.getConcept().getName());
         } 
         else {
-            conceptLabel.setText(" w i w");
+            conceptLabel.setText(" ");
         }
         
         JPanel textPanel = new JPanel();
@@ -265,7 +265,7 @@ public class Block extends Box {
                     if (!Block.this.equals(source)) {
                         spacer.setBackground(null);
                         for (BlockListener listener : listeners) {
-                            listener.droppedConstituent(source.constituent, constituent, index);
+                            listener.droppedBlock(source.constituent, constituent, index);
                         }
                         event.acceptDrop(DnDConstants.ACTION_COPY);
                     }
@@ -274,8 +274,13 @@ public class Block extends Box {
                     }
                 }
                 // dragged a Button
-                else if (event.isDataFlavorSupported(DraggableButton.getFlavor())) { 
-                    System.out.println("Fin");
+                else if (event.isDataFlavorSupported(DraggableButton.getFlavor())) {
+                    DraggableButton source = (DraggableButton) tr.getTransferData(blockFlavor);
+                    
+                    for (BlockListener listener : listeners) {
+                        listener.droppedButton(source.getConstituent(), constituent, index);
+                    }
+                    event.acceptDrop(DnDConstants.ACTION_COPY);
                 }
                 
                 spacer.setBackground(null);
@@ -289,19 +294,21 @@ public class Block extends Box {
         public void dragOver(DropTargetDragEvent event) {
             try {
                 Transferable tr = event.getTransferable();
-                if (event.isDataFlavorSupported(blockFlavor)) { // dragged a block
+                // dragged a Block
+                if (event.isDataFlavorSupported(blockFlavor)) { 
                     Block source = (Block) tr.getTransferData(blockFlavor);
+                    // hover over self
                     if (Block.this.equals(source)) {
-                        System.out.println("Hover self");
+                        
                     }
+                    // System.out.println("Hover other");
                     else {
-                     // System.out.println("Hover other");
                         spacer.setBackground(Color.BLACK);    
                     }
                 }
-                else if (event.isDataFlavorSupported(DraggableButton.getFlavor())) { // dragged a Button
+                // dragged a Button
+                else if (event.isDataFlavorSupported(DraggableButton.getFlavor())) { 
                     spacer.setBackground(Color.BLACK);
-                    System.out.println("Dragged a button right here");
                 }
             } 
             catch (Exception e) {
