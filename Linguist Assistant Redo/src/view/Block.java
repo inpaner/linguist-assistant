@@ -35,7 +35,7 @@ import net.miginfocom.swing.MigLayout;
 @SuppressWarnings("serial")
 public class Block extends Box {
     private static ArrayList<Color> colors;
-    public static final DataFlavor BLOCK_FLAVOR = new DataFlavor(Block.class, Block.class.getSimpleName());
+    private DataFlavor blockFlavor = new DataFlavor(Block.class, Block.class.getSimpleName());
     
     private Constituent constituent;
     private int colorIndex;
@@ -208,19 +208,19 @@ public class Block extends Box {
 
         @Override
         public DataFlavor[] getTransferDataFlavors() {
-            return new DataFlavor[] {BLOCK_FLAVOR};
+            return new DataFlavor[] {blockFlavor};
         }
 
         @Override
         public boolean isDataFlavorSupported(DataFlavor flavor) {
-            return flavor.equals(BLOCK_FLAVOR);
+            return flavor.equals(blockFlavor);
         }
 
         @Override
         public Object getTransferData(DataFlavor flavor)
                 throws UnsupportedFlavorException, IOException {
 
-            if (flavor.equals(BLOCK_FLAVOR))
+            if (flavor.equals(blockFlavor))
                 return block;
             else
                 throw new UnsupportedFlavorException(flavor);
@@ -233,13 +233,12 @@ public class Block extends Box {
         @Override
         public void dragGestureRecognized(DragGestureEvent event) {
             Cursor cursor = null;
-            Block block = (Block) event.getComponent();
+            Block source = (Block) event.getComponent();
 
             if (event.getDragAction() == DnDConstants.ACTION_COPY) {
                 cursor = DragSource.DefaultCopyDrop;
             }
-            
-            event.startDrag(cursor, new TransferableBlock(block));
+            event.startDrag(cursor, new TransferableBlock(source));
         }
     }
     
@@ -258,10 +257,10 @@ public class Block extends Box {
         public void drop(DropTargetDropEvent event) {
             try {
                 Transferable tr = event.getTransferable();
-                Block source = (Block) tr.getTransferData(BLOCK_FLAVOR);
+                Block source = (Block) tr.getTransferData(blockFlavor);
         
                 if (!Block.this.equals(source) 
-                        && event.isDataFlavorSupported(BLOCK_FLAVOR)) {
+                        && event.isDataFlavorSupported(blockFlavor)) {
                     event.acceptDrop(DnDConstants.ACTION_COPY);
                     System.out.println("Drag success");
                     spacer.setBackground(null);
@@ -280,11 +279,11 @@ public class Block extends Box {
         public void dragOver(DropTargetDragEvent event) {
             try {
                 Transferable tr = event.getTransferable();
-                Block source = (Block) tr.getTransferData(BLOCK_FLAVOR);
+                Block source = (Block) tr.getTransferData(blockFlavor);
                 if (Block.this.equals(source)) {
                     System.out.println("Hover self");
                 }
-                else if (event.isDataFlavorSupported(BLOCK_FLAVOR)) {
+                else if (event.isDataFlavorSupported(blockFlavor)) {
                     System.out.println("Hover other");
                     spacer.setBackground(Color.BLACK);
                 }
