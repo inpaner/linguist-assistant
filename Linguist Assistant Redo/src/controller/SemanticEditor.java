@@ -10,16 +10,14 @@ import view.GenericDialog;
 import view.MainFrame;
 import view.SemanticEditorPanel;
 
-public class SemanticEditorController {
+public class SemanticEditor {
     private SemanticEditorPanel display;
-    private AddConstituentPanel addConstituentPanel;
-    private GenericDialog dialog;
     
     public static void main(String[] args) {
-        new SemanticEditorController();
+        new SemanticEditor();
     }
     
-    public SemanticEditorController() {
+    public SemanticEditor() {
         MainFrame frame = new MainFrame();
         display = new SemanticEditorPanel();
         display.addBlockListener(new ImpBlockListener());
@@ -51,11 +49,8 @@ public class SemanticEditorController {
 
         @Override
         public void droppedButton(Constituent dropped, Constituent destination, int index) {
-            System.out.println("wee");
-            dialog = new GenericDialog();
-            addConstituentPanel = new AddConstituentPanel(dropped);
-            addConstituentPanel.addListener(new AddConstituentListener_());
-            dialog.setPanel(addConstituentPanel);
+            AddConstituent addConstituent = new AddConstituent(dropped, destination, index);
+            addConstituent.addListener(new AddConstituentListener());
         }
     }
     
@@ -68,18 +63,11 @@ public class SemanticEditorController {
         }
     }
     
-    private class AddConstituentListener_ implements AddConstituentListener {
+    private class AddConstituentListener implements AddConstituent.Listener {
         @Override
-        public void clickedOk(Constituent constituent) {
-            
-            dialog.closeDialog(); // Y U DO DIS
+        public void done() {
+            display.refresh();
         }
-
-        @Override
-        public void clickedCancel() {
-            dialog.closeDialog();
-            
-        }
-        
     }
+
 }
