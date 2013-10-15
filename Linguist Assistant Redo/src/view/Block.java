@@ -33,10 +33,13 @@ import javax.swing.border.Border;
 import model.Constituent;
 import net.miginfocom.swing.MigLayout;
 
+//TODO drag, drop, selection border
+//TODO don't show selection if can't drag onto
+
 @SuppressWarnings("serial")
 public class Block extends Box {
     private static ArrayList<Color> colors;
-    private DataFlavor blockFlavor;    
+    private static DataFlavor blockFlavor;    
     private Constituent constituent;
     private int colorIndex;
     private ArrayList<Block> children;
@@ -46,15 +49,27 @@ public class Block extends Box {
     private JLabel conceptLabel;
     private Box contentBox;
     private boolean showChildren;
-    private ArrayList<BlockListener> blockListeners;
+    private ArrayList<BlockListener> listeners;
     
     static {
-        System.out.println("init colors");
+        try { // unsure why needed since Block.class is this
+            blockFlavor = new DataFlavor(
+                    DataFlavor.javaJVMLocalObjectMimeType + 
+                    ";class=\"" + Block.class.getName() + "\"");
+        }
+        catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        
         colors = new ArrayList<>();
         colors.add(new Color(255,0,0));
         colors.add(new Color(0,255,0));
         colors.add(new Color(0,0,255));
         colors.add(new Color(255,0,255));
+    }
+    
+    static DataFlavor getFlavor() {
+        return blockFlavor;
     }
     
     public Block(Constituent constituent) {
@@ -66,7 +81,7 @@ public class Block extends Box {
     }
     
     protected void transferListeners(Block transferFrom) {
-        blockListeners = transferFrom.blockListeners;
+        listeners = transferFrom.listeners;
         for (Block child : children) {
             child.transferListeners(transferFrom);
         }
@@ -74,17 +89,10 @@ public class Block extends Box {
     
     public Block(final Constituent constituent, Block parent, int colorIndex) {
         super(BoxLayout.X_AXIS);
-        try { // unsure why needed since Block.class is this
-            blockFlavor = new DataFlavor(
-                    DataFlavor.javaJVMLocalObjectMimeType + 
-                    ";class=\"" + Block.class.getName() + "\"");
-        }
-        catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+
         children = new ArrayList<>();
         spacers = new ArrayList<>();
-        blockListeners = new ArrayList<>();
+        listeners = new ArrayList<>();
         this.constituent = constituent;
         this.parent = parent;
         showChildren = false;
@@ -124,9 +132,11 @@ public class Block extends Box {
         }
         
         DragSource ds = new DragSource();
-        ds.createDefaultDragGestureRecognizer(this, DnDConstants.ACTION_COPY, new DragGestureListImp());
+        ds.createDefaultDragGestureRecognizer(
+                this, DnDConstants.ACTION_COPY, new DragGestureListenerImp());
     }
     
+    // TODO make Spacer its own class
     private Box newSpacer() {
         Box spacer = Box.createHorizontalBox();
         spacer.add(Box.createRigidArea(new Dimension(10, 30)));
@@ -166,7 +176,7 @@ public class Block extends Box {
     }
     
     public void addBlockListener(BlockListener listener) {
-        blockListeners.add(listener);
+        listeners.add(listener);
         for (Block child : children) {
             child.addBlockListener(listener);
         }
@@ -176,7 +186,7 @@ public class Block extends Box {
         @Override
         public void mouseClicked(MouseEvent e) {
             if (e.getClickCount() == 1) {
-                for (BlockListener listener : blockListeners) {
+                for (BlockListener listener : listeners) {
                     listener.selectedConstituent(constituent);
                 }
             }
@@ -221,7 +231,7 @@ public class Block extends Box {
         }
     }
 
-    private class DragGestureListImp implements DragGestureListener {
+    private class DragGestureListenerImp implements DragGestureListener {
         @Override
         public void dragGestureRecognized(DragGestureEvent event) {
             Cursor cursor = null;
@@ -237,32 +247,38 @@ public class Block extends Box {
     private class SpacerDropListener extends DropTargetAdapter 
             implements DropTargetListener {
     
-        private DropTarget dropTarget;
         private Box spacer;
         
         public SpacerDropListener(Box spacer) {
             this.spacer = spacer;
-            dropTarget = new DropTarget(spacer, DnDConstants.ACTION_COPY, this,
-                    true, null);
+            new DropTarget(spacer, DnDConstants.ACTION_COPY, this, true, null);
         }
         
         public void drop(DropTargetDropEvent event) {
             try {
                 Transferable tr = event.getTransferable();
-                Block source = (Block) tr.getTransferData(blockFlavor);
-        
-                if (!Block.this.equals(source) 
-                        && event.isDataFlavorSupported(blockFlavor)) {
-                    event.acceptDrop(DnDConstants.ACTION_COPY);
-                    spacer.setBackground(null);
-                    for (BlockListener listener : blockListeners) {
-                        int index = spacers.indexOf(spacer);
-                        listener.droppedConstituent(source.constituent, constituent, index);
+                int index = spacers.indexOf(spacer);
+                
+                // dragged a Block
+                if (event.isDataFlavorSupported(blockFlavor)) { 
+                    Block source = (Block) tr.getTransferData(blockFlavor);
+                    if (!Block.this.equals(source)) {
+                        spacer.setBackground(null);
+                        for (BlockListener listener : listeners) {
+                            listener.droppedConstituent(source.constituent, constituent, index);
+                        }
+                        event.acceptDrop(DnDConstants.ACTION_COPY);
+                    }
+                    else {
+                        event.rejectDrop();
                     }
                 }
-                else {
-                    event.rejectDrop();
+                // dragged a Button
+                else if (event.isDataFlavorSupported(DraggableButton.getFlavor())) { 
+                    System.out.println("Fin");
                 }
+                
+                spacer.setBackground(null);
             } 
             catch (Exception e) {
                 e.printStackTrace();
@@ -273,13 +289,19 @@ public class Block extends Box {
         public void dragOver(DropTargetDragEvent event) {
             try {
                 Transferable tr = event.getTransferable();
-                Block source = (Block) tr.getTransferData(blockFlavor);
-                if (Block.this.equals(source)) {
-                    // System.out.println("Hover self");
+                if (event.isDataFlavorSupported(blockFlavor)) { // dragged a block
+                    Block source = (Block) tr.getTransferData(blockFlavor);
+                    if (Block.this.equals(source)) {
+                        System.out.println("Hover self");
+                    }
+                    else {
+                     // System.out.println("Hover other");
+                        spacer.setBackground(Color.BLACK);    
+                    }
                 }
-                else if (event.isDataFlavorSupported(blockFlavor)) {
-                    // System.out.println("Hover other");
+                else if (event.isDataFlavorSupported(DraggableButton.getFlavor())) { // dragged a Button
                     spacer.setBackground(Color.BLACK);
+                    System.out.println("Dragged a button right here");
                 }
             } 
             catch (Exception e) {
@@ -289,10 +311,8 @@ public class Block extends Box {
         
         @Override
         public void dragExit(DropTargetEvent event) {
-            spacer.setBackground(null);
-            
+            spacer.setBackground(null);   
         }
-        
     }
 
     @Override
