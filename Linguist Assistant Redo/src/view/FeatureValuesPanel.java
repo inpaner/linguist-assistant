@@ -11,6 +11,7 @@ import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.TransferHandler;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellEditor;
 
@@ -45,7 +46,7 @@ public class FeatureValuesPanel extends JPanel {
     public void setConstituent(Constituent constituent) {
         editors = new ArrayList<>();
         features = constituent.getAllFeatures();
-        for (Feature feature : constituent.getAllFeatures()) {
+        for (Feature feature : features) {
             FeatureComboBox comboBox = new FeatureComboBox(feature);
             DefaultCellEditor cellEditor = new DefaultCellEditor(comboBox);
             editors.add(cellEditor);
@@ -53,14 +54,6 @@ public class FeatureValuesPanel extends JPanel {
 
         FeatureTableModel model = new FeatureTableModel();
         table.setModel(model);
-    }
-    
-    public static void main(String[] args) {
-        MainFrame frame = new MainFrame();
-        FeatureValuesPanel panel = new FeatureValuesPanel();
-        Constituent con = new Constituent("C", null);
-        panel.setConstituent(con);
-        frame.setPanel(panel);
     }
     
     private class FeatureComboBox extends JComboBox<String> {
@@ -122,7 +115,12 @@ public class FeatureValuesPanel extends JPanel {
             return (columnIndex == 1);
         }
     }
-
+    
+    public void addFeatureValuesListener(FeatureValuesListener listener) {
+        listeners.add(listener);
+    }
+    
+    
     private class ComboListener implements ItemListener {
         @Override
         public void itemStateChanged(ItemEvent ev) {
