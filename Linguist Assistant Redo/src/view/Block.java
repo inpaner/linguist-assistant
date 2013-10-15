@@ -19,6 +19,7 @@ import java.awt.dnd.DropTargetListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -35,8 +36,7 @@ import net.miginfocom.swing.MigLayout;
 @SuppressWarnings("serial")
 public class Block extends Box {
     private static ArrayList<Color> colors;
-    private DataFlavor blockFlavor = new DataFlavor(Block.class, Block.class.getSimpleName());
-    
+    private DataFlavor blockFlavor;    
     private Constituent constituent;
     private int colorIndex;
     private ArrayList<Block> children;
@@ -48,25 +48,6 @@ public class Block extends Box {
     private boolean showChildren;
     private ArrayList<BlockListener> blockListeners;
     
-    
-    public static void main(String[] args) {
-        MainFrame frame = new MainFrame();
-        JPanel panel = new JPanel();
-        panel.setLayout(new MigLayout());
-        Constituent con = new Constituent(null);
-        Constituent con2 = new Constituent(null);
-        Constituent con3 = new Constituent(null);
-        
-        con.addChild(con2);
-        con.addChild(con3);
-        con.setLabel("Noun");
-        con2.setLabel("child 1");
-        con3.setLabel("child 2");
-        
-        panel.add(new Block(con));
-        frame.setPanel(panel);
-    }
-    
     static {
         System.out.println("init colors");
         colors = new ArrayList<>();
@@ -74,7 +55,6 @@ public class Block extends Box {
         colors.add(new Color(0,255,0));
         colors.add(new Color(0,0,255));
         colors.add(new Color(255,0,255));
-        
     }
     
     public Block(Constituent constituent) {
@@ -85,9 +65,23 @@ public class Block extends Box {
         this(constituent, null, colorIndex);
     }
     
+    protected void transferListeners(Block transferFrom) {
+        blockListeners = transferFrom.blockListeners;
+        for (Block child : children) {
+            child.transferListeners(transferFrom);
+        }
+    }
+    
     public Block(final Constituent constituent, Block parent, int colorIndex) {
         super(BoxLayout.X_AXIS);
-        
+        try { // unsure why needed since Block.class is this
+            blockFlavor = new DataFlavor(
+                    DataFlavor.javaJVMLocalObjectMimeType + 
+                    ";class=\"" + Block.class.getName() + "\"");
+        }
+        catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         children = new ArrayList<>();
         spacers = new ArrayList<>();
         blockListeners = new ArrayList<>();
@@ -95,7 +89,7 @@ public class Block extends Box {
         this.parent = parent;
         showChildren = false;
 
-        this.colorIndex = colorIndex % colors.size();
+        colorIndex = colorIndex % colors.size();
         Border lineEdge = BorderFactory.createLineBorder(colors.get(colorIndex));
         setBorder(lineEdge);
         
@@ -226,10 +220,8 @@ public class Block extends Box {
                 throw new UnsupportedFlavorException(flavor);
         }
     }
-    
 
     private class DragGestureListImp implements DragGestureListener {
-
         @Override
         public void dragGestureRecognized(DragGestureEvent event) {
             Cursor cursor = null;
@@ -264,7 +256,10 @@ public class Block extends Box {
                     event.acceptDrop(DnDConstants.ACTION_COPY);
                     System.out.println("Drag success");
                     spacer.setBackground(null);
-
+                    for (BlockListener listener : blockListeners) {
+                        int index = spacers.indexOf(spacer);
+                        listener.droppedConstituent(source.constituent, constituent, index);
+                    }
                 }
                 else {
                     event.rejectDrop();
@@ -300,7 +295,7 @@ public class Block extends Box {
         }
         
     }
-    
+
     @Override
     public boolean equals(Object other) {
         if (other == null)
