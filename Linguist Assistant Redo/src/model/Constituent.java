@@ -205,25 +205,50 @@ public class Constituent extends Node {
         return concept != null;
     }
     
+    private boolean isAncestor(Constituent potential) {
+        System.out.println(parent);
+        if (potential.parent == null)
+            return false;
+        if (this.equals(potential.parent))
+            return true;
+        return isAncestor(potential.parent);
+    }
+    
     public void moveChild(Constituent newChild, int index) {
         int oldIndex = children.indexOf(newChild);
-        if (oldIndex == index || oldIndex + 1 == index) { // child is moved to same place 
+        System.out.println("old index " + oldIndex);
+        System.out.println("index " + index);
+        
+        if (oldIndex != -1 &&
+                (oldIndex == index || oldIndex + 1 == index) ) { // child is moved to same place 
+            System.out.println("1");
             return;
+        }
+        
+        if (newChild.isAncestor(this)) {
+            return; // shouldn't add a parent to a descendant
         }
         
         if (newChild.parent != null) {
             newChild.parent.children.remove(newChild);
-            newChild.parent = null;    
+            newChild.parent = null;
+            System.out.println("2");
         }
         if (oldIndex != -1 && oldIndex < index) {
             index--; // to account for prior removal from parent
+            System.out.println("3");
+            
         }
         
         try {
             children.add(index, newChild);
             newChild.parent = this;
+            System.out.println("4");
+            
         }
         catch (IndexOutOfBoundsException ex) {
+            System.out.println("5");
+            
             children.add(newChild);
             newChild.parent = this;
             System.out.println(children.size());
@@ -249,9 +274,11 @@ public class Constituent extends Node {
     
     @Override
     public String toString() {
-        return syntacticCategory;
+        return syntacticCategory + level;
     }
     
+    
+    //TODO define Constituent.equals properly
     @Override
     public boolean equals(Object other) {
         if (other == null)
