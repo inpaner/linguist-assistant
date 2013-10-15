@@ -27,7 +27,7 @@ public class Feature extends Node {
     protected Feature(String name, Constituent parent) {
         this(name, null, parent);
         value = getDefaultValue();
-    }
+    } 
     
     public String getDefaultValue() {
         String defaultValue = null;
@@ -65,6 +65,10 @@ public class Feature extends Node {
         return value;
     }
     
+    protected void setValue(String newValue) {
+        value = newValue;
+    }
+
     public Constituent getParent() {
         return parent;
     }
@@ -117,6 +121,10 @@ public class Feature extends Node {
             e.printStackTrace();
         }
         return values;
+    }
+    
+    public boolean isDefault() {
+        return value.equals(getDefaultValue());
     }
     
     @Override
