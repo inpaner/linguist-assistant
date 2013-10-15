@@ -25,6 +25,7 @@ public class DraggableButton extends JButton {
     
     protected DraggableButton(Constituent constituent) {
         super(constituent.getLabel());
+        this.constituent = constituent;
         listeners = new ArrayList<>();
         try { 
             buttonFlavor = new DataFlavor(
@@ -87,10 +88,12 @@ public class DraggableButton extends JButton {
         public Object getTransferData(DataFlavor flavor)
                 throws UnsupportedFlavorException, IOException {
 
-            if (flavor.equals(Block.getFlavor()))
+            if (flavor.equals(buttonFlavor)) {
                 return button;
-            else
+            }
+            else {
                 throw new UnsupportedFlavorException(flavor);
+            }
         }
     }
     
@@ -99,7 +102,6 @@ public class DraggableButton extends JButton {
         public void dragGestureRecognized(DragGestureEvent event) {
             Cursor cursor = null;
             DraggableButton source = (DraggableButton) event.getComponent();
-
             if (event.getDragAction() == DnDConstants.ACTION_COPY) {
                 cursor = DragSource.DefaultCopyDrop;
             }
