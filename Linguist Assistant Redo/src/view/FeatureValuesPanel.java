@@ -29,7 +29,8 @@ public class FeatureValuesPanel extends JPanel {
     public FeatureValuesPanel() {
         listeners = new ArrayList<>();
         table = new JTable() {
-                public TableCellEditor getCellEditor(int row, int column) {
+            @Override
+            public TableCellEditor getCellEditor(int row, int column) {
                 int modelColumn = convertColumnIndexToModel(column);
                 if (modelColumn == 1) {
                     return editors.get(row);

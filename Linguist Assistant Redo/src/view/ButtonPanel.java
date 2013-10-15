@@ -17,7 +17,7 @@ public class ButtonPanel extends JPanel {
         JPanel innerPanel = new JPanel();
         innerPanel.setLayout(new MigLayout("wrap " + ROW_WIDTH, "fill"));
         for(Constituent c : Constituent.getAllConstituents()) {
-                innerPanel.add(new DraggableButton(c));
+            innerPanel.add(new DraggableButton(c));
             
         }
         JScrollPane scrollPane = new JScrollPane(innerPanel);

@@ -10,6 +10,7 @@ public class SemanticDisplay extends JPanel {
     Constituent root;
     BlocksPanel blocksPanel;
     FeatureValuesPanel featureValuesPanel;
+    private ButtonPanel buttonPanel;
     
     public static void main(String[] args) {
         MainFrame frame = new MainFrame();
@@ -40,12 +41,18 @@ public class SemanticDisplay extends JPanel {
         featureValuesPanel = new FeatureValuesPanel();
         featureValuesPanel.setConstituent(root);
         featureValuesPanel.addFeatureValuesListener(new ImpFeatureValuseListener());
+        buttonPanel = new ButtonPanel();
     }
     
     private void addComponents() {
         setLayout(new MigLayout());
         add(blocksPanel);
-        add(featureValuesPanel);
+        add(featureValuesPanel, "wrap");
+        add(buttonPanel);
+    }
+    
+    public void updateConstituent(Constituent root) {
+        blocksPanel.updateRoot(root);
     }
     
     // TODO move to controller
@@ -57,10 +64,15 @@ public class SemanticDisplay extends JPanel {
         }
 
         @Override
-        public void droppedConstituent(Constituent source, Constituent destination, int index) {
-            destination.moveChild(source, index);
+        public void droppedBlock(Constituent dropped, Constituent destination, int index) {
+            destination.moveChild(dropped, index);
             blocksPanel.updateRoot(root);
-            
+        }
+
+        @Override
+        public void droppedButton(Constituent dropped, Constituent destination, int index) {
+            System.out.println("wee");
+            new AddDialog();
         }
     }
     
