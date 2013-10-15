@@ -3,6 +3,7 @@ package view;
 import javax.swing.JPanel;
 
 import model.Constituent;
+import model.Feature;
 import net.miginfocom.swing.MigLayout;
 
 public class SemanticDisplay extends JPanel {
@@ -35,9 +36,10 @@ public class SemanticDisplay extends JPanel {
     
     private void initComponents() {
         blocksPanel = new BlocksPanel(root);
-        blocksPanel.addBlockListener(new ImplementedBlockListener());
+        blocksPanel.addBlockListener(new ImpBlockListener());
         featureValuesPanel = new FeatureValuesPanel();
         featureValuesPanel.setConstituent(root);
+        featureValuesPanel.addFeatureValuesListener(new ImpFeatureValuseListener());
     }
     
     private void addComponents() {
@@ -47,7 +49,7 @@ public class SemanticDisplay extends JPanel {
     }
     
     // TODO move to controller
-    private class ImplementedBlockListener implements BlockListener {
+    private class ImpBlockListener implements BlockListener {
         @Override
         public void selectedConstituent(Constituent constituent) {
             System.out.println("selected " + constituent.getLabel());
@@ -60,5 +62,15 @@ public class SemanticDisplay extends JPanel {
             blocksPanel.updateRoot(root);
             
         }
+    }
+    
+    private class ImpFeatureValuseListener implements FeatureValuesListener {
+        @Override
+        public void featureValueChanged(Feature feature, String newValue) {
+            Constituent parent = feature.getParent();
+            parent.updateFeature(feature, newValue);
+            featureValuesPanel.setConstituent(parent);
+        }
+        
     }
 }
