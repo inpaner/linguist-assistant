@@ -127,7 +127,20 @@ public class Constituent extends Node implements Serializable {
     
     protected void addFeature(Feature newFeature) {
         features.add(newFeature);
-        
+    }
+    
+    public void updateFeature(Feature toUpdate, String newValue) {
+        boolean setToDefault = toUpdate.getDefaultValue().equals(newValue);
+        if (!features.contains(toUpdate)) { // feature value previously set to default
+            toUpdate.setValue(newValue);
+            features.add(toUpdate);
+        }
+        else if (setToDefault) {
+            features.remove(toUpdate);
+        }
+        else {
+            toUpdate.setValue(newValue);
+        }
     }
     
     public boolean hasFeatures() {
@@ -166,7 +179,7 @@ public class Constituent extends Node implements Serializable {
         
         return allFeatures;
     }
-    
+   
     
     /**
      * Returns the requested feature.
@@ -177,7 +190,6 @@ public class Constituent extends Node implements Serializable {
     private Feature getFeature(String name) {
         Feature valid = null;
         for (Feature feature : features) {
-            // TODO improve equivalence checking
             if (feature.getName().equals(name)) {
                 valid = feature;
                 break;
