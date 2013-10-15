@@ -274,7 +274,7 @@ public class Constituent extends Node {
     
     @Override
     public String toString() {
-        return syntacticCategory + level;
+        return syntacticCategory;
     }
     
     
@@ -288,7 +288,8 @@ public class Constituent extends Node {
         if (!(other instanceof Constituent))
             return false;
         
-        return toString().equals(other.toString()) ? true : false;
+        // really questionable implementation <_<
+        return toString().equals(syntacticCategory + level) ? true : false;
     }
     
     @Override
