@@ -21,6 +21,7 @@ import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -42,14 +43,14 @@ public class Block extends Box {
     private static DataFlavor blockFlavor;    
     private Constituent constituent;
     private int colorIndex;
-    private ArrayList<Block> children;
-    private ArrayList<Box> spacers;
+    private List<Block> children;
+    private List<Box> spacers;
     private Block parent;
     private JLabel nameLabel;
     private JLabel conceptLabel;
     private Box contentBox;
     private boolean showChildren;
-    private ArrayList<BlockListener> listeners;
+    private List<BlockListener> listeners;
     
     static {
         try { // unsure why needed since Block.class is this
@@ -80,23 +81,16 @@ public class Block extends Box {
         this(constituent, null, colorIndex);
     }
     
-    protected void transferListeners(Block transferFrom) {
-        listeners = transferFrom.listeners;
-        for (Block child : children) {
-            child.transferListeners(transferFrom);
-        }
-    }
-    
     public Block(final Constituent constituent, Block parent, int colorIndex) {
         super(BoxLayout.X_AXIS);
-
+    
         children = new ArrayList<>();
         spacers = new ArrayList<>();
         listeners = new ArrayList<>();
         this.constituent = constituent;
         this.parent = parent;
         showChildren = false;
-
+    
         colorIndex = colorIndex % colors.size();
         Border lineEdge = BorderFactory.createLineBorder(colors.get(colorIndex));
         setBorder(lineEdge);
@@ -134,6 +128,13 @@ public class Block extends Box {
         DragSource ds = new DragSource();
         ds.createDefaultDragGestureRecognizer(
                 this, DnDConstants.ACTION_COPY, new DragGestureListenerImp());
+    }
+
+    protected void addListeners(List<BlockListener> listeners) {
+        this.listeners = listeners;
+        for (Block child : children) {
+            child.addListeners(listeners);
+        }
     }
     
     // TODO make Spacer its own class
@@ -185,11 +186,6 @@ public class Block extends Box {
     private class ClickedBox implements MouseListener {
         @Override
         public void mouseClicked(MouseEvent e) {
-            if (e.getClickCount() == 1) {
-                for (BlockListener listener : listeners) {
-                    listener.selectedConstituent(constituent);
-                }
-            }
             if (e.getClickCount() == 2) {
                 toggleChildren();
             }        
@@ -199,7 +195,14 @@ public class Block extends Box {
 
         public void mouseExited(MouseEvent e) {}
 
-        public void mousePressed(MouseEvent e) {}
+        public void mousePressed(MouseEvent e) {
+            if (e.getClickCount() == 1) {
+                for (BlockListener listener : listeners) {
+                    listener.selectedConstituent(constituent);
+                }
+            }
+            
+        }
 
         public void mouseReleased(MouseEvent e) {}
     }

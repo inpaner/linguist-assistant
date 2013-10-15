@@ -3,9 +3,9 @@ package view;
 import javax.swing.JPanel;
 
 import model.Constituent;
-import model.Feature;
 import net.miginfocom.swing.MigLayout;
 
+@SuppressWarnings("serial")
 public class SemanticDisplay extends JPanel {
     Constituent root;
     BlocksPanel blocksPanel;
@@ -25,22 +25,20 @@ public class SemanticDisplay extends JPanel {
         con.addChild(con4);
         con.addChild(con5);
         
-        SemanticDisplay panel = new SemanticDisplay(con);
+        SemanticDisplay panel = new SemanticDisplay();
+        panel.updateConstituent(con);
         frame.setPanel(panel);
     }
     
-    public SemanticDisplay(Constituent root) {
-        this.root = root;
+    public SemanticDisplay() {
         initComponents();
         addComponents();
     }
     
     private void initComponents() {
-        blocksPanel = new BlocksPanel(root);
+        blocksPanel = new BlocksPanel();
         blocksPanel.addBlockListener(new ImpBlockListener());
         featureValuesPanel = new FeatureValuesPanel();
-        featureValuesPanel.setConstituent(root);
-        featureValuesPanel.addFeatureValuesListener(new ImpFeatureValuseListener());
         buttonPanel = new ButtonPanel();
     }
     
@@ -52,37 +50,32 @@ public class SemanticDisplay extends JPanel {
     }
     
     public void updateConstituent(Constituent root) {
+        this.root = root;
+        refresh();
+    }
+    
+    public void refresh() {
         blocksPanel.updateRoot(root);
     }
     
-    // TODO move to controller
+    public void addBlockListener(BlockListener listener) {
+        blocksPanel.addBlockListener(listener);
+    }
+    
+    public void addFeatureValuesListener(FeatureValuesListener listener) {
+        featureValuesPanel.addFeatureValuesListener(listener);
+    }
+    
     private class ImpBlockListener implements BlockListener {
         @Override
         public void selectedConstituent(Constituent constituent) {
-            System.out.println("selected " + constituent.getLabel());
             featureValuesPanel.setConstituent(constituent);
         }
 
         @Override
-        public void droppedBlock(Constituent dropped, Constituent destination, int index) {
-            destination.moveChild(dropped, index);
-            blocksPanel.updateRoot(root);
-        }
+        public void droppedBlock(Constituent dropped, Constituent destination, int index) {}
 
         @Override
-        public void droppedButton(Constituent dropped, Constituent destination, int index) {
-            System.out.println("wee");
-            new AddDialog();
-        }
-    }
-    
-    private class ImpFeatureValuseListener implements FeatureValuesListener {
-        @Override
-        public void featureValueChanged(Feature feature, String newValue) {
-            Constituent parent = feature.getParent();
-            parent.updateFeature(feature, newValue);
-            featureValuesPanel.setConstituent(parent);
-        }
-        
+        public void droppedButton(Constituent dropped, Constituent destination, int index) {}
     }
 }

@@ -18,11 +18,11 @@ public class ButtonPanel extends JPanel {
         innerPanel.setLayout(new MigLayout("wrap " + ROW_WIDTH, "fill"));
         for(Constituent c : Constituent.getAllConstituents()) {
             innerPanel.add(new DraggableButton(c));
-            
         }
         JScrollPane scrollPane = new JScrollPane(innerPanel);
         add(scrollPane);
     }
+    
     public static void main(String[] args) {
         System.out.println("Started");
         MainFrame frame = new MainFrame();
