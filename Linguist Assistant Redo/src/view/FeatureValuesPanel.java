@@ -58,10 +58,6 @@ public class FeatureValuesPanel extends JPanel {
     }
     
     private class FeatureComboBox extends JComboBox<String> {
-        /**
-         * 
-         */
-        private static final long serialVersionUID = -1655535156417438623L;
         private Feature feature;
         private FeatureComboBox(Feature feature) {
             super(new Vector<String>(feature.getPossibleValues()));
@@ -80,11 +76,6 @@ public class FeatureValuesPanel extends JPanel {
     }
 
     private class FeatureTableModel extends AbstractTableModel {
-        /**
-         * 
-         */
-        private static final long serialVersionUID = 9196733468455552186L;
-
         public FeatureTableModel() {}
     
         public int getColumnCount() {
