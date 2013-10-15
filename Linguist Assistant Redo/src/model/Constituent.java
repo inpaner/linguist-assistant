@@ -14,11 +14,7 @@ import java.util.List;
  * @author Ivan
  * 
  */
-public class Constituent extends Node implements Serializable {
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 6629558606105511101L;
+public class Constituent extends Node {
     private String syntacticCategory;
     private String syntacticAbbreviation;
     private String semanticCategory;
@@ -31,7 +27,16 @@ public class Constituent extends Node implements Serializable {
     private Translation translation;
     
     public static void main(String[] args) {
-        Constituent con = new Constituent("C", null);   
+        //Constituent con = new Constituent("C", null);
+        ArrayList<String> list = new ArrayList<String>();
+        list.add("0");
+        list.add("1");
+        list.add("2");
+        list.add("3");
+        list.add(4, "4");
+        for (String s : list) {
+            System.out.println(s);
+        }
     }
     
     public static List<Constituent> getAllConstituents() {
@@ -211,6 +216,28 @@ public class Constituent extends Node implements Serializable {
     
     public boolean hasConcept() {
         return concept != null;
+    }
+    
+    public void moveInto(Constituent newChild, int index) {
+        int oldIndex = children.indexOf(newChild);
+        if (oldIndex == index || oldIndex == index + 1) { // child is moved to same place
+            return;
+        }
+        
+        if (newChild.parent != null) {
+            newChild.parent.children.remove(this);
+            newChild.parent = null;    
+        }
+        if (oldIndex < index) {
+            index--; // to account for prior removal from parent
+        }
+        
+        try {
+            children.add(index, newChild);
+        }
+        catch (IndexOutOfBoundsException ex) {
+            children.add(newChild);
+        }
     }
     
     // TODO remove
