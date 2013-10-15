@@ -26,19 +26,6 @@ public class Constituent extends Node {
     private Concept concept;
     private Translation translation;
     
-    public static void main(String[] args) {
-        //Constituent con = new Constituent("C", null);
-        ArrayList<String> list = new ArrayList<String>();
-        list.add("0");
-        list.add("1");
-        list.add("2");
-        list.add("3");
-        list.add(4, "4");
-        for (String s : list) {
-            System.out.println(s);
-        }
-    }
-    
     public static List<Constituent> getAllConstituents() {
         ArrayList<Constituent> allConstituents = new ArrayList<Constituent>();
         try {
@@ -95,7 +82,7 @@ public class Constituent extends Node {
         } else {
             level = parent.getLevel() + 1;
         }
-        
+        this.parent = parent;
         children = new ArrayList<>();
         features = new ArrayList<>();
     }
@@ -218,25 +205,28 @@ public class Constituent extends Node {
         return concept != null;
     }
     
-    public void moveInto(Constituent newChild, int index) {
+    public void moveChild(Constituent newChild, int index) {
         int oldIndex = children.indexOf(newChild);
-        if (oldIndex == index || oldIndex == index + 1) { // child is moved to same place
+        if (oldIndex == index || oldIndex + 1 == index) { // child is moved to same place 
             return;
         }
         
         if (newChild.parent != null) {
-            newChild.parent.children.remove(this);
+            newChild.parent.children.remove(newChild);
             newChild.parent = null;    
         }
-        if (oldIndex < index) {
+        if (oldIndex != -1 && oldIndex < index) {
             index--; // to account for prior removal from parent
         }
         
         try {
             children.add(index, newChild);
+            newChild.parent = this;
         }
         catch (IndexOutOfBoundsException ex) {
             children.add(newChild);
+            newChild.parent = this;
+            System.out.println(children.size());
         }
     }
     
