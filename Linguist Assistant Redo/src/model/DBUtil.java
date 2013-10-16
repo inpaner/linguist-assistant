@@ -159,7 +159,6 @@ public class DBUtil {
         try {
             ps = conn.prepareStatement(update); 
             ps.executeUpdate();
-            
         }
         catch (SQLException ex) {
             ex.printStackTrace();

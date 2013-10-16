@@ -39,12 +39,6 @@ public class AddConstituentPanel extends JPanel {
         
         constituentLabel = new JLabel("Constituent: " + constituent.getLabel());
         
-        /*
-        Vector<Constituent> allConstituents = new Vector<>(Constituent.getAllConstituents());
-        comboBox = new JComboBox<>(allConstituents);
-        comboBox.addItemListener(new ComboListener());
-        */
-        
         featureValuesPanel = new FeatureValuesPanel();
         featureValuesPanel.addFeatureValuesListener(new ActualFeatureValuesListener());
         updateFeatureValuesPanel();

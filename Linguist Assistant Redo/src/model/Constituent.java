@@ -38,6 +38,7 @@ public class Constituent extends Node {
             while (rs.next()) {
                 String abbr = rs.getString("synAbbr");
                 Constituent constituent = new Constituent(abbr, null);
+                constituent.level = -2;
                 allConstituents.add(constituent);
             }
             DBUtil.finishQuery();
@@ -214,45 +215,45 @@ public class Constituent extends Node {
         return isAncestor(potential.parent);
     }
     
+    // TODO __MASSIVE BUG check for equivalence
     public void moveChild(Constituent newChild, int index) {
         int oldIndex = children.indexOf(newChild);
-        System.out.println("old index " + oldIndex);
+        System.out.println(newChild.level);
         System.out.println("index " + index);
         
-        if (oldIndex != -1 &&
-                (oldIndex == index || oldIndex + 1 == index) ) { // child is moved to same place 
+        if (oldIndex != -1 && newChild.level != -2
+                && (oldIndex == index || oldIndex + 1 == index) ) { // child is moved to same place 
             System.out.println("1");
             return;
         }
         
         if (newChild.isAncestor(this)) {
-            return; // shouldn't add a parent to a descendant
+            System.out.println("2");
+            return; 
         }
         
         if (newChild.parent != null) {
             newChild.parent.children.remove(newChild);
             newChild.parent = null;
-            System.out.println("2");
+            System.out.println("3");
         }
         if (oldIndex != -1 && oldIndex < index) {
             index--; // to account for prior removal from parent
-            System.out.println("3");
-            
+            System.out.println("4");
         }
         
         try {
             children.add(index, newChild);
-            newChild.parent = this;
-            System.out.println("4");
-            
+            System.out.println("5");
         }
         catch (IndexOutOfBoundsException ex) {
-            System.out.println("5");
-            
+            System.out.println("6");
             children.add(newChild);
-            newChild.parent = this;
             System.out.println(children.size());
         }
+        
+        newChild.parent = this;
+        newChild.level = level + 1;
     }
     
     // TODO remove
@@ -289,7 +290,11 @@ public class Constituent extends Node {
             return false;
         
         // really questionable implementation <_<
-        return toString().equals(syntacticCategory + level) ? true : false;
+        String falseName = syntacticCategory + level;
+        Constituent otherCon = (Constituent) other;
+        return falseName.equals(otherCon.syntacticCategory + otherCon.level) 
+                        ? true 
+                        : false;
     }
     
     @Override
@@ -299,5 +304,30 @@ public class Constituent extends Node {
 
     public String getSyntacticCategory() {
         return syntacticCategory;
+    }
+    
+    public void addNewFeature(String string) {
+        try {
+            String query =
+                    "SELECT SemanticCategory.pk AS pk" +
+                    "  FROM SemanticCategory " +
+                    "       JOIN SyntacticCategory " +
+                    "         ON SemanticCategory.syntacticCategoryPk = SyntacticCategory.pk " +
+                    " WHERE SyntacticCategory.name = '" + syntacticCategory + "'; ";
+            
+            ResultSet rs = DBUtil.executeQuery(query);
+            rs.next();
+            int pk = rs.getInt("pk");
+            DBUtil.finishQuery();
+            
+            String update =
+                    "INSERT INTO Feature(name, semanticCategoryPk) " +
+                    "values ('" + string + "', " + pk +")";
+            System.out.println(update);
+            DBUtil.executeUpdate(update);
+        } 
+        catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 }

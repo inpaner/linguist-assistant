@@ -43,10 +43,10 @@ public class SemanticEditorPanel extends JPanel {
     }
     
     private void addComponents() {
-        setLayout(new MigLayout());
-        add(blocksPanel);
-        add(featureValuesPanel, "wrap");
-        add(buttonPanel);
+        setLayout(new MigLayout("wrap 2"));
+        add(blocksPanel, "flowy");
+        add(featureValuesPanel, "flowy");
+        add(buttonPanel, "flowy, cell 0 0");
     }
     
     public void updateConstituent(Constituent root) {

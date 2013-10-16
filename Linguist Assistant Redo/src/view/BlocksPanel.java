@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import model.Constituent;
 import net.miginfocom.swing.MigLayout;
@@ -14,6 +15,8 @@ public class BlocksPanel extends JPanel {
     private List<BlockListener> listeners;
     private Constituent root;
     private Block rootBlock;
+    private JScrollPane scrollPane;
+    private JPanel innerPanel;
     
     public BlocksPanel() {
         initComponents();
@@ -26,7 +29,10 @@ public class BlocksPanel extends JPanel {
     }
     
     private void addComponents() {
-        add(rootBlock);
+        innerPanel = new JPanel();
+        innerPanel.add(rootBlock);
+        scrollPane = new JScrollPane(innerPanel);
+        add(scrollPane);
     }
     
     public void updateRoot(Constituent root) {
