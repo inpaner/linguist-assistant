@@ -1,0 +1,1469 @@
+accept	 'to accept from someone something'
+
+accept	 'to decide that a particular person has the necessary qualifications for a particular role'
+
+accuse	 'to accuse someone of something'
+
+act	 'to do a generic action'
+
+admire	 'to admire something (John admired the painting.)'
+
+admire	 'to admire someone for doing something (John admired Mary for being brave.)'
+
+advise	 'to give someone advice'
+
+agree	 'to agree with someone, have a similar opinion (John agreed with Mary.)'
+
+agree	 'to agree to do something'
+
+agree	 'to agree that someone else should do something (John agreed that Mary should read the book.)'
+
+allow	 'to allow something to happen'
+
+amaze	 'to amaze somebody'
+
+annoy	 'to make someone feel slightly angry and unhappy'
+
+anoint	 'to anoint someone (for a special purpose)'
+
+answer	 'direct speech in response to a question (Jesus answered the scribes, "...")'
+
+answer	 'God answers a prayer'
+
+answer	 'to answer a question (Steve answered the question.)'
+
+appear	 'to become visible (suddenly an angel appeared)'
+
+appear	 'to look like something to someone (the angel appeared like a flame) (CHANGE THIS TO 'look-like')'
+
+appear	 'to make oneself visible to someone'
+
+appoint	 'to choose someone for a position (The president appointed John in order to lead the council.)'
+
+approve	 'to approve of something'
+
+argue	 'to argue with someone, quarrel about something (John argued with Mary.)'
+
+argue	 'to argue or debate with someone about something (John argued with Mary about who should wash the dishes.)'
+
+arrest	 'to arrest someone for doing something'
+
+arrive	 'to arrive at a location from somewhere'
+
+ask	 'to ask someone a question (Steve asked Mary a question.)'
+
+ask	 'to request something from someone (John asked Mary for some bread.)'
+
+ask	 'to ask someone to do something (Mary asked John to read a book.)'
+
+ask	 'to ask someone about something (John asked Mary about the problem.)'
+
+ask	 'to ask someone a question with direct speech (John asked Mary, "Why ... ?")'
+
+ask	 'to ask someone a question using indirect speech (John asked Mary if she went to the library.)'
+
+attach	 'someone attaches something to something else'
+
+attack	 'an army attacks a country or city'
+
+attack	 'an animal attacks a person or another animal'
+
+attack	 'a person or small group of people attack a person'
+
+attack	 'a man attacks a woman in a sexual way (attempts to rape)'
+
+attend	 'to go someplace regularly'
+
+attend	 'to go to something just once (John attended the conference.)'
+
+avoid	 'to stay away from something'
+
+bake	 'to cook something in an oven'
+
+baptize	 'to dunk a person in water; the act symbolizes Christ's death and resurrection '
+
+be	 'generic stative "be"; used with object complements (The problem is that John already left.).'
+
+be	 'equative (John is the man who was here.)'
+
+be	 'class membership (John is a human.)'
+
+be	 'attributive (John is tall.)'
+
+be	 'existential (There are lions in Africa.)'
+
+be	 'locative (John is under the table.) - an adposition is always included with this sense'
+
+be	 'benefactive (This book is for John.)'
+
+be	 'temporal (The party was in the afternoon.)'
+
+be	 'accompaniment (John is with Mary.)'
+
+be	 'date (The date was June 2nd.)'
+
+be	 'name (The man's name is John.)'
+
+be	 'social role (John is a doctor.)'
+
+be	 'kinship role (John is Mary's brother.)'
+
+be	 'time (The time was 4 pm.)'
+
+be	 'ambience (The weather is hot.)'
+
+be	 'depiction (This story is about John.)'
+
+be	 'substance (The house is made of wood.)'
+
+be	 'partitive (The leg is part of the body.)'
+
+be	 'age (John is 20 years old.)'
+
+be	 'birthplace (e.g. John is from California.)'
+
+be	 'to be like something, to resemble something (John is like Peter.)'
+
+beat	 'to repeatedly hit a person or animal in order to punish him'
+
+beat	 'to repeatedly hit something with your fists (for purposes other than punishment)'
+
+beat	 'to repeatedly hit and/or kick a person or animal in order to hurt him'
+
+become	 'attributive (John's clothes became white)'
+
+become	 'class membership (John became a man)'
+
+become	 'social role (John became a servant)'
+
+become	 'equative (John's descendants became a nation.)'
+
+become	 'kinship (John became a father)'
+
+become	 'ambience (The weather became a storm)'
+
+beg	 'to anxiously or urgently ask someone to do something'
+
+begin	 'a temporal event begins (the feast begins on this day)'
+
+believe	 'to believe what someone says'
+
+believe	 'to believe in, or have faith in someone'
+
+believe	 'to believe that an event happened or will happen (John believes that Mary will go to the party.)'
+
+belong	 'to belong to someone'
+
+bend-over	 'to bend over in order to get lower, perhaps to see or touch something that is low (John bent over to look under the table.)'
+
+betray	 'complex - to help a person's enemies arrest the person'
+
+birth	 'to give birth to something'
+
+bite	 ''
+
+blame	 ''
+
+bleed	 'to bleed'
+
+bless	 'to give someone a blessing, usually by God'
+
+bless	 'complex - to prosper someone and/or cause favorable circumstances for someone'
+
+blow	 'the wind blows'
+
+blow	 'a person blows with mouth'
+
+blow	 'to move something by blowing (the wind/boy blew the paper)'
+
+boil	 'to boil something in a hot liquid'
+
+born	 'to be born (John was born in California.)'
+
+borrow	 'to borrow from someone something'
+
+bother	 'to bother someone'
+
+bow	 'to bow down before someone.  This is the position typically assumed before a king.  When someone prays, the word 'kneel' is used to describe the position.'
+
+break	 'to break something into multiple pieces'
+
+break	 'to break a bone (John broke his leg.)'
+
+break	 'to break a law, disobey'
+
+break	 'something breaks (intransitive)'
+
+breathe	 'to take air into your lungs and let it out again'
+
+bring	 'to carry something to someone or someplace'
+
+bring	 'to have someone accompany someone else to someplace'
+
+bring	 'to bring or lead a living animal to someone (The disciple brought the colt to Jesus.)'
+
+build	 'to construct a building or artifact'
+
+build	 'to found, start, "build" something like a country, city or organization'
+
+burn	 'to burn something with fire'
+
+burn	 'something burns (intransitive) (The house burned.)'
+
+burst	 'a container bursts open from a force inside'
+
+bury	 'to bury a dead person'
+
+bury	 'to bury an object someplace'
+
+buy	 'to purchase something from someone with some amount of money'
+
+calculate	 'to find out how much something will cost by using numbers'
+
+call	 'to summon someone'
+
+call	 'to give someone or something a name (He called him Peter.)'
+
+camp	 'to camp'
+
+capture	 'to take someone as prisoner'
+
+care	 'to care for someone or some animal's physical needs'
+
+care	 'to have concern about someone or something'
+
+care	 'to care for, be in charge of something, like a house'
+
+carry	 'to carry something from somewhere to somewhere'
+
+carry	 'to carry a disease or germs'
+
+carry	 'to carry something with you on a regular basis (Mary carried her purse.)'
+
+catch	 'to catch a person or animal after chasing them (The policeman caught the thief.)'
+
+catch	 'to catch something that is falling (John caught the vase.)'
+
+catch	 'to catch a fish with a net (John caught a fish.)'
+
+catch	 'to catch a disease (John caught a cold.)'
+
+catch	 'to catch something that has been thrown to you (John caught the ball.)'
+
+cause	 'to cause something to happen'
+
+celebrate	 'to celebrate in general, not for a specific holiday or event'
+
+celebrate	 'to celebrate a specific holiday or event (Our family celebrated Christmas.)'
+
+change	 'to become something else (stick changed into a snake)'
+
+change	 'to change your mind about something ('mind' is not included in the semantic representation)'
+
+change	 'someone changes something into something else (Jesus is able to change stones into bread.)'
+
+change	 'to change something so that it's different (e.g. They want to change the laws.)'
+
+change	 'to change something from one thing to another thing'
+
+chase	 'to run after someone with the intention of catching him and harming him'
+
+chase-away	 'to run after someone with the intention of scaring him away'
+
+cheat	 'to cheat someone'
+
+choose	 'to pick a person or thing from among a set of choices'
+
+choose	 'to choose someone to do something (John chose Mary to organize the party.)'
+
+choose	 'to choose to do something (John chose to study for the test.)'
+
+circumcise	 'complex - to cut off the foreskin of a boy or man'
+
+clean	 'to clean something'
+
+climb	 'to climb something like a tree or mountain'
+
+climb	 'a child playfully climbs on an adult (The baby climbed on his father.)'
+
+close	 'to close something like a door, gate, or window'
+
+close	 'to close something like a book'
+
+close	 'to close one's eyes'
+
+close	 'to close one's mouth'
+
+collect	 'to collect taxes'
+
+comb	 'to comb hair'
+
+come	 'to move to somewhere (toward the action) from somewhere'
+
+come-out	 'to come out from some place (John came out of the library.)'
+
+comfort	 'to comfort someone'
+
+command	 'to command someone to do something'
+
+command	 'direct speech (Yahweh commands you, 'you must ...')'
+
+compare	 ''
+
+complain	 'to complain to someone about something'
+
+confess	 'to confess one's sins to someone'
+
+confess	 'to confess doing something (Mary confessed that she took the book.)'
+
+confuse	 ''
+
+consist	 ''
+
+contain	 'to contain or hold a liquid'
+
+continue	 'continue - used only in analyzer'
+
+control	 'to control someone or something'
+
+cook	 ''
+
+cough	 'to cough when you have a cold'
+
+count	 'to count something'
+
+cover	 'to cover someone with a blanket'
+
+cover	 'to cover the outside of something with something'
+
+cover	 'something (like a cloud) covers something'
+
+cover	 'something is covered with something'
+
+crawl	 'to move on your legs or stomach'
+
+create	 'to create something (from nothing)'
+
+crush	 ''
+
+cry	 'to cry with tears'
+
+cry	 'to cry out in desperation to someone, John cried to Mary, "Please come back."'
+
+curse	 'to curse someone (verbal abuse)'
+
+curse	 'to put a curse on someone'
+
+cut	 'to cut something'
+
+cut-off	 'to cut-off something (like John the Baptist's head)'
+
+cut-down	 'to cut down something (a plant)'
+
+dance	 'to dance'
+
+deceive	 'to cause someone to believe something that is not true'
+
+decide	 'to determine a course of action for yourself (John decided to go to class.)'
+
+decide	 'to make a decision about someone else (John decided that Mary should go to class.)'
+
+declare	 'someone in authority pronounces that an event is to happen'
+
+defeat	 'one army or country defeats another army or country in a war'
+
+defeat	 'one individual defeats another individual in a fight'
+
+defend	 'to fight on behalf of someone against someone'
+
+defile	 'something defiles or makes something unholy'
+
+deliver	 'to deliver a message, letter, or package to someone'
+
+demand	 'to demand something'
+
+describe	 'to describe something to someone'
+
+deserve	 'to deserve to do something'
+
+destroy	 'to destroy something, annihilate it'
+
+die	 'to stop being alive'
+
+dig	 'to dig a hole or grave in the ground (John dug a hole.)'
+
+dip	 'to dip something into a liquid'
+
+disagree	 ''
+
+discover	 'to find out something'
+
+divide	 'to divide something into 2 or more sections'
+
+do	 'to do a generic action'
+
+doubt	 'to think that an event probably didn't happen (John doubts that Mary read that book.)'
+
+dream	 'to dream about something'
+
+dream	 'to have a dream while sleeping (John dreamed.)'
+
+dream	 'to dream that something happens (John dreamed that he went to Oregon.)'
+
+drink	 'to drink something'
+
+drop	 'to drop something intentionally'
+
+drown	 'complex - to drown, to die in water'
+
+dry	 'to dry something with a towel, to remove water with a towel (John dried the dishes.)'
+
+earn	 ''
+
+eat	 'to consume something (food)'
+
+embarrass	 'to embarrass someone (John embarrassed Mary by forgetting her name.)'
+
+encourage	 'to encourage someone'
+
+encourage	 'to encourage, urge someone to do something'
+
+end	 'a temporal event ends (the feast ends on this day)'
+
+enjoy	 'to enjoy an event (John enjoys walking on the beach.)'
+
+enter	 'complex - to go into some place'
+
+enter	 'complex - to come into some place (The king entered the palace.)'
+
+escape	 'to get away from someone that is chasing you (John escaped from the police.)'
+
+escape	 'to get out of some place (John escaped from prison.)'
+
+escape	 'to escape from something dangerous (John escaped from the fire.)'
+
+examine	 'to look at something closely, look at it in detail'
+
+exist	 ''
+
+expect	 'to expect (hope) someone to do something (John expects his son to do well on the test.)'
+
+expect	 'to expect or plan to do something yourself (John expects to read that book next week.)'
+
+explain	 'to explain or describe something to somebody so that it makes sense (John explained the problem to Mary.)'
+
+explain-how	 'to explain or describe how people do something (Mary explained how people cook turkeys.)'
+
+fail	 ''
+
+fall	 'to fall downward onto or into something after being dropped, knocked over, or thrown (John threw the stone and it fell into the lake.)'
+
+fall	 'a person unintentionally drops to the ground due to tripping, fainting, sleeping, etc. (but not dying) (John passed out and fell to the ground.)'
+
+fall	 'to accidentally fall down onto something (Mary fell onto the chair.)'
+
+fall	 'to fall down dead'
+
+fast	 'complex - to not eat food in order to spend the time praying'
+
+fear	 'to be afraid of something'
+
+feed	 'complex - to give someone food'
+
+feel	 'to feel good, or bad or sick, etc'
+
+fight	 'to fight a war against someone'
+
+fight	 'to fight an individual, as in a fist-fight'
+
+fight	 'animals fighting each other (The roosters fought each other.)'
+
+fill	 'to fill up something (a container) with something'
+
+find	 'to find something as a result of looking for it'
+
+find	 'to accidently find something'
+
+find-out	 'to find out some bit of knoweldge (he found-out that ...)'
+
+finish	 'finish - used only in the analyzer'
+
+float	 'to rest on top of the water'
+
+flow	 'the movement of liquids in a river'
+
+fly	 'to fly in the air like a bird or insect by flapping one's wings'
+
+fold	 ''
+
+follow	 'to follow behind someone who is walking'
+
+follow	 'to follow the example of someone, try to be like that person'
+
+forbid	 'to forbid someone to do something'
+
+force	 'to force/require/cause something to happen'
+
+forget	 'to forget something'
+
+forget	 'to forget to do something'
+
+forget	 'to forget that an event occurred'
+
+forgive	 'to forgive someone for something'
+
+forgive	 'to forgive a sin (God forgives sins.)'
+
+forgive	 'to forgive someone generically, the fault is not mentioned (Mary forgave John.)'
+
+free	 'to free a slave or prisoner'
+
+frighten	 ''
+
+frown	 'complex - to make a confused exression with one's face'
+
+gain	 ''
+
+gather	 'to gather people or animals together'
+
+gather	 'to gather wheat, grain, wood, etc.'
+
+gather	 'people or animals gather together'
+
+get	 ''
+
+get-up	 'to get up out of bed'
+
+give	 'to transfer ownership of something to someone (John gave Mary a gift.)'
+
+give	 'to physically transfer something to someone, not giving ownership (Mary gave/handed a book to John.)'
+
+give	 'to give an abstract to someone (faith, widsom, power, a name, etc.) (God gives us peace.)'
+
+give-attention	 'X gives his/her attention to Y, usually after Y seek-attention of X.'
+
+glean	 'to pick up the crops that the harvesters left behind'
+
+go	 'to move from one place to another place'
+
+goodbye	 'to take leave of, "say goodbye" (used by the person who is leaving)'
+
+govern	 ''
+
+grab	 'to quickly take hold of something'
+
+greet	 'to greet someone'
+
+grow	 'a non-human becomes larger (The tree grew.)'
+
+grow	 'a human becomes larger (The boy grew up.)'
+
+grow	 'a plant "grows" somewhere, not stressing increase in size'
+
+grow	 'to grow a crop (John grew barley.)'
+
+guard	 'to guard something from an enemy, protect it (The soldiers guarded the city.)'
+
+guard	 'to control the traffic into and out of some place (Soldiers guarded the farm.)'
+
+hang	 'something hangs on something (The towel hung on the wire.)'
+
+hang	 'complex - to kill someone by hanging them'
+
+hang	 'to hang something somewhere (He hung the towel on the wire.)'
+
+happen	 'something happens'
+
+harvest	 'to harvest something (crops)'
+
+hate	 'to hate someone or something'
+
+have	 'to own or possess something'
+
+have	 'to have something (like a family) (not ownership)'
+
+have	 'to have a body part, like an eye or wings'
+
+have	 'to have an abstract such as faith, joy, authority, etc.'
+
+have	 'to have a disease or illness (John has a cold.)'
+
+have	 'to have a part (A car has wheels.)'
+
+have	 'to have an event (John had a party.)'
+
+have	 'to have servants, slaves, people who work for someone (John has a maid.)'
+
+have	 'something is at some place (The store has food.)'
+
+heal	 'complex - to heal someone from something'
+
+hear	 'to hear something (a sound)'
+
+hear	 'to hear some information (John heard that Mary read a book.)'
+
+hear	 'to hear an event as it occurs (John heard Mary talking to a friend.)'
+
+hear	 'to hear about something (John heard about the problem.)'
+
+help	 'to assist someone generically (Mary helped John through many difficult problems.)'
+
+help	 'to assist someone with a specific event (Mary helped John read a book.)'
+
+hide	 'to hide something from someone (John hid the book from Mary.)'
+
+hide	 'to hide yourself due to danger or fear (John hid behind a tree.)'
+
+hide	 'to hide from someone that is looking for you (John hid from Mary.)'
+
+hit	 'to strike someone with a fist'
+
+hit	 'an animal charges and hits another animal with its head'
+
+hit	 'something that was thrown hits something else'
+
+hold	 'to hold something in your hand (John held the book.)'
+
+hold	 'to hold something in your arms (Mary held the baby.)'
+
+hold	 'to hold hands (John held Mary's hand.)'
+
+honor	 'to honor someone or something'
+
+hope	 'to hope that something happens (John hopes that Mary will come to class.)'
+
+hope	 'to hope to do something (John hoped to go to class.)'
+
+hug	 'to hug someone'
+
+hunt	 'to hunt an animal in order to kill it and eat it (John hunted a bear.)'
+
+hurt	 'to hurt someone, cause them physical pain'
+
+hurt	 'some body part hurts (John's foot hurts.)'
+
+ignore	 'to not pay attention to someone or something'
+
+improve	 ''
+
+include	 ''
+
+increase	 'to grow in quantity'
+
+influence	 'to influence somebody to think or act differently'
+
+inherit	 'complex - to inherit from somebody something'
+
+insist	 'to insist that something happens'
+
+insult	 'to insult someone'
+
+introduce	 ''
+
+invite	 'to invite someone to do something (The king invited many people to come to the palace.)'
+
+join	 'to join someone in doing something'
+
+join	 'to join two things together into one'
+
+judge	 'to judge someone or something to determine truth/innocence'
+
+jump	 'to jump from someplace to someplace'
+
+jump	 'to move quickly because you're startled or surprised'
+
+jump-down	 'to jump down from a high place to a lower place'
+
+keep	 'to keep something (in your possession)'
+
+keep	 'to keep something (a covenant or promise)'
+
+keep	 'to keep an animal (Mary kept a dog in a pen.)'
+
+kill	 'to kill a person or animal'
+
+kiss	 'to kiss someone on the cheek affectionately, not on the lips romantically'
+
+kneel	 'to kneel, this is the position used when praying.  The word 'bow' is used for the position one assumes before a king.'
+
+knock	 'to knock on someone's door in order to let that person know that you want to enter his house'
+
+knock-down	 'to knock a person or animal down so that it's no longer standing on its feet'
+
+know	 'to be acquainted or familiar with a person or place (Mary knew John.)'
+
+know	 'to be sure about something (Mary knew that John went to the library.)'
+
+know	 'to know a bit of knowledge such as a person's name, the meaning of a word, etc. (Mary knew a secret.)'
+
+know	 'to know about something (John knows about the problem.)'
+
+know-how	 'to know how to do something (John knows how to solve the problem.)'
+
+laugh	 'to laugh at a joke'
+
+laugh	 'to laugh at someone (derisively)'
+
+lead	 'to physically lead people on a journey to someplace'
+
+lead	 'to lead a people (spiritually or politically)'
+
+lead	 'something (like a road) leads someplace (pD)'
+
+lean	 'to support yourself in a sloping position against something (John leaned against the wall.)'
+
+learn	 'to learn something generic (John learned some things at school.)'
+
+learn	 'to learn something particular (John learned that Columbus discoverd America.)'
+
+learn	 'to learn about something (John learned about the people in Africa.)'
+
+learn-how	 'to learn how to do something (Mary learned how to cook.)'
+
+leave	 'to leave a place'
+
+leave	 'to leave a person or animal'
+
+leave	 'to not bring something (Mary left the book at home.)'
+
+lick	 'to move one's tongue across the surface of something to taste it, wet it, or clean it (The dog licked the apple.)'
+
+lie	 'to tell a lie to someone, to say false things to someone'
+
+lie	 'something is in a state of lying on something'
+
+lie-down	 'to move from a standing position to a prone position'
+
+lie-down	 'to be in a prone position (John was lying down all afternoon.)'
+
+lift	 'to lift something'
+
+light	 ''
+
+like	 'to like a person or thing (John likes candy.)'
+
+like	 'to like some event (John likes going to the park.)'
+
+like	 'to like someone doing something (Mary likes it when John washes the dishes.)'
+
+limp	 'to walk with a limp'
+
+listen	 'to listen or hear something or someone'
+
+listen	 'to listen/hear/obey someone'
+
+live	 'to dwell somewhere'
+
+live	 'to have life'
+
+loan	 'to loan something to someone expecting to get it back (Mary loaned some money to John.)'
+
+look	 'to consciously focus your eyes on something'
+
+look	 'to appear a certain way (John looked happy/sad/excited.)'
+
+lose	 'to lose an abstract such as one's life or job'
+
+lose	 'to lose a battle or war'
+
+lose	 'to lose something such as a coin or a sheep'
+
+love	 'to love someone (romantically)'
+
+love	 'to love someone (not romantically)'
+
+love	 'to love a thing (John loves that book.)'
+
+make	 'to create an artifact'
+
+make	 'to make someone do something'
+
+make	 'to make something abstract, like a law or a promise'
+
+manage	 'to direct, control, or ovesee a business or operation  (John managed the strore.)'
+
+mark	 ''
+
+marry	 'to marry someone'
+
+marry	 'to be married to someone'
+
+mean	 'a word means something (another word) (Mara means bitter.)'
+
+mean	 'a word means something (a clause) (Mene means, "God has counted the days of your life.")'
+
+measure	 ''
+
+meet	 'to meet someone for the first time (John met a new woman at church.)'
+
+meet	 'to meet someone that you know, have a meeting (Mary met a friend at the library.)'
+
+meet	 'to get together for a meeting (The people met at the library.)'
+
+melt	 'to melt due to intense heat, like a candle (The candle melted.)'
+
+menstruate	 'a woman's monthly bleeding'
+
+miss	 'to miss someone, long for them'
+
+mix	 'to mix together something into something'
+
+mix	 'one liquid mixes with another liquid'
+
+mourn	 'to mourn because someone died'
+
+mourn	 'to mourn because times are bad (During the Great Depression many people mourned.)'
+
+move	 'to change residence from one place to another place (Mary moved from Dallas to Portland.)'
+
+move	 'to physically move something from one place to another place (Mary moved the chair from one room to another room.)'
+
+move	 'to move a body part (John moved his foot.)'
+
+move	 'a person or animal moves from one location to another (John moved from this chair to that chair.)'
+
+move-aside	 'to move something out of the way'
+
+murder	 'to murder someone, (not kill, which is generic)'
+
+name	 'to give to someone a name (as a parent does to a newborn child)'
+
+need	 'to require someone to do something  (Mary needs John to wash the car.)'
+
+need	 'to require something  (Mary needs that book.)'
+
+need	 'to require oneself to do so something (John needs to wash the car.)'
+
+notice	 ''
+
+nurse	 'a mother nurses a baby'
+
+obey	 'complex - to do whatever a law or commandment requires (John obeyed the law.)'
+
+obey	 'complex - to do what someone in authority says to do (John obeyed the captain.)'
+
+obtain	 'to get something (into your possession)'
+
+offend	 ''
+
+open	 'to open a container such as a box, bottle, envelope, etc.'
+
+open	 'to open a door, gate, or window'
+
+open	 'to open a book'
+
+open	 'to open one's eyes'
+
+open	 'to open one's mouth'
+
+oppose	 'to oppose someone'
+
+order	 'to order someone to do something'
+
+oversee	 'to watch over, be in charge of'
+
+owe	 'to owe someone something'
+
+own	 'to own something'
+
+pass	 'to go by a location'
+
+pay	 'to give (a hired) someone money for something (a service)'
+
+pay	 'to give someone money for something (goods)'
+
+pay	 'to pay taxes'
+
+persuade	 'to cause someone to decide to do something that they initially didn't want to do (John persuaded Mary to read that book.)'
+
+persuade	 'to cause someone to agree that the speaker should do something (John persuaded Mary that he should read that book.)'
+
+pick	 'to pick, or harvest something off a plant'
+
+pick-up	 'to pick something up'
+
+pity	 'to feel sorry for someone'
+
+plan	 'to plan to do something (John planned to go to the state fair.)'
+
+plan	 'to plan something (John planned the state fair.)'
+
+plan	 'to plan for someone else to do something (John planned for Mary to go to the fair.)'
+
+plant	 'to plant something'
+
+play	 'to play like children'
+
+play	 'to play a musical instrument'
+
+plead	 'to ask/beg/argue with someone to do something'
+
+please	 'to please someone'
+
+plot	 'complex - to plan to do bad things to someone'
+
+plow	 'complex - to plow a field in preparation for planting crops'
+
+point	 'to point in some direction (The sign pointed to the north.)'
+
+point	 'to point at someone (Mary pointed at Bob.)'
+
+pour	 'to pour a liquid or powder from something into something'
+
+pour-out	 'a liquid pours out of a container.  (The water poured out from the broken cup.) (intransitive)'
+
+praise	 'to praise someone for doing something'
+
+pray	 'to pray to someone, usually God or a god, about something'
+
+pray	 'to pray for a specific event (Mary prayed that God would protect her.)'
+
+pray	 'to pray, direct speech'
+
+preach	 'to preach a message'
+
+preach	 'to preach about something (John preached to the people about God.)'
+
+prepare	 'to ready oneself for something to happen (John prepared to go to class.)'
+
+prepare	 'to prepare something like a meal (Mary prepared the dinner.)'
+
+preserve	 ''
+
+pretend	 'to do something falsely in order to deceive'
+
+prevent	 'to stop something from happening'
+
+proclaim	 'complex - to proclaim to someone something, assert that it is true'
+
+produce	 'to produce something (emphasized product)'
+
+produce	 'to produce children'
+
+promise	 'to promise someone to do something'
+
+prophesy	 'complex - to prophesy to someone something'
+
+protect	 'to protect someone from something (John protected Mary from the alligator.)'
+
+protect	 'to protect someone from an event (John protected Mary from being shot.)'
+
+prove	 'to prove to someone that something is true'
+
+pull	 'an animal pulls a plow, wagon or chariot'
+
+pull	 'a person pulls a fish net into a boat'
+
+pull-off	 'to pull something in order to detach it'
+
+pull-out	 'to pull something out of something else'
+
+punish	 'to punish someone for doing something (bad)'
+
+punish	 'to punish a child for disobeying'
+
+pursue	 'to chase or follow someone in order to catch them and attack them. This concept is complex but not explicated; it's always matched with 'follow.''
+
+push	 'to push something'
+
+push-away	 'to push something away from you'
+
+put	 'to place something somewhere'
+
+put-away	 'to put something back into its place'
+
+put-on	 'to put on clothes (John put on a suit.)'
+
+race	 'to race someone to somewhere'
+
+raise	 'to lift up something'
+
+raise	 'to raise someone (from the dead)'
+
+read	 'to read something'
+
+read	 'to read about something (John read about the people of India.)'
+
+realize	 'to realize (suddenly come to know something happened) something'
+
+rebuke	 'to rebuke, scold someone for something'
+
+receive	 'to receive something from someone (John received a book from Mary.)'
+
+receive	 'to receive an abstract such as joy, power, authority (The prince received his authority from the king.)'
+
+recognize	 'to recognize someone'
+
+redeem	 'to buy back from someone something'
+
+refuse	 'to refuse to do something'
+
+regret	 'to regret doing something'
+
+rejoice	 'to be joyful'
+
+release	 ''
+
+remember	 'to remember an event (John remembers going into the store.)'
+
+remember	 'to remember to do something'
+
+remember	 'to remember a person (John remembers Steve.)'
+
+remember	 'to remember a thing (John remembers that book/place.)'
+
+remind	 'to cause someone to remember some bit of knowledge'
+
+remind	 'to remind someone to do something'
+
+rent	 'to let someone use something in return for money (John rented his house to a person.)'
+
+repair	 'to repair something'
+
+repent	 'complex - to repent of something (sins)'
+
+replace	 ''
+
+represent	 ''
+
+require	 'to require someone to do something'
+
+respect	 'to think highly of someone'
+
+rest	 'to rest'
+
+return	 'to go back (away from action) to a place where you were previously'
+
+return	 'to come back (towards center of action)'
+
+return	 'someone returns something to its previous place (John returned the book to the shelf.)'
+
+return	 'to go back to a person that you'd seen previously (John returned to his friend.)'
+
+return	 'to return something that was borrowed or stolen (John returned the book to his friend.)'
+
+reward	 'complex - to reward someone for doing something'
+
+ride	 'to ride something (animal or vehicle) from somewhere to somewhere (APSD)'
+
+rise	 'to move upwards, like smoke'
+
+rise	 'the sun, moon or a star rises'
+
+roast	 'to cook something over a fire'
+
+ruin	 ''
+
+rule	 'to reign over a group of people'
+
+run	 'to run from one place to another place (John ran to the car.)'
+
+run	 'to run in order to escape from someone or something that is chasing you (John ran from the dog.)'
+
+run	 'to run away from something because you're afraid of it (John ran from the snake.)'
+
+run	 'someone's nose runs when he has a cold'
+
+run-down	 'to run down something such as a hill (John ran down the hill.)'
+
+run-up	 'to run up something such as a hill (John ran up the hill.)'
+
+sacrifice	 'to sacrifice to someone (God) something'
+
+satisfy	 ''
+
+save	 'to save a person or animal from something dangerous or death'
+
+save	 'to save money for future use'
+
+save	 'God saves people from their sins'
+
+say	 'direct speech, to say something to someone (John said to Mary, "...")'
+
+say	 'non direct speech (He said many things to the people.)'
+
+say	 'indirect speech (John said that ... )'
+
+say	 'a law or command says something (The law says that ...)'
+
+say	 'a book or text says something (The Scriptures say, "...")'
+
+say	 'a law or command says something (The law says, "...")'
+
+scatter	 'someone spreads things in many different directions'
+
+scold	 'to say bad things to a child because the child did something bad, to angrily criticize a bad child'
+
+scream	 'to shout loudly due to pain or fear (Mary screamed.)'
+
+search	 'to look for something'
+
+see	 'to see someone or something  (Mary saw a bird.)'
+
+see	 'to witness an event as it occurs  (Mary saw John walking to school.)'
+
+see	 'to observe something, to see evidence that something has occurred (John saw that Peter was sick.)'
+
+see	 'to see a vision'
+
+seek-attention	 'X tries to gain the attention of Y in order to talk to him/her.'
+
+seem	 ''
+
+sell	 'to sell something to someone'
+
+send	 'to send a person or thing to do some task'
+
+send	 'to send a letter, message, or package to someone'
+
+send	 'to send some thing to someone (not a letter)'
+
+separate	 'to separate something from something'
+
+serve	 'to work for  someone'
+
+set	 'the sun or moon sets'
+
+set-up	 'to set up, construct or prepare something like a tent'
+
+sew	 'to sew something (clothing)'
+
+sex	 'to have sexual relations with someone'
+
+shake	 'something shakes (intransitive)  (The ground shook.)'
+
+shake	 'to shake something (transitive)'
+
+shake	 'a body part (knees, hands, etc.) shakes because of fear'
+
+share	 'to share something with someone'
+
+shave	 'to cut the hair from a man's face'
+
+shine	 'something shines (The stars shine.)'
+
+shine	 'to shine on something (The light shined on the wall.)'
+
+shoot	 'to shoot something at something (John shot the deer with an arrow.)'
+
+shout	 'to shout something to someone, a direct quote'
+
+shout	 'to shout something (The students shouted the pledge.)'
+
+shout	 'what animals do when they make a loud noise (e.g., The lion roared.  The dog barked.  The rooster crowed. etc.)'
+
+shout	 'to shout something, an indirect quote  (The people shouted that ...)'
+
+show	 'to show something to someone'
+
+show	 'to show someone that something is true or that something happened'
+
+show	 'to show something abstract such as a vision or dream to someone'
+
+show-how	 'to show someone how to do something (John showed Mary how to walk with crutches.)'
+
+show-how	 'to show someone how someone else does something (John showed Mary how Bill walks with crutches.)'
+
+sigh	 'complex - to breath deeply, the person is disturbed or tired or sad'
+
+sign	 'complex - to write one's name on an official document'
+
+sin	 'complex - to disobey God, do things that God hates'
+
+sing	 'to sing a song (Mary sang a song.)'
+
+sing	 'to sing (without specifying what was sung) (Mary sang.)'
+
+sink	 'complex - to sink in a liquid, to go under the top of the liquid (intransitive)(e.g., Luke 5:7 The boat began to sink.)'
+
+sit	 'to be in the seated position (John was sitting on a chair.)'
+
+sit-down	 'to move from a standing position to a seated position (John sat down on a chair.)'
+
+sit-up	 'to move from a lying position to a sitting position (John sat up.)'
+
+sleep	 'to sleep'
+
+sling	 'to sling something at someone'
+
+smell	 'to smell something, sniff the air around the object (Mary smelled the rose.)'
+
+smell	 'to smell either good or bad (The perfume smells good. The garbage smells bad.)'
+
+smell	 'to smell like something (Mary smells like a rose.)'
+
+sneeze	 'to sneeze when you have a cold'
+
+speak	 'generic word for speaking to someone about something (John spoke to Mary about the conference.)'
+
+speak	 'to speak a language'
+
+spend	 'to pay money (or goods) for something'
+
+spill	 'to accidently spill the contents of a container onto something'
+
+spit	 'to spit at someone or something'
+
+spread	 'to spread, become more widespread (Israelites spread)'
+
+spread	 'to spread something (information)'
+
+stand	 'to stand upright (John stood in front of the door.)'
+
+stand-up	 'to move from a sitting position to a standing position'
+
+stare	 'to look at something for a long time'
+
+starve	 'to starve because of no food'
+
+stay	 'to remain somewhere'
+
+steal	 'to steal something from someone'
+
+store	 'to keep something (goods) somewhere (for later use)'
+
+struggle	 'to fight, argue, etc against someone (in a non-physical way)'
+
+study	 'to carefully read or review something in order to learn it'
+
+succeed	 ''
+
+suffer	 'to be miserable'
+
+suggest	 'to advise someone to do something'
+
+surprise	 ''
+
+surround	 'something surrounds the outside of something'
+
+swallow	 'to swallow something'
+
+swear	 'to make an oath in someone's name to do something'
+
+sweat	 'to have drops of salty liquid come from the skin'
+
+sweep	 ''
+
+swim	 ''
+
+take	 'to move something from one place to another place (John took the book to the library.)'
+
+take	 'to take someone to someplace (John took Mary to the concert.)'
+
+take	 'to take an animal to someplace (John took the sheep to the meadow.)'
+
+take-away	 'to take something away from someone else (John took the book away from Mary.)'
+
+take-away	 'to take something abstract away from someone else'
+
+take-away	 'to take something away from a place (John took the garbage away from the house.)'
+
+take-off	 'to remove clothing (John took off his shoes.)'
+
+take-out	 'to take one thing out of another thing (John took the pizza out of the oven.)'
+
+talk	 'to talk to someone about something'
+
+taste	 'to taste some food'
+
+taste	 'food tastes good, or tastes like something'
+
+teach	 'to teach someone about something (He taught them about cars.)'
+
+teach	 'to teach someone something such as a language or a lesson (John's parents taught him a lesson.)'
+
+teach	 'to teach someone something (John taught his son that he should work hard.)'
+
+teach-how	 'to teach someone how to do somthing (Mary taught John how to cook.)'
+
+tear	 'to tear something'
+
+tear	 'something tears (intransitive) (The nets tore.)'
+
+tell	 'indirect speech (John told Mary that Steve went to school.)'
+
+tell	 'to tell someone to do something (Mary told John to read a book.)'
+
+tell	 'to tell someone about something (Mary told John about the conference.)'
+
+tell	 'to tell something to someone (Mary told a story to John.)'
+
+tempt	 'complex - to tell someone to do bad things'
+
+test	 'to test someone'
+
+thank	 'to thank someone for something'
+
+think	 'to think about something (John thought about the problem.)'
+
+think	 'direct "speech" (John thought, "I should go to the store.")'
+
+think	 'to think something is true (John thought that Mary went to the store.)'
+
+think	 'to think about doing something yourself (John thought about reading the book.)'
+
+thresh	 'to thresh something like grain or wheat'
+
+throw	 'to throw something at someone or something with the intention to do harm (John threw a rock at the window.)'
+
+throw	 'to throw a person or thing into or out of a place (The men threw John into a pit.  The men threw John out of the room.)'
+
+throw	 'to throw something to someone so that they will catch it (John threw the ball to Mary.)'
+
+throw	 'to throw something down to the ground in order to destroy it (Mary threw the plate to the floor.)'
+
+throw-away	 'to discard something that you do not want'
+
+tie	 'to tie someone with ropes'
+
+tie	 'to be tied with ropes (intransitive) (John is tied with a rope.)'
+
+tie	 'to tie or tether something to something else using a rope (John tied his dog to the tree.)'
+
+touch	 'to physically touch someone or something'
+
+touch	 'to come into physical contact with something (The chair touched the wall.)'
+
+trade	 'to trade one thing for something else'
+
+travel	 'to go from somewhere to somewhere in a generic way'
+
+travel	 'a disease travels or spreads'
+
+treat	 'to treat someone in some way'
+
+treat	 'a doctor treats a sick person'
+
+trick	 'to trick someone'
+
+trip	 'to stumble and fall because of something'
+
+trust	 'to trust your well-being to someone  (John trusts in God.)'
+
+trust	 'to believe that someone is honest and will keep their word (John trusts Mary.)'
+
+trust	 'to trust someone with something (entrust) (John trusted Mary with his money.)'
+
+try	 'to try to do some event'
+
+turn-around	 'to turn about 180 degrees'
+
+understand	 'to understand something (John understood the problem.)'
+
+understand	 'to understand an event (John understood that Mary had solved the problem.)'
+
+understand	 'to understand how to do something (John understood how to solve the problem.'
+
+unite	 'a person of authority causes a group of people to work together (The president united the people.)'
+
+unite	 'someone brings one person to another person (John united Mary with Susan.)'
+
+untie	 'to untie a rope or string'
+
+use	 'to use something to do something'
+
+use	 'to use illegal drugs (John used marijuana.)'
+
+visit	 'to visit someone, stay with them for a short time'
+
+wait	 'to wait for a period of time'
+
+wait	 'to wait for something to happen'
+
+wait	 'to wait for someone to arrive (John waited for Mary.)'
+
+wake-up	 'to wake up from sleeping (intransitive) (John woke up.)'
+
+wake-up	 'to wake someone else up (Mary woke John up.)'
+
+walk	 'a person moves on foot (not running) to someplace'
+
+walk	 'an animal moves on foot to some place'
+
+walk-away	 'to walk away from someone or some place (John walked away from Mary.)'
+
+walk-down	 'to walk down something (John walked down the mountain.)'
+
+walk-up	 'to walk up something (John walked up the mountain.)'
+
+wander	 'to travel aimlessly in some location'
+
+want	 'to desire that someone else do something (John wants Mary to go to class.)'
+
+want	 'to desire to do something yourself (John wants to go to class.)'
+
+want	 'to want something to possess it (Mary wants a house.)'
+
+want	 'to want or desire an abstract (John wants peace/good health/a long life/etc.)'
+
+war	 'to wage a war with someone'
+
+warn	 'to warn someone to do or not do something'
+
+warn	 'to warn someone that something is about to happen'
+
+warn	 'to warn someone about something (John warned Mary about the snake.)'
+
+wash	 'to clean a person or body part'
+
+wash	 'to clean something like a car (not clothes-like)'
+
+wash	 'to wash something (clothes or similar)'
+
+waste	 'to waste something'
+
+watch	 'to consciously look at an event while it occurs (John watched the sun rise.)'
+
+watch	 'to consiously look at someone or something (John watched the people.)'
+
+wave	 'to wave something (a hand) at someone in greeting'
+
+wear	 'to wear something (clothes)'
+
+weigh	 'something weighs a specified amount (That rock weighs 20 kilograms.)'
+
+weigh	 'to measure the weight of something (John weighed the apples.)'
+
+welcome	 'complex - to greet someone kindly/warmly'
+
+whip	 'to whip someone'
+
+win	 'to win something (a contest, battle or war)'
+
+wish	 'to wish or want some situation to be different from what it is (John wished that Mary was well.)'
+
+witness	 'to witness an event'
+
+wonder	 'to think about something and try to guess what is true.  This concept is complex but not explicated; it's always matched with 'think.'
+'
+
+work	 'generic term for performing the activity that one does for a living'
+
+worry	 'to worry about something'
+
+worry	 'to worry about an event (John worried that he might not pass the test.)'
+
+worship	 'to worship something (God or a god)'
+
+wound	 ''
+
+wrap	 'to wrap something with something'
+
+write	 'to write a letter or book, possibly to someone (John wrote a letter to Mary.)'
+
+write	 'to write something (John wrote a poem/message on the wall.)'
+
+write	 'direct quote (The king wrote, "...")'
+
+write	 'to write about something (John wrote about his vacation.)'
+
+write	 'indirect quote (John wrote that he would visit Mary.)'
+
+write	 'to write a law or command'
+
+write	 'to write one's name on something officially, to sign it (John wrote his name on the letter.)'
+
+write	 'to write something in a book or letter (John wrote some things in that book.)'
+
+write-down	 'to write something down (John wrote down everything the teacher said.)'
+

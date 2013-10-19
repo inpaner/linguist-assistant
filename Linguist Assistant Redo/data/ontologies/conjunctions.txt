@@ -1,0 +1,36 @@
+and	 'joins two or more propositions'
+
+and	 'joins two or more noun phrases'
+
+and	 'joins two or more adjective phrases'
+
+and	 'joins two or more adverb phrases'
+
+and	 'joins simultaneous events (The people rejoiced.  And the people celebrated.)'
+
+at-that-time	 'at that time'
+
+but	 'contrast'
+
+likewise	 'likewise, similarly, in the same way (CHANGE THIS TO 'similarly')'
+
+on-the-contrary	 'the event is oppposite of what was previously said (CHANGE THIS TO 'instead')'
+
+or	 'disjunction of two propositions'
+
+or	 'disjunction of two noun phrases'
+
+so	 'it follows that (not strictly logical, like 'therefore')'
+
+then	 'temporal succession'
+
+then	 'logical conclusion'
+
+then	 'immediate temporal succession'
+
+then	 'consequence'
+
+therefore	 'it logically follows that'
+
+thus	 'in this way'
+

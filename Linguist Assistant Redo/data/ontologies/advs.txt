@@ -1,0 +1,160 @@
+actually	 'in reality, the following is true'
+
+again	 'the event occurred again'
+
+almost	 'to almost do something (almost died)'
+
+alone	 'to do something alone'
+
+already	 'action or state completed before speaker-time'
+
+also	 'to do something in addition to what was already stated'
+
+also	 'an attribute applies here as well (he is also tall)'
+
+also	 'to do something that somebody else did (I also did it.) (modifies nouns)'
+
+always	 'the state will always be true'
+
+badly	 'to do something in a bad or incorrect manner'
+
+boldly	 'to do something boldly'
+
+bravely	 'to do something that is dangerous or difficult with courage and confidence, without fear (John climbed the tall tree bravely.)'
+
+carefully	 'done with care, caution'
+
+completely	 'the attribute is true completely'
+
+completely	 'the event must be done completely'
+
+correctly	 'to do something correctly'
+
+cruelly	 'in a way that causes emotional or physical pain'
+
+eagerly	 'to really want to do something, to do it with excitement (John eagerly read the report.)'
+
+earlier	 'event happened earlier'
+
+early	 'time, early'
+
+easily	 'to do something easily'
+
+even	 'emphasizes that even the event did/should or did/should not occur'
+
+fairly	 'to do something fairly'
+
+faithfully	 'to do something faithfully'
+
+far	 'a long distance  (He traveled far)'
+
+finally	 'the event was done last in a series of events'
+
+first	 'the event done first (he first went to the store)'
+
+forever	 'for all time'
+
+gently	 'to do something carefully in order to not hurt someone'
+
+greatly	 'the event is done to the extreme'
+
+happily	 'to do something with happiness, joy'
+
+hard	 'strenuously (e.g., to work hard)'
+
+how	 'a question word - (how did you do something)'
+
+how-long	 'question word asking for length of time'
+
+immediately	 'to do something right away'
+
+joyfully	 'the event was done with joy'
+
+kindly	 'to do something with kindness'
+
+later	 'time after last event'
+
+little	 'to do something only a small amount, or to a small degree'
+
+long	 'the duration of an event is long  (he worked long)'
+
+loudly	 'with high volume'
+
+more	 'the event is done to a greater degree (you will believe more)'
+
+most	 'to do this event more than any other event '
+
+much	 'an event is done often or to a great degree'
+
+never	 'the event will never happen'
+
+now	 'at the present time'
+
+often	 'to do something often'
+
+peacefully	 'to do something peacefully, without fighting'
+
+perfectly	 'to do something perfectly'
+
+perhaps	 'maybe, possibly (Perhaps Mary read that book.)'
+
+previously	 'a while ago, earlier'
+
+quickly	 'to do something quickly'
+
+quietly	 'with very little noise'
+
+recently	 'in the recent past, a little while ago'
+
+repeatedly	 'an action is performed many times'
+
+respectfully	 'with respect'
+
+safely	 'to do something safely'
+
+secretly	 'to do something privately, so that other people don't know about it'
+
+sensibly	 'to act/think/behave in a manner that shows good judgment'
+
+sincerely	 'to do something sincerely, from the heart'
+
+skillfully	 'to do something with skill'
+
+slowly	 'to do something slowly'
+
+sometimes	 'occasionally'
+
+soon	 'time very close to present'
+
+still	 'to still be doing something'
+
+still	 'to not move (to stand still)'
+
+successfully	 'to do something that you tried to do (The doctor successfully treated the patient.)'
+
+suddenly	 'the event happened qickly and with little warning'
+
+thoroughly	 'to do something completely, thoroughly'
+
+today	 'time is today'
+
+tomorrow	 'time at tomorrow'
+
+tonight	 'time = tonight'
+
+truly	 'to really do something, as opposed to faking or lying about it'
+
+usually	 'the event usually occurs'
+
+well	 'to do something well'
+
+when	 'temporal question word'
+
+where	 'locative question word'
+
+why	 'question word'
+
+wisely	 'with wisdom'
+
+yesterday	 'time was yesterday'
+

@@ -1,0 +1,6 @@
+SELECT sense
+  FROM Ontology
+ WHERE stem = 'air'
+ ORDER BY sense DESC
+ LIMIT 1;
+

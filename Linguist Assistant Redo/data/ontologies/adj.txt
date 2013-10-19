@@ -1,0 +1,742 @@
+1	 'number'
+
+.1	 'the number, one tenth'
+
+10	 'the number'
+
+100	 'the number'
+
+1000	 'the number'
+
+10000	 'the number'
+
+105	 'the number'
+
+10.5	 'the number'
+
+109	 'the number'
+
+11	 'the number'
+
+110	 'the number'
+
+119	 'the number'
+
+12	 'the number'
+
+120	 'the number'
+
+127	 'the number'
+
+1290	 'the number'
+
+13	 'the number'
+
+130	 'the number'
+
+133	 'the number'
+
+1335	 'the number'
+
+137	 'the number'
+
+14	 'the number'
+
+140	 'the number'
+
+147	 'the number'
+
+15	 'the number'
+
+1.5	 'the number, one and a half'
+
+150	 'the number'
+
+16	 'the number'
+
+1600	 'the number'
+
+162	 'the number'
+
+17	 'the number'
+
+175	 'the number'
+
+17th	 '17th in a series'
+
+18	 'the number'
+
+180	 'the number'
+
+182	 'the number'
+
+187	 'the number'
+
+2	 'the number'
+
+.2	 'two tenths'
+
+20	 'the number'
+
+200	 'the number'
+
+2000	 'the number'
+
+20000	 'the number'
+
+205	 'the number'
+
+207	 'the number'
+
+209	 'the number'
+
+21	 'the number'
+
+220	 'the number'
+
+225	 'the number'
+
+23	 'the number'
+
+2300	 'the number'
+
+24th	 '24th in a series'
+
+25	 'the number'
+
+27th	 '27th in a series'
+
+29	 'the number'
+
+3	 'the number'
+
+318	 'the number'
+
+32	 'the number'
+
+3200	 'the number'
+
+32000	 'the number'
+
+33	 'the number'
+
+34	 'the number'
+
+3.5	 'the number'
+
+30	 'the number'
+
+300	 'the number'
+
+35	 'the number'
+
+350	 'the number'
+
+365	 'the number'
+
+4	 'number'
+
+40	 'the number'
+
+400	 'the number'
+
+4000	 'the number'
+
+40000	 'the number'
+
+403	 'the number'
+
+430	 'the number'
+
+434	 'the number'
+
+45	 'the number'
+
+49	 'the number'
+
+490	 'the number'
+
+5	 'the number'
+
+.5	 'the number'
+
+50	 'the number'
+
+500	 'the number'
+
+5000	 'the number'
+
+595	 'the number'
+
+6	 'the number'
+
+60	 'the number'
+
+600	 'the number'
+
+600000	 'the number'
+
+601	 'the number'
+
+62	 'the number'
+
+65	 'the number'
+
+66	 'the number'
+
+69	 'the number'
+
+7	 'number'
+
+70	 'the number'
+
+72	 'the number'
+
+75	 'the number'
+
+75000	 'the number'
+
+77	 'the number'
+
+777	 'the number'
+
+782	 'the number'
+
+8	 'number'
+
+.8	 'eight tenths'
+
+80	 'the number'
+
+800	 'the number'
+
+807	 'the number'
+
+815	 'the number'
+
+83	 'the number'
+
+830	 'the number'
+
+84	 'the number'
+
+840	 'the number'
+
+86	 'the number'
+
+895	 'the number'
+
+9	 'number'
+
+90	 'the number'
+
+905	 'the number'
+
+910	 'the number'
+
+912	 'the number'
+
+930	 'the number'
+
+950	 'the number'
+
+962	 'the number'
+
+969	 'the number'
+
+98	 'the number'
+
+99	 'the number'
+
+able	 'ability to do something'
+
+about	 'approximately'
+
+afraid	 'to be scared of something'
+
+alive	 'living, not dead (e.g., John is alive.)'
+
+all	 'quantifier'
+
+alone	 'to be alone'
+
+amazed	 'to be amazed by something (see also 'amaze')'
+
+angry	 'to be mad at someone'
+
+another	 'a different thing than in the previous context'
+
+any	 'quantifier'
+
+ashamed	 'to be ashamed'
+
+bad	 'badness attribute'
+
+beautiful	 'pleasant to look at'
+
+big	 'large'
+
+bitter	 'bitter attribute'
+
+black	 'the color'
+
+blind	 'complex - unable to see'
+
+blue	 'the color'
+
+both	 'both of two alternatives'
+
+brave	 'dealing with danger, pain, or difficult situations with courage and confidence'
+
+bright	 'brightness attribute'
+
+calm	 'emotionally calm, not afraid, not nervous, but at peace'
+
+careful	 'to be careful'
+
+certain	 'a certain man'
+
+chief	 'most important'
+
+clean	 'to be clean'
+
+clever	 'to be clever'
+
+close	 'used only with relatives (e.g., Boaz is our close relative.)'
+
+close	 'physical distance is small (e.g., My house is close to the school.)'
+
+cold	 'coldness attribute'
+
+comfortable	 'to be in a favorable circumstance, pleasing'
+
+confused	 'to be confused, not thinking correctly'
+
+conscious	 'to be alert and able to understand the things that are happening'
+
+content	 'satisfied, moderately happy'
+
+cool	 'cool, pleasing temperature'
+
+correct	 'to be correct about something'
+
+crazy	 'acting very strangely, "out of his mind"'
+
+cruel	 'mean'
+
+dangerous	 'not safe, causing harm to one's body or health'
+
+dark	 'darkness'
+
+dead	 'to be dead'
+
+deaf	 'complex - unable to hear'
+
+deep	 'something is deep (a hole or body of water)'
+
+different	 'different than something else'
+
+dirty	 'not clean'
+
+drunk	 'drunk, intoxicated'
+
+dry	 'lacking moisture, needs water'
+
+dumb	 'complex - not able to speak'
+
+each	 'every single one of a group'
+
+early	 'early during the specified time'
+
+eastern	 'indicates the eastern region'
+
+easy	 'not difficult'
+
+Egyptian	 'from Egypt'
+
+empty	 'to be empty'
+
+enough	 'enough quantity to satisfy'
+
+evil	 'evil attribute'
+
+exactly	 'emphasizes the state or time is exactly as said'
+
+except	 'everyone in the context except the following (everyone except John)'
+
+excited	 'to be excited about something'
+
+expensive	 'to be expensive'
+
+extra	 'additional, for use later in case the current supply runs out or cannot be used'
+
+extraordinary	 'non-ordinary, unusual in a spectacular way'
+
+fair	 'reasonable and acceptable'
+
+faithful	 'loyal, reliable, dependable'
+
+false	 'not true (false teaching)'
+
+false	 'counterfeit  (false prophets)'
+
+famous	 'well known by many people'
+
+far	 'to be far away from something'
+
+fast	 'quick'
+
+fat	 'a person or animal that weighs too much'
+
+female	 'female attribute'
+
+fertile	 'fields that produce many plants'
+
+few	 'a small quantity (I can't replace all occurrences of 'few' with Paucal Number because of situations with sub-groups (e.g., I read a few of those books.).  The Sub-Group marker must go in an AdjP with 'few'.)'
+
+fifth	 '5th in a series'
+
+fine	 'high in quality (a fine pearl)'
+
+first	 '1st in a series'
+
+firstborn	 'the firstborn child of a parent'
+
+flat	 'not hilly'
+
+following	 '(teach the people the following laws)'
+
+foolish	 'foolishness attribute'
+
+fourth	 '4th in a series'
+
+free	 'the opposite of slave'
+
+fresh	 'freshly killed or picked food, not canned'
+
+full	 'to be full to the top with something'
+
+generous	 'willing to give to other people'
+
+gentle	 'gentleness attribute'
+
+glorious	 'bright, beautiful, and impressive'
+
+gold	 'the color gold'
+
+good	 'positive evaluation attribute'
+
+good	 'morally good - used in explication of 'just' - morally good and fair'
+
+great	 'to be great, wonderful'
+
+green	 'the color'
+
+guilty	 'guilty of a crime'
+
+handsome	 'good looking, attractive - used only for men'
+
+happy	 'happiness attribute'
+
+hard	 'very solid to the touch'
+
+hard	 'difficult or complex'
+
+healthy	 'having good health'
+
+heavy	 'to be heavy'
+
+high	 'high altitude'
+
+holy	 'the attribute of God or things associated with God'
+
+honest	 'to be honest'
+
+hot	 'to be hot (weather)'
+
+how-much	 'question word'
+
+humble	 'humble attribute'
+
+hungry	 'to be hungry'
+
+important	 'important attribute'
+
+infectious	 'an infectious disease is passed from one person to another person'
+
+inner	 'on the inside or close to the center of something'
+
+innocent	 'not guilty'
+
+interested	 'to be interested in something'
+
+interesting	 'arouses curiosity, engages one's attention'
+
+jealous	 'to be jealous, not want to share (God is jealous)'
+
+Jewish	 'associated with Jews'
+
+just	 'complex - to be just, fair'
+
+kind	 'to act kindly'
+
+lame	 'complex - unable to walk'
+
+last	 'last in a series'
+
+late	 'to be late, not on time'
+
+lazy	 'not liking work'
+
+left	 'left side'
+
+less	 'fewer, a smaller amount (less workers, less land)'
+
+little	 'a small amount of something, the opposite of 'much' (John ate a little food.)'
+
+long	 'the length of something is long'
+
+long	 'a long period of time'
+
+long	 'as in "20 meters long"'
+
+lost	 'to be lost'
+
+loud	 'the sound is loud'
+
+low	 'low height (opposite of 'high') (John went to a low place.)'
+
+lucky	 'to have something good happen, fortunate'
+
+male	 'male attribute'
+
+merciful	 'having mercy'
+
+more	 'additional (more workers)'
+
+more	 'comparative more (John has more books than Peter.)'
+
+most	 'most of the set is involved (Most people eat bread every day.)'
+
+much-many	 'a lot of something'
+
+naked	 'to not be wearing any clothes'
+
+narrow	 'narrow, not wide'
+
+new	 'object's status is new - new car, new king'
+
+new	 'object is new in age'
+
+next	 'the next in a series (next day)'
+
+noble	 'of good character'
+
+northern	 'indicates the northern region'
+
+northwest	 'indicates the northwest region'
+
+old	 'oldness attribute'
+
+old	 'as in (10 years old)'
+
+one	 'indefinite marker, (one day, one month)'
+
+one	 'one member of a group (e.g., one of the angels said, ...)'
+
+one	 'one X as opposed to another X (e.g., One angel was here, the other angel was there.)'
+
+only	 'identity (The only person that can solve this problem ...)'
+
+only	 'exclusivity (Only the people who know John can come to this party.)'
+
+only	 'the thing is not highly esteemed "He is only a carpenter."'
+
+other	 'someone or thing other than what is in the context'
+
+paralyzed	 'complex - to be paralyzed, unable to move one's legs'
+
+patient	 'to be patient, not get angry quickly'
+
+peaceful	 'quiet and calm, without worry'
+
+perfect	 'perfect, without fault'
+
+pleased	 'to be pleased with something (God was pleased with the nurses)'
+
+poisonous	 'to be poisonous, like a poisonous snake'
+
+poor	 'having a little money'
+
+possible	 'How is it possible that John read this book?'
+
+powerful	 'having physical power'
+
+powerful	 'having political or similar power'
+
+pregnant	 'to be pregnant'
+
+prosperous	 'financially successful, having sufficient wealth'
+
+proud	 'to be proud'
+
+pure	 'to be pure, without impurities'
+
+purple	 'the color'
+
+quiet	 'low volume'
+
+raw	 'uncooked'
+
+ready	 'to be ready for something to happen'
+
+red	 'the color'
+
+responsible	 'to be responsible for the actions of someone'
+
+rich	 'complex - to have a lot of money'
+
+right	 'to be correct'
+
+right	 'the right-hand side'
+
+righteous	 'righteousness attribute'
+
+ripe	 'fruit is ripe, ready to be harvested and eaten'
+
+Roman	 'of Roman origins or working for the Romans'
+
+royal	 'having to do with royalty'
+
+sad	 'not happy'
+
+safe	 'to be safe'
+
+same	 'the same thing as previously mentioned'
+
+satisfied	 'to be satisfied'
+
+scarlet	 'complex - bright red'
+
+second	 '2nd in a series'
+
+selfish	 'selfishness atrribute'
+
+seventh	 '7th in a series'
+
+several	 'a small indeterminate number, more than 'few''
+
+shiny	 'refers to metal that is smooth, polished, bright, and reflective'
+
+short	 'short in height or length'
+
+short	 'short time period'
+
+sick	 'to be ill'
+
+silver	 'the color silver'
+
+similar	 'similar to somethng else'
+
+sixth	 '6th in a series'
+
+sleepy	 'wanting to sleep, tired'
+
+small	 'small in size'
+
+smooth	 'smoothness attribute'
+
+solid	 'solidness attribute'
+
+some	 'quantity'
+
+sore	 'to be sore, hurting'
+
+sorry	 'to be sorry that the person did something (A P(cl))'
+
+southern	 'indicates the southern region'
+
+special	 'special, different in a good way'
+
+steep	 'something like a hill or wall has a steep angle (That hill is steep.)'
+
+straight	 'not crooked'
+
+strange	 'wierd, out of the ordinary'
+
+strict	 'expecting people to do the things that you tell them to do'
+
+strong	 'having much strength'
+
+stupid	 'showing a lack of good sense or good judgement'
+
+surprised	 'to be surprised about something'
+
+surprised	 'to be surprised that something happened'
+
+tall	 'height of someone or something is high '
+
+terrible	 'to be terrible, horrible'
+
+thin	 'thinness attribute'
+
+third	 '3rd in a series'
+
+thirsty	 'to be thirsty'
+
+thorny	 'something having thorns'
+
+thousands	 'an expression indicating thousands of something, not a precise number'
+
+tired	 'to be tired, sleepy'
+
+traditional	 'a law or practice is done as it has been done in the past'
+
+troubled	 'to be troubled, disturbed'
+
+true	 'true, not false, fake or unreal'
+
+ugly	 'unattractive, not pretty'
+
+unclean	 'ceremonially unclean'
+
+upset	 'to be annoyed, worried, unhappy (John was upset.)'
+
+valuable	 'to be worth much'
+
+violent	 'to be violent'
+
+warm	 'something is warm, not hot'
+
+weak	 'not strong'
+
+well	 'healthy, good'
+
+western	 'indicates the western region'
+
+white	 'the color white'
+
+whole	 'the entire thing'
+
+wicked	 'wicked, evil'
+
+wide	 'wide, not narrow'
+
+wide	 'as in "20 meters wide"'
+
+wild	 'from the wild, not tamed or cultivated'
+
+willing	 'to be willing to do something'
+
+wise	 'wise attribute'
+
+wonderful	 'someone or something that causes people to be awed, in a good sense'
+
+worthless	 'to be worthless'
+
+wrong	 'to be incorrect'
+
+yellow	 'the color yellow'
+
+young	 'young in age'
+

@@ -1,0 +1,226 @@
+Begin Episode	 'marks the beginning of a new episode'
+
+Begin Scene	 'marks the beginning of a new scene (e.g., One day ...)'
+
+Bodypart	 'marks bodyparts (hand of Mary)'
+
+Composed of	 'one thing is composed of something (lake of fire, streets of gold, river of fire)'
+
+Generic Genitive	 'marks generic genitival Noun-Noun relationships (John's boss, Mary's prayers, etc.)'
+
+Group	 'marks a group of something (herd of sheep, flock of geese, crowd of people, etc.)'
+
+Iteration	 'marks iteration (Mary read the book Iteration 3/many.)'
+
+Kinship	 'marks blood relationships (brother, mother, etc.) and legal relationships (wife, mother-in-law, etc.)'
+
+Made of	 'one thing is made of another thing (house of bricks, table of wood, etc.)'
+
+Name	 'marks someone's name (King name David)'
+
+Nationality	 'a Hebrew man'
+
+Owner	 'marks a possessor (book of John)'
+
+Part-Whole	 'the front of the boat'
+
+Quantity	 'marks quantity (tea Quantity cup)'
+
+Region of Authority	 'marks the region that someone governs (king of Israel, governor of Tiberius, etc.)'
+
+Subgroup	 'marks a specific subgroup of a group - this is used with cardinal numbers, fractions, 'many' and 'several' (John read two/half/many/several of the  books.)'
+
+Title	 'marks someone's title (Jesus title Christ)'
+
+about	 'concerning (told him about ...)'
+
+above	 'on top of something, but not touching'
+
+across	 'location on the other side of'
+
+after	 'the time following'
+
+after	 'the time following (used only in NPs)'
+
+against	 'one thing is next to and touching something else (John leaned against the wall.)'
+
+ago	 'used in oblique NPs (Many years ago ...)'
+
+along	 'location along a path'
+
+although	 'although X happens, Y will happen'
+
+among	 'in the midst of'
+
+around	 'the area around something'
+
+at	 'at the location'
+
+at	 'time at (at midnight)'
+
+because	 'the following event is the reason for the preceeding event (John walked to school because his car was at the shop.)'
+
+because	 'the following object is the reason for the event'
+
+before	 'time before an event'
+
+before	 'time before an event (used only in NPs)'
+
+behind	 'location behind someone'
+
+below	 ''
+
+beside	 'next to, spacially'
+
+between	 'involving a and b (agreement between a and b)'
+
+between	 'location in the middle of a and b'
+
+by	 'to accomplish something by doing something else (John won the game by hitting a home run.)'
+
+by	 'nearby something'
+
+close	 'to be close to something (AP)'
+
+down	 'down - used only in the Analyzer'
+
+during	 'time is during the stated event'
+
+even-if	 'the preceeding will happen even if the following happens'
+
+even-though	 'contrary to fact, even-though A, B still happened'
+
+except	 'the following event or thing is an exception (follow no gods except me)'
+
+far-away-from	 'far in distance from something else'
+
+for	 'for a duration of time (for 3 days)'
+
+for	 'because of (I will pay you for your work)'
+
+for	 'beneficiary topic marker (For each kind of animal, bring a male and a female into the ark.)'
+
+from	 'from the time specified'
+
+if	 'if (conditional)  (If you go to the party, you might see Mary.)'
+
+if	 'if (hypothetical)  (If you were to go to the party, you would see Mary.)'
+
+if	 'if (counterfactual) (If you had gone to the party, you would have seen Mary.)'
+
+in	 'located inside something, literally (like a basket, or a house)'
+
+in	 'located within  the boundaries of an area (in the city)'
+
+in	 'generic location'
+
+in	 'in a group (John is in the army.)'
+
+in	 'at the time (in the morning)'
+
+in	 'in a liquid, sand, dirt, etc.'
+
+in	 'to be or put in a written or other medium (write in a book, in the history)'
+
+in	 'abstract directed towards someone (faith in God)'
+
+in	 'in a vision or dream (God spoke to Abram in a vision.)'
+
+in-front-of	 'location in front of something'
+
+in-order-to	 'the preceeding was done to accomplish the following'
+
+inside	 'within an object'
+
+instead	 'X did A instead of doing B (John read this book instead of watching a movie.) (always same agent as matrix)'
+
+instead	 'X did Y instead of A doing B  (Esther 9:1 The Jews killed their enemies instead of their enemies killing them.) (always different agent than the matrix)'
+
+instead	 'used with NPs like "He went [to X [instead-of Y]]" or "He hit [X [instead-of Y]]"'
+
+into	 'location towards somewhere'
+
+into	 'into a container or enclosed area'
+
+just-like	 'to do something in the same way as some other action'
+
+later	 'amount of time after an event'
+
+more-than	 '(I like this more-than I like that)'
+
+near	 'location close to something'
+
+of-possession	 'possession - used only in the Analyzer'
+
+off	 'off - used only in the Analyzer'
+
+on	 'on top (highest part) of something'
+
+on	 'on the surface of something (not necessarily the top)'
+
+on	 'generic location (on the left side)'
+
+on	 'along (walk on the path)'
+
+on	 'at the time of (on that day)'
+
+on	 'connected to (apple on the tree)'
+
+onto	 'motion on to something'
+
+out	 'out - used only in the Analyzer'
+
+outside	 'outside an object'
+
+over	 'on top of'
+
+past	 'movement past a location (Mary walked past the house.)'
+
+since	 'since the time'
+
+so	 'the preceeding was done so that the following can/could be done (John studied so that he could pass the test.)'
+
+so	 'result, with no intent (He lost his money so he had to leave)'
+
+so	 'the preceeding was or should be done resulting in the following being done (John covered his face so that he would not catch a cold.)'
+
+than	 'than - used only in the Analyzer'
+
+through	 'path through someplace'
+
+through	 'by means of (God predicted through a prophet ...)'
+
+throughout	 'located everywhere within some place'
+
+to	 'to - used only in the Analyzer'
+
+toward	 'path toward someplace'
+
+toward	 'movement is toward an object or place'
+
+under	 'location under something'
+
+unless	 'the previous would not happen unless the following does'
+
+until	 'time until'
+
+until	 'time until (used on in NPs)'
+
+up	 'used only in the Analyzer'
+
+when	 'when + event specifies the time of the main event'
+
+when	 'when-because + event specifies the time and reason for the main event'
+
+whenever	 'one event is done whenever another event is done (I see Mary whenever I go to the library.)'
+
+while	 'time during the following event'
+
+with	 'accompaniment (John went with Frank)'
+
+with	 'possessing things (John went to California with many things.)'
+
+without	 'to do something without using something'
+
+without	 'to do something without someone accompanying'
+

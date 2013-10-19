@@ -1,0 +1,46 @@
+Alternate	 'marks an alternative analysis; this particle is inserted into a proposition whenever one or more Alternative Analyses are included. '
+
+CommentBegin	 'marks the beginning of a parenthetical comment'
+
+CommentEnd	 'marks the end of a parenthetical comment'
+
+QuoteBegin	 'beginning quote'
+
+QuoteEnd	 'ending quote'
+
+ReferenceMarker	 'marks a chapter and verse in a reference (Psalms 23 Reference Marker 1)'
+
+1)	 'First in a list of items'
+
+10)	 'Tenth in a list of items'
+
+11)	 'Eleventh item in a list of items'
+
+12)	 'Twelfth item in a list of items'
+
+2)	 'Second in a list of items'
+
+3)	 'Third in a list of items'
+
+4)	 'Fourth in a list of items'
+
+5)	 'Fifth in a list of items'
+
+6)	 'Sixth in a list of items'
+
+7)	 'Seventh in a list of items'
+
+8)	 'Eighth in a list of items'
+
+9)	 'Ninth in a list of items'
+
+exclamation	 'marker for end of an exclamation'
+
+no	 'negative response'
+
+ok	 'signals that the speaker has changed his mind and now agrees with the listener'
+
+please	 'particle of polite request, mitigates an imperative'
+
+yes	 'affirmative response'
+
