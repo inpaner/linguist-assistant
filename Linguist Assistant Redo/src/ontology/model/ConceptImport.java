@@ -13,8 +13,8 @@ import commons.dao.DAOFactory;
 
 public class ConceptImport {
     private final String FOLDER = "data/ontologies/";
-    private final String FILENAME = "adj.txt";
-    private final String SYNTACTIC_ABBR = "Adj";
+    private final String FILENAME = "relations.txt";
+    private final String SYNTACTIC_ABBR = "Adp";
     
     public static void main(String[] args) {
         /*DAOFactory factory = DAOFactory.getInstance();
