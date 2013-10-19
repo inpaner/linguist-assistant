@@ -68,9 +68,6 @@ public class ConceptDAO {
         catch (SQLException ex) {
             ex.printStackTrace();
         }
-        finally {
-            DAOUtil.close(conn, ps, rs);
-        }
         
         values = new Object[] {
                 aConcept.getStem(),
@@ -81,7 +78,6 @@ public class ConceptDAO {
         // Add concept
         try {
             String sql = SQL_ADD;
-            conn = fDAOFactory.getConnection();
             ps = DAOUtil.prepareStatement(conn, sql, false, values);
             ps.executeUpdate();
             

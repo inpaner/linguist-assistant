@@ -13,7 +13,8 @@ import commons.dao.DAOFactory;
 
 public class ConceptImport {
     private final String FOLDER = "data/ontologies/";
-    private final String FILENAME = "nouns.txt";
+    private final String FILENAME = "adj.txt";
+    private final String SYNTACTIC_ABBR = "Adj";
     
     public static void main(String[] args) {
         /*DAOFactory factory = DAOFactory.getInstance();
@@ -35,7 +36,7 @@ public class ConceptImport {
             
             DAOFactory factory = DAOFactory.getInstance();
             ConceptDAO dao = new ConceptDAO(factory);
-            Constituent constituent = Constituent.get("N");
+            Constituent constituent = Constituent.get(SYNTACTIC_ABBR);
             
             while (line != null) {
                 if (!line.isEmpty()) {
