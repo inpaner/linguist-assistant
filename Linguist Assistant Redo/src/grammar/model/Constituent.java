@@ -1,13 +1,12 @@
 package grammar.model;
 
-import java.io.Serializable;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
+import commons.dao.DAOFactory;
 import commons.dao.DBUtil;
 
 /**
@@ -17,18 +16,15 @@ import commons.dao.DBUtil;
  * 
  */
 public class Constituent extends Node {
-    private String syntacticCategory;
-    private String syntacticAbbreviation;
-    private String semanticCategory;
-    private String semanticAbbreviation;
-    private String deepAbbreviation;
-    private Constituent parent;
-    private ArrayList<Constituent> children;
-    private ArrayList<Feature> features;
-    private Concept concept;
-    private Translation translation;
+    private static List<Constituent> allConstituents;
+    
     
     public static List<Constituent> getAllConstituents() {
+        if (allConstituents == null) {
+            DAOFactory factory = DAOFactory.getInstance();
+            ConstituentDAO dao = new ConstituentDAO(factory);
+            
+        }
         ArrayList<Constituent> allConstituents = new ArrayList<Constituent>();
         try {
             String query =
@@ -366,4 +362,17 @@ public class Constituent extends Node {
     public void setFeatures(ArrayList<Feature> features) {
         this.features = features;
     }
+    
+    private String syntacticCategory;
+    private String syntacticAbbreviation;
+    private String semanticCategory;
+    private String semanticAbbreviation;
+    private String deepAbbreviation;
+    private Constituent parent;
+    private ArrayList<Constituent> children;
+    private ArrayList<Feature> features;
+    private Concept concept;
+    private Translation translation;
+    
+    
 }
