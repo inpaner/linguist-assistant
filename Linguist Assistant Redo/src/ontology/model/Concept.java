@@ -8,6 +8,7 @@ import java.util.List;
 
 public class Concept extends Node {
     private String fStem;
+    private String fSense;
     private String fGloss;
     private Constituent fConstituent;
     
@@ -45,7 +46,7 @@ public class Concept extends Node {
         fStem = aStem;
     }
     
-    public String getName() {
+    public String getStem() {
         return fStem;
     }
     

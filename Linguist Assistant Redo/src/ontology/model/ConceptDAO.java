@@ -43,7 +43,7 @@ public class ConceptDAO {
     
     public void add(Concept aConcept) {
         Object[] values = {
-                aConcept.getName(),
+                aConcept.getStem(),
                 aConcept.getParent().getPk()
         };
 
@@ -73,7 +73,7 @@ public class ConceptDAO {
         }
         
         values = new Object[] {
-                aConcept.getName(),
+                aConcept.getStem(),
                 aConcept.getGloss(),
                 aConcept.getParent().getPk()
         };

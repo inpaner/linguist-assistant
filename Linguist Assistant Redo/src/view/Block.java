@@ -100,7 +100,7 @@ public class Block extends Box {
         nameLabel = new JLabel(constituent.getLabel());
         conceptLabel = new JLabel();
         if(constituent.getConcept() != null) {
-            conceptLabel.setText(constituent.getConcept().getName());
+            conceptLabel.setText(constituent.getConcept().getStem());
         } 
         else {
             conceptLabel.setText(" ");

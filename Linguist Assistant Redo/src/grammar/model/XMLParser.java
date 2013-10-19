@@ -258,7 +258,7 @@ public class XMLParser {
         
         if (constituent.hasConcept()) {
             Element concept = xml.createElement("concept");
-            concept.appendChild(xml.createTextNode(constituent.getConcept().getName()));
+            concept.appendChild(xml.createTextNode(constituent.getConcept().getStem()));
             mainElement.appendChild(concept);
         }
         
