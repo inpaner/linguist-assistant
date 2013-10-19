@@ -74,6 +74,7 @@ public class ConceptDAO {
         
         values = new Object[] {
                 aConcept.getStem(),
+                newSense,
                 aConcept.getGloss(),
                 aConcept.getParent().getPk()
         };
