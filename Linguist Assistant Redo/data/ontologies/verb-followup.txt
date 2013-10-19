@@ -1,0 +1,29 @@
+work     'generic term for performing the activity that one does for a living'
+
+worry    'to worry about something'
+
+worry    'to worry about an event (John worried that he might not pass the test.)'
+
+worship  'to worship something (God or a god)'
+
+wound    ''
+
+wrap     'to wrap something with something'
+
+write    'to write a letter or book, possibly to someone (John wrote a letter to Mary.)'
+
+write    'to write something (John wrote a poem/message on the wall.)'
+
+write    'direct quote (The king wrote, "...")'
+
+write    'to write about something (John wrote about his vacation.)'
+
+write    'indirect quote (John wrote that he would visit Mary.)'
+
+write    'to write a law or command'
+
+write    'to write one's name on something officially, to sign it (John wrote his name on the letter.)'
+
+write    'to write something in a book or letter (John wrote some things in that book.)'
+
+write-down   'to write something down (John wrote down everything the teacher said.)'

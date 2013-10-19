@@ -1434,8 +1434,7 @@ wish	 'to wish or want some situation to be different from what it is (John wish
 
 witness	 'to witness an event'
 
-wonder	 'to think about something and try to guess what is true.  This concept is complex but not explicated; it's always matched with 'think.'
-'
+wonder	 'to think about something and try to guess what is true.  This concept is complex but not explicated; it's always matched with 'think.''
 
 work	 'generic term for performing the activity that one does for a living'
 
