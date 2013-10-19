@@ -82,7 +82,7 @@ public class GrammarEditorPanel extends JPanel {
             public void actionPerformed(ActionEvent ev) {
                  TextDialog dialog = new TextDialog("Feature name");
                  String name = dialog.getText();
-                 selectedConstituent.addNewFeature(name);
+                 System.out.println(name);
             }
         });
         editFeature.addActionListener(new ActionListener() {
@@ -100,9 +100,7 @@ public class GrammarEditorPanel extends JPanel {
         addValue.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ev) {
-                TextDialog dialog = new TextDialog("Value name");
-                String name = dialog.getText();
-                selectedFeature.addNewValue(name);
+                
             }
         });
         editValue.addActionListener(new ActionListener() {

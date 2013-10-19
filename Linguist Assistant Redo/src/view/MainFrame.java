@@ -32,7 +32,7 @@ public class MainFrame extends JFrame {
             }
         });
         
-        setTitle("Information Asset Registry");
+        setTitle("Linguist's Assistant's Second Cousin Thrice Removed");
         //setSize(800, 600);
         setMaximumSize(FrameDimension);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

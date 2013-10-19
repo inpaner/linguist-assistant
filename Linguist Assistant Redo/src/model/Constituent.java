@@ -318,13 +318,11 @@ public class Constituent extends Node {
             ResultSet rs = DBUtil.executeQuery(query);
             rs.next();
             int pk = rs.getInt("pk");
-            DBUtil.finishQuery();
-            
             String update =
                     "INSERT INTO Feature(name, semanticCategoryPk) " +
-                    "values ('" + string + "', " + pk +")";
-            System.out.println(update);
+                    "values (?, "+ pk +")";
             DBUtil.executeUpdate(update);
+            DBUtil.finishQuery();
         } 
         catch (SQLException ex) {
             ex.printStackTrace();

@@ -25,15 +25,15 @@ public class XMLParser {
     
     public static void main(String argv[]) {
         XMLParser parser = new XMLParser();
-        Root root = parser.read();
-        parser.writeXML(root);
+       // Constituent root = parser.read(FILENAME);
+        //parser.writeXML(root);
         
     }
 
-    public Root read() {
-        Root root = new Root();
+    public Constituent read(String filename) {
+        Constituent root = new Constituent(null);
         try {
-            File fXmlFile = new File(FILENAME);
+            File fXmlFile = new File(filename);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(fXmlFile);
@@ -68,13 +68,13 @@ public class XMLParser {
     private void parseMetadata(Node metaNode) {
     }
         
-    private void parseRootSubcons(Node subconsNode, Root root) {
+    private void parseRootSubcons(Node subconsNode, Constituent root) {
         NodeList childNodes = subconsNode.getChildNodes();
         for (int i = 0; i < childNodes.getLength(); i++) {
             Node childNode = childNodes.item(i);
             switch (childNode.getNodeName()) {
             case "const":    Constituent constituent = parseConst(childNode, null);
-                             root.addConstituent(constituent);   
+                             root.addChild(constituent);   
                              break;
             
             default:         break;
@@ -188,7 +188,7 @@ public class XMLParser {
         
     }
     
-    public void writeXML(Root root){
+    public void writeXML(String filename, Constituent root){
         try{
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dbBuilder = dbFactory.newDocumentBuilder();
@@ -204,7 +204,7 @@ public class XMLParser {
             Element subCons = xml.createElement("subcons");
             rootElement.appendChild(subCons);
             
-            for (Constituent constituent : root.getConstituents()) {
+            for (Constituent constituent : root.getChildren()) {
                 write(constituent, xml, subCons);
             }
             
@@ -213,7 +213,7 @@ public class XMLParser {
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
             transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
             DOMSource source = new DOMSource(xml);
-            StreamResult result = new StreamResult(new File("data/generated-xml.xml"));
+            StreamResult result = new StreamResult(new File(filename));
             transformer.transform(source, result);
         
         }

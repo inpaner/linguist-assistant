@@ -125,7 +125,7 @@ public class UITEXTGEN extends JFrame implements ActionListener {
         int x=10;
         int y=22;
 
-        root = parser.read();
+        //root = parser.read();
         for(Constituent c : root.getConstituents())
         {
 
@@ -141,8 +141,8 @@ public class UITEXTGEN extends JFrame implements ActionListener {
     }
     private void writeXML()
     {
-        if(root!=null)
-            parser.writeXML(root);
+       // if(root!=null)
+       //     parser.writeXML(root);
     }
     private void addToFrame() {
 

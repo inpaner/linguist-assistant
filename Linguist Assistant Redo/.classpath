@@ -2,15 +2,8 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
-	<classpathentry kind="lib" path="D:/Dropbox/Programming/Commons/sqlite-jdbc/sqlite-jdbc-3.7.2.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/D:/Dropbox/Programming/GitHub/linguist-assistant-redo/Linguist%20Assistant%20Redo/lib/sqlite-jdbc/sqlite-jdbc-3.7.2-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="D:/Dropbox/Programming/Commons/miglayout/miglayout-4.0.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/D:/Dropbox/Programming/Commons/miglayout/miglayout-4.0-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
+	<classpathentry kind="lib" path="lib/sqlite-jdbc/sqlite-jdbc-3.7.2.jar"/>
+	<classpathentry kind="lib" path="lib/sqlite-jdbc/sqlite-jdbc-3.7.2-javadoc.jar"/>
+	<classpathentry kind="lib" path="lib/miglayout-4.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

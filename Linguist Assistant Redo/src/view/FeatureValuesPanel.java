@@ -49,6 +49,7 @@ public class FeatureValuesPanel extends JPanel {
         editors = new ArrayList<>();
         features = constituent.getAllFeatures();
         for (Feature feature : features) {
+        	System.out.println("Adding feature");
             FeatureComboBox comboBox = new FeatureComboBox(feature);
             DefaultCellEditor cellEditor = new DefaultCellEditor(comboBox);
             editors.add(cellEditor);

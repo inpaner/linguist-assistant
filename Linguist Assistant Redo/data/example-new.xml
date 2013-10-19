@@ -6,7 +6,7 @@
     </metadata>
     <subcons>
         <const>
-            <label>CL</label>
+            <label>Clause</label>
             <features>
                 <feature>
                     <name>salience-band</name>

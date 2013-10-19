@@ -68,7 +68,7 @@ public class DBUtil {
     
     public static Connection newConnection() {            
         try {
-            Class.forName("org.sqlite.JDBC");
+            Class.forName("org.sqlite.JDBC").newInstance();
             conn = DriverManager.getConnection("jdbc:sqlite:LAR.db");
         }
         catch(Exception e){
@@ -159,6 +159,7 @@ public class DBUtil {
         try {
             ps = conn.prepareStatement(update); 
             ps.executeUpdate();
+            
         }
         catch (SQLException ex) {
             ex.printStackTrace();
