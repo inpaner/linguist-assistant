@@ -4,7 +4,9 @@ package grammar.model;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import commons.dao.DAOFactory;
 import commons.dao.DBUtil;
@@ -15,36 +17,43 @@ import commons.dao.DBUtil;
  * @author Ivan
  * 
  */
+
 public class Constituent extends Node {
-    private static List<Constituent> allConstituents;
+    private static List<Constituent> fAllConstituents;
+    private static Map<Integer, List<Feature>> fPossibleFeatures;
     
+    static {
+        fPossibleFeatures = new HashMap<>();
+    }
+    
+    // TODO implement properly with copying of features
+    public static Constituent copy(Constituent toCopy) {
+        Constituent clone = new Constituent();
+        clone.pk = toCopy.pk;
+        clone.deepAbbreviation = toCopy.deepAbbreviation;
+        clone.semanticCategory = toCopy.semanticCategory;
+        clone.semanticAbbreviation = toCopy.semanticAbbreviation;
+        clone.syntacticCategory = toCopy.syntacticCategory;
+        clone.syntacticAbbreviation = toCopy.syntacticAbbreviation;
+        clone.fLevel = toCopy.fLevel;
+        
+        return clone;
+    }
     
     public static List<Constituent> getAllConstituents() {
-        if (allConstituents == null) {
+        if (fAllConstituents == null) {
             DAOFactory factory = DAOFactory.getInstance();
             ConstituentDAO dao = new ConstituentDAO(factory);
-            
+            fAllConstituents = dao.getAllConstituents();            
         }
-        ArrayList<Constituent> allConstituents = new ArrayList<Constituent>();
-        try {
-            String query =
-                    "SELECT SyntacticCategory.abbreviation AS synAbbr " +
-                    "  FROM SemanticCategory " +
-                    "       JOIN SyntacticCategory " +
-                    "         ON SemanticCategory.syntacticCategoryPk = SyntacticCategory.pk ";
-            ResultSet rs = DBUtil.executeQuery(query);
-            while (rs.next()) {
-                String abbr = rs.getString("synAbbr");
-                Constituent constituent = new Constituent(abbr, null);
-                constituent.fLevel = -2;
-                allConstituents.add(constituent);
-            }
-            DBUtil.finishQuery();
-        } 
-        catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return allConstituents;
+        
+        return fAllConstituents;
+    }
+    
+    public static Constituent get(String syntacticAbbr) {
+        DAOFactory factory = DAOFactory.getInstance();
+        ConstituentDAO dao = new ConstituentDAO(factory);
+        return dao.getBySyntacticAbbr(syntacticAbbr);
     }
     
     public Constituent(String syntacticAbbr, Constituent parent) {
@@ -76,7 +85,7 @@ public class Constituent extends Node {
     }
     
     Constituent() {
-        
+        this(null);
     }
     
     public Constituent(Constituent parent) {
@@ -87,7 +96,7 @@ public class Constituent extends Node {
         }
         this.parent = parent;
         children = new ArrayList<>();
-        features = new ArrayList<>();
+        fFeatures = new ArrayList<>();
     }
     
     //TODO protected
@@ -106,6 +115,8 @@ public class Constituent extends Node {
     //TODO to protected
     public void addChild(Constituent child) {
         children.add(child);
+        child.parent = this;
+        child.fLevel = fLevel + 1;
     }
     
     public List<Constituent> getChildren() {
@@ -116,22 +127,18 @@ public class Constituent extends Node {
         return children.size() > 0;
     }
     
-    public List<Feature> getFeatures() {
-        return features;
-    }
-    
     protected void addFeature(Feature newFeature) {
-        features.add(newFeature);
+        fFeatures.add(newFeature);
     }
     
     public void updateFeature(Feature toUpdate, String newValue) {
         boolean setToDefault = toUpdate.getDefaultValue().equals(newValue);
-        if (!features.contains(toUpdate)) { // feature value previously set to default
+        if (!fFeatures.contains(toUpdate)) { 
             toUpdate.setValue(newValue);
-            features.add(toUpdate);
+            fFeatures.add(toUpdate);
         }
         else if (setToDefault) {
-            features.remove(toUpdate);
+            fFeatures.remove(toUpdate);
         }
         else {
             toUpdate.setValue(newValue);
@@ -139,7 +146,7 @@ public class Constituent extends Node {
     }
     
     public boolean hasFeatures() {
-        return features.size() > 0;
+        return fFeatures.size() > 0;
     }
     
     /**
@@ -147,55 +154,33 @@ public class Constituent extends Node {
      * 
      * @return The list of all features.
      */
-    public List<Feature> getAllFeatures() {
-        ArrayList<Feature> allFeatures = new ArrayList<Feature>();
+    public List<Feature> getFeatures() {
+        List<Feature> allFeatures = new ArrayList<Feature>();
+        List<Feature> possibleFeatures = fPossibleFeatures.get(pk);
         
-        try {
-            String query =
-                    "SELECT Feature.name AS name " +
-                    "  FROM Feature " +
-                    "       JOIN SemanticCategory " +
-                    "         ON Feature.semanticCategoryPk = SemanticCategory.pk " +
-                    "       JOIN SyntacticCategory " +
-                    "         ON SemanticCategory.syntacticCategoryPk = SyntacticCategory.pk " +
-                    " WHERE SyntacticCategory.name = '" + syntacticCategory + "'; ";
-
-            ResultSet rs = DBUtil.executeQuery(query);
-            while (rs.next()) {
-                String featureName = rs.getString("name");
-                Feature feature = getFeature(featureName);
-                allFeatures.add(feature);
-            }
-            DBUtil.finishQuery();
-        } 
-        catch (SQLException ex) {
-            ex.printStackTrace();
+        if (possibleFeatures == null) {
+            DAOFactory factory = DAOFactory.getInstance();
+            ConstituentDAO dao = new ConstituentDAO(factory);
+            possibleFeatures = dao.getAllFeatures(this);
+            fPossibleFeatures.put(pk, possibleFeatures);
         }
         
+        for (Feature feature : possibleFeatures) {
+            boolean found = false;
+            for (Feature ownFeature : fFeatures) {
+                if (ownFeature.equals(feature)) {
+                    allFeatures.add(ownFeature);
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                allFeatures.add(feature);
+            }
+        }
         return allFeatures;
     }
    
-    
-    /**
-     * Returns the requested feature.
-     * @param name Name of the feature
-     * @return The feature with the appropriate name
-     */
-    // TODO return null if feature is not valid
-    private Feature getFeature(String name) {
-        Feature valid = null;
-        for (Feature feature : features) {
-            if (feature.getName().equals(name)) {
-                valid = feature;
-                break;
-            }
-        }
-        if (valid == null) {
-            valid = new Feature(name, this);
-        }
-        return valid;
-    }
-    
     protected void setConcept(Concept concept) {
         this.concept = concept;
     }
@@ -219,11 +204,12 @@ public class Constituent extends Node {
     
     // TODO __MASSIVE BUG check for equivalence
     public void moveChild(Constituent newChild, int index) {
+        System.out.println(newChild.parent == null);
         int oldIndex = children.indexOf(newChild);
-        System.out.println(newChild.fLevel);
-        System.out.println("index " + index);
+        System.out.println("Old index = " + oldIndex);
+        System.out.println("New index = " + index);
         
-        if (oldIndex != -1 && newChild.fLevel != -2
+        if (oldIndex != -1 
                 && (oldIndex == index || oldIndex + 1 == index) ) { // child is moved to same place 
             System.out.println("1");
             return;
@@ -284,7 +270,7 @@ public class Constituent extends Node {
     
     @Override
     public int hashCode() {
-        return this.toString().hashCode();
+        return this.toString().hashCode() + fLevel;
     }
 
     public String getSyntacticCategory() {
@@ -360,9 +346,18 @@ public class Constituent extends Node {
     }
 
     public void setFeatures(ArrayList<Feature> features) {
-        this.features = features;
+        this.fFeatures = features;
     }
     
+    void setPk(int aPk) {
+        pk = aPk;
+    }
+    
+    Integer getPk() {
+        return pk;
+    }
+    
+    private Integer pk;
     private String syntacticCategory;
     private String syntacticAbbreviation;
     private String semanticCategory;
@@ -370,7 +365,7 @@ public class Constituent extends Node {
     private String deepAbbreviation;
     private Constituent parent;
     private ArrayList<Constituent> children;
-    private ArrayList<Feature> features;
+    private ArrayList<Feature> fFeatures;
     private Concept concept;
     private Translation translation;
     

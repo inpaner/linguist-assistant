@@ -61,7 +61,7 @@ public class DraggableButton extends JButton {
     }
     
     protected Constituent getConstituent() {
-        return constituent;
+        return Constituent.copy(constituent);
     }
     
     protected static DataFlavor getFlavor() {

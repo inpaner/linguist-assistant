@@ -31,6 +31,19 @@ public class FeatureDAO {
             "       AND " +
             "       Feature.name = (?) ";
     
+    private static final String SQL_DEFAULT_VALUE = 
+            "SELECT FeatureValue.name AS name " +
+            "  FROM FeatureValue " +
+            "       JOIN Feature " +
+            "         ON FeatureValue.featurePk = Feature.pk " +
+            "       JOIN SemanticCategory " +
+            "         ON Feature.semanticCategoryPk = SemanticCategory.pk " +
+            "       JOIN SyntacticCategory " +
+            "         ON SemanticCategory.syntacticCategoryPk = SyntacticCategory.pk " +
+            " WHERE SyntacticCategory.name = (?) " +
+            "       AND " +
+            "       Feature.name = (?) " +
+            " LIMIT 1; ";
     
     public void main(String[] args) {
         Constituent cons = new Constituent(null);
@@ -69,5 +82,34 @@ public class FeatureDAO {
             DAOUtil.close(conn, ps, rs);
         }
         return possibleValues;
+    }
+    
+    String getDefaultValue(Feature aFeature) {
+        String defaultValue = "";
+        
+        Object[] values = {
+                aFeature.getParent().getSyntacticCategory(),
+                aFeature.getName()
+        };
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        
+        try {
+            String sql = SQL_DEFAULT_VALUE;
+            conn = fDAOFactory.getConnection();
+            ps = DAOUtil.prepareStatement(conn, sql, false, values);
+            rs = ps.executeQuery();
+            
+            rs.next();
+            
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally {
+            DAOUtil.close(conn, ps, rs);
+        }
+        return defaultValue;
     }
 }

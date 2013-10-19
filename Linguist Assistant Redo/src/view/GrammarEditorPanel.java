@@ -64,7 +64,7 @@ public class GrammarEditorPanel extends JPanel {
         featuresTable = new JTable(featureModel);
         featuresTable.addMouseListener(new FeatureTableListener());
         featuresPane = new JScrollPane(featuresTable);
-        selectedFeature = selectedConstituent.getAllFeatures().get(0);
+        selectedFeature = selectedConstituent.getFeatures().get(0);
         
         valuesModel = new ValueTableModel();
         valuesTable = new JTable(valuesModel);
@@ -146,7 +146,7 @@ public class GrammarEditorPanel extends JPanel {
         }
     
         public int getRowCount() {
-            return selectedConstituent.getAllFeatures().size();
+            return selectedConstituent.getFeatures().size();
         }
         
         public String getColumnName(int columnIndex) {
@@ -160,7 +160,7 @@ public class GrammarEditorPanel extends JPanel {
         }
     
         public Object getValueAt(int rowIndex, int columnIndex) {
-            Feature feature = selectedConstituent.getAllFeatures().get(rowIndex); 
+            Feature feature = selectedConstituent.getFeatures().get(rowIndex); 
             return feature;
         }
         
@@ -209,7 +209,7 @@ public class GrammarEditorPanel extends JPanel {
                 selectedConstituent = constituents.getItemAt(index);
                 featureModel.fireTableDataChanged();
                 try {
-                    selectedFeature = selectedConstituent.getAllFeatures().get(0);
+                    selectedFeature = selectedConstituent.getFeatures().get(0);
                     valuesModel.fireTableDataChanged();
                 }
                 catch (IndexOutOfBoundsException ex) {

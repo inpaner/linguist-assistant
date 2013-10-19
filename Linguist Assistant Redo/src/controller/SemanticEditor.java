@@ -26,16 +26,13 @@ public class SemanticEditor {
         display.addFeatureValuesListener(new ImpFeatureValuesListener());
         frame.setPanel(display);
         
-        Constituent con = new Constituent("C", null);
-        Constituent con2 = new Constituent("N", con);
-        Constituent con3 = new Constituent("V", con);
-        Constituent con4 = new Constituent("R", con);
-        Constituent con5 = new Constituent("E", con);
+        Constituent con = Constituent.get("C");
+        Constituent con2 = Constituent.get("N");
+        Constituent con3 = Constituent.get("V");
         
         con.addChild(con2);
         con.addChild(con3);
-        con.addChild(con4);
-        con.addChild(con5);
+        
         display.updateConstituent(con);
     }
     

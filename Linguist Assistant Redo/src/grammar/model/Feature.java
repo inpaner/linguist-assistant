@@ -11,6 +11,7 @@ import commons.dao.DAOFactory;
 import commons.dao.DBUtil;
 
 public class Feature extends Node {
+    private Integer fPk;
     private String fName;
     private String value;
     private Constituent parent;
@@ -20,6 +21,7 @@ public class Feature extends Node {
         fPossibleValues = new HashMap<>();
     }
     
+    
     protected Feature(String name, String value, Constituent parent) {
         this.fName = name;
         this.value = value;
@@ -27,43 +29,18 @@ public class Feature extends Node {
         fLevel = parent.getLevel() + 1;
     }
     
-    /**
-     * The constructor. Sets value to default.
-     * 
-     * @param name  Name of feature
-     * @param parent  Constituent that contains the feature
-     */
+    protected Feature(Integer aPk, String aName, Constituent aParent) {
+        this(aName, aParent);
+        fPk = aPk;
+    }
+    
     protected Feature(String name, Constituent parent) {
         this(name, null, parent);
         value = getDefaultValue();
     }
     
     public String getDefaultValue() {
-        String defaultValue = null;
-        try {
-            String query = 
-                    "SELECT FeatureValue.name AS name " +
-                    "  FROM FeatureValue " +
-                    "       JOIN Feature " +
-                    "         ON FeatureValue.featurePk = Feature.pk " +
-                    "       JOIN SemanticCategory " +
-                    "         ON Feature.semanticCategoryPk = SemanticCategory.pk " +
-                    "       JOIN SyntacticCategory " +
-                    "         ON SemanticCategory.syntacticCategoryPk = SyntacticCategory.pk " +
-                    " WHERE SyntacticCategory.name = '" + parent.getSyntacticCategory() + "'  " +
-                    "       AND " +
-                    "       Feature.name = '" + fName + "'" +
-                    " LIMIT 1; ";
-
-            ResultSet rs = DBUtil.executeQuery(query);
-            rs.next();
-            defaultValue = rs.getString("name"); 
-            DBUtil.finishQuery();
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return defaultValue;
+        return getPossibleValues().get(0);
     }
     
     public String getName() {
@@ -85,13 +62,6 @@ public class Feature extends Node {
     @Override
     public String toString() {
         return fName;
-    }
-    
-    public void sysout() {
-        String sl = String.valueOf(fLevel + 1);
-        
-        String spaces = String.format("%" + sl + "s", ""); 
-        System.out.println(spaces + fName + " : " + value);
     }
     
     public static void main(String[] args) {

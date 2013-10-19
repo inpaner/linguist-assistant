@@ -13,7 +13,8 @@ import commons.dao.DBUtil;
 
 public class ConstituentDAO {
     private static final String SQL_GET_BY_SYNTACTIC_ABBR = 
-            "SELECT SemanticCategory.name AS semName, " +
+            "SELECT SemanticCategory.pk AS pk, " +
+            "       SemanticCategory.name AS semName, " +
             "       SemanticCategory.abbreviation AS semAbbr, " +
             "       SemanticCategory.deepAbbreviation AS deepAbbr, " +
             "       SyntacticCategory.name AS synName, " +
@@ -24,7 +25,8 @@ public class ConstituentDAO {
             " WHERE SyntacticCategory.abbreviation = (?); ";
     
     private static final String SQL_GET_ALL = 
-            "SELECT SemanticCategory.name AS semName, " +
+            "SELECT SemanticCategory.pk AS pk, " +
+            "       SemanticCategory.name AS semName, " +
             "       SemanticCategory.abbreviation AS semAbbr, " +
             "       SemanticCategory.deepAbbreviation AS deepAbbr, " +
             "       SyntacticCategory.name AS synName, " +
@@ -33,16 +35,13 @@ public class ConstituentDAO {
             "       JOIN SyntacticCategory " +
             "         ON SemanticCategory.syntacticCategoryPk = SyntacticCategory.pk ";
     
+    private static final String SQL_GET_ALL_FEATURES = 
+            "SELECT pk, name " +
+            "  FROM Feature " +
+            " WHERE semanticCategoryPK = (?); ";
+    
     public ConstituentDAO(DAOFactory aDAOFactory) {
         fDAOFactory = aDAOFactory;
-    }
-    
-    public static void main(String[] args) {
-        DAOFactory factory = DAOFactory.getInstance();
-        ConstituentDAO dao = new ConstituentDAO(factory);
-        for (Constituent c : dao.getAllConstituents()) {
-            System.out.println(c.getDeepAbbreviation());
-        }
     }
     
     public Constituent getBySyntacticAbbr(String syntacticAbbr) {
@@ -99,8 +98,42 @@ public class ConstituentDAO {
         return allConstituents;
     }
     
+    public List<Feature> getAllFeatures(Constituent constituent) {
+        ArrayList<Feature> allFeatures = new ArrayList<Feature>();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Object[] values = {
+                constituent.getPk()
+        };
+
+        try {
+            String sql = SQL_GET_ALL_FEATURES;
+            conn = fDAOFactory.getConnection();
+            ps = DAOUtil.prepareStatement(conn, sql, false, values);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Integer pk = rs.getInt("pk");
+                String name = rs.getString("name");
+                allFeatures.add(new Feature(pk, name, constituent));
+            }
+            
+        } 
+        catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        finally {
+            DAOUtil.close(conn, ps, rs);
+        }
+        
+        
+        
+        return allFeatures;
+    }
+    
     private Constituent map(ResultSet rs) throws SQLException {
         Constituent constituent = new Constituent();
+        constituent.setPk(rs.getInt("pk"));
         constituent.setSyntacticCategory(rs.getString("synName"));
         constituent.setSyntacticAbbreviation(rs.getString("synAbbr"));
         constituent.setSemanticCategory(rs.getString("semName"));
