@@ -1,10 +1,13 @@
-package grammar.model;
+package ontology.model;
+
+import grammar.model.Constituent;
+import grammar.model.Node;
 
 public class Concept extends Node {
     private String name;
     private Constituent parent;
     
-    protected Concept(String name, Constituent parent) {
+    public Concept(String name, Constituent parent) {
         this.name = name;
         this.parent = parent;
         fLevel = parent.getLevel() + 1;
@@ -22,14 +25,7 @@ public class Concept extends Node {
     public String toString() {
         return name;
     }
-    
-    public void sysout() {
-        String sl = String.valueOf(fLevel + 1);
-        
-        String spaces = String.format("%" + sl + "s", ""); 
-        System.out.println(spaces + name);
-    }
-    
+
     @Override
     public boolean equals(Object other) {
         if (other == null)

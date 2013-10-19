@@ -13,6 +13,8 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import commons.view.MainFrame;
+
 import net.miginfocom.swing.MigLayout;
 
 @SuppressWarnings("serial")

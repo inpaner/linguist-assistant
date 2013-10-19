@@ -7,6 +7,8 @@ import grammar.model.XMLParser;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import commons.view.MainFrame;
+
 import net.miginfocom.swing.MigLayout;
 
 import java.awt.event.ActionListener;

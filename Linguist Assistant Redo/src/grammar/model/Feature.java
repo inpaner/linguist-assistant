@@ -1,14 +1,12 @@
 package grammar.model;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import commons.dao.DAOFactory;
-import commons.dao.DBUtil;
+
 
 public class Feature extends Node {
     private Integer fPk;
@@ -21,13 +19,13 @@ public class Feature extends Node {
         fPossibleValues = new HashMap<>();
     }
     
-    
     protected Feature(String name, String value, Constituent parent) {
         this.fName = name;
         this.value = value;
         this.parent = parent;
         fLevel = parent.getLevel() + 1;
     }
+    
     
     protected Feature(Integer aPk, String aName, Constituent aParent) {
         this(aName, aParent);
@@ -41,6 +39,10 @@ public class Feature extends Node {
     
     public String getDefaultValue() {
         return getPossibleValues().get(0);
+    }
+    
+    public void setName(String aName) {
+        fName = aName;
     }
     
     public String getName() {
@@ -106,5 +108,9 @@ public class Feature extends Node {
     @Override
     public int hashCode() {
         return this.toString().hashCode();
+    }
+    
+    public Integer getPk() {
+        return fPk;
     }
 }

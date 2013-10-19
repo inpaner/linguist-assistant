@@ -3,12 +3,12 @@ package controller;
 import grammar.model.Constituent;
 import grammar.model.Feature;
 import commons.dao.DBUtil;
+import commons.view.MainFrame;
 import view.AddConstituentListener;
 import view.AddConstituentPanel;
 import view.BlockListener;
 import view.FeatureValuesListener;
 import view.GenericDialog;
-import view.MainFrame;
 import view.SemanticEditorPanel;
 
 public class SemanticEditor {

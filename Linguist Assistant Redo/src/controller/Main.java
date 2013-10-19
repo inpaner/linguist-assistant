@@ -8,7 +8,8 @@ import java.awt.Dimension;
 
 import javax.swing.JPanel;
 
-import view.MainFrame;
+import commons.view.MainFrame;
+
 import view.SemanticEditorPanel;
 
 public class Main {

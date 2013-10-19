@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import ontology.model.Concept;
 import commons.dao.DAOFactory;
 import commons.dao.DBUtil;
 
@@ -149,11 +150,6 @@ public class Constituent extends Node {
         return fFeatures.size() > 0;
     }
     
-    /**
-     * Gets all features including those with default values.
-     * 
-     * @return The list of all features.
-     */
     public List<Feature> getFeatures() {
         List<Feature> allFeatures = new ArrayList<Feature>();
         List<Feature> possibleFeatures = fPossibleFeatures.get(pk);
@@ -202,7 +198,6 @@ public class Constituent extends Node {
         return isAncestor(potential.parent);
     }
     
-    // TODO __MASSIVE BUG check for equivalence
     public void moveChild(Constituent newChild, int index) {
         System.out.println(newChild.parent == null);
         int oldIndex = children.indexOf(newChild);

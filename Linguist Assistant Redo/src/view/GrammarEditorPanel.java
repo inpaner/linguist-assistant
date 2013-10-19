@@ -22,6 +22,8 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 
+import commons.view.MainFrame;
+
 import net.miginfocom.swing.MigLayout;
 
 @SuppressWarnings("serial")

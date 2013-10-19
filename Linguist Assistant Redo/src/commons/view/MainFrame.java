@@ -1,4 +1,4 @@
-package view;
+package commons.view;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
