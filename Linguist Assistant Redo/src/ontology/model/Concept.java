@@ -3,27 +3,63 @@ package ontology.model;
 import grammar.model.Constituent;
 import grammar.model.Node;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class Concept extends Node {
-    private String name;
-    private Constituent parent;
+    private String fStem;
+    private String fGloss;
+    private Constituent fConstituent;
     
-    public Concept(String name, Constituent parent) {
-        this.name = name;
-        this.parent = parent;
-        fLevel = parent.getLevel() + 1;
+    private final static List<String> senseList = 
+            Arrays.asList("A", "B", "C", "D", "E", "F", "G",
+                    "H", "I", "J", "K", "L", "M", "N", "O",
+                    "P", "Q", "R", "S", "T", "U", "V", "W",
+                    "X", "Y", "Z", "AA", "AB", "AC", "AD");
+    
+    // max of 30 senses only
+    public static String getNextSense(String aSense) {
+        String sense = senseList.get(0);
+        if (aSense != null && !aSense.isEmpty()) {
+            int index = senseList.indexOf(aSense);
+            sense = senseList.get(index + 1);
+        }
+        return sense;
+    }
+    
+    public Concept(Constituent aConstituent) {
+        this.fConstituent = aConstituent;
+        fLevel = aConstituent.getLevel() + 1;
+    }
+    
+    public Concept(String aStem, Constituent aConstituent) {
+        this(aConstituent);
+        this.fStem = aStem;
     }
     
     public Constituent getParent() {
-        return parent;
+        return fConstituent;
+    }
+    
+    public void setStem(String aStem) {
+        fStem = aStem;
     }
     
     public String getName() {
-        return name;
+        return fStem;
+    }
+    
+    public void setGloss(String aGloss) {
+        fGloss = aGloss;
+    }
+    
+    public String getGloss() {
+        return fGloss;
     }
     
     @Override
     public String toString() {
-        return name;
+        return fStem;
     }
 
     @Override

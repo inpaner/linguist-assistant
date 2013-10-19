@@ -348,7 +348,7 @@ public class Constituent extends Node {
         pk = aPk;
     }
     
-    Integer getPk() {
+    public Integer getPk() {
         return pk;
     }
     
