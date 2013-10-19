@@ -1,5 +1,8 @@
 package view;
 
+import grammar.model.Constituent;
+import grammar.model.Feature;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -19,8 +22,6 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 
-import model.Constituent;
-import model.Feature;
 import net.miginfocom.swing.MigLayout;
 
 @SuppressWarnings("serial")
@@ -83,6 +84,7 @@ public class GrammarEditorPanel extends JPanel {
                  TextDialog dialog = new TextDialog("Feature name");
                  String name = dialog.getText();
                  System.out.println(name);
+                 selectedConstituent.addNewFeature(name);
             }
         });
         editFeature.addActionListener(new ActionListener() {

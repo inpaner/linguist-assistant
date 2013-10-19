@@ -1,4 +1,4 @@
-package model;
+package grammar.model;
 
 import java.io.Serializable;
 import java.sql.ResultSet;
@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
+import commons.dao.DBUtil;
 
 /**
  * Blah di blah
@@ -38,7 +40,7 @@ public class Constituent extends Node {
             while (rs.next()) {
                 String abbr = rs.getString("synAbbr");
                 Constituent constituent = new Constituent(abbr, null);
-                constituent.level = -2;
+                constituent.fLevel = -2;
                 allConstituents.add(constituent);
             }
             DBUtil.finishQuery();
@@ -77,11 +79,15 @@ public class Constituent extends Node {
         }
     }
     
+    Constituent() {
+        
+    }
+    
     public Constituent(Constituent parent) {
         if (parent == null) {
-            level = 0;
+            fLevel = 0;
         } else {
-            level = parent.getLevel() + 1;
+            fLevel = parent.getLevel() + 1;
         }
         this.parent = parent;
         children = new ArrayList<>();
@@ -218,10 +224,10 @@ public class Constituent extends Node {
     // TODO __MASSIVE BUG check for equivalence
     public void moveChild(Constituent newChild, int index) {
         int oldIndex = children.indexOf(newChild);
-        System.out.println(newChild.level);
+        System.out.println(newChild.fLevel);
         System.out.println("index " + index);
         
-        if (oldIndex != -1 && newChild.level != -2
+        if (oldIndex != -1 && newChild.fLevel != -2
                 && (oldIndex == index || oldIndex + 1 == index) ) { // child is moved to same place 
             System.out.println("1");
             return;
@@ -253,24 +259,7 @@ public class Constituent extends Node {
         }
         
         newChild.parent = this;
-        newChild.level = level + 1;
-    }
-    
-    // TODO remove
-    public void sysout() {
-        char[] chars = new char[level + 1];
-        Arrays.fill(chars, '-');
-        String result = new String(chars);
-        System.out.println(result + syntacticCategory);
-        for (Feature feature : features) {
-            feature.sysout();
-        }
-        if (concept != null) {
-            concept.sysout();
-        }
-        for (Constituent constituent : children) {
-            constituent.sysout();
-        }
+        newChild.fLevel = fLevel + 1;
     }
     
     @Override
@@ -290,9 +279,9 @@ public class Constituent extends Node {
             return false;
         
         // really questionable implementation <_<
-        String falseName = syntacticCategory + level;
+        String falseName = syntacticCategory + fLevel;
         Constituent otherCon = (Constituent) other;
-        return falseName.equals(otherCon.syntacticCategory + otherCon.level) 
+        return falseName.equals(otherCon.syntacticCategory + otherCon.fLevel) 
                         ? true 
                         : false;
     }
@@ -318,14 +307,63 @@ public class Constituent extends Node {
             ResultSet rs = DBUtil.executeQuery(query);
             rs.next();
             int pk = rs.getInt("pk");
+            DBUtil.finishQuery();
             String update =
                     "INSERT INTO Feature(name, semanticCategoryPk) " +
-                    "values (?, "+ pk +")";
+                    "values ('" + string +"', "+ pk +")";
             DBUtil.executeUpdate(update);
-            DBUtil.finishQuery();
+            
         } 
         catch (SQLException ex) {
             ex.printStackTrace();
         }
+    }
+
+    public String getSyntacticAbbreviation() {
+        return syntacticAbbreviation;
+    }
+
+    public String getSemanticCategory() {
+        return semanticCategory;
+    }
+
+    public String getSemanticAbbreviation() {
+        return semanticAbbreviation;
+    }
+
+    public String getDeepAbbreviation() {
+        return deepAbbreviation;
+    }
+
+    public void setSyntacticCategory(String syntacticCategory) {
+        this.syntacticCategory = syntacticCategory;
+    }
+
+    public void setSyntacticAbbreviation(String syntacticAbbreviation) {
+        this.syntacticAbbreviation = syntacticAbbreviation;
+    }
+
+    public void setSemanticCategory(String semanticCategory) {
+        this.semanticCategory = semanticCategory;
+    }
+
+    public void setSemanticAbbreviation(String semanticAbbreviation) {
+        this.semanticAbbreviation = semanticAbbreviation;
+    }
+
+    public void setDeepAbbreviation(String deepAbbreviation) {
+        this.deepAbbreviation = deepAbbreviation;
+    }
+
+    public void setParent(Constituent parent) {
+        this.parent = parent;
+    }
+
+    public void setChildren(ArrayList<Constituent> children) {
+        this.children = children;
+    }
+
+    public void setFeatures(ArrayList<Feature> features) {
+        this.features = features;
     }
 }

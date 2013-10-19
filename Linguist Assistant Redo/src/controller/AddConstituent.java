@@ -1,9 +1,10 @@
 package controller;
 
+import grammar.model.Constituent;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import model.Constituent;
 import view.AddConstituentListener;
 import view.AddConstituentPanel;
 import view.GenericDialog;

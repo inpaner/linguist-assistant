@@ -1,4 +1,4 @@
-package model;
+package grammar.model;
 
 public class Concept extends Node {
     private String name;
@@ -7,7 +7,7 @@ public class Concept extends Node {
     protected Concept(String name, Constituent parent) {
         this.name = name;
         this.parent = parent;
-        level = parent.getLevel() + 1;
+        fLevel = parent.getLevel() + 1;
     }
     
     public Constituent getParent() {
@@ -24,7 +24,7 @@ public class Concept extends Node {
     }
     
     public void sysout() {
-        String sl = String.valueOf(level + 1);
+        String sl = String.valueOf(fLevel + 1);
         
         String spaces = String.format("%" + sl + "s", ""); 
         System.out.println(spaces + name);

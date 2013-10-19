@@ -1,12 +1,14 @@
 package view;
 
+import grammar.model.Constituent;
+import grammar.model.Root;
+import grammar.model.XMLParser;
+
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import model.Constituent;
-import model.Root;
-import model.XMLParser;
 import net.miginfocom.swing.MigLayout;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 

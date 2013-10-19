@@ -1,4 +1,7 @@
 package display;
+import grammar.model.Constituent;
+import grammar.model.Feature;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.ArrayList;
@@ -16,9 +19,6 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 import uitextgen.UITEXTGEN;
-
-import model.Constituent;
-import model.Feature;
 
 //TO DO:
 //update y-size dynamically

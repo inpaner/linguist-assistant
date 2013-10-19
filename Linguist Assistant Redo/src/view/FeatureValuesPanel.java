@@ -1,5 +1,8 @@
 package view;
 
+import grammar.model.Constituent;
+import grammar.model.Feature;
+
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
@@ -15,8 +18,6 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellEditor;
 
 import net.miginfocom.swing.MigLayout;
-import model.Constituent;
-import model.Feature;
 
 // http://stackoverflow.com/a/4211552
 @SuppressWarnings("serial")

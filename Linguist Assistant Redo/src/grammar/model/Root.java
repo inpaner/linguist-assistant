@@ -1,4 +1,4 @@
-package model;
+package grammar.model;
 
 import java.util.ArrayList;
 
@@ -17,11 +17,6 @@ public class Root {
     public void addConstituent(Constituent constituent) {
         constituents.add(constituent);
     }
-    
-    public void sysout() {
-        for (Constituent constituent : constituents) {
-            constituent.sysout();
-        }
-    }
+
 
 }

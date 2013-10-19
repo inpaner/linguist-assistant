@@ -1,4 +1,4 @@
-package model;
+package grammar.model;
 
 import java.io.File;
 import java.io.IOException;
@@ -61,7 +61,6 @@ public class XMLParser {
             ex.printStackTrace();
         }
         
-        root.sysout();
         return root;
     }
     

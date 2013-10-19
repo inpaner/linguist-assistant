@@ -1,12 +1,13 @@
 package view;
 
+import grammar.model.Constituent;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import model.Constituent;
 import net.miginfocom.swing.MigLayout;
 
 public class BlocksPanel extends JPanel {

@@ -1,5 +1,8 @@
 package view;
 
+import grammar.model.Constituent;
+import grammar.model.Feature;
+
 import java.awt.Dimension;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
@@ -14,8 +17,6 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import model.Constituent;
-import model.Feature;
 import net.miginfocom.swing.MigLayout;
 
 @SuppressWarnings("serial")

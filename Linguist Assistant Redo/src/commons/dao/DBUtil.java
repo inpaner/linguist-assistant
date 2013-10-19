@@ -1,4 +1,4 @@
-package model;
+package commons.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -68,10 +68,10 @@ public class DBUtil {
     
     public static Connection newConnection() {            
         try {
-            Class.forName("org.sqlite.JDBC").newInstance();
+            Class.forName("org.sqlite.JDBC");
             conn = DriverManager.getConnection("jdbc:sqlite:LAR.db");
         }
-        catch(Exception e){
+        catch(Exception e) {
             e.printStackTrace();
         }
         return conn;

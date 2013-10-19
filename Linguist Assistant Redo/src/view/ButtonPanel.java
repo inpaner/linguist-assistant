@@ -1,9 +1,10 @@
 package view;
 
+import grammar.model.Constituent;
+
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import model.Constituent;
 import net.miginfocom.swing.MigLayout;
 
 @SuppressWarnings("serial")

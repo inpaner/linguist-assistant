@@ -1,5 +1,7 @@
 package view;
 
+import grammar.model.Constituent;
+
 import java.awt.Cursor;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
@@ -14,8 +16,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
-
-import model.Constituent;
 
 @SuppressWarnings("serial")
 public class DraggableButton extends JButton {

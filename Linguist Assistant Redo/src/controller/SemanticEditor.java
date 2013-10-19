@@ -1,8 +1,8 @@
 package controller;
 
-import model.Constituent;
-import model.DBUtil;
-import model.Feature;
+import grammar.model.Constituent;
+import grammar.model.Feature;
+import commons.dao.DBUtil;
 import view.AddConstituentListener;
 import view.AddConstituentPanel;
 import view.BlockListener;
@@ -16,8 +16,7 @@ public class SemanticEditor {
     
     public static void main(String[] args) {
         new SemanticEditor();
-        //String update = "INSERT INTO Feature(name, semanticCategoryPk) values ('mest', 1)";
-        //DBUtil.executeUpdate(update);
+        
     }
     
     public SemanticEditor() {

@@ -1,4 +1,4 @@
-package model;
+package grammar.model;
 
 public class Translation {
     private String name;

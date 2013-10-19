@@ -4,6 +4,10 @@
  */
 package uitextgen;
 
+import grammar.model.Constituent;
+import grammar.model.Root;
+import grammar.model.XMLParser;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -11,15 +15,12 @@ import java.awt.event.MouseListener;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 import display.Block;
-
-import model.Constituent;
-import model.Root;
-import model.XMLParser;
 
 
 public class UITEXTGEN extends JFrame implements ActionListener {

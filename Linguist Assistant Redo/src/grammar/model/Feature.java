@@ -1,22 +1,31 @@
-package model;
+package grammar.model;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import commons.dao.DAOFactory;
+import commons.dao.DBUtil;
 
 public class Feature extends Node {
-    private String name;
+    private String fName;
     private String value;
     private Constituent parent;
+    private static Map<String, List<String>> fPossibleValues;
     
-    protected Feature(String name, String value, Constituent parent) {
-        this.name = name;
-        this.value = value;
-        this.parent = parent;
-        level = parent.getLevel() + 1;
+    static {
+        fPossibleValues = new HashMap<>();
     }
     
+    protected Feature(String name, String value, Constituent parent) {
+        this.fName = name;
+        this.value = value;
+        this.parent = parent;
+        fLevel = parent.getLevel() + 1;
+    }
     
     /**
      * The constructor. Sets value to default.
@@ -27,7 +36,7 @@ public class Feature extends Node {
     protected Feature(String name, Constituent parent) {
         this(name, null, parent);
         value = getDefaultValue();
-    } 
+    }
     
     public String getDefaultValue() {
         String defaultValue = null;
@@ -43,7 +52,7 @@ public class Feature extends Node {
                     "         ON SemanticCategory.syntacticCategoryPk = SyntacticCategory.pk " +
                     " WHERE SyntacticCategory.name = '" + parent.getSyntacticCategory() + "'  " +
                     "       AND " +
-                    "       Feature.name = '" + name + "'" +
+                    "       Feature.name = '" + fName + "'" +
                     " LIMIT 1; ";
 
             ResultSet rs = DBUtil.executeQuery(query);
@@ -58,7 +67,7 @@ public class Feature extends Node {
     }
     
     public String getName() {
-        return name;
+        return fName;
     }
     
     public String getValue() {
@@ -75,14 +84,14 @@ public class Feature extends Node {
     
     @Override
     public String toString() {
-        return name;
+        return fName;
     }
     
     public void sysout() {
-        String sl = String.valueOf(level + 1);
+        String sl = String.valueOf(fLevel + 1);
         
         String spaces = String.format("%" + sl + "s", ""); 
-        System.out.println(spaces + name + " : " + value);
+        System.out.println(spaces + fName + " : " + value);
     }
     
     public static void main(String[] args) {
@@ -97,29 +106,14 @@ public class Feature extends Node {
     }
     
     public List<String> getPossibleValues() {
-        ArrayList<String> values = new ArrayList<>();
-        try {
-            String query = 
-                    "SELECT FeatureValue.name AS name " +
-                    "  FROM FeatureValue " +
-                    "       JOIN Feature " +
-                    "         ON FeatureValue.featurePk = Feature.pk " +
-                    "       JOIN SemanticCategory " +
-                    "         ON Feature.semanticCategoryPk = SemanticCategory.pk " +
-                    "       JOIN SyntacticCategory " +
-                    "         ON SemanticCategory.syntacticCategoryPk = SyntacticCategory.pk " +
-                    " WHERE SyntacticCategory.name = '" + parent.getLabel() + "' " +
-                    "       AND " +
-                    "       Feature.name = '" + name + "';";
-            ResultSet rs = DBUtil.executeQuery(query);
-            while (rs.next()) {
-                values.add(rs.getString("name"));
-            }
-            DBUtil.finishQuery();
+        List<String> values = fPossibleValues.get(fName);
+        if (values == null) {
+            DAOFactory factory = DAOFactory.getInstance();
+            FeatureDAO dao = new FeatureDAO(factory);
+            values = dao.getPossibleValues(this);
+            fPossibleValues.put(fName, values);
         }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
+        
         return values;
     }
     

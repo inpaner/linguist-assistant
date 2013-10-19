@@ -1,6 +1,6 @@
 package view;
 
-import model.Constituent;
+import grammar.model.Constituent;
 
 public interface AddConstituentListener {
     public abstract void clickedOk(Constituent constituent);

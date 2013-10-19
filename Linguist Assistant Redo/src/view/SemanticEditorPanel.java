@@ -1,5 +1,9 @@
 package view;
 
+import grammar.model.Constituent;
+import grammar.model.FileBrowsing;
+import grammar.model.XMLParser;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -9,9 +13,6 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import model.Constituent;
-import model.FileBrowsing;
-import model.XMLParser;
 import net.miginfocom.swing.MigLayout;
 
 @SuppressWarnings("serial")

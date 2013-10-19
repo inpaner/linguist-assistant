@@ -1,12 +1,13 @@
 package controller;
 
+import grammar.model.Constituent;
+import grammar.model.Root;
+import grammar.model.XMLParser;
+
 import java.awt.Dimension;
 
 import javax.swing.JPanel;
 
-import model.Constituent;
-import model.Root;
-import model.XMLParser;
 import view.MainFrame;
 import view.SemanticEditorPanel;
 
