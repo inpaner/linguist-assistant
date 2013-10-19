@@ -68,7 +68,7 @@ public class DBUtil {
     
     public static Connection newConnection() {            
         try {
-            Class.forName("org.sqlite.JDBC").newInstance();
+            Class.forName("org.sqlite.JDBC");
             conn = DriverManager.getConnection("jdbc:sqlite:LAR.db");
         }
         catch(Exception e){

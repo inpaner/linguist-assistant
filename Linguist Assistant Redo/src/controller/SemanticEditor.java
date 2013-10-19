@@ -1,6 +1,7 @@
 package controller;
 
 import model.Constituent;
+import model.DBUtil;
 import model.Feature;
 import view.AddConstituentListener;
 import view.AddConstituentPanel;
@@ -15,6 +16,8 @@ public class SemanticEditor {
     
     public static void main(String[] args) {
         new SemanticEditor();
+        //String update = "INSERT INTO Feature(name, semanticCategoryPk) values ('mest', 1)";
+        //DBUtil.executeUpdate(update);
     }
     
     public SemanticEditor() {
