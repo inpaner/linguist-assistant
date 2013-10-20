@@ -5,12 +5,12 @@ import grammar.model.Constituent;
 import java.util.List;
 
 import ontology.model.Concept;
-import ontology.view.OntologyListPanel;
+import ontology.view.OntologyList;
 import commons.view.MainFrame;
 
 public class OntologyManager {
     Constituent noun;
-    OntologyListPanel panel;
+    OntologyList panel;
     
     public static void main(String[] args) {
         new OntologyManager().testCase();
@@ -18,7 +18,7 @@ public class OntologyManager {
     
     private void testCase() {
         MainFrame frame = new MainFrame();
-        panel = new OntologyListPanel();
+        panel = new OntologyList();
         frame.setPanel(panel);
 
         panel.addListener(new OntologyListListener());    
@@ -29,7 +29,7 @@ public class OntologyManager {
         panel.refreshConcepts(concepts);
     }
     
-    private class OntologyListListener implements OntologyListPanel.Listener {
+    private class OntologyListListener implements OntologyList.Listener {
         @Override
         public void searchChanged(String text) {
             
@@ -44,6 +44,5 @@ public class OntologyManager {
             // will be helpful for displaying details
             System.out.println(selected);
         }
-        
     }
 }

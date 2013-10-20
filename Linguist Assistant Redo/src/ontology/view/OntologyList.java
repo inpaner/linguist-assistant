@@ -20,8 +20,8 @@ import net.miginfocom.swing.MigLayout;
 import ontology.model.Concept;
 
 @SuppressWarnings("serial")
-public class OntologyListPanel extends JPanel {
-    private List<OntologyListPanel.Listener> listeners;
+public class OntologyList extends JPanel {
+    private List<OntologyList.Listener> listeners;
     private List<Concept> concepts;
     private JTextField searchField;
     private JTable table;
@@ -32,7 +32,7 @@ public class OntologyListPanel extends JPanel {
         public abstract void selected(Concept selected);
     }
 
-    public OntologyListPanel() {
+    public OntologyList() {
         this.listeners = new ArrayList<>();
         this.model = new OntologyTableModel();
         this.table = new JTable();
@@ -58,7 +58,7 @@ public class OntologyListPanel extends JPanel {
         model.fireTableDataChanged();
     }
     
-    public void addListener(OntologyListPanel.Listener listener) {
+    public void addListener(OntologyList.Listener listener) {
         this.listeners.add(listener);
     }
     
@@ -113,14 +113,14 @@ public class OntologyListPanel extends JPanel {
 
         @Override
         public void insertUpdate(DocumentEvent ev) {
-            for (OntologyListPanel.Listener listener : listeners) {
+            for (OntologyList.Listener listener : listeners) {
                 listener.searchChanged(searchField.getText());
             }
         }
         
         @Override
         public void removeUpdate(DocumentEvent ev) {
-            for (OntologyListPanel.Listener listener : listeners) {
+            for (OntologyList.Listener listener : listeners) {
                 listener.searchChanged(searchField.getText());
             }
         }        
@@ -133,7 +133,7 @@ public class OntologyListPanel extends JPanel {
                 ListSelectionModel lsm = (ListSelectionModel) ev.getSource();
                 int index = lsm.getMinSelectionIndex();
                 Concept selected = concepts.get(index);
-                for (OntologyListPanel.Listener listener : listeners) {
+                for (OntologyList.Listener listener : listeners) {
                     listener.selected(selected);
                 }
             }
