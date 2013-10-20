@@ -40,7 +40,8 @@ public class EditFeatureLexiconUI extends JFrame{
 				features.add(value);
 			}
 		}
-		//Feature f=new Feature(feature.getSelectedItem().toString(),null);
+		Feature f=new Feature(feature.getSelectedItem().toString());
+		//TOFO: save feature somehow
 	}
 	public void initialize(){
 		

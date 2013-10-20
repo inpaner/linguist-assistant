@@ -287,7 +287,7 @@ public class LexiconUI extends JFrame {
     	   
     	   public void actionPerformed(ActionEvent arg0) {
     		   	
-    		   	 //c=new Constituent(syntacticCategory.getSelectedItem().toString(),null,0);
+    		   	 c=new Constituent(syntacticCategory.getSelectedItem().toString(),null,0);
     		   getConcepts();
     		    updateFeatureColumns();
     		    populateTable(concepts);
@@ -314,6 +314,13 @@ public class LexiconUI extends JFrame {
     	   
     	   public void actionPerformed(ActionEvent arg0) {
     		   	EditFeatureLexiconUI featureEditor=new EditFeatureLexiconUI(c);
+   			}
+   		});
+       newstem.addActionListener(new ActionListener()
+       {
+    	   
+    	   public void actionPerformed(ActionEvent arg0) {
+    		   NewStemLexiconUI stemAdder=new NewStemLexiconUI();
    			}
    		});
    }
