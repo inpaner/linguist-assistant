@@ -51,6 +51,7 @@ public class LexiconUI extends JFrame {
     JComboBox syntacticCategory = new JComboBox();
     private JTable table;
     private JScrollPane tablePane;
+    List<Concept> concepts;
     Constituent c;
    public LexiconUI(){
        initialize();
@@ -87,7 +88,9 @@ public class LexiconUI extends JFrame {
        awords = new JButton("Add Words");
        edomains = new JButton("Edit Domains");
        vdomains = new JButton("View Domains");
-       
+       getConcepts();
+       setDefaultModel();
+       populateTable(concepts);
   
        
        
@@ -95,7 +98,11 @@ public class LexiconUI extends JFrame {
      //  syntacticCategory.addMouseListener(l);
     
    }
-   
+   public void getConcepts()
+   {
+		c=Constituent.getBySyntacticCategory(syntacticCategory.getSelectedItem().toString());
+	    concepts = Concept.getInstances("", c);
+   }
    public void setBounds(){
        syntacticCategory.setBounds(150, 24, 200, 20);
        sCategory.setBounds(30,24,150,20);
@@ -199,6 +206,7 @@ public class LexiconUI extends JFrame {
                        setDefaultModel();
                        model.addColumn("Comments");
                        model.addColumn("Sample Sentences");
+                       populateTable(concepts);
             table.setModel(model);
 			}
 		});
@@ -218,6 +226,7 @@ public class LexiconUI extends JFrame {
                         edomains.setVisible(false);
                         vdomains.setVisible(false);
                         updateFeatureColumns();
+                        populateTable(concepts);
 			}
 		});
        
@@ -236,6 +245,7 @@ public class LexiconUI extends JFrame {
                         edomains.setVisible(false);
                         vdomains.setVisible(false);
                         setDefaultModel();
+                        populateTable(concepts);
                       //TODO: add columns based on forms of selected POS.
                         table.setModel(model);
            
@@ -259,6 +269,7 @@ public class LexiconUI extends JFrame {
            
           setDefaultModel();
           model.addColumn("Semantic Domains");
+          populateTable(concepts);
            table.setModel(model);
           
 
@@ -270,8 +281,7 @@ public class LexiconUI extends JFrame {
     	   public void actionPerformed(ActionEvent arg0) {
     		   	
     		   	 //c=new Constituent(syntacticCategory.getSelectedItem().toString(),null,0);
-    		   	c=Constituent.getBySyntacticCategory(syntacticCategory.getSelectedItem().toString());
-    		    List<Concept> concepts = Concept.getInstances("", c);
+    		   getConcepts();
     		    updateFeatureColumns();
     		    populateTable(concepts);
     		  System.out.println(c.getLabel());
@@ -307,6 +317,26 @@ public class LexiconUI extends JFrame {
    public void setDefaultModel(){
 	   model= new DefaultTableModel(
    	       	new Object[][] {
+   	     		{null, null},
+   	       		{null, null},
+   	       		{null, null},
+   	       		{null, null},
+   	       		{null, null},
+   	       		{null, null},
+   	       		{null, null},
+   	       		{null, null},
+   	       		{null, null},
+   	       		{null, null},
+   	       		{null, null},
+   	       		{null, null},
+   	       		{null, null},
+   	       		{null, null},
+   	       		{null, null},
+   	       		{null, null},
+   	       		{null, null},
+   	       		{null, null},
+   	       		{null, null},
+   	       		{null, null},
    	       		{null, null},
    	       		{null, null},
    	       		{null, null},
@@ -335,7 +365,19 @@ public class LexiconUI extends JFrame {
    }
    public void populateTable(List<Concept> concepts)
    {
-	   //get all concepts/definitions from DB that have pos as a label
+	   int i=0;
+	   for(Concept concept: concepts)
+	   {
+		   if(i>=model.getRowCount())
+		   {
+			   model.addRow(new Object[]{});
+		   }
+		   model.setValueAt(concept.getStem(), i, 0);
+		   model.setValueAt(concept.getGloss(),i,1);
+		 
+		   i++;
+	   }
+	  
    }
     public static void main(String[] args) {
         LexiconUI lui = new LexiconUI();
