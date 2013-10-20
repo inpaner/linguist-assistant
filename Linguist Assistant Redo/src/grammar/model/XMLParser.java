@@ -263,8 +263,8 @@ public class XMLParser {
             mainElement.appendChild(concept);
             
             Element gloss = xml.createElement("gloss");
-            word.appendChild(xml.createTextNode(constituent.getConcept().getWord()));
-            mainElement.appendChild(word);
+            gloss.appendChild(xml.createTextNode(constituent.getConcept().getWord()));
+            mainElement.appendChild(gloss);
         }
         
         if(constituent.hasChildren()){
