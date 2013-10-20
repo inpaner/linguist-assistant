@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import commons.dao.DAOFactory;
 import commons.dao.DAOUtil;
@@ -95,7 +96,9 @@ public class ConceptDAO {
         }
     }
     
-    
+   /* public ArrayList<Concept> retrieveList(String pos){
+    	
+    }*/
     public Concept retrieve(String stem, String gloss, Constituent constituent) {
         Object[] values = {
                 stem,

@@ -134,7 +134,7 @@ public class SemanticEditorPanel extends JPanel {
         	        GrammarEditorPanel panel = new GrammarEditorPanel();
         	      frame.setPanel(panel);
         	       
-        	        //BEWARE: closing the MainFrame with the grammar editor will also close the main MainFrame
+        	    
         	}
         });
         btnLexicon=new JButton("View Lexicon");

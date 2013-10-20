@@ -144,33 +144,7 @@ public class LexiconUI extends JFrame {
        getContentPane().add(vdomains);
        
        table = new JTable();
-      model= new DefaultTableModel(
-    	       	new Object[][] {
-    	       		{null, null},
-    	       		{null, null},
-    	       		{null, null},
-    	       		{null, null},
-    	       		{null, null},
-    	       		{null, null},
-    	       		{null, null},
-    	       		{null, null},
-    	       		{null, null},
-    	       		{null, null},
-    	       		{null, null},
-    	       		{null, null},
-    	       		{null, null},
-    	       		{null, null},
-    	       		{null, null},
-    	       		{null, null},
-    	       		{null, null},
-    	       		{null, null},
-    	       		{null, null},
-    	       		{null, null},
-    	       	},
-    	       	new String[] {
-    	       		"Stem", "Gloss"
-    	       	}
-    	       );
+      setDefaultModel();
        table.setModel(model);
        table.setBounds(27, 101, 943, 550);
        tablePane=new JScrollPane(table);
@@ -217,9 +191,10 @@ public class LexiconUI extends JFrame {
                         awords.setVisible(false);
                         edomains.setVisible(false);
                         vdomains.setVisible(false);
-           //TODO: remove extra columns
-            model.addColumn("Comments");
-            model.addColumn("Sample Sentences");
+                       setDefaultModel();
+                       model.addColumn("Comments");
+                       model.addColumn("Sample Sentences");
+            table.setModel(model);
 			}
 		});
       
@@ -237,7 +212,9 @@ public class LexiconUI extends JFrame {
                         awords.setVisible(false);
                         edomains.setVisible(false);
                         vdomains.setVisible(false);
+                        setDefaultModel();
             //TODO: change table model to include columns corresponding to features of selected POS
+                        table.setModel(model);
 			}
 		});
        
@@ -255,7 +232,10 @@ public class LexiconUI extends JFrame {
 			awords.setVisible(false);
                         edomains.setVisible(false);
                         vdomains.setVisible(false);
-           //TODO: change table model to include columns based on forms of selected POS.
+                        setDefaultModel();
+                      //TODO: add columns based on forms of selected POS.
+                        table.setModel(model);
+           
 			}
 		});
        
@@ -274,7 +254,10 @@ public class LexiconUI extends JFrame {
                         edomains.setVisible(true);
                         vdomains.setVisible(true);
            //TODO: remove extra columns
-           model.addColumn("Semantic Domains");
+          setDefaultModel();
+          model.addColumn("Semantic Domains");
+           table.setModel(model);
+          
 
 			}
 		});
@@ -299,6 +282,35 @@ public class LexiconUI extends JFrame {
     		   	NewFeatureLexiconUI featureAdder=new NewFeatureLexiconUI();
    			}
    		});
+   }
+   public void setDefaultModel(){
+	   model= new DefaultTableModel(
+   	       	new Object[][] {
+   	       		{null, null},
+   	       		{null, null},
+   	       		{null, null},
+   	       		{null, null},
+   	       		{null, null},
+   	       		{null, null},
+   	       		{null, null},
+   	       		{null, null},
+   	       		{null, null},
+   	       		{null, null},
+   	       		{null, null},
+   	       		{null, null},
+   	       		{null, null},
+   	       		{null, null},
+   	       		{null, null},
+   	       		{null, null},
+   	       		{null, null},
+   	       		{null, null},
+   	       		{null, null},
+   	       		{null, null},
+   	       	},
+   	       	new String[] {
+   	       		"Stem", "Gloss"
+   	       	}
+   	       );
    }
    public void populateTable(String pos)
    {
