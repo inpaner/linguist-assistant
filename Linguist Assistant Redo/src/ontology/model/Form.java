@@ -1,5 +1,7 @@
 package ontology.model;
 
+import java.util.List;
+
 import grammar.model.Constituent;
 import grammar.model.ConstituentDAO;
 
@@ -22,4 +24,10 @@ public class Form {
 	public void setSyntacticCategory(String syntacticCategory) {
         this.syntacticCategory = syntacticCategory;
     }
+	public String getName() {
+		return name;
+	}
+	private void setName(String name) {
+		this.name = name;
+	}
 }

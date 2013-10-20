@@ -218,6 +218,7 @@ public class Constituent extends Node {
         }
         return allFeatures;
     }
+    
    
     protected void setConcept(Concept concept) {
         this.concept = concept;

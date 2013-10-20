@@ -24,6 +24,7 @@ import javax.xml.bind.Marshaller.Listener;
 import javax.swing.table.DefaultTableModel;
 
 import ontology.model.Concept;
+import ontology.model.Form;
 
 /**
  *
@@ -307,13 +308,22 @@ public class LexiconUI extends JFrame {
     		   	NewFeatureLexiconUI featureAdder=new NewFeatureLexiconUI();
    			}
    		});
+       editfeature.addActionListener(new ActionListener()
+       {
+    	   
+    	   public void actionPerformed(ActionEvent arg0) {
+    		   	EditFeatureLexiconUI featureEditor=new EditFeatureLexiconUI();
+   			}
+   		});
    }
    public void updateFormColumns()
    {
 	   setDefaultModel();
        //System.out.println(c.getFeatures().size());
-      /* int col=2;
-       for(Form f: c.getForms())
+      int col=2;
+      String s=Form.getBySyntacticCategory(c.getLabel()).getName();
+      model.setValueAt(s, 0, col);
+       /*for(Form f: )
        {
        	System.out.println(f.getName());
        	model.addColumn(f.getName());
@@ -343,7 +353,7 @@ public class LexiconUI extends JFrame {
        {
        	System.out.println(f.getName());
        	model.addColumn(f.getName());
-       	for(int i=0;i<model.getRowCount();i++)
+       	/*for(int i=0;i<model.getRowCount();i++)
        	{
        		JComboBox comboBox = new JComboBox<String>();
        		 
@@ -355,8 +365,8 @@ public class LexiconUI extends JFrame {
        		model.setValueAt(comboBox, i, col);
             DefaultCellEditor cellEditor = new DefaultCellEditor(comboBox);
             //editors.add(cellEditor);
-       	}
-       	/*int row=0;
+       	}*/
+       	int row=0;
        	for(String s: f.getPossibleValues())
        	{
        		if(row>=model.getRowCount())
@@ -366,7 +376,7 @@ public class LexiconUI extends JFrame {
  		   model.setValueAt(s, row, col);
  		 
  		   row++;
-       	}*/
+       	}
        	col++;
        }
 //TODO: (in progress) change table model to include columns corresponding to features of selected POS
