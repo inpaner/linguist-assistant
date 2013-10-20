@@ -101,10 +101,13 @@ public class XMLParser {
             
             case "concept":  parseConcept(childNode, constituent);
                              break;
+                             
+            case "word":	 constituent.setTranslation(new Translation(childNode.getTextContent()));
+							 break;
                                                        
-            case "gloss": 	constituent.setTranslation(new Translation(childNode.getTextContent()));
-            				break;
-            default:        break;
+            case "gloss": 	 constituent.setTranslation(new Translation(childNode.getTextContent()));
+            				 break;
+            default:         break;
             
             }
         }
@@ -261,10 +264,14 @@ public class XMLParser {
             Element concept = xml.createElement("concept");
             concept.appendChild(xml.createTextNode(constituent.getConcept().getStem()));
             mainElement.appendChild(concept);
-            
-            Element gloss = xml.createElement("gloss");
-            gloss.appendChild(xml.createTextNode(constituent.getConcept().getWord()));
-            mainElement.appendChild(gloss);
+                   
+            Element word = xml.createElement("word");
+            word.appendChild(xml.createTextNode(constituent.getConcept().getWord()));
+            mainElement.appendChild(word);
+            		
+            // Element gloss = xml.createElement("gloss");
+            // gloss.appendChild(xml.createTextNode(constituent.getConcept().getGloss/getWord()));
+            // mainElement.appendChild(gloss);
         }
         
         if(constituent.hasChildren()){
