@@ -20,10 +20,14 @@ public class ConceptDAO {
             " ORDER BY sense DESC " +
             " LIMIT 1; ";
  
-    private static final String SQL_ADD =
+    private static final String SQL_CREATE =
              "INSERT INTO Ontology(stem, sense, gloss, semanticCategoryPk) " +
              " VALUES (?, ?, ?, ?)";
     
+    private static final String SQL_ADD_TAG = 
+            "INSERT INTO OntologyTag(ontologyPk, tagPk) " +
+             " VALUES (?, ?)";
+             
     private DAOFactory fDAOFactory;
     
     public static void main(String[] args) {
@@ -34,14 +38,14 @@ public class ConceptDAO {
         concept.setStem("dog");
         concept.setGloss("animal that barks");
         
-        dao.add(concept);
+        dao.create(concept);
     }
     
     public ConceptDAO(DAOFactory aDAOFactory) {
         fDAOFactory = aDAOFactory;
     }
     
-    public void add(Concept aConcept) {
+    public void create(Concept aConcept) {
         Object[] values = {
                 aConcept.getStem(),
                 aConcept.getParent().getPk()
@@ -77,7 +81,30 @@ public class ConceptDAO {
         };
         // Add concept
         try {
-            String sql = SQL_ADD;
+            String sql = SQL_CREATE;
+            ps = DAOUtil.prepareStatement(conn, sql, false, values);
+            ps.executeUpdate();
+            
+        }
+        catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        finally {
+            DAOUtil.close(conn, ps, rs);
+        }
+        
+    }
+    
+    public void addTag(Concept aConcept) {
+        
+        Object[] values = new Object[] {
+                aConcept.getStem(),
+                aConcept.getGloss(),
+                aConcept.getParent().getPk()
+        };
+        // Add concept
+        try {
+            String sql = SQL_CREATE;
             ps = DAOUtil.prepareStatement(conn, sql, false, values);
             ps.executeUpdate();
             

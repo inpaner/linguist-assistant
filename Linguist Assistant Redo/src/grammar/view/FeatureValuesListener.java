@@ -1,4 +1,4 @@
-package view;
+package grammar.view;
 
 import grammar.model.Feature;
 

@@ -1,15 +1,15 @@
-package controller;
+package grammar.controller;
 
 import grammar.model.Constituent;
 import grammar.model.Feature;
+import grammar.view.AddConstituentListener;
+import grammar.view.AddConstituentPanel;
+import grammar.view.BlockListener;
+import grammar.view.FeatureValuesListener;
+import grammar.view.GenericDialog;
+import grammar.view.SemanticEditorPanel;
 import commons.dao.DBUtil;
 import commons.view.MainFrame;
-import view.AddConstituentListener;
-import view.AddConstituentPanel;
-import view.BlockListener;
-import view.FeatureValuesListener;
-import view.GenericDialog;
-import view.SemanticEditorPanel;
 
 public class SemanticEditor {
     private SemanticEditorPanel display;

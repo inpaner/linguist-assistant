@@ -1,32 +1,37 @@
-package view;
+package grammar.view;
 
 import grammar.model.Constituent;
-import grammar.model.Root;
+import grammar.model.FileBrowsing;
 import grammar.model.XMLParser;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import commons.view.MainFrame;
 
 import net.miginfocom.swing.MigLayout;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
 @SuppressWarnings("serial")
-public class SemanticDisplay extends JPanel {
+public class SemanticEditorPanel extends JPanel {
     Constituent root;
     BlocksPanel blocksPanel;
     FeatureValuesPanel featureValuesPanel;
+    //FileBrowsing browser;
     private ButtonPanel buttonPanel;
     private JButton btnLoad;
     private JButton btnSave;
     private JButton btnGenerate;
+    private JButton btnGrammar;
     private XMLParser parser;
     public static void main(String[] args) {
         MainFrame frame = new MainFrame();
-       /* Constituent con = new Constituent("C", null);
+        Constituent con = new Constituent("C", null);
         Constituent con2 = new Constituent("N", con);
         Constituent con3 = new Constituent("V", con);
         Constituent con4 = new Constituent("R", con);
@@ -35,45 +40,20 @@ public class SemanticDisplay extends JPanel {
         con.addChild(con2);
         con.addChild(con3);
         con.addChild(con4);
-        con.addChild(con5);*/
+        con.addChild(con5);
         
-        SemanticDisplay panel = new SemanticDisplay();
-       // panel.updateConstituent(con);
+        SemanticEditorPanel panel = new SemanticEditorPanel();
+        panel.updateConstituent(con);
         frame.setPanel(panel);
     }
     
-    public SemanticDisplay() {
+    public SemanticEditorPanel() {
         initComponents();
         addComponents();
     }
-    
-    private void initComponents() {
-    	parser=new XMLParser();
-        blocksPanel = new BlocksPanel();
-        blocksPanel.addBlockListener(new ImpBlockListener());
-        featureValuesPanel = new FeatureValuesPanel();
-        buttonPanel = new ButtonPanel();
-        btnLoad=new JButton("Load XML");
-        btnLoad.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent arg0) {
-        		readXML("data/example-new.xml");
-        	}
-        });
-        btnSave=new JButton("Save XML");
-        btnSave.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent arg0) {
-        		//writeXML();
-        	}
-        });
-        btnGenerate=new JButton("Generate Text");
-        btnGenerate.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent arg0) {
-        		readXML("data/infected eye 1-2-generated.xml");
-        	}
-        });
-    }
     private void readXML(String filename)
     {
+    	
     	Constituent root = parser.read(filename);
 
          	
@@ -83,19 +63,79 @@ public class SemanticDisplay extends JPanel {
 
          
     }
-    /*private void writeXML()
+    private void writeXML(String filename)
     {
         if(root!=null)
            parser.writeXML(filename,root);
-    }*/
+    }
+    private void initComponents() {
+    	parser=new XMLParser();
+    	//browser=new FileBrowsing();
+        blocksPanel = new BlocksPanel();
+        blocksPanel.addBlockListener(new ImpBlockListener());
+        featureValuesPanel = new FeatureValuesPanel();
+        buttonPanel = new ButtonPanel();
+        btnLoad=new JButton("Load XML");
+        btnLoad.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent arg0) {
+        		
+        			String filename=getFile();
+		        
+		        readXML(filename);}
+        	
+        });
+        btnSave=new JButton("Save XML");
+        btnSave.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent arg0) {
+        		String filename=getFile();
+        		writeXML(filename);
+        		JOptionPane.showMessageDialog(null,null,"XML Saved", JOptionPane.INFORMATION_MESSAGE);
+        	}
+        });
+        btnGenerate=new JButton("Generate Text");
+        btnGenerate.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent arg0) {
+        		readXML("data/infected eye 1-2-generated.xml");
+        	}
+        });
+        btnGrammar=new JButton("Edit Grammar");
+        btnGrammar.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent arg0) {
+        		 MainFrame frame = new MainFrame();
+        	        GrammarEditorPanel panel = new GrammarEditorPanel();
+        	        frame.setPanel(panel);
+        	        //BEWARE: closing the MainFrame with the grammar editor will also close the main MainFrame
+        	}
+        });
+    }
+    private String getFile()
+    {
+    	JFileChooser fileChooser = new JFileChooser();
+		String filename=new String();
+		 
+        // For Directory
+        //fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+ 
+        // For File
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+ 
+        fileChooser.setAcceptAllFileFilterUsed(false);
+ 
+        int rVal = fileChooser.showOpenDialog(null);
+        if (rVal == JFileChooser.APPROVE_OPTION) {
+          filename=fileChooser.getSelectedFile().toString();}
+         return filename;
+    }
     private void addComponents() {
-        setLayout(new MigLayout());
-        add(blocksPanel);
-        add(featureValuesPanel, "wrap");
-        add(buttonPanel);
+        setLayout(new MigLayout("wrap 2"));
+        add(blocksPanel, "flowy");
+        add(featureValuesPanel, "flowy");
+        add(buttonPanel, "flowy, cell 0 0");
         add(btnLoad);
         add(btnSave);
         add(btnGenerate);
+        add(btnGrammar);
+        //add(browser);
     }
     
     public void updateConstituent(Constituent root) {
@@ -118,7 +158,6 @@ public class SemanticDisplay extends JPanel {
     private class ImpBlockListener implements BlockListener {
         @Override
         public void selectedConstituent(Constituent constituent) {
-        	//System.out.println("Selected");
             featureValuesPanel.setConstituent(constituent);
         }
 

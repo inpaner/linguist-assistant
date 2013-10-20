@@ -1,13 +1,12 @@
-package controller;
+package grammar.controller;
 
 import grammar.model.Constituent;
+import grammar.view.AddConstituentListener;
+import grammar.view.AddConstituentPanel;
+import grammar.view.GenericDialog;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import view.AddConstituentListener;
-import view.AddConstituentPanel;
-import view.GenericDialog;
 
 public class AddConstituent {
     private List<AddConstituent.Listener> listeners;

@@ -1,16 +1,15 @@
-package controller;
+package grammar.controller;
 
 import grammar.model.Constituent;
 import grammar.model.Root;
 import grammar.model.XMLParser;
+import grammar.view.SemanticEditorPanel;
 
 import java.awt.Dimension;
 
 import javax.swing.JPanel;
 
 import commons.view.MainFrame;
-
-import view.SemanticEditorPanel;
 
 public class Main {
 

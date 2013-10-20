@@ -1,4 +1,4 @@
-package view;
+package grammar.view;
 
 import java.awt.Toolkit;
 import java.awt.Dialog.ModalityType;

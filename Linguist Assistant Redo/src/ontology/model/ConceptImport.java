@@ -25,10 +25,10 @@ public class ConceptImport {
         concept.setGloss("animal that barks");
         
         dao.add(concept);*/
-        new ConceptImport().parse();
+        new ConceptImport().parseAdd();
     }
     
-    void parse() {
+    void parseAdd() {
         String parsed = "";
         try {
             BufferedReader in = new BufferedReader(new FileReader(FOLDER + FILENAME));
@@ -42,7 +42,7 @@ public class ConceptImport {
                 if (!line.isEmpty()) {
                     Concept concept = parseLine(line, constituent);
                     parsed = concept.getStem();
-                    dao.add(concept);
+                    dao.create(concept);
                     System.out.println("Added: " + parsed);
                 }
                 line = in.readLine();
