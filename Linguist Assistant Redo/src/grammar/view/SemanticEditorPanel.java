@@ -130,6 +130,7 @@ public class SemanticEditorPanel extends JPanel {
         btnGrammar.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent arg0) {
         		 MainFrame frame = new MainFrame();
+        		 frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         	        GrammarEditorPanel panel = new GrammarEditorPanel();
         	      frame.setPanel(panel);
         	       

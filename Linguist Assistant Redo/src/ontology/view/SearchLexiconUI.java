@@ -79,7 +79,8 @@ public class SearchLexiconUI extends JFrame{
 		
 		cancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				System.exit(0); 
+				//System.exit(0); 
+				dispose();
 			}
 		});
 	}
