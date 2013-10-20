@@ -308,6 +308,31 @@ public class LexiconUI extends JFrame {
    			}
    		});
    }
+   public void updateFormColumns()
+   {
+	   setDefaultModel();
+       //System.out.println(c.getFeatures().size());
+      /* int col=2;
+       for(Form f: c.getForms())
+       {
+       	System.out.println(f.getName());
+       	model.addColumn(f.getName());
+       	for(int i=0;i<model.getRowCount();i++)
+       	{
+       		JComboBox comboBox = new JComboBox<String>();
+       		 
+       		
+       		for(String s: f.getPossibleValues())
+           	{
+       			comboBox.addItem(s);
+           	}
+       		model.setValueAt(comboBox, i, col);
+            DefaultCellEditor cellEditor = new DefaultCellEditor(comboBox);
+            //editors.add(cellEditor);
+       	}
+       }*/
+       table.setModel(model);
+   }
    public void updateFeatureColumns()
    {
 	   
