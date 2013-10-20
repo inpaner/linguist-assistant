@@ -1,0 +1,268 @@
+Abilene	 'the place (Luke 3:1)'
+
+Admah	 'the city'
+
+Ai	 'the place in Gen 12'
+
+Akkad	 'the city'
+
+Ammon	 'a country mentioned in Daniel 11:41'
+
+Ararat	 'mountain in Gen. 8:4'
+
+Arimathea	 'the place where Joseph, who buried Jesus, lived'
+
+Ashteroth-Karnaim	 'place in Gen 14'
+
+Assyria	 'the country'
+
+Babel	 'city in Gen. 11'
+
+Babylon	 'the place'
+
+Babylonia	 'the country/region'
+
+Bashan	 'place in Nahum 1:4'
+
+Beer-Lahai-Roi	 'the well in Gen 16'
+
+Beersheba	 'the place'
+
+Bela	 'place in Gen 14'
+
+Bered	 'place in Gen 16'
+
+Bethany	 'the place'
+
+Bethel	 'the place'
+
+Bethlehem	 'the city'
+
+Bethphage	 'the place, Matt 21:1'
+
+Bethsaida	 'the place'
+
+Caesarea	 'the place'
+
+Caesarea-philippi	 'the place'
+
+Calah	 'the city'
+
+Calneh	 'the city'
+
+Canaan	 'the place'
+
+Capernaum	 'the town'
+
+Carmel	 'the place'
+
+Cush	 'a country mentioned in Daniel 11:43'
+
+Cyrene	 'place where Simon, who carried Jesus' cross was from (Matt 27:32)'
+
+Damascus	 'the place'
+
+Dan	 'the place in Gen 14'
+
+Dura	 'name of the plain where Nebuchadnezzar set up his gold statue'
+
+Eden	 'garden in Genesis'
+
+Edom	 'the place'
+
+Egypt	 'the country'
+
+El-Paran	 'city in Gen 14'
+
+Elam	 'name of a province Daniel 8:2'
+
+Elkosh	 'place where Nahum lived (Nahum 1:1)'
+
+Ellasar	 'place in Gen 14'
+
+En-Mishpat	 'place in Gen 14'
+
+Enoch	 'name of city in Gen. 4:17'
+
+Ephrathah	 'place in Bethlehem associated with the clan of Ephrathah'
+
+Erech	 'the city'
+
+Euphrates	 'name of river in Gen. 2:14'
+
+Galilee	 'the place'
+
+Gaza	 'the city'
+
+Gennesaret	 'the place'
+
+Gerar	 'the city'
+
+Gerasa	 'place where Jesus healed the demon-possessed man (Mark 5)'
+
+Gershon	 'the place'
+
+Gethsemane	 'the place where Jesus was betrayed'
+
+Gihon	 'name of river in Gen. 2:13'
+
+Goiim	 'place in Gen 14'
+
+Golgatha	 'place where Jesus was crucified'
+
+Gomorrah	 'the place'
+
+Goshen	 'the place in Egypt where the Israelites lived'
+
+Greece	 'the country'
+
+Ham	 'the place in Gen 14'
+
+Haran	 'the place in Gen. 11:31'
+
+Havilah	 'name of river in Gen. 2:11'
+
+Hazazon-Tamar	 'place in Gen 14'
+
+Hebron	 'the place'
+
+Hezron	 'the place'
+
+Hobah	 'the place in Gen 14'
+
+India	 'the country, India'
+
+Israel	 'the nation (not the land) (e.g., Israel's soldiers fought the Philistine soldiers.)'
+
+Iturea	 'the place (Luke 3:1)'
+
+Jericho	 'the place'
+
+Jerusalem	 'the place'
+
+Jordan	 'the Jordan river'
+
+Judah	 'the land/country of Judah'
+
+Judea	 'the country'
+
+Kadesh	 'place in gen 14'
+
+Kiriath-Arba	 'place in Gen 23'
+
+Korazin	 'city (Matt 11:21)'
+
+Lasha	 'the city'
+
+Lebanon	 'the place'
+
+Letush	 'the place'
+
+Leum	 'the place'
+
+Libya	 'the country'
+
+Macedonia	 'the place'
+
+Machpelah	 'name of the field in Gen 23'
+
+Mamre	 'place in Genesis 18'
+
+Massah	 'place (Ex 17:7)'
+
+Media	 'Esther 10:2'
+
+Mesha	 'the city'
+
+Mesopotamia	 'the place'
+
+Midian	 'the place'
+
+Moab	 'the place'
+
+Moreh	 'Place in Gen 12'
+
+Moriah	 'the mountain in Gen 22'
+
+Nain	 'the town where Jesus raised the widow's son from the dead'
+
+Nazareth	 'the place'
+
+Negev	 'a desert area in southern Canaan'
+
+Nile	 'the name of the river'
+
+Nineveh	 'the place'
+
+Nod	 'area where Cain lived in Gen. 4:16'
+
+Paran	 'the place'
+
+Persia	 'Esther 10:2'
+
+Philippi	 'the place'
+
+Philistia	 'the country of the Philistine people'
+
+Pishon	 'river in Gen. 2:11'
+
+Put	 'A city (Nahum 3:9)'
+
+Rameses	 'the Egyptian city'
+
+Rehoboth-ir	 'the city'
+
+Resen	 'the city'
+
+Salem	 'the place in Gen 14'
+
+Samaria	 'the place'
+
+Sephar	 'the city'
+
+Shaveh	 'the place in Gen 14'
+
+Shaveh-Kiriathaim	 'place in Gen 14'
+
+Sheba	 'the place'
+
+Shechem	 'place in Gen 12'
+
+Shur	 'a desert near the Red Sea'
+
+Siddim	 'name of a Valley in Gen 14'
+
+Sidon	 'the place'
+
+Sin	 'a place (Ex 16:1)'
+
+Sodom	 'the place'
+
+Succoth	 'a place in Egypt'
+
+Susa	 'captital city of King Xerxes, book of Esther'
+
+Syria	 'the place'
+
+Terpen	 'name of a village in Avian Influenza'
+
+Thebes	 'city near the Nile'
+
+Thessalonica	 'the place'
+
+Tigris	 'name of a river'
+
+Traconitis	 'the place (Luke 3:1)'
+
+Tyre	 'the place'
+
+Ulai	 'name of a river or canal in Daniel 8:2'
+
+Ur	 'place in Gen. 11'
+
+Zarephath	 'the place (Luke 4:26)'
+
+Zeboiim	 'the city'
+
+Zoar	 'place in Gen 14'
+
