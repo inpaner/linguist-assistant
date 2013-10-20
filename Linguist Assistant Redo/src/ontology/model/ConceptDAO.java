@@ -53,6 +53,16 @@ public class ConceptDAO {
         fDAOFactory = aDAOFactory;
     }
     
+    /*
+     * Accessing DB follows very similar code.
+     * 
+     * Yes, it's duplicate code bonanza, but Connection,
+     * PreparedStatement, and ResultSet should have as minimal
+     * scope as possible.
+     * 
+     * Object[]  values are the SQL values
+     */
+    
     public void create(Concept aConcept) {
         Object[] values = {
                 aConcept.getStem(),

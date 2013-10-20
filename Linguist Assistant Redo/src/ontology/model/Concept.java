@@ -21,6 +21,13 @@ public class Concept extends Node {
                     "P", "Q", "R", "S", "T", "U", "V", "W",
                     "X", "Y", "Z", "AA", "AB", "AC", "AD");
     
+    /* All SQL and DB details are in classes named DAO (data access object).
+    *  All access to DAO follow a similar pattern of
+    *  DAOFactory factory = DAOFactory.getInstance();
+    *  XXX_DAO dao = new XXX_DAO(factory);
+    *  dao.doSomething();
+    */
+    
     public static List<Concept> getInstances(String stemSubString, Constituent constituent) {
         DAOFactory factory = DAOFactory.getInstance();
         ConceptDAO dao = new ConceptDAO(factory);
