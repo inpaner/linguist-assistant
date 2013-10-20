@@ -52,7 +52,7 @@ public class LexiconUI extends JFrame {
    public JLabel view;
    public JLabel function;
    private DefaultTableModel model;
-   private List<DefaultCellEditor> editors=new List<DefaultCellEditor>();
+   //private List<DefaultCellEditor> editors=new List<DefaultCellEditor>();
    
     JComboBox syntacticCategory = new JComboBox();
     private JTable table;
@@ -329,7 +329,7 @@ public class LexiconUI extends JFrame {
            	}
        		model.setValueAt(comboBox, i, col);
             DefaultCellEditor cellEditor = new DefaultCellEditor(comboBox);
-            editors.add(cellEditor);
+            //editors.add(cellEditor);
        	}
        	/*int row=0;
        	for(String s: f.getPossibleValues())
