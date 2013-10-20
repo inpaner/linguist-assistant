@@ -306,13 +306,14 @@ public class LexiconUI extends JFrame {
     	   
     	   public void actionPerformed(ActionEvent arg0) {
     		   	NewFeatureLexiconUI featureAdder=new NewFeatureLexiconUI();
+    		   
    			}
    		});
        editfeature.addActionListener(new ActionListener()
        {
     	   
     	   public void actionPerformed(ActionEvent arg0) {
-    		   	EditFeatureLexiconUI featureEditor=new EditFeatureLexiconUI();
+    		   	EditFeatureLexiconUI featureEditor=new EditFeatureLexiconUI(c);
    			}
    		});
    }
