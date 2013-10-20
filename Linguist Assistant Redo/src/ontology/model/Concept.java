@@ -21,6 +21,12 @@ public class Concept extends Node {
                     "P", "Q", "R", "S", "T", "U", "V", "W",
                     "X", "Y", "Z", "AA", "AB", "AC", "AD");
     
+    public static List<Concept> getInstances(String stemSubString, Constituent constituent) {
+        DAOFactory factory = DAOFactory.getInstance();
+        ConceptDAO dao = new ConceptDAO(factory);
+        return dao.retrieveBySubstring(stemSubString, constituent);
+    }
+    
     public static Concept getInstance(String stem, String gloss, Constituent constituent) {
         DAOFactory factory = DAOFactory.getInstance();
         ConceptDAO dao = new ConceptDAO(factory);
