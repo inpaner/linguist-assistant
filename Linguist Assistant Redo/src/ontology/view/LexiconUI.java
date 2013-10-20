@@ -214,12 +214,13 @@ public class LexiconUI extends JFrame {
                         edomains.setVisible(false);
                         vdomains.setVisible(false);
                         setDefaultModel();
-                        for(Feature f: c.getFeatures())//doesn't go here for some reason
+                        System.out.println(c.getFeatures().size());
+                        for(Feature f: c.getFeatures())//doesn't go here; features not initialized for some reason
                         {
                         	System.out.println(f.getName());
                         	model.addColumn(f.getName());
                         }
-            //TODO: change table model to include columns corresponding to features of selected POS
+            //TODO: (in progress) change table model to include columns corresponding to features of selected POS
                         table.setModel(model);
 			}
 		});
@@ -272,7 +273,8 @@ public class LexiconUI extends JFrame {
     	   
     	   public void actionPerformed(ActionEvent arg0) {
     		   	populateTable(syntacticCategory.getSelectedItem().toString());
-    		   	 c=new Constituent(syntacticCategory.getSelectedItem().toString(),null,0);
+    		   	 //c=new Constituent(syntacticCategory.getSelectedItem().toString(),null,0);
+    		   	
     		  System.out.println(c.getLabel());
    			}
    		});

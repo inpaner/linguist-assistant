@@ -186,6 +186,7 @@ public class Constituent extends Node {
             ConstituentDAO dao = new ConstituentDAO(factory);
             possibleFeatures = dao.getAllFeatures(this);
             fPossibleFeatures.put(pk, possibleFeatures);
+            
         }
         
         for (Feature feature : possibleFeatures) {
@@ -200,6 +201,7 @@ public class Constituent extends Node {
             if (!found) {
                 allFeatures.add(feature);
             }
+           
         }
         return allFeatures;
     }
