@@ -20,17 +20,19 @@ public class MainFrame extends JFrame {
 	
     public MainFrame() {
         final String look = "com.sun.java.swing.plaf.windows.WindowsLookAndFeel";
-
+        
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 try {
                     UIManager.setLookAndFeel(look);
+                    UIManager.getDefaults().put("TextArea.font", UIManager.getFont("TextField.font"));
                 } 
                 catch (Exception ex) {
                     ex.printStackTrace();
                 }
             }
         });
+        
         
         setTitle("Linguist's Assistant's Second Cousin Thrice Removed");
         //setSize(800, 600);
