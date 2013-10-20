@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package view;
+package ontology.view;
 
 //import com.sun.org.apache.xalan.internal.xsltc.compiler.SyntaxTreeNode;
 import grammar.model.Constituent;
@@ -19,9 +19,9 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Aram
  */
-public class LEXICONUI extends JFrame {
+public class LexiconUI extends JFrame {
 
-   protected LEXICONUI.Listener l;
+   protected LexiconUI.Listener l;
    public JButton stems;
    public JButton features;
    public JButton forms;
@@ -47,7 +47,7 @@ public class LEXICONUI extends JFrame {
     private JTable table;
     private JScrollPane tablePane;
    
-   public LEXICONUI(){
+   public LexiconUI(){
        initialize();
        setBounds();
        setFrame();
@@ -86,7 +86,7 @@ public class LEXICONUI extends JFrame {
   
        
        
-       l = new LEXICONUI.Listener();
+       l = new LexiconUI.Listener();
      //  syntacticCategory.addMouseListener(l);
     
    }
@@ -291,7 +291,7 @@ public class LEXICONUI extends JFrame {
 	   //get all concepts/definitions from DB that have pos as a label
    }
     public static void main(String[] args) {
-        LEXICONUI lui = new LEXICONUI();
+        LexiconUI lui = new LexiconUI();
      
     }
     

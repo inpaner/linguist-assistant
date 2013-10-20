@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
-import view.LEXICONUI;
+import ontology.view.LexiconUI;
 import commons.view.MainFrame;
 import net.miginfocom.swing.MigLayout;
 
@@ -139,7 +139,7 @@ public class SemanticEditorPanel extends JPanel {
         btnLexicon=new JButton("View Lexicon");
         btnLexicon.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent arg0) {
-       		LEXICONUI lex=new LEXICONUI();
+       		LexiconUI lex=new LexiconUI();
        	       
        	}
        });
