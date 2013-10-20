@@ -101,9 +101,10 @@ public class XMLParser {
             
             case "concept":  parseConcept(childNode, constituent);
                              break;
+                                                       
             case "gloss": 	constituent.setTranslation(new Translation(childNode.getTextContent()));
             				break;
-            default:         break;
+            default:        break;
             
             }
         }
@@ -171,7 +172,6 @@ public class XMLParser {
         Concept concept = new Concept(name, parent);
         parent.setConcept(concept);
     }
-    
     
     public void myWrite(Root root) {
         
@@ -262,9 +262,9 @@ public class XMLParser {
             concept.appendChild(xml.createTextNode(constituent.getConcept().getStem()));
             mainElement.appendChild(concept);
             
-         //   Element word = xml.createElement("word");
-         //   word.appendChild(xml.createTextNode(constituent.getConcept().getWord()));
-         //   mainElement.appendChild(word);
+            Element gloss = xml.createElement("gloss");
+            word.appendChild(xml.createTextNode(constituent.getConcept().getWord()));
+            mainElement.appendChild(word);
         }
         
         if(constituent.hasChildren()){
