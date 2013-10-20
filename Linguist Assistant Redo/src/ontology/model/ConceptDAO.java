@@ -6,6 +6,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
+import java.util.ArrayList;
+import java.util.List;
 
 import commons.dao.DAOFactory;
 import commons.dao.DAOUtil;
@@ -24,8 +27,8 @@ public class ConceptDAO {
              "INSERT INTO Ontology(stem, sense, gloss, semanticCategoryPk) " +
              " VALUES (?, ?, ?, ?)";
     
-    private static final String SQL_ADD_TAG = 
-            "SELECT pk, stem, sense, semanticCategoryPk " +
+    private static final String SQL_RETRIEVE = 
+            "SELECT pk, stem, sense, gloss, semanticCategoryPk " +
             "  FROM Ontology " +
             " WHERE stem = (?) " +
             "       AND " +
@@ -33,12 +36,18 @@ public class ConceptDAO {
             "       AND " +
             "       semanticCategoryPk = (?) ";
     
-    private static final String SQL_RETRIEVE = 
+    private static final String SQL_RETRIEVE_ALL_BY_SUBSTRING = 
+            "SELECT pk, stem, sense, gloss, semanticCategoryPk " +
+            "  FROM Ontology " +
+            " WHERE stem LIKE (?) " +
+            "       AND " +
+            "       semanticCategoryPk = (?) ";
+    
+    private static final String SQL_ADD_TAG = 
             "INSERT INTO OntologyTag(ontologyPk, tagPk) " +
              " VALUES (?, ?)";
     
     private DAOFactory fDAOFactory;
-    
     
     public ConceptDAO(DAOFactory aDAOFactory) {
         fDAOFactory = aDAOFactory;
@@ -95,7 +104,6 @@ public class ConceptDAO {
         }
     }
     
-    
     public Concept retrieve(String stem, String gloss, Constituent constituent) {
         Object[] values = {
                 stem,
@@ -127,6 +135,56 @@ public class ConceptDAO {
         return concept;
     }
     
+    public static void main(String[] args) {
+        DAOFactory factory = DAOFactory.getInstance();
+        ConceptDAO dao = new ConceptDAO(factory);
+        Constituent con = Constituent.get("N");
+        
+        long start = System.nanoTime();
+        List<Concept> result = dao.retrieveBySubstring("", con);
+        long end = System.nanoTime();
+        long elapsedTime = end - start;
+        
+        for (Concept item : result) {
+            System.out.println(item);
+        }
+        
+        double seconds = (double)elapsedTime / 1000000000.0;
+        System.out.println("Total time: " + seconds);
+    }
+    
+    public List<Concept> retrieveBySubstring(String stemSubString, Constituent constituent) {
+        List<Concept> result = new ArrayList<>();
+        Object[] values = {
+                "%" + stemSubString + "%",
+                constituent.getPk()
+        };
+
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Concept concept = null;
+        try {
+            String sql = SQL_RETRIEVE_ALL_BY_SUBSTRING;
+            conn = fDAOFactory.getConnection();
+            ps = DAOUtil.prepareStatement(conn, sql, false, values);
+            rs = ps.executeQuery();
+            
+            while (rs.next()) {
+                result.add(map(rs, constituent));
+            }
+        } 
+        catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        finally {
+            DAOUtil.close(conn, ps, rs);
+        }
+        
+        return result;
+    }
+    
+    
     public void addTag(Concept aConcept, Tag aTag) {
         Object[] values = {
                 aConcept.getPk(),
@@ -153,12 +211,10 @@ public class ConceptDAO {
     
     private Concept map(ResultSet rs, Constituent constituent) throws SQLException {
         Concept result = new Concept(constituent);
-        int pk = rs.getInt("pk");
-        String stem = rs.getString("stem");
-        String gloss = rs.getString("gloss");
-        result.setPk(pk);
-        result.setStem(stem);
-        result.setGloss(gloss);
+        result.setPk(rs.getInt("pk"));
+        result.setStem(rs.getString("stem"));
+        result.setSense(rs.getString("sense"));
+        result.setGloss(rs.getString("gloss"));
         return result;
     }
 }

@@ -10,9 +10,9 @@ import commons.dao.DAOFactory;
 
 public class Concept extends Node {
     private Integer pk;
-    private String fStem;
-    private String fSense;
-    private String fGloss;
+    private String stem;
+    private String sense;
+    private String gloss;
     private Constituent fConstituent;
     
     private final static List<String> senseList = 
@@ -45,7 +45,7 @@ public class Concept extends Node {
     
     public Concept(String aStem, Constituent aConstituent) {
         this(aConstituent);
-        this.fStem = aStem;
+        this.stem = aStem;
     }
     
     void setPk(Integer pk) {
@@ -60,24 +60,32 @@ public class Concept extends Node {
     }
     
     public void setStem(String aStem) {
-        fStem = aStem;
+        stem = aStem;
     }
     
     public String getStem() {
-        return fStem;
+        return stem;
+    }
+    
+    public void setSense(String sense) {
+        this.sense = sense;
+    }
+    
+    public String getSense() {
+        return this.sense;
     }
     
     public void setGloss(String aGloss) {
-        fGloss = aGloss;
+        gloss = aGloss;
     }
     
     public String getGloss() {
-        return fGloss;
+        return gloss;
     }
     
     @Override
     public String toString() {
-        return fStem;
+        return this.stem + "-" + this.sense;
     }
 
     @Override
