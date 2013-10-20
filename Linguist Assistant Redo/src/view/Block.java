@@ -55,6 +55,7 @@ public class Block extends Box {
     private Box contentBox;
     private boolean showChildren;
     private List<BlockListener> listeners;
+    private JButton btnDelete;
     Font translationFont;
     static {
         try { // unsure why needed since Block.class is this
@@ -102,6 +103,7 @@ public class Block extends Box {
         nameLabel = new JLabel(constituent.getLabel());
         conceptLabel = new JLabel();
 		translationLabel=new JLabel();
+		btnDelete=new JButton("X");
         if(constituent.getConcept() != null) {
             conceptLabel.setText(constituent.getConcept().getStem());
         } 

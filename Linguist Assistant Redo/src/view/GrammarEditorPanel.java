@@ -66,6 +66,7 @@ public class GrammarEditorPanel extends JPanel {
         featuresTable = new JTable(featureModel);
         featuresTable.addMouseListener(new FeatureTableListener());
         featuresPane = new JScrollPane(featuresTable);
+        if(selectedConstituent.hasFeatures())
         selectedFeature = selectedConstituent.getFeatures().get(0);
         
         valuesModel = new ValueTableModel();
@@ -148,7 +149,9 @@ public class GrammarEditorPanel extends JPanel {
         }
     
         public int getRowCount() {
+        	if(selectedConstituent.hasFeatures())
             return selectedConstituent.getFeatures().size();
+        	else return 0;
         }
         
         public String getColumnName(int columnIndex) {
@@ -179,7 +182,9 @@ public class GrammarEditorPanel extends JPanel {
         }
     
         public int getRowCount() {
+        	if(selectedFeature!=null)
             return selectedFeature.getPossibleValues().size();
+        	else return 0;
         }
         
         public String getColumnName(int columnIndex) {

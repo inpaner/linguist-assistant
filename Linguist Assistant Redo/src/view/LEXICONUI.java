@@ -5,6 +5,8 @@
 package view;
 
 //import com.sun.org.apache.xalan.internal.xsltc.compiler.SyntaxTreeNode;
+import grammar.model.Constituent;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -55,7 +57,11 @@ public class LEXICONUI extends JFrame {
    }
    
    public void initialize(){
-      
+      // syntacticCategory.setModel(new DefaultComboBoxModel(new String[] {"Noun", "Verb", "Adjective", "Adverb", "Adposition", "Conjunction", "Phrasal", "Particle"}));
+       for(Constituent constituent : Constituent.getAllConstituents())
+       {
+    	   syntacticCategory.addItem(constituent.getLabel());
+       }
        syntacticCategory.setVisible(false);
        sCategory = new JLabel("Syntactic Category");
        view = new JLabel("View");
@@ -264,11 +270,22 @@ public class LEXICONUI extends JFrame {
 			awords.setVisible(true);
                         edomains.setVisible(true);
                         vdomains.setVisible(true);
+           // table.addColumn(new TableColumn())
                       //TODO: change table model to include column "Semantic Domains"
 			}
 		});
+       syntacticCategory.addActionListener(new ActionListener()
+       {
+    	   
+    	   public void actionPerformed(ActionEvent arg0) {
+    		   	populateTable(syntacticCategory.getSelectedItem().toString());
+   			}
+   		});
    }
-   
+   public void populateTable(String pos)
+   {
+	   //get all concepts/definitions from DB that have pos as a label
+   }
     public static void main(String[] args) {
         LEXICONUI lui = new LEXICONUI();
      

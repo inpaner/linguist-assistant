@@ -99,6 +99,7 @@ public class SemanticEditorPanel extends JPanel {
         blocksPanel = new BlocksPanel();
         blocksPanel.addBlockListener(new ImpBlockListener());
         featureValuesPanel = new FeatureValuesPanel();
+     
         buttonPanel = new ButtonPanel();
         btnLoad=new JButton("Load XML");
         btnLoad.addActionListener(new ActionListener() {
@@ -129,7 +130,8 @@ public class SemanticEditorPanel extends JPanel {
         	public void actionPerformed(ActionEvent arg0) {
         		 MainFrame frame = new MainFrame();
         	        GrammarEditorPanel panel = new GrammarEditorPanel();
-        	        frame.setPanel(panel);
+        	      frame.setPanel(panel);
+        	       
         	        //BEWARE: closing the MainFrame with the grammar editor will also close the main MainFrame
         	}
         });
