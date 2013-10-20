@@ -27,6 +27,12 @@ public class Constituent extends Node {
         fPossibleFeatures = new HashMap<>();
     }
     
+    
+    public static void main(String[] args) {
+        Constituent con = Constituent.getBySyntacticCategory("Noun");
+        System.out.println(con.syntacticAbbreviation);
+    }
+    
     // TODO implement properly with copying of features
     public static Constituent copy(Constituent toCopy) {
         Constituent clone = new Constituent();
@@ -51,11 +57,18 @@ public class Constituent extends Node {
         return fAllConstituents;
     }
     
-    public static Constituent get(String syntacticAbbr) {
+    public static Constituent getBySyntacticAbbr(String syntacticAbbr) {
         DAOFactory factory = DAOFactory.getInstance();
         ConstituentDAO dao = new ConstituentDAO(factory);
         return dao.getBySyntacticAbbr(syntacticAbbr);
     }
+    
+    public static Constituent getBySyntacticCategory(String category) {
+        DAOFactory factory = DAOFactory.getInstance();
+        ConstituentDAO dao = new ConstituentDAO(factory);
+        return dao.getBySyntacticCategory(category);
+    }
+
     
     public Constituent(String syntacticAbbr, Constituent parent) {
         this(parent); 

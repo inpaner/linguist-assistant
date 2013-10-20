@@ -24,6 +24,18 @@ public class ConstituentDAO {
             "         ON SemanticCategory.syntacticCategoryPk = SyntacticCategory.pk " +
             " WHERE SyntacticCategory.abbreviation = (?); ";
     
+    private static final String SQL_GET_BY_SYNTACTIC_CATEGORY = 
+            "SELECT SemanticCategory.pk AS pk, " +
+            "       SemanticCategory.name AS semName, " +
+            "       SemanticCategory.abbreviation AS semAbbr, " +
+            "       SemanticCategory.deepAbbreviation AS deepAbbr, " +
+            "       SyntacticCategory.name AS synName, " +
+            "       SyntacticCategory.abbreviation AS synAbbr " +
+            "  FROM SemanticCategory " +
+            "       JOIN SyntacticCategory " +
+            "         ON SemanticCategory.syntacticCategoryPk = SyntacticCategory.pk " +
+            " WHERE SyntacticCategory.name = (?); ";
+    
     private static final String SQL_GET_ALL = 
             "SELECT SemanticCategory.pk AS pk, " +
             "       SemanticCategory.name AS semName, " +
@@ -71,6 +83,36 @@ public class ConstituentDAO {
         
         return constituent;
     }
+
+    public Constituent getBySyntacticCategory(String category) {
+        Constituent constituent = null;
+        Object[] values = {
+                category,
+        };
+
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        
+        try {
+            String sql = SQL_GET_BY_SYNTACTIC_CATEGORY;
+            conn = fDAOFactory.getConnection();
+            ps = DAOUtil.prepareStatement(conn, sql, false, values);
+            rs = ps.executeQuery();
+            rs.next();
+            constituent = map(rs);
+        } 
+        catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        finally {
+            DAOUtil.close(conn, ps, rs);
+        }
+        
+        return constituent;
+    }
+    
+    
     
     public List<Constituent> getAllConstituents() {
         List<Constituent> allConstituents = new ArrayList<Constituent>();

@@ -37,7 +37,7 @@ public class ConceptImport {
             
             DAOFactory factory = DAOFactory.getInstance();
             ConceptDAO dao = new ConceptDAO(factory);
-            Constituent constituent = Constituent.get(SYNTACTIC_ABBR);
+            Constituent constituent = Constituent.getBySyntacticAbbr(SYNTACTIC_ABBR);
             
             while (line != null) {
                 if (!line.isEmpty()) {
@@ -92,7 +92,7 @@ public class ConceptImport {
             
             DAOFactory factory = DAOFactory.getInstance();
             ConceptDAO dao = new ConceptDAO(factory);
-            Constituent constituent = Constituent.get(SYNTACTIC_ABBR);
+            Constituent constituent = Constituent.getBySyntacticAbbr(SYNTACTIC_ABBR);
             Tag tag = Tag.getInstance("masculine");
             while (line != null) {
                 if (!line.isEmpty()) {
