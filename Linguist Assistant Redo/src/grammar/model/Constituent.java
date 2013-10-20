@@ -84,6 +84,33 @@ public class Constituent extends Node {
             ex.printStackTrace();
         }
     }
+    public Constituent(String syntacticCategory, Constituent parent, int dummy) {
+        this(parent); 
+        try {
+            String query =
+                    "SELECT SemanticCategory.name AS semName, " +
+                    "       SemanticCategory.abbreviation AS semAbbr, " +
+                    "       SemanticCategory.deepAbbreviation AS deepAbbr, " +
+                    "       SyntacticCategory.name AS synName, " +
+                    "       SyntacticCategory.abbreviation AS synAbbr " +
+                    "  FROM SemanticCategory " +
+                    "       JOIN SyntacticCategory " +
+                    "         ON SemanticCategory.syntacticCategoryPk = SyntacticCategory.pk " +
+                    " WHERE SyntacticCategory.name = '" + syntacticCategory + "'; ";
+            ResultSet rs = DBUtil.executeQuery(query);
+            rs.next();
+            this.syntacticCategory = rs.getString("synName");
+            syntacticAbbreviation = rs.getString("synAbbr");
+            semanticCategory = rs.getString("semName");
+            semanticAbbreviation = rs.getString("semAbbr");
+            deepAbbreviation = rs.getString("deepAbbr");
+            
+            DBUtil.finishQuery();
+        } 
+        catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
     
     Constituent() {
         this(null);
