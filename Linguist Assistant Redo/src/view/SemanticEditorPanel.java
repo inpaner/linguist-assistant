@@ -30,6 +30,7 @@ public class SemanticEditorPanel extends JPanel {
     private JButton btnSave;
     private JButton btnGenerate;
     private JButton btnGrammar;
+    private JButton btnLexicon;
 	 private JTextArea txtTranslation;
     private XMLParser parser;
     public static void main(String[] args) {
@@ -132,6 +133,13 @@ public class SemanticEditorPanel extends JPanel {
         	        //BEWARE: closing the MainFrame with the grammar editor will also close the main MainFrame
         	}
         });
+        btnLexicon=new JButton("View Lexicon");
+        btnLexicon.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent arg0) {
+       		LEXICONUI lex=new LEXICONUI();
+       	       
+       	}
+       });
     }
     private String getFile()
     {
@@ -160,6 +168,7 @@ public class SemanticEditorPanel extends JPanel {
         add(btnSave);
         add(btnGenerate);
         add(btnGrammar);
+        add(btnLexicon);
 		add(txtTranslation);
         //add(browser);
     }
