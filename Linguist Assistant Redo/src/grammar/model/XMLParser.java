@@ -261,6 +261,10 @@ public class XMLParser {
             Element concept = xml.createElement("concept");
             concept.appendChild(xml.createTextNode(constituent.getConcept().getStem()));
             mainElement.appendChild(concept);
+            
+         //   Element word = xml.createElement("word");
+         //   word.appendChild(xml.createTextNode(constituent.getConcept().getWord()));
+         //   mainElement.appendChild(word);
         }
         
         if(constituent.hasChildren()){
