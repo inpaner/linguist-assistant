@@ -37,11 +37,23 @@ public class ConceptDAO {
             "       semanticCategoryPk = (?) ";
     
     private static final String SQL_RETRIEVE_ALL_BY_SUBSTRING = 
-            "SELECT pk, stem, sense, gloss, semanticCategoryPk " +
+            "SELECT Ontology.pk AS pk, stem, sense, gloss, semanticCategoryPk " +
             "  FROM Ontology " +
             " WHERE stem LIKE (?) " +
             "       AND " +
             "       semanticCategoryPk = (?) ";
+    
+    
+    private static final String SQL_RETRIEVE_ALL_WITH_TAG = 
+            "SELECT Ontology.pk AS pk, stem, sense, gloss, semanticCategoryPk " +
+            "  FROM Ontology " +
+            "  JOIN OntologyTag " +
+            "       ON Ontology.pk = OntologyTag.ontologyPk " +
+            " WHERE stem LIKE (?) " +
+            "       AND " +
+            "       semanticCategoryPk = (?) " +
+            "       AND " +
+            "       tagPk = (?) ";
     
     private static final String SQL_ADD_TAG = 
             "INSERT INTO OntologyTag(ontologyPk, tagPk) " +
@@ -170,7 +182,6 @@ public class ConceptDAO {
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        Concept concept = null;
         try {
             String sql = SQL_RETRIEVE_ALL_BY_SUBSTRING;
             conn = fDAOFactory.getConnection();
@@ -190,7 +201,39 @@ public class ConceptDAO {
         
         return result;
     }
+
+    public List<Concept> retrieveByTag(String stemSubString, Tag tag, Constituent constituent) {
+        List<Concept> result = new ArrayList<>();
+        Object[] values = {
+                "%" + stemSubString + "%",
+                constituent.getPk(),
+                tag.getPk()
+        };
+
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            String sql = SQL_RETRIEVE_ALL_WITH_TAG;
+            conn = fDAOFactory.getConnection();
+            ps = DAOUtil.prepareStatement(conn, sql, false, values);
+            rs = ps.executeQuery();
+            
+            while (rs.next()) {
+                result.add(map(rs, constituent));
+            }
+        } 
+        catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        finally {
+            DAOUtil.close(conn, ps, rs);
+        }
+        
+        return result;
+    }
     
+
     
     public void addTag(Concept aConcept, Tag aTag) {
         Object[] values = {

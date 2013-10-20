@@ -1,6 +1,8 @@
 package ontology.model;
 
-import grammar.model.ConstituentDAO;
+import java.util.ArrayList;
+import java.util.List;
+
 import commons.dao.DAOFactory;
 
 public class Tag {
@@ -11,6 +13,19 @@ public class Tag {
         DAOFactory factory = DAOFactory.getInstance();
         TagDAO dao = new TagDAO(factory);
         return dao.retrieve(aPk);
+    }
+    
+    public static Tag getTagAll() {
+        return new Tag(0, "All");
+    }
+    
+    public static List<Tag> getAllTags() {
+        List<Tag> result = new ArrayList<>();
+        result.add(getTagAll());
+        DAOFactory factory = DAOFactory.getInstance();
+        TagDAO dao = new TagDAO(factory);
+        result.addAll(dao.retrieveAll());
+        return result;
     }
     
     public static Tag getInstance(String aName) {
@@ -38,5 +53,23 @@ public class Tag {
     
     public String toString() {
         return name;
+    }
+    
+    @Override
+    public boolean equals(Object other) {
+        if (other == null)
+            return false;
+        if (other == this)
+            return true;
+        if (!(other instanceof Tag))
+            return false;
+        
+        Tag otherTag = (Tag) other;
+        return name.equals(otherTag.name);
+    }
+    
+    @Override
+    public int hashCode() {
+        return toString().hashCode();
     }
 }

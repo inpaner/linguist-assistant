@@ -92,7 +92,7 @@ public class ConceptImport {
         
         String[] linesArr = line.split(" ");
         String stem = linesArr[0];
-        Concept concept = Concept.getInstances(stem, con).get(0);
+        Concept concept = Concept.getInstances(stem, Tag.getTagAll(), con).get(0);
         
         
         return concept;

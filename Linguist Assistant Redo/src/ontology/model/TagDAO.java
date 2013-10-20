@@ -4,11 +4,17 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import commons.dao.DAOFactory;
 import commons.dao.DAOUtil;
 
 public class TagDAO {
+    private static final String SQL_RETREIVE_ALL = 
+            "SELECT pk, name " +
+            "  FROM Tag ";
+    
     private static final String SQL_RETREIVE_BY_PK = 
             "SELECT pk, name " +
             "  FROM Tag " +
@@ -24,6 +30,33 @@ public class TagDAO {
     
     public TagDAO(DAOFactory aDAOFactory) {
         fDAOFactory = aDAOFactory;
+    }
+    
+    public List<Tag> retrieveAll() {
+        List<Tag> result = new ArrayList<>();
+        Object[] values = {
+        };
+
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            String sql = SQL_RETREIVE_ALL;
+            conn = fDAOFactory.getConnection();
+            ps = DAOUtil.prepareStatement(conn, sql, false, values);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                result.add(map(rs));
+            }
+        } 
+        catch (SQLException ex) {
+            ex.printStackTrace();
+        }        
+        finally {
+            DAOUtil.close(conn, ps, rs);
+        }
+        
+        return result;
     }
     
     public Tag retrieve(int aPk) {

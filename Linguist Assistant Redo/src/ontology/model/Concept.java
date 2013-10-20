@@ -22,12 +22,23 @@ public class Concept extends Node {
                     "P", "Q", "R", "S", "T", "U", "V", "W",
                     "X", "Y", "Z", "AA", "AB", "AC", "AD");
     
-    public static List<Concept> getInstances(String stemSubString, Constituent constituent) {
+    public static List<Concept> getInstances(String stemSubString, Tag tag, Constituent constituent) {
         DAOFactory factory = DAOFactory.getInstance();
         ConceptDAO dao = new ConceptDAO(factory);
-        return dao.retrieveBySubstring(stemSubString, constituent);
+        List<Concept> result;
+        if (tag.equals(Tag.getTagAll())) {
+            result = dao.retrieveBySubstring(stemSubString, constituent); 
+        }
+        else {
+            result = dao.retrieveByTag(stemSubString, tag, constituent);
+        }
+        return result;
     }
     
+    public static List<Concept> getInstances(String stemSubstring, Constituent constituent) {
+        return getInstances(stemSubstring, Tag.getTagAll(), constituent);
+    }
+
     public static Concept getInstance(String stem, String gloss, Constituent constituent) {
         DAOFactory factory = DAOFactory.getInstance();
         ConceptDAO dao = new ConceptDAO(factory);

@@ -15,6 +15,7 @@ public class OntologyDetails extends JPanel {
     private JTextField stemField;
     private JTextField senseField;
     private JTextArea glossArea;
+    private JLabel tagLabel;
     
     public static void main(String[] args) {
         MainFrame frame = new MainFrame();
@@ -48,5 +49,8 @@ public class OntologyDetails extends JPanel {
         detailsPanel.add(glossArea);
         
         add(detailsPanel);
+        
+        JLabel tags = new JLabel("Tags: ");
+        tagLabel = new JLabel();
     }
 }
