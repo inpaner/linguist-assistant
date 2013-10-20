@@ -4,6 +4,7 @@ import grammar.model.Constituent;
 import grammar.model.FileBrowsing;
 import grammar.model.XMLParser;
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -12,6 +13,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 import commons.view.MainFrame;
 
@@ -28,6 +30,7 @@ public class SemanticEditorPanel extends JPanel {
     private JButton btnSave;
     private JButton btnGenerate;
     private JButton btnGrammar;
+	 private JTextArea txtTranslation;
     private XMLParser parser;
     public static void main(String[] args) {
         MainFrame frame = new MainFrame();
@@ -60,8 +63,25 @@ public class SemanticEditorPanel extends JPanel {
          	/*Block b=new Block(c);
          	blocksPanel.add(b);*/
     		 updateConstituent(root);
+			getTranslation(root);
+    		 txtTranslation.repaint();
+	
 
          
+    }
+	private void getTranslation(Constituent c)
+    {
+    	if(c.getChildren()!=null)
+    	{
+    		 for(Constituent k: c.getChildren())
+    		 {
+    			 
+    			getTranslation(k);
+    		 }
+    	}
+    	else  txtTranslation.append(c.getTranslation().toString()+" ");
+    	
+    		
     }
     private void writeXML(String filename)
     {
@@ -70,6 +90,9 @@ public class SemanticEditorPanel extends JPanel {
     }
     private void initComponents() {
     	parser=new XMLParser();
+		txtTranslation=new JTextArea();
+    	txtTranslation.setEditable(false);
+    	txtTranslation.setPreferredSize(new Dimension(400,50));
     	//browser=new FileBrowsing();
         blocksPanel = new BlocksPanel();
         blocksPanel.addBlockListener(new ImpBlockListener());
@@ -135,6 +158,7 @@ public class SemanticEditorPanel extends JPanel {
         add(btnSave);
         add(btnGenerate);
         add(btnGrammar);
+		add(txtTranslation);
         //add(browser);
     }
     
