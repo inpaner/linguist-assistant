@@ -43,6 +43,7 @@ public class LEXICONUI extends JFrame {
    
     JComboBox syntacticCategory = new JComboBox();
     private JTable table;
+    private JScrollPane tablePane;
    
    public LEXICONUI(){
        initialize();
@@ -165,7 +166,9 @@ public class LEXICONUI extends JFrame {
        	}
        ));
        table.setBounds(27, 101, 943, 550);
-       getContentPane().add(table);
+       tablePane=new JScrollPane(table);
+       tablePane.setBounds(27, 101, 943, 550);
+       getContentPane().add(tablePane);
        
        syntacticCategory.setVisible(true);
        sCategory.setVisible(true);
@@ -207,6 +210,7 @@ public class LEXICONUI extends JFrame {
                         awords.setVisible(false);
                         edomains.setVisible(false);
                         vdomains.setVisible(false);
+           //TODO: change table model to include columns "Comments" and "Sample Sentences"
 			}
 		});
       
@@ -224,6 +228,7 @@ public class LEXICONUI extends JFrame {
                         awords.setVisible(false);
                         edomains.setVisible(false);
                         vdomains.setVisible(false);
+            //TODO: change table model to include columns corresponding to features of selected POS
 			}
 		});
        
@@ -241,6 +246,7 @@ public class LEXICONUI extends JFrame {
 			awords.setVisible(false);
                         edomains.setVisible(false);
                         vdomains.setVisible(false);
+           //TODO: change table model to include columns based on forms of selected POS.
 			}
 		});
        
@@ -258,6 +264,7 @@ public class LEXICONUI extends JFrame {
 			awords.setVisible(true);
                         edomains.setVisible(true);
                         vdomains.setVisible(true);
+                      //TODO: change table model to include column "Semantic Domains"
 			}
 		});
    }

@@ -25,7 +25,7 @@ public class SemanticEditor {
         display.addBlockListener(new ImpBlockListener());
         display.addFeatureValuesListener(new ImpFeatureValuesListener());
         frame.setPanel(display);
-        
+       /* 
         Constituent con = Constituent.get("C");
         Constituent con2 = Constituent.get("N");
         Constituent con3 = Constituent.get("V");
@@ -33,7 +33,7 @@ public class SemanticEditor {
         con.addChild(con2);
         con.addChild(con3);
         
-        display.updateConstituent(con);
+        display.updateConstituent(con);*/
     }
     
     private class ImpBlockListener implements BlockListener {
