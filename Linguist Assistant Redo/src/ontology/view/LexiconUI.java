@@ -12,9 +12,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.List;
+
 import javax.swing.*;
 import javax.xml.bind.Marshaller.Listener;
 import javax.swing.table.DefaultTableModel;
+
+import ontology.model.Concept;
 
 /**
  *
@@ -47,6 +51,7 @@ public class LexiconUI extends JFrame {
     JComboBox syntacticCategory = new JComboBox();
     private JTable table;
     private JScrollPane tablePane;
+    List<Concept> concepts;
     Constituent c;
    public LexiconUI(){
        initialize();
@@ -83,7 +88,9 @@ public class LexiconUI extends JFrame {
        awords = new JButton("Add Words");
        edomains = new JButton("Edit Domains");
        vdomains = new JButton("View Domains");
-       
+       getConcepts();
+       setDefaultModel();
+       populateTable(concepts);
   
        
        
@@ -91,7 +98,11 @@ public class LexiconUI extends JFrame {
      //  syntacticCategory.addMouseListener(l);
     
    }
-   
+   public void getConcepts()
+   {
+		c=Constituent.getBySyntacticCategory(syntacticCategory.getSelectedItem().toString());
+	    concepts = Concept.getInstances("", c);
+   }
    public void setBounds(){
        syntacticCategory.setBounds(150, 24, 200, 20);
        sCategory.setBounds(30,24,150,20);
@@ -195,6 +206,7 @@ public class LexiconUI extends JFrame {
                        setDefaultModel();
                        model.addColumn("Comments");
                        model.addColumn("Sample Sentences");
+                       populateTable(concepts);
             table.setModel(model);
 			}
 		});
@@ -213,14 +225,8 @@ public class LexiconUI extends JFrame {
                         awords.setVisible(false);
                         edomains.setVisible(false);
                         vdomains.setVisible(false);
-                        setDefaultModel();
-                        for(Feature f: c.getFeatures())//doesn't go here for some reason
-                        {
-                        	System.out.println(f.getName());
-                        	model.addColumn(f.getName());
-                        }
-            //TODO: change table model to include columns corresponding to features of selected POS
-                        table.setModel(model);
+                        updateFeatureColumns();
+                        populateTable(concepts);
 			}
 		});
        
@@ -239,6 +245,7 @@ public class LexiconUI extends JFrame {
                         edomains.setVisible(false);
                         vdomains.setVisible(false);
                         setDefaultModel();
+                        populateTable(concepts);
                       //TODO: add columns based on forms of selected POS.
                         table.setModel(model);
            
@@ -262,6 +269,7 @@ public class LexiconUI extends JFrame {
            
           setDefaultModel();
           model.addColumn("Semantic Domains");
+          populateTable(concepts);
            table.setModel(model);
           
 
@@ -271,8 +279,11 @@ public class LexiconUI extends JFrame {
        {
     	   
     	   public void actionPerformed(ActionEvent arg0) {
-    		   	populateTable(syntacticCategory.getSelectedItem().toString());
-    		   	 c=new Constituent(syntacticCategory.getSelectedItem().toString(),null,0);
+    		   	
+    		   	 //c=new Constituent(syntacticCategory.getSelectedItem().toString(),null,0);
+    		   getConcepts();
+    		    updateFeatureColumns();
+    		    populateTable(concepts);
     		  System.out.println(c.getLabel());
    			}
    		});
@@ -291,9 +302,41 @@ public class LexiconUI extends JFrame {
    			}
    		});
    }
+   public void updateFeatureColumns()
+   {
+	   setDefaultModel();
+       System.out.println(c.getFeatures().size());
+       for(Feature f: c.getFeatures())//doesn't go here; features not initialized for some reason
+       {
+       	System.out.println(f.getName());
+       	model.addColumn(f.getName());
+       }
+//TODO: (in progress) change table model to include columns corresponding to features of selected POS
+       table.setModel(model);
+   }
    public void setDefaultModel(){
 	   model= new DefaultTableModel(
    	       	new Object[][] {
+   	     		{null, null},
+   	       		{null, null},
+   	       		{null, null},
+   	       		{null, null},
+   	       		{null, null},
+   	       		{null, null},
+   	       		{null, null},
+   	       		{null, null},
+   	       		{null, null},
+   	       		{null, null},
+   	       		{null, null},
+   	       		{null, null},
+   	       		{null, null},
+   	       		{null, null},
+   	       		{null, null},
+   	       		{null, null},
+   	       		{null, null},
+   	       		{null, null},
+   	       		{null, null},
+   	       		{null, null},
    	       		{null, null},
    	       		{null, null},
    	       		{null, null},
@@ -320,9 +363,21 @@ public class LexiconUI extends JFrame {
    	       	}
    	       );
    }
-   public void populateTable(String pos)
+   public void populateTable(List<Concept> concepts)
    {
-	   //get all concepts/definitions from DB that have pos as a label
+	   int i=0;
+	   for(Concept concept: concepts)
+	   {
+		   if(i>=model.getRowCount())
+		   {
+			   model.addRow(new Object[]{});
+		   }
+		   model.setValueAt(concept.getStem(), i, 0);
+		   model.setValueAt(concept.getGloss(),i,1);
+		 
+		   i++;
+	   }
+	  
    }
     public static void main(String[] args) {
         LexiconUI lui = new LexiconUI();
