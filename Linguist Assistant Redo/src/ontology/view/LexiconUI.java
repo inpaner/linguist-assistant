@@ -285,6 +285,13 @@ public class LexiconUI extends JFrame {
     		   	populateTable(syntacticCategory.getSelectedItem().toString());
    			}
    		});
+       search.addActionListener(new ActionListener()
+       {
+    	   
+    	   public void actionPerformed(ActionEvent arg0) {
+    		   	SearchLexiconUI searcher=new SearchLexiconUI();
+   			}
+   		});
    }
    public void populateTable(String pos)
    {
