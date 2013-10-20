@@ -151,10 +151,10 @@ public class LexiconUI extends JFrame {
        getContentPane().add(sdomains);
        getContentPane().add(newstem);
        getContentPane().add(search);
-       getContentPane().add(addcolumn);
+       //getContentPane().add(addcolumn);
        getContentPane().add(newfeature);
        getContentPane().add(editfeature);
-       getContentPane().add(subset);
+       //getContentPane().add(subset);
        getContentPane().add(newform);
        getContentPane().add(formrules);
        getContentPane().add(export);
@@ -180,7 +180,7 @@ public class LexiconUI extends JFrame {
        sdomains.setVisible(true);
        newstem.setVisible(true);
        search.setVisible(true);
-       addcolumn.setVisible(true);
+       //addcolumn.setVisible(true);
        newfeature.setVisible(false);
        editfeature.setVisible(false);
        subset.setVisible(false);
@@ -200,7 +200,7 @@ public class LexiconUI extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 			newstem.setVisible(true);
                         search.setVisible(true);
-                        addcolumn.setVisible(true);
+                        //addcolumn.setVisible(true);
                         newfeature.setVisible(false);
                         editfeature.setVisible(false);
                         subset.setVisible(false);
@@ -225,7 +225,7 @@ public class LexiconUI extends JFrame {
                         addcolumn.setVisible(false);
                         newfeature.setVisible(true);
                         editfeature.setVisible(true);
-                        subset.setVisible(true);
+                        //subset.setVisible(true);
 			newform.setVisible(false);
                         formrules.setVisible(false);
                         export.setVisible(false);
@@ -287,7 +287,7 @@ public class LexiconUI extends JFrame {
     	   
     	   public void actionPerformed(ActionEvent arg0) {
     		   	
-    		   	 //c=new Constituent(syntacticCategory.getSelectedItem().toString(),null,0);
+    		   	 c=new Constituent(syntacticCategory.getSelectedItem().toString(),null,0);
     		   getConcepts();
     		    updateFeatureColumns();
     		    populateTable(concepts);
@@ -306,13 +306,21 @@ public class LexiconUI extends JFrame {
     	   
     	   public void actionPerformed(ActionEvent arg0) {
     		   	NewFeatureLexiconUI featureAdder=new NewFeatureLexiconUI();
+    		   
    			}
    		});
        editfeature.addActionListener(new ActionListener()
        {
     	   
     	   public void actionPerformed(ActionEvent arg0) {
-    		   	EditFeatureLexiconUI featureEditor=new EditFeatureLexiconUI();
+    		   	EditFeatureLexiconUI featureEditor=new EditFeatureLexiconUI(c);
+   			}
+   		});
+       newstem.addActionListener(new ActionListener()
+       {
+    	   
+    	   public void actionPerformed(ActionEvent arg0) {
+    		   NewStemLexiconUI stemAdder=new NewStemLexiconUI();
    			}
    		});
    }

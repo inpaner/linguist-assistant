@@ -1,8 +1,11 @@
 package ontology.view;
 
+import grammar.model.Feature;
+
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -13,7 +16,7 @@ public class NewFeatureLexiconUI extends JFrame {
 	public JTextField feature;
 	public JButton addfeature;
 	private JTable table;
-	
+	private DefaultTableModel model;
 	public NewFeatureLexiconUI(){
 		
 		initialize();
@@ -22,7 +25,20 @@ public class NewFeatureLexiconUI extends JFrame {
 		addToFrame();
 		buttonFunctions();
 	}
-	
+	public void saveFeature(){
+		ArrayList<String>features=new ArrayList<String>();
+		String value;
+		for(int i=0;i<model.getRowCount();i++)
+		{
+			value=model.getValueAt(i, 0).toString();
+			if(value!=null)
+			{
+				features.add(value);
+			}
+		}
+		Feature f=new Feature(feature.getText());
+		//TOFO: save feature somehow
+	}
 	public void initialize(){
 		label = new JLabel("Name of the new feature");
 		feature = new JTextField();
@@ -47,28 +63,29 @@ public class NewFeatureLexiconUI extends JFrame {
 		getContentPane().add(addfeature);
 		
 		table = new JTable();
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-			},
-			new String[] {
-				"Value name", "Character"
-			}
-		));
+		model=new DefaultTableModel(
+				new Object[][] {
+						{null, null},
+						{null, null},
+						{null, null},
+						{null, null},
+						{null, null},
+						{null, null},
+						{null, null},
+						{null, null},
+						{null, null},
+						{null, null},
+						{null, null},
+						{null, null},
+						{null, null},
+						{null, null},
+						{null, null},
+					},
+					new String[] {
+						"Value name", "Character"
+					}
+				);
+		table.setModel(model);
 		table.setBounds(10, 53, 564, 556);
 		
 		getContentPane().add(table);

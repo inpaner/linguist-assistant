@@ -1,7 +1,14 @@
 package ontology.view;
 
+import grammar.model.Constituent;
+import grammar.model.Feature;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 public class EditFeatureLexiconUI extends JFrame{
 	
@@ -11,28 +18,47 @@ public class EditFeatureLexiconUI extends JFrame{
 	private JButton ok;
 	private JButton cancel;
 	private JTable table;
-	
+	DefaultTableModel model;
 	JComboBox feature = new JComboBox();
-	
-	public EditFeatureLexiconUI(){
+	Constituent con;
+	public EditFeatureLexiconUI(Constituent c){
 		
 		initialize();
 		setBounds();
 		setFrame();
 		addToFrame();
+		con=c;
 	}
-	
+	public void saveFeature(){
+		ArrayList<String>features=new ArrayList<String>();
+		String value;
+		for(int i=0;i<model.getRowCount();i++)
+		{
+			value=model.getValueAt(i, 0).toString();
+			if(value!=null)
+			{
+				features.add(value);
+			}
+		}
+		Feature f=new Feature(feature.getSelectedItem().toString());
+		//TOFO: save feature somehow
+	}
 	public void initialize(){
 		
 		label = new JLabel("Which feature do you want to edit?");
 		comment = new JLabel("Comment: ");
 		commentbox = new JTextField();
 		ok = new JButton("OK");
+		ok.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				saveFeature();
+			}
+		});
 		cancel = new JButton("Cancel");
 		table = new JTable();
 		
-		
-		table.setModel(new DefaultTableModel(
+		model=
+		new DefaultTableModel(
 				new Object[][] {
 					{null, null},
 					{null, null},
@@ -53,14 +79,29 @@ public class EditFeatureLexiconUI extends JFrame{
 				new String[] {
 					"Value name", "Character"
 				}
-			));
+			);
+		table.setModel(model);
+		fillComboBox();
 	}
-	
-
+	public void fillComboBox()
+	{
+		if(con!=null)
+		{
+		for(Feature f: con.getFeatures())
+	       {
+			feature.addItem(f.getName());
+	       }
+		}
+	}
 	
 	public void setBounds(){
 		
 		label.setBounds(60, 25, 230, 20);
+		feature.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				fillTable(feature.getSelectedItem().toString());
+			}
+		});
 		feature.setBounds(280, 24, 200, 20);
 		comment.setBounds(30,280,200,20);
 		commentbox.setBounds(30, 305,540,200);
@@ -79,17 +120,31 @@ public class EditFeatureLexiconUI extends JFrame{
         this.setLocation(400, 300);
         this.setResizable(false);
 	}
-	
+	public void fillTable(String featureName)
+	{
+		for(Feature f: con.getFeatures())
+		{
+			if(f.getName()==featureName)
+			{
+				int i=0;
+				for(String s: f.getPossibleValues())
+				{
+					model.setValueAt(s,i,0);
+					i++;
+				}
+			}
+		}
+	}
 	public void addToFrame(){
 		
-		this.add(label);
-		this.add(feature);
-		this.add(comment);
-		this.add(commentbox);
-		this.add(ok);
-		this.add(cancel);
+		getContentPane().add(label);
+		getContentPane().add(feature);
+		getContentPane().add(comment);
+		getContentPane().add(commentbox);
+		getContentPane().add(ok);
+		getContentPane().add(cancel);
 		
-		this.add(table);
+		getContentPane().add(table);
 		
 		
 		
@@ -106,7 +161,7 @@ public class EditFeatureLexiconUI extends JFrame{
 	
 	public static void main(String[] args){
 		
-		EditFeatureLexiconUI eflui = new EditFeatureLexiconUI();
+		//EditFeatureLexiconUI eflui = new EditFeatureLexiconUI();
 	}
 
 }

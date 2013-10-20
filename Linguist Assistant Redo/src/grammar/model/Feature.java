@@ -36,6 +36,10 @@ public class Feature extends Node {
         this(name, null, parent);
         value = getDefaultValue();
     }
+    public Feature(String name) {
+        this(name, null, null);
+        value = getDefaultValue();
+    }
     
     public String getDefaultValue() {
         return getPossibleValues().get(0);
