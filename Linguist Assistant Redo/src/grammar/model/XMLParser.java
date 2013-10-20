@@ -101,7 +101,8 @@ public class XMLParser {
             
             case "concept":  parseConcept(childNode, constituent);
                              break;
-            
+            case "gloss": 	constituent.setTranslation(new Translation(childNode.getTextContent()));
+            				break;
             default:         break;
             
             }

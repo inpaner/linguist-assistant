@@ -351,7 +351,14 @@ public class Constituent extends Node {
     public Integer getPk() {
         return pk;
     }
-    
+    public void setTranslation(Translation t)
+    {
+    	translation=t;
+    }
+    public Translation getTranslation()
+    {
+    	return translation;
+    }
     private Integer pk;
     private String syntacticCategory;
     private String syntacticAbbreviation;

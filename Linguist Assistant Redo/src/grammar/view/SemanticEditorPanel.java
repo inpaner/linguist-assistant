@@ -4,6 +4,7 @@ import grammar.model.Constituent;
 import grammar.model.FileBrowsing;
 import grammar.model.XMLParser;
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -12,9 +13,10 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
+import view.LEXICONUI;
 import commons.view.MainFrame;
-
 import net.miginfocom.swing.MigLayout;
 
 @SuppressWarnings("serial")
@@ -28,7 +30,10 @@ public class SemanticEditorPanel extends JPanel {
     private JButton btnSave;
     private JButton btnGenerate;
     private JButton btnGrammar;
-    private XMLParser parser;
+    private JButton btnLexicon;
+	private JTextArea txtTranslation;
+    
+	private XMLParser parser;
     public static void main(String[] args) {
         MainFrame frame = new MainFrame();
         Constituent con = new Constituent("C", null);
@@ -59,9 +64,27 @@ public class SemanticEditorPanel extends JPanel {
          	
          	/*Block b=new Block(c);
          	blocksPanel.add(b);*/
-    		 updateConstituent(root);
+    		updateConstituent(root);
+			getTranslation(root);
+    		 txtTranslation.repaint();
+	
 
          
+    }
+	private void getTranslation(Constituent c)
+    {
+    	if(c.hasChildren())
+    	{
+    		 for(Constituent k: c.getChildren())
+    		 {
+    			 
+    			getTranslation(k);
+    		 }
+    	}
+    	else  if(c.getTranslation()!=null)
+    		txtTranslation.append(c.getTranslation().toString()+" ");
+    	
+    		
     }
     private void writeXML(String filename)
     {
@@ -70,10 +93,14 @@ public class SemanticEditorPanel extends JPanel {
     }
     private void initComponents() {
     	parser=new XMLParser();
+		txtTranslation=new JTextArea();
+    	txtTranslation.setEditable(false);
+    	txtTranslation.setPreferredSize(new Dimension(400,50));
     	//browser=new FileBrowsing();
         blocksPanel = new BlocksPanel();
         blocksPanel.addBlockListener(new ImpBlockListener());
         featureValuesPanel = new FeatureValuesPanel();
+     
         buttonPanel = new ButtonPanel();
         btnLoad=new JButton("Load XML");
         btnLoad.addActionListener(new ActionListener() {
@@ -95,6 +122,7 @@ public class SemanticEditorPanel extends JPanel {
         btnGenerate=new JButton("Generate Text");
         btnGenerate.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent arg0) {
+        		txtTranslation.setText("");
         		readXML("data/infected eye 1-2-generated.xml");
         	}
         });
@@ -103,10 +131,18 @@ public class SemanticEditorPanel extends JPanel {
         	public void actionPerformed(ActionEvent arg0) {
         		 MainFrame frame = new MainFrame();
         	        GrammarEditorPanel panel = new GrammarEditorPanel();
-        	        frame.setPanel(panel);
+        	      frame.setPanel(panel);
+        	       
         	        //BEWARE: closing the MainFrame with the grammar editor will also close the main MainFrame
         	}
         });
+        btnLexicon=new JButton("View Lexicon");
+        btnLexicon.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent arg0) {
+       		LEXICONUI lex=new LEXICONUI();
+       	       
+       	}
+       });
     }
     private String getFile()
     {
@@ -135,6 +171,8 @@ public class SemanticEditorPanel extends JPanel {
         add(btnSave);
         add(btnGenerate);
         add(btnGrammar);
+        add(btnLexicon);
+		add(txtTranslation);
         //add(browser);
     }
     

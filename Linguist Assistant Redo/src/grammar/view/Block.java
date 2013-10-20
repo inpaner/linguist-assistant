@@ -5,6 +5,7 @@ import grammar.model.Constituent;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
@@ -48,12 +49,14 @@ public class Block extends Box {
     private List<Block> children;
     private List<Box> spacers;
     private Block parent;
+	private JLabel translationLabel;
     private JLabel nameLabel;
     private JLabel conceptLabel;
     private Box contentBox;
     private boolean showChildren;
     private List<BlockListener> listeners;
-    
+    private JButton btnDelete;
+    Font translationFont;
     static {
         try { // unsure why needed since Block.class is this
             blockFlavor = new DataFlavor(
@@ -85,7 +88,7 @@ public class Block extends Box {
     
     public Block(final Constituent constituent, Block parent, int colorIndex) {
         super(BoxLayout.X_AXIS);
-    
+    	translationFont=new Font("Verdana", Font.BOLD, 12);
         children = new ArrayList<>();
         spacers = new ArrayList<>();
         listeners = new ArrayList<>();
@@ -99,19 +102,28 @@ public class Block extends Box {
         
         nameLabel = new JLabel(constituent.getLabel());
         conceptLabel = new JLabel();
+		translationLabel=new JLabel();
+		btnDelete=new JButton("X");
         if(constituent.getConcept() != null) {
             conceptLabel.setText(constituent.getConcept().getStem());
         } 
         else {
             conceptLabel.setText(" ");
         }
-        
+        if(constituent.getTranslation()!=null)
+        {
+        	translationLabel.setText(constituent.getTranslation().toString());
+        }
+        translationLabel.setFont(translationFont);
+        translationLabel.setForeground(Color.RED);
         JPanel textPanel = new JPanel();
         //textPanel.setLayout(new MigLayout());
+		textPanel.add(translationLabel);
         textPanel.add(nameLabel);
         textPanel.add(conceptLabel);
         
         Box textBox = Box.createVerticalBox();
+		textBox.add(translationLabel);
         textBox.add(nameLabel);
         textBox.add(conceptLabel);
         
