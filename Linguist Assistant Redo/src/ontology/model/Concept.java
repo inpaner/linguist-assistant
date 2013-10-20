@@ -13,6 +13,7 @@ public class Concept extends Node {
     private String stem;
     private String sense;
     private String gloss;
+    private List<Tag> tags;
     private Constituent fConstituent;
     
     private final static List<String> senseList = 
@@ -93,7 +94,13 @@ public class Concept extends Node {
     public String toString() {
         return this.stem + "-" + this.sense;
     }
-
+    
+    public List<Tag> getTags() {
+        DAOFactory factory = DAOFactory.getInstance();
+        ConceptDAO dao = new ConceptDAO(factory);
+        return dao.retrieveAllTags(this);
+    }
+    
     @Override
     public boolean equals(Object other) {
         if (other == null)

@@ -1,12 +1,11 @@
 package ontology.model;
 
 import grammar.model.ConstituentDAO;
-
 import commons.dao.DAOFactory;
 
 public class Tag {
     private Integer fPk;
-    private String fName;
+    private String name;
     
     public static Tag getInstance(int aPk) {
         DAOFactory factory = DAOFactory.getInstance();
@@ -22,7 +21,7 @@ public class Tag {
     
     Tag(int aPk, String aName) {
         fPk = aPk;
-        fName = aName;
+        name = aName;
     }
     
     public Integer getPk() {
@@ -30,10 +29,14 @@ public class Tag {
     }
     
     public String getName() {
-        return fName;
+        return name;
     }
     
-    public void setName(String aName) {
-        fName = aName;
+    public void setName(String name) {
+        this.name = name;
+    }
+    
+    public String toString() {
+        return name;
     }
 }

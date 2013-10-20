@@ -14,8 +14,10 @@ import commons.dao.DAOFactory;
 public class ConceptImport {
     private final String FOLDER = "data/ontologies/";
     private final String CREATE_FILENAME = "relations.txt";
-    private final String TAG_FILENAME = "test.txt";
+    private final String TAG_FILENAME = "place-nouns.txt";
     private final String SYNTACTIC_ABBR = "N";
+    private final String TAG_NAME = "place";
+    
     
     public static void main(String[] args) {
         /*DAOFactory factory = DAOFactory.getInstance();
@@ -84,6 +86,19 @@ public class ConceptImport {
         return concept;
     }
     
+    Concept extractByStem(String line, Constituent con) {
+        line = line.trim();
+        line = line.replaceAll("\\s+", " ");
+        
+        String[] linesArr = line.split(" ");
+        String stem = linesArr[0];
+        Concept concept = Concept.getInstances(stem, con).get(0);
+        
+        
+        return concept;
+    }
+    
+    
     void parseTag() {
         String parsed = "";
         try {
@@ -93,10 +108,10 @@ public class ConceptImport {
             DAOFactory factory = DAOFactory.getInstance();
             ConceptDAO dao = new ConceptDAO(factory);
             Constituent constituent = Constituent.getBySyntacticAbbr(SYNTACTIC_ABBR);
-            Tag tag = Tag.getInstance("masculine");
+            Tag tag = Tag.getInstance(TAG_NAME);
             while (line != null) {
                 if (!line.isEmpty()) {
-                    Concept concept = parseLine(line, constituent);
+                    Concept concept = extractByStem(line, constituent);
                     parsed = concept.getStem();
                     dao.addTag(concept, tag);
                     System.out.println("Added: " + parsed);

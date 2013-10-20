@@ -112,8 +112,6 @@ public class ConstituentDAO {
         return constituent;
     }
     
-    
-    
     public List<Constituent> getAllConstituents() {
         List<Constituent> allConstituents = new ArrayList<Constituent>();
         Connection conn = null;

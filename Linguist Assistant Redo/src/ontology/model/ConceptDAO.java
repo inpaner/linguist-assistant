@@ -45,7 +45,13 @@ public class ConceptDAO {
     
     private static final String SQL_ADD_TAG = 
             "INSERT INTO OntologyTag(ontologyPk, tagPk) " +
-             " VALUES (?, ?)";
+            " VALUES (?, ?)";
+    
+    private static final String SQL_ALL_TAGS =
+            "SELECT tagPk " +
+            "  FROM OntologyTag " +
+            " WHERE ontologyPk = (?) ";
+            
     
     private DAOFactory fDAOFactory;
     
@@ -141,12 +147,13 @@ public class ConceptDAO {
         Constituent con = Constituent.getBySyntacticAbbr("N");
         
         long start = System.nanoTime();
-        List<Concept> result = dao.retrieveBySubstring("", con);
+        List<Concept> result = dao.retrieveBySubstring("Adah", con);
         long end = System.nanoTime();
         long elapsedTime = end - start;
         
         for (Concept item : result) {
             System.out.println(item);
+            System.out.println(item.getTags());
         }
         
         double seconds = (double)elapsedTime / 1000000000.0;
@@ -207,6 +214,36 @@ public class ConceptDAO {
         finally {
             DAOUtil.close(conn, ps, rs);
         }
+    }
+    
+    public List<Tag> retrieveAllTags(Concept concept) {
+        List<Tag> result = new ArrayList<>();
+        Object[] values = {
+                concept.getPk()
+        };
+
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            String sql = SQL_ALL_TAGS;
+            conn = fDAOFactory.getConnection();
+            ps = DAOUtil.prepareStatement(conn, sql, false, values);
+            rs = ps.executeQuery();
+            
+            while (rs.next()) {
+                Tag tag = Tag.getInstance(rs.getInt("tagPk"));
+                result.add(tag);
+            }
+        } 
+        catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        finally {
+            DAOUtil.close(conn, ps, rs);
+        }
+        
+        return result;
     }
     
     private Concept map(ResultSet rs, Constituent constituent) throws SQLException {
