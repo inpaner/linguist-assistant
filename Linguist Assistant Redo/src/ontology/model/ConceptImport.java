@@ -13,8 +13,9 @@ import commons.dao.DAOFactory;
 
 public class ConceptImport {
     private final String FOLDER = "data/ontologies/";
-    private final String FILENAME = "relations.txt";
-    private final String SYNTACTIC_ABBR = "Adp";
+    private final String CREATE_FILENAME = "relations.txt";
+    private final String TAG_FILENAME = "test.txt";
+    private final String SYNTACTIC_ABBR = "N";
     
     public static void main(String[] args) {
         /*DAOFactory factory = DAOFactory.getInstance();
@@ -25,13 +26,13 @@ public class ConceptImport {
         concept.setGloss("animal that barks");
         
         dao.add(concept);*/
-        new ConceptImport().parseAdd();
+        new ConceptImport().parseTag();
     }
     
-    void parseAdd() {
+    void parseCreate() {
         String parsed = "";
         try {
-            BufferedReader in = new BufferedReader(new FileReader(FOLDER + FILENAME));
+            BufferedReader in = new BufferedReader(new FileReader(FOLDER + CREATE_FILENAME));
             String line = in.readLine();
             
             DAOFactory factory = DAOFactory.getInstance();
@@ -57,6 +58,7 @@ public class ConceptImport {
             e.printStackTrace();
         }
     }
+
     
     Concept parseLine(String line, Constituent con) {
         Concept concept = new Concept(con);
@@ -81,4 +83,35 @@ public class ConceptImport {
         concept.setGloss(gloss);
         return concept;
     }
-}   
+    
+    void parseTag() {
+        String parsed = "";
+        try {
+            BufferedReader in = new BufferedReader(new FileReader(FOLDER + TAG_FILENAME));
+            String line = in.readLine();
+            
+            DAOFactory factory = DAOFactory.getInstance();
+            ConceptDAO dao = new ConceptDAO(factory);
+            Constituent constituent = Constituent.get(SYNTACTIC_ABBR);
+            Tag tag = Tag.getInstance("masculine");
+            while (line != null) {
+                if (!line.isEmpty()) {
+                    Concept concept = parseLine(line, constituent);
+                    parsed = concept.getStem();
+                    dao.addTag(concept, tag);
+                    System.out.println("Added: " + parsed);
+                }
+                line = in.readLine();
+            }
+            System.out.println("Done.");
+        }
+        catch (FileNotFoundException e) {
+            e.printStackTrace();
+            
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+}

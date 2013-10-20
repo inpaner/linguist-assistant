@@ -6,7 +6,10 @@ import grammar.model.Node;
 import java.util.Arrays;
 import java.util.List;
 
+import commons.dao.DAOFactory;
+
 public class Concept extends Node {
+    private Integer pk;
     private String fStem;
     private String fSense;
     private String fGloss;
@@ -17,6 +20,13 @@ public class Concept extends Node {
                     "H", "I", "J", "K", "L", "M", "N", "O",
                     "P", "Q", "R", "S", "T", "U", "V", "W",
                     "X", "Y", "Z", "AA", "AB", "AC", "AD");
+    
+    public static Concept getInstance(String stem, String gloss, Constituent constituent) {
+        DAOFactory factory = DAOFactory.getInstance();
+        ConceptDAO dao = new ConceptDAO(factory);
+        return dao.retrieve(stem, gloss, constituent);
+    }
+    
     
     // max of 30 senses only
     public static String getNextSense(String aSense) {
@@ -36,6 +46,13 @@ public class Concept extends Node {
     public Concept(String aStem, Constituent aConstituent) {
         this(aConstituent);
         this.fStem = aStem;
+    }
+    
+    void setPk(Integer pk) {
+        this.pk = pk;
+    }
+    public Integer getPk() {
+        return pk;
     }
     
     public Constituent getParent() {
