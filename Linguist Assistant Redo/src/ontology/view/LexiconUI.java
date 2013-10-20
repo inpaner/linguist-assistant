@@ -6,6 +6,7 @@ package ontology.view;
 
 //import com.sun.org.apache.xalan.internal.xsltc.compiler.SyntaxTreeNode;
 import grammar.model.Constituent;
+import grammar.model.Feature;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -46,7 +47,7 @@ public class LexiconUI extends JFrame {
     JComboBox syntacticCategory = new JComboBox();
     private JTable table;
     private JScrollPane tablePane;
-   
+    Constituent c;
    public LexiconUI(){
        initialize();
        setBounds();
@@ -213,6 +214,11 @@ public class LexiconUI extends JFrame {
                         edomains.setVisible(false);
                         vdomains.setVisible(false);
                         setDefaultModel();
+                        for(Feature f: c.getFeatures())//doesn't go here for some reason
+                        {
+                        	System.out.println(f.getName());
+                        	model.addColumn(f.getName());
+                        }
             //TODO: change table model to include columns corresponding to features of selected POS
                         table.setModel(model);
 			}
@@ -253,7 +259,7 @@ public class LexiconUI extends JFrame {
 			awords.setVisible(true);
                         edomains.setVisible(true);
                         vdomains.setVisible(true);
-           //TODO: remove extra columns
+           
           setDefaultModel();
           model.addColumn("Semantic Domains");
            table.setModel(model);
@@ -266,6 +272,8 @@ public class LexiconUI extends JFrame {
     	   
     	   public void actionPerformed(ActionEvent arg0) {
     		   	populateTable(syntacticCategory.getSelectedItem().toString());
+    		   	 c=new Constituent(syntacticCategory.getSelectedItem().toString(),null,0);
+    		  System.out.println(c.getLabel());
    			}
    		});
        search.addActionListener(new ActionListener()
