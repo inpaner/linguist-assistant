@@ -5,12 +5,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 public class NewFeatureLexiconUI extends JFrame {
 	
 	public JLabel label;
 	public JTextField feature;
 	public JButton addfeature;
+	private JTable table;
 	
 	public NewFeatureLexiconUI(){
 		
@@ -40,9 +42,36 @@ public class NewFeatureLexiconUI extends JFrame {
         this.setLocation(400, 20);
 	}
 	public void addToFrame(){
-		this.add(label);
-		this.add(feature);
-		this.add(addfeature);
+		getContentPane().add(label);
+		getContentPane().add(feature);
+		getContentPane().add(addfeature);
+		
+		table = new JTable();
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+			},
+			new String[] {
+				"Value name", "Character"
+			}
+		));
+		table.setBounds(10, 53, 564, 556);
+		
+		getContentPane().add(table);
 		
 		label.setVisible(true);
 		feature.setVisible(true);
@@ -68,6 +97,4 @@ public class NewFeatureLexiconUI extends JFrame {
 		
 		NewFeatureLexiconUI nflui = new NewFeatureLexiconUI();
 	}
-
-
 }
