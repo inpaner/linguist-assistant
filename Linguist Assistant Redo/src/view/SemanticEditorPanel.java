@@ -71,7 +71,7 @@ public class SemanticEditorPanel extends JPanel {
     }
 	private void getTranslation(Constituent c)
     {
-    	if(c.getChildren()!=null)
+    	if(c.hasChildren())
     	{
     		 for(Constituent k: c.getChildren())
     		 {
@@ -79,7 +79,8 @@ public class SemanticEditorPanel extends JPanel {
     			getTranslation(k);
     		 }
     	}
-    	else  txtTranslation.append(c.getTranslation().toString()+" ");
+    	else  if(c.getTranslation()!=null)
+    		txtTranslation.append(c.getTranslation().toString()+" ");
     	
     		
     }
@@ -118,6 +119,7 @@ public class SemanticEditorPanel extends JPanel {
         btnGenerate=new JButton("Generate Text");
         btnGenerate.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent arg0) {
+        		txtTranslation.setText("");
         		readXML("data/infected eye 1-2-generated.xml");
         	}
         });
