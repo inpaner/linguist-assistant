@@ -15,18 +15,18 @@
             </features> 
             <subcons>
                 <const>
-                    <label>Adp</label>
+                    <label>Adposition</label>
                     <concept>Begin Episode-A</concept>
                 </const>
                 <const>
-                    <label>Adp</label>
+                    <label>Adposition</label>
                     <concept>Begin Scene-A</concept>    
                 </const>
                 <const>
-                    <label>NP</label>
+                    <label>Noun Phrase</label>
                     <subcons>
                         <const>
-                            <label>N</label>
+                            <label>Noun</label>
                             <concept>girl-A</concept>
                             <features>
                                 <feature>
@@ -36,7 +36,7 @@
                             </features>
                         </const>
                         <const>
-                            <label>NP</label>
+                            <label>Noun Phrase</label>
                             <features>
                                 <feature>
                                     <name>semantic-role</name>
@@ -45,11 +45,11 @@
                             </features>
                             <subcons>
                                 <const>
-                                    <label>Adp</label>
+                                    <label>Adposition</label>
                                     <concept>name-A</concept>
                                 </const>
                                 <const>
-                                    <label>N</label>
+                                    <label>Noun</label>
                                     <concept>Melissa-A</concept>
                                     <features>
                                         <feature>
@@ -63,7 +63,7 @@
                     </subcons>
                 </const>
                 <const>
-                    <label>VP</label>
+                    <label>Verb Phrase</label>
                     <features>
                         <feature>
                             <name>time</name>
@@ -72,13 +72,13 @@
                     </features>
                     <subcons>
                         <const>
-                            <label>V</label>
-                            <concept>sit</concept>
+                            <label>Verb</label>
+                            <concept>sit-A</concept>
                         </const>
                     </subcons>
                 </const>
                 <const>
-                    <label>NP</label>
+                    <label>Noun Phrase</label>
                     <features>
                         <feature>
                             <name>semantic-role</name>
@@ -87,12 +87,12 @@
                     </features>
                     <subcons>
                         <const>
-                            <label>Adp</label>
-                            <concept>outside</concept>
+                            <label>Adposition</label>
+                            <concept>outside-A</concept>
                         </const>
                         <const>
-                            <label>N</label>
-                            <concept>house</concept>
+                            <label>Noun</label>
+                            <concept>house-A</concept>
                             <features>
                                 <feature>
                                     <name>participant-tracking</name>
@@ -105,7 +105,7 @@
                             </features>
                         </const>
                         <const>
-                            <label>NP</label>
+                            <label>Noun Phrase</label>
                                 <features>
                                     <feature>
                                         <name>semantic-role</name>
@@ -114,12 +114,12 @@
                                 </features>
                             <subcons>
                                 <const>
-                                    <label>Adp</label>
-                                    <concept>Owner</concept>
+                                    <label>Adposition</label>
+                                    <concept>Owner-A</concept>
                                 </const>
                                 <const>
-                                    <label>N</label>
-                                    <concept>Melissa</concept>
+                                    <label>Noun</label>
+                                    <concept>Melissa-A</concept>
                                     <features>
                                         <feature>
                                             <name>participant-tracking</name>
@@ -140,7 +140,7 @@
         <!--/sentence-->
         <!--sentence-->
         <const>
-            <label>CL</label>
+            <label>Clause</label>
             <features>
                 <feature>
                     <name>salience-band</name>
@@ -150,15 +150,15 @@
             </features>
             <subcons>
                 <const>
-                    <label>conj</label> 
-                    <concept>but</concept>
+                    <label>Conjunction</label> 
+                    <concept>but-A</concept>
                 </const>
                 <const>
-                    <label>NP</label>
+                    <label>Noun Phrase</label>
                     <subcons>
                         <const>
-                            <label>N</label>
-                            <concept>Melissa</concept>
+                            <label>Noun</label>
+                            <concept>Melissa-A</concept>
                             <features>
                                 <feature>
                                     <name>participant-tracking</name>
@@ -169,10 +169,10 @@
                     </subcons>
                 </const>
                 <const>
-                    <label>VP</label>
+                    <label>Verb Phrase</label>
                     <subcons>
                         <const>
-                            <label>V</label>
+                            <label>Verb</label>
                             <concept>be-D</concept> <!-- CHECK IF PROPER CONCEPT NAME!-->
                             <features>
                                 <feature>
@@ -188,7 +188,7 @@
                     </subcons>
                 </const>
                 <const>
-                    <label>ADJP</label>
+                    <label>Adjective Phrase</label>
                     <features>
                         <feature>
                             <name>usage</name>
@@ -197,13 +197,13 @@
                     </features>
                     <subcons>
                         <const>
-                            <label>Adj</label>
-                            <concept>happy</concept>
+                            <label>Adjective</label>
+                            <concept>happy-A</concept>
                         </const>
                     </subcons>
                 </const>
                 <const>
-                    <label>CL</label>
+                    <label>Clause</label>
                     <features>
                         <feature>
                             <name>type</name>
@@ -216,15 +216,15 @@
                     </features>
                     <subcons>
                         <const>
-                            <label>Adp</label>
+                            <label>Adposition</label>
                             <concept>because-A</concept>
                         </const>
                         <const>
-                            <label>NP</label>
+                            <label>Noun Phrase</label>
                             <subcons>
                                 <const>
-                                    <label>N</label>
-                                    <concept>eye</concept>
+                                    <label>Noun</label>
+                                    <concept>eye-A</concept>
                                     <features>
                                         <feature>
                                             <name>number</name>
@@ -242,7 +242,7 @@
                                 
                                 </const>
                                 <const>
-                                    <label>NP</label>
+                                    <label>Noun Phrase</label>
                                     <features>
                                         <feature>
                                             <name>semantic-role</name>
@@ -251,12 +251,12 @@
                                     </features>
                                     <subcons>
                                         <const>
-                                            <label>Adp</label>
-                                            <concept>Bodypart</concept>
+                                            <label>Adposition</label>
+                                            <concept>Bodypart-A</concept>
                                         </const>
                                         <const>
-                                            <label>N</label>
-                                            <concept>Melissa</concept>
+                                            <label>Noun</label>
+                                            <concept>Melissa-A</concept>
                                             <features>
                                                 <feature>
                                                     <name>participant-tracking</name>
@@ -273,10 +273,10 @@
                             </subcons>
                         </const>
                         <const>
-                            <label>VP</label>
+                            <label>Verb Phrase</label>
                             <subcons>
                                 <const>
-                                    <label>V</label>
+                                    <label>Verb</label>
                                     <concept>be-D</concept>
                                     <features>
                                         <feature>
@@ -288,7 +288,7 @@
                             </subcons>
                         </const>
                         <const>
-                            <label>ADJP</label>
+                            <label>Adjective Phrase</label>
                             <features>
                                 <feature>
                                     <name>usage</name>
@@ -298,8 +298,8 @@
                             
                             <subcons>
                                 <const>
-                                    <label>Adj</label>
-                                    <concept>sore</concept>
+                                    <label>Adjective</label>
+                                    <concept>sore-A</concept>
                                     <features>
                                         <feature>
                                         <name>degree</name>
