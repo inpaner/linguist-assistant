@@ -7,12 +7,17 @@ package ontology.view;
 //import com.sun.org.apache.xalan.internal.xsltc.compiler.SyntaxTreeNode;
 import grammar.model.Constituent;
 import grammar.model.Feature;
+import grammar.view.FeatureValuesListener;
+
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.List;
+import java.util.Vector;
 
 import javax.swing.*;
 import javax.xml.bind.Marshaller.Listener;
@@ -47,6 +52,7 @@ public class LexiconUI extends JFrame {
    public JLabel view;
    public JLabel function;
    private DefaultTableModel model;
+   private List<DefaultCellEditor> editors=new List<DefaultCellEditor>();
    
     JComboBox syntacticCategory = new JComboBox();
     private JTable table;
@@ -304,12 +310,39 @@ public class LexiconUI extends JFrame {
    }
    public void updateFeatureColumns()
    {
+	   
 	   setDefaultModel();
        System.out.println(c.getFeatures().size());
-       for(Feature f: c.getFeatures())//doesn't go here; features not initialized for some reason
+       int col=2;
+       for(Feature f: c.getFeatures())
        {
        	System.out.println(f.getName());
        	model.addColumn(f.getName());
+       	for(int i=0;i<model.getRowCount();i++)
+       	{
+       		JComboBox comboBox = new JComboBox<String>();
+       		 
+       		
+       		for(String s: f.getPossibleValues())
+           	{
+       			comboBox.addItem(s);
+           	}
+       		model.setValueAt(comboBox, i, col);
+            DefaultCellEditor cellEditor = new DefaultCellEditor(comboBox);
+            editors.add(cellEditor);
+       	}
+       	/*int row=0;
+       	for(String s: f.getPossibleValues())
+       	{
+       		if(row>=model.getRowCount())
+ 		   {
+ 			   model.addRow(new Object[]{});
+ 		   }
+ 		   model.setValueAt(s, row, col);
+ 		 
+ 		   row++;
+       	}*/
+       	col++;
        }
 //TODO: (in progress) change table model to include columns corresponding to features of selected POS
        table.setModel(model);
@@ -416,5 +449,34 @@ public class LexiconUI extends JFrame {
         }
     
         }
+     /*
+     private class FeatureComboBox extends JComboBox<String> { //copied from FeatureValuesPAnel
+         private Feature feature;
+         private FeatureComboBox(Feature feature) {
+             super(new Vector<String>(feature.getPossibleValues()));
+             this.feature = feature;
+             setSelectedItem(feature.getValue());
+             addItemListener(new ComboListener());
+         }
+         
+         private Feature getFeature() {
+             return feature;
+         }
+         
+         private String getValue() {
+             return (String) getSelectedItem();
+         }
+     }
+     private class ComboListener implements ItemListener {
+         @Override
+         public void itemStateChanged(ItemEvent ev) {
+             if (ev.getStateChange() == ItemEvent.SELECTED) {
+                 FeatureComboBox comboBox = (FeatureComboBox) ev.getSource();
+                 for (FeatureValuesListener listener : listeners) {
+                     listener.featureValueChanged(comboBox.getFeature(), comboBox.getValue());
+                 }
+             }
+         }
+     }*/
 }
 
