@@ -41,7 +41,7 @@ public class LEXICONUI extends JFrame {
    public JLabel sCategory;
    public JLabel view;
    public JLabel function;
-   
+   private DefaultTableModel model;
    
     JComboBox syntacticCategory = new JComboBox();
     private JTable table;
@@ -87,7 +87,7 @@ public class LEXICONUI extends JFrame {
        
        
        l = new LEXICONUI.Listener();
-       syntacticCategory.addMouseListener(l);
+     //  syntacticCategory.addMouseListener(l);
     
    }
    
@@ -144,33 +144,34 @@ public class LEXICONUI extends JFrame {
        getContentPane().add(vdomains);
        
        table = new JTable();
-       table.setModel(new DefaultTableModel(
-       	new Object[][] {
-       		{null, null},
-       		{null, null},
-       		{null, null},
-       		{null, null},
-       		{null, null},
-       		{null, null},
-       		{null, null},
-       		{null, null},
-       		{null, null},
-       		{null, null},
-       		{null, null},
-       		{null, null},
-       		{null, null},
-       		{null, null},
-       		{null, null},
-       		{null, null},
-       		{null, null},
-       		{null, null},
-       		{null, null},
-       		{null, null},
-       	},
-       	new String[] {
-       		"Stem", "Gloss"
-       	}
-       ));
+      model= new DefaultTableModel(
+    	       	new Object[][] {
+    	       		{null, null},
+    	       		{null, null},
+    	       		{null, null},
+    	       		{null, null},
+    	       		{null, null},
+    	       		{null, null},
+    	       		{null, null},
+    	       		{null, null},
+    	       		{null, null},
+    	       		{null, null},
+    	       		{null, null},
+    	       		{null, null},
+    	       		{null, null},
+    	       		{null, null},
+    	       		{null, null},
+    	       		{null, null},
+    	       		{null, null},
+    	       		{null, null},
+    	       		{null, null},
+    	       		{null, null},
+    	       	},
+    	       	new String[] {
+    	       		"Stem", "Gloss"
+    	       	}
+    	       );
+       table.setModel(model);
        table.setBounds(27, 101, 943, 550);
        tablePane=new JScrollPane(table);
        tablePane.setBounds(27, 101, 943, 550);
@@ -216,7 +217,9 @@ public class LEXICONUI extends JFrame {
                         awords.setVisible(false);
                         edomains.setVisible(false);
                         vdomains.setVisible(false);
-           //TODO: change table model to include columns "Comments" and "Sample Sentences"
+           //TODO: remove extra columns
+            model.addColumn("Comments");
+            model.addColumn("Sample Sentences");
 			}
 		});
       
@@ -270,8 +273,9 @@ public class LEXICONUI extends JFrame {
 			awords.setVisible(true);
                         edomains.setVisible(true);
                         vdomains.setVisible(true);
-           // table.addColumn(new TableColumn())
-                      //TODO: change table model to include column "Semantic Domains"
+           //TODO: remove extra columns
+           model.addColumn("Semantic Domains");
+
 			}
 		});
        syntacticCategory.addActionListener(new ActionListener()
