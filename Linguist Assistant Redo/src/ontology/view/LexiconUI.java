@@ -292,6 +292,13 @@ public class LexiconUI extends JFrame {
     		   	SearchLexiconUI searcher=new SearchLexiconUI();
    			}
    		});
+       newfeature.addActionListener(new ActionListener()
+       {
+    	   
+    	   public void actionPerformed(ActionEvent arg0) {
+    		   	NewFeatureLexiconUI featureAdder=new NewFeatureLexiconUI();
+   			}
+   		});
    }
    public void populateTable(String pos)
    {
