@@ -31,11 +31,7 @@ public class OntologyListPanel extends JPanel {
         public abstract void searchChanged(String text);
         public abstract void selected(Concept selected);
     }
-    
-    // note that there are no DB calls here
-    // setting of values is offloaded to controller
 
-    // see notes on private listeners below 
     public OntologyListPanel() {
         this.listeners = new ArrayList<>();
         this.model = new OntologyTableModel();
@@ -111,34 +107,6 @@ public class OntologyListPanel extends JPanel {
             return false;
         }
     }
-    
-    /* --------------------------------------------------------------
-     * Private Listeners Below
-     * 
-     * Private listeners serve as facades, which forward
-     * the events to our custom listener, OntologyListPanel.Listener
-     * 
-     * Without a custom listener, each controller that would use 
-     * this panel would have to create a SearchListener and a 
-     * ListListener, and handle the code below. Is bad.
-     * 
-     * Assignment of the listeners is found in the constructor via
-     * this.table.getSelectionModel().addListSelectionListener(new ListListener());
-     * 
-     * alternatively, one could have made use of an anonymous inner class via
-     
-       this.table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {           
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                // same as below
-            }
-        });
-     
-     
-     * but I prefer to create private inner classes to keep code clean. Plus,
-     * you can reuse inner classes over and over on different components.
-     */
-
     
     private class SearchListener implements DocumentListener {
         public void changedUpdate(DocumentEvent ev) {}

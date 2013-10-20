@@ -26,9 +26,9 @@ public class SemanticEditor {
         display.addFeatureValuesListener(new ImpFeatureValuesListener());
         frame.setPanel(display);
         
-        Constituent con = Constituent.get("C");
-        Constituent con2 = Constituent.get("N");
-        Constituent con3 = Constituent.get("V");
+        Constituent con = Constituent.getBySyntacticAbbr("C");
+        Constituent con2 = Constituent.getBySyntacticAbbr("N");
+        Constituent con3 = Constituent.getBySyntacticAbbr("V");
         
         con.addChild(con2);
         con.addChild(con3);

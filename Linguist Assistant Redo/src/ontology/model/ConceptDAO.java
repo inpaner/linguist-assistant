@@ -53,16 +53,6 @@ public class ConceptDAO {
         fDAOFactory = aDAOFactory;
     }
     
-    /*
-     * Accessing DB follows very similar code.
-     * 
-     * Yes, it's duplicate code bonanza, but Connection,
-     * PreparedStatement, and ResultSet should have as minimal
-     * scope as possible.
-     * 
-     * Object[]  values are the SQL values
-     */
-    
     public void create(Concept aConcept) {
         Object[] values = {
                 aConcept.getStem(),
@@ -148,7 +138,7 @@ public class ConceptDAO {
     public static void main(String[] args) {
         DAOFactory factory = DAOFactory.getInstance();
         ConceptDAO dao = new ConceptDAO(factory);
-        Constituent con = Constituent.get("N");
+        Constituent con = Constituent.getBySyntacticAbbr("N");
         
         long start = System.nanoTime();
         List<Concept> result = dao.retrieveBySubstring("", con);
