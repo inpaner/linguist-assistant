@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import ontology.model.Form;
+
 import commons.dao.DAOFactory;
 import commons.dao.DAOUtil;
 import commons.dao.DBUtil;
@@ -50,6 +52,10 @@ public class ConstituentDAO {
     private static final String SQL_GET_ALL_FEATURES = 
             "SELECT pk, name " +
             "  FROM Feature " +
+            " WHERE semanticCategoryPK = (?); ";
+    private static final String SQL_GET_ALL_FORMS = 
+            "SELECT pk, name " +
+            "  FROM Form " +
             " WHERE semanticCategoryPK = (?); ";
     
     public ConstituentDAO(DAOFactory aDAOFactory) {
@@ -184,4 +190,39 @@ public class ConstituentDAO {
     }
     
     private DAOFactory fDAOFactory;
+
+	public List<Form> getAllForms(Constituent constituent) {
+		// TODO Auto-generated method stub
+		 ArrayList<Form> allForms = new ArrayList<Form>();
+	        Connection conn = null;
+	        PreparedStatement ps = null;
+	        ResultSet rs = null;
+	        Object[] values = {
+	                constituent.getPk()
+	        };
+
+	        try {
+	            String sql = SQL_GET_ALL_FORMS;
+	            conn = fDAOFactory.getConnection();
+	            ps = DAOUtil.prepareStatement(conn, sql, false, values);
+	            rs = ps.executeQuery();
+	            while (rs.next()) {
+	                Integer pk = rs.getInt("pk");
+	                String name = rs.getString("name");
+	                allForms.add(new Form(name));
+	            }
+	            
+	        } 
+	        catch (SQLException ex) {
+	            ex.printStackTrace();
+	        }
+	        finally {
+	            DAOUtil.close(conn, ps, rs);
+	        }
+	        
+	        
+	        
+	        return allForms;
+	
+	}
 }

@@ -12,10 +12,16 @@ public class Form {
 	private Integer pk;
 	private int syntacticCategoryPK;
 	private String syntacticCategory;
+	public Form(String name)
+	{
+		this.name=name;
+	}
 	public static Form getBySyntacticCategory(String category) {
         DAOFactory factory = DAOFactory.getInstance();
         FormDAO dao = new FormDAO(factory);
+        
         return dao.getBySyntacticCategory(category);
+        
     }
 	void setPk(int aPk) {
         pk = aPk;
@@ -30,4 +36,21 @@ public class Form {
 	private void setName(String name) {
 		this.name = name;
 	}
+	public void saveToDB()
+	{
+		DAOFactory factory = DAOFactory.getInstance();
+        FormDAO dao = new FormDAO(factory);
+		dao.create(this);
+	}
+	public Integer getPK() {
+		return pk;
+	}
+	
+	public int getSyntacticCategoryPK() {
+		return syntacticCategoryPK;
+	}
+	public void setSyntacticCategoryPK(int syntacticCategoryPK) {
+		this.syntacticCategoryPK = syntacticCategoryPK;
+	}
+	
 }

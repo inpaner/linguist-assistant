@@ -37,18 +37,20 @@ public class EditFeatureLexiconUI extends JFrame{
 		String value;
 		System.out.println("Saving");
 		//System.out.println(model.getRowCount());
+		Feature f=new Feature(feature.getSelectedItem().toString());
+		
 		for(int i=0;i<model.getRowCount();i++)
 		{
 			
 			if(model.getValueAt(i, 0)!=null)
 			{
 			value=model.getValueAt(i, 0).toString();
-			
-				features.add(value);
+			//TODO: save change to default values schema into DB
 			}
 			//else System.out.println("NULL VALUE");
 		}
-		Feature f=new Feature(feature.getSelectedItem().toString());
+		
+		
 		return f;
 		//TOFO: save feature somehow
 	}
