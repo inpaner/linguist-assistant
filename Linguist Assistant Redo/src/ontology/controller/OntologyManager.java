@@ -4,6 +4,8 @@ import grammar.model.Constituent;
 
 import java.util.List;
 
+import javax.swing.JFrame;
+
 import ontology.model.Concept;
 import ontology.model.ConceptDAO;
 import ontology.model.Tag;
@@ -21,8 +23,9 @@ public class OntologyManager {
         new OntologyManager().testCase();
     }
     
-    private void testCase() {
+    public void testCase() {
         MainFrame frame = new MainFrame();
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         panel = new OntologyList();
         frame.setPanel(panel);
 

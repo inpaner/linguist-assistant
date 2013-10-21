@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
+import ontology.controller.OntologyManager;
 import ontology.view.LexiconUI;
 import commons.view.MainFrame;
 import net.miginfocom.swing.MigLayout;
@@ -31,6 +32,7 @@ public class SemanticEditorPanel extends JPanel {
     private JButton btnGenerate;
     private JButton btnGrammar;
     private JButton btnLexicon;
+    private JButton btnOntology;
 	private JTextArea txtTranslation;
     
 	private XMLParser parser;
@@ -144,6 +146,14 @@ public class SemanticEditorPanel extends JPanel {
        	       
        	}
        });
+        btnOntology=new JButton("View Ontology");
+        btnOntology.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent arg0) {
+       		OntologyManager om=new OntologyManager();
+       		om.testCase(); 
+       	       
+       	}
+       });
     }
     private String getFile()
     {
@@ -173,6 +183,7 @@ public class SemanticEditorPanel extends JPanel {
         add(btnGenerate);
         add(btnGrammar);
         add(btnLexicon);
+        add(btnOntology);
 		add(txtTranslation);
         //add(browser);
     }
