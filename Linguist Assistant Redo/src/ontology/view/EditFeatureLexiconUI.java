@@ -37,6 +37,7 @@ public class EditFeatureLexiconUI extends JFrame{
 		System.out.println("Saving");
 		for(int i=0;i<model.getRowCount();i++)
 		{
+			System.out.println(model.getValueAt(i, 0));
 			if(model.getValueAt(i, 0)!=null)
 			{
 			value=model.getValueAt(i, 0).toString();

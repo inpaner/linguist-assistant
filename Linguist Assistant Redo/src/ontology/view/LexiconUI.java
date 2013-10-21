@@ -301,6 +301,14 @@ public class LexiconUI extends JFrame {
     		   	SearchLexiconUI searcher=new SearchLexiconUI();
    			}
    		});
+       newform.addActionListener(new ActionListener()
+       {
+    	   
+    	   public void actionPerformed(ActionEvent arg0) {
+    		   	NewFormLexiconUI featureAdder=new NewFormLexiconUI();
+    		   
+   			}
+   		});
        newfeature.addActionListener(new ActionListener()
        {
     	   
