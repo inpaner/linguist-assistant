@@ -184,8 +184,27 @@ public class LexiconParser {
     }
     */
     
-    private void parseEntries(Node featureNode, POS parent){
-    	
+    private void parseEntries(Node entryNode, POS parent){
+    	 NodeList childNodes = entryNode.getChildNodes();
+         String stem = "";
+         String gloss = "";
+         for (int i = 0; i < childNodes.getLength(); i++) {
+             Node childNode = childNodes.item(i);
+             
+             switch (childNode.getNodeName()) {
+             case "stem":    stem = childNode.getTextContent();
+                             break;
+             
+             case "gloss":   gloss = childNode.getTextContent();
+                             break;
+                             
+             default:        break;
+             
+             }
+         }
+         
+        /* Entry entry = new Entry(stem, gloss, parent);
+         return entry;*/
     }
     
     public void myWrite(Root root) {

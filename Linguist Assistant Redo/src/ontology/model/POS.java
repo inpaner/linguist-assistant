@@ -5,7 +5,7 @@ import grammar.model.Feature;
 public class POS {
 	
 	private String label;
-	//private Entry[] entry;
+	private Entry[] entry;
 	private Feature[] feature;
 	private Feature[] forms;
 	
@@ -15,12 +15,12 @@ public class POS {
 	public void setLabel(String label) {
 		this.label = label;
 	}
-	/*public Entry[] getEntry() {
+	public Entry[] getEntry() {
 		return entry;
 	}
 	public void setEntry(Entry[] entry) {
 		this.entry = entry;
-	}*/
+	}
 	public Feature[] getFeature() {
 		return feature;
 	}
