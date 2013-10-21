@@ -5,9 +5,12 @@ import grammar.model.Constituent;
 import java.util.List;
 
 import ontology.model.Concept;
+import ontology.model.ConceptDAO;
 import ontology.model.Tag;
+import ontology.view.AddConceptDialog;
 import ontology.view.OntologyList;
 import ontology.view.OntologyList.Event;
+import commons.dao.DAOFactory;
 import commons.view.MainFrame;
 
 public class OntologyManager {
@@ -47,6 +50,18 @@ public class OntologyManager {
 
         @Override
         public void selectedConstituent(OntologyList.Event event) {
+            genericRefresh(event);
+        }
+
+        @Override
+        public void selectedAdd(OntologyList.Event event) {
+            Concept toAdd = AddConceptDialog.getInstance();
+            System.out.println(toAdd.getStem());
+            DAOFactory factory = DAOFactory.getInstance();
+            ConceptDAO dao = new ConceptDAO(factory);
+            System.out.println(event.getConstituent().getLabel());
+            dao.create(toAdd);
+            
             genericRefresh(event);
         }
     }

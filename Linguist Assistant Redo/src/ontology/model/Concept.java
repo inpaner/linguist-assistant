@@ -45,6 +45,9 @@ public class Concept extends Node {
         return dao.retrieve(stem, gloss, constituent);
     }
     
+    public static Concept getEmpty(Constituent constituent) {
+        return new Concept(constituent);
+    }
     
     // max of 30 senses only
     public static String getNextSense(String aSense) {

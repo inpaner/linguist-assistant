@@ -3,21 +3,22 @@ package ontology.view;
 
 
 import grammar.model.Constituent;
-import grammar.model.Feature;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
@@ -37,12 +38,14 @@ public class OntologyList extends JPanel {
     private JTable table;
     private OntologyTableModel model;
     private JComboBox<Constituent> constituentBox;
+    private JButton add;
     
     public interface Listener {
         public abstract void searchChanged(Event event);
         public abstract void selectedConcept(Event event);
         public abstract void selectedTag(Event event);
         public abstract void selectedConstituent(Event event);
+        public abstract void selectedAdd(Event event);
         
     }
 
@@ -92,12 +95,26 @@ public class OntologyList extends JPanel {
         
         JScrollPane scrollPane = new JScrollPane(table);
         
+        add = new JButton("Add");
+        add.addActionListener(new ActionListener() {
+            
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+                Event event = prepareEvent();
+                
+                for (Listener listener : listeners) {
+                    listener.selectedAdd(event);
+                }
+            }
+        });
+        
         setLayout(new MigLayout());
         add(searchLabel, "span, split, center");
         add(searchField, "gap");
         add(constituentBox);
         add(tagBox, "wrap");
-        add(scrollPane);
+        add(scrollPane, "wrap");
+        add(add, "center");
     }
     
     public void refreshConcepts(List<Concept> concepts) {
@@ -163,7 +180,6 @@ public class OntologyList extends JPanel {
         @Override
         public void insertUpdate(DocumentEvent ev) {
             Event event = prepareEvent();
-            System.out.println("here");
             for (Listener listener : listeners) {
                 listener.searchChanged(event);
             }

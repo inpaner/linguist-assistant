@@ -41,7 +41,8 @@ public class ConceptDAO {
             "  FROM Ontology " +
             " WHERE stem LIKE (?) " +
             "       AND " +
-            "       semanticCategoryPk = (?) ";
+            "       semanticCategoryPk = (?) " +
+            " ORDER BY stem ";
     
     
     private static final String SQL_RETRIEVE_ALL_WITH_TAG = 
@@ -53,7 +54,8 @@ public class ConceptDAO {
             "       AND " +
             "       semanticCategoryPk = (?) " +
             "       AND " +
-            "       tagPk = (?) ";
+            "       tagPk = (?) " +
+            " ORDER BY stem ";
     
     private static final String SQL_ADD_TAG = 
             "INSERT INTO OntologyTag(ontologyPk, tagPk) " +
@@ -76,7 +78,7 @@ public class ConceptDAO {
                 aConcept.getStem(),
                 aConcept.getParent().getPk()
         };
-
+        System.out.println("here");
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
