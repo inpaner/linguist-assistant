@@ -68,10 +68,15 @@ public class NewFormLexiconUI extends JFrame{
 				}
 				else{
 					formField.setBackground(Color.white);
+					saveForm(formField.getText());
 				}
 
 			}
 		});
+	}
+	public void saveForm(String name)
+	{
+		
 	}
 	public static void main(String[] args){
 		

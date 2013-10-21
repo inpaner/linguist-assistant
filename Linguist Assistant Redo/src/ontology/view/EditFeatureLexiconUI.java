@@ -32,22 +32,24 @@ public class EditFeatureLexiconUI extends JFrame{
 		
 		//System.out.println("Con is"+ con.getLabel());
 	}
-	public void saveFeature(){
+	public Feature getFeature(){
 		ArrayList<String>features=new ArrayList<String>();
 		String value;
 		System.out.println("Saving");
+		//System.out.println(model.getRowCount());
 		for(int i=0;i<model.getRowCount();i++)
 		{
-			System.out.println(model.getValueAt(i, 0));
+			
 			if(model.getValueAt(i, 0)!=null)
 			{
 			value=model.getValueAt(i, 0).toString();
 			
 				features.add(value);
 			}
-			else System.out.println("NULL VALUE");
+			//else System.out.println("NULL VALUE");
 		}
 		Feature f=new Feature(feature.getSelectedItem().toString());
+		return f;
 		//TOFO: save feature somehow
 	}
 	public void initialize(){
@@ -55,12 +57,8 @@ public class EditFeatureLexiconUI extends JFrame{
 		label = new JLabel("Which feature do you want to edit?");
 		comment = new JLabel("Comment: ");
 		commentbox = new JTextField();
-		ok = new JButton("OK");
-		ok.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				saveFeature();
-			}
-		});
+		setOk(new JButton("OK"));
+		
 		cancel = new JButton("Cancel");
 		table = new JTable();
 		feature.addActionListener(new ActionListener() {
@@ -117,7 +115,7 @@ public class EditFeatureLexiconUI extends JFrame{
 		feature.setBounds(280, 24, 200, 20);
 		comment.setBounds(30,280,200,20);
 		commentbox.setBounds(30, 305,540,200);
-		ok.setBounds(200,530,80,20);
+		getOk().setBounds(200,530,80,20);
 		cancel.setBounds(290, 530,100,20);
 		table.setBounds(30,60,500,200);
 		scrollPane.setBounds(30,60,500,200);
@@ -147,6 +145,7 @@ public class EditFeatureLexiconUI extends JFrame{
 						model.addRow(new Object[]{});
 					}
 					model.setValueAt(s,i,0);
+					model.fireTableCellUpdated(i, 0);
 					i++;
 				}
 			}
@@ -158,7 +157,7 @@ public class EditFeatureLexiconUI extends JFrame{
 		getContentPane().add(feature);
 		getContentPane().add(comment);
 		getContentPane().add(commentbox);
-		getContentPane().add(ok);
+		getContentPane().add(getOk());
 		getContentPane().add(cancel);
 		getContentPane().add(scrollPane);
 		
@@ -168,7 +167,7 @@ public class EditFeatureLexiconUI extends JFrame{
 		feature.setVisible(true);
 		comment.setVisible(true);
 		commentbox.setVisible(true);
-		ok.setVisible(true);
+		getOk().setVisible(true);
 		cancel.setVisible(true);
 		
 		
@@ -178,6 +177,12 @@ public class EditFeatureLexiconUI extends JFrame{
 	public static void main(String[] args){
 		
 		//EditFeatureLexiconUI eflui = new EditFeatureLexiconUI();
+	}
+	public JButton getOk() {
+		return ok;
+	}
+	public void setOk(JButton ok) {
+		this.ok = ok;
 	}
 
 }
