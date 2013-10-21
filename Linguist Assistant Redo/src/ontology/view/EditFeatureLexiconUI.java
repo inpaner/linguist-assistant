@@ -22,23 +22,28 @@ public class EditFeatureLexiconUI extends JFrame{
 	JComboBox feature = new JComboBox();
 	Constituent con;
 	public EditFeatureLexiconUI(Constituent c){
-		
+		con=c;
 		initialize();
 		setBounds();
 		setFrame();
 		addToFrame();
-		con=c;
+		//System.out.println("C is"+ c.getLabel());
+		
+		//System.out.println("Con is"+ con.getLabel());
 	}
 	public void saveFeature(){
 		ArrayList<String>features=new ArrayList<String>();
 		String value;
+		System.out.println("Saving");
 		for(int i=0;i<model.getRowCount();i++)
 		{
-			value=model.getValueAt(i, 0).toString();
-			if(value!=null)
+			if(model.getValueAt(i, 0)!=null)
 			{
+			value=model.getValueAt(i, 0).toString();
+			
 				features.add(value);
 			}
+			else System.out.println("NULL VALUE");
 		}
 		Feature f=new Feature(feature.getSelectedItem().toString());
 		//TOFO: save feature somehow
@@ -56,7 +61,11 @@ public class EditFeatureLexiconUI extends JFrame{
 		});
 		cancel = new JButton("Cancel");
 		table = new JTable();
-		
+		feature.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				fillTable(feature.getSelectedItem().toString());
+			}
+		});
 		model=
 		new DefaultTableModel(
 				new Object[][] {
@@ -87,21 +96,20 @@ public class EditFeatureLexiconUI extends JFrame{
 	{
 		if(con!=null)
 		{
-		for(Feature f: con.getFeatures())
+			List<Feature>features=con.getFeatures();
+		for(Feature f: features)
 	       {
+			//System.out.println("Feature added to cbx: "+f.getName());
 			feature.addItem(f.getName());
 	       }
 		}
+		//else System.out.println("Con is NULL");
 	}
 	
 	public void setBounds(){
 		
 		label.setBounds(60, 25, 230, 20);
-		feature.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				fillTable(feature.getSelectedItem().toString());
-			}
-		});
+		
 		feature.setBounds(280, 24, 200, 20);
 		comment.setBounds(30,280,200,20);
 		commentbox.setBounds(30, 305,540,200);
@@ -129,6 +137,10 @@ public class EditFeatureLexiconUI extends JFrame{
 				int i=0;
 				for(String s: f.getPossibleValues())
 				{
+					if(i>=model.getRowCount())
+					{
+						model.addRow(new Object[]{});
+					}
 					model.setValueAt(s,i,0);
 					i++;
 				}

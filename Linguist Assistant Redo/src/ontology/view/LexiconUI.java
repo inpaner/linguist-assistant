@@ -313,6 +313,9 @@ public class LexiconUI extends JFrame {
        {
     	   
     	   public void actionPerformed(ActionEvent arg0) {
+    		   if(c==null)
+    			   System.out.println("Oh no!");
+    		   else System.out.println(c.getLabel());
     		   	EditFeatureLexiconUI featureEditor=new EditFeatureLexiconUI(c);
    			}
    		});

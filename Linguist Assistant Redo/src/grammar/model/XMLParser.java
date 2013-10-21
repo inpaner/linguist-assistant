@@ -265,13 +265,13 @@ public class XMLParser {
             concept.appendChild(xml.createTextNode(constituent.getConcept().getStem()));
             mainElement.appendChild(concept);
                    
-            Element word = xml.createElement("word");
+            /*Element word = xml.createElement("word");
             word.appendChild(xml.createTextNode(constituent.getConcept().getWord()));
-            mainElement.appendChild(word);
+            mainElement.appendChild(word);*/
             		
-            // Element gloss = xml.createElement("gloss");
-            // gloss.appendChild(xml.createTextNode(constituent.getConcept().getGloss/getWord()));
-            // mainElement.appendChild(gloss);
+            Element gloss = xml.createElement("gloss");
+             gloss.appendChild(xml.createTextNode(constituent.getConcept().getGloss()));
+             mainElement.appendChild(gloss);
         }
         
         if(constituent.hasChildren()){

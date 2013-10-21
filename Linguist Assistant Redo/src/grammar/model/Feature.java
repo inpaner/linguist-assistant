@@ -37,7 +37,7 @@ public class Feature extends Node {
         value = getDefaultValue();
     }
     public Feature(String name) {
-        this(name, null, null);
+    	 this.fName = name;
         value = getDefaultValue();
     }
     
