@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import ontology.model.Concept;
+import ontology.model.Form;
 import commons.dao.DAOFactory;
 import commons.dao.DBUtil;
 
@@ -22,9 +23,10 @@ import commons.dao.DBUtil;
 public class Constituent extends Node {
     private static List<Constituent> fAllConstituents;
     private static Map<Integer, List<Feature>> fPossibleFeatures;
-    
+    private static Map<Integer, List<Form>> fPossibleForms;
     static {
         fPossibleFeatures = new HashMap<>();
+        fPossibleForms = new HashMap<>();
     }
     
     
@@ -219,7 +221,34 @@ public class Constituent extends Node {
         return allFeatures;
     }
     
-   
+    public List<Form> getForms() {
+        List<Form> allForms = new ArrayList<Form>();
+        List<Form> possibleForms = fPossibleForms.get(pk);
+        
+        if (possibleForms == null) {
+            DAOFactory factory = DAOFactory.getInstance();
+            ConstituentDAO dao = new ConstituentDAO(factory);
+            possibleForms = dao.getAllForms(this);
+            fPossibleForms.put(pk, possibleForms);
+            
+        }
+        
+        for (Form Form : possibleForms) {
+            boolean found = false;
+            for (Form ownForm : fForms) {
+                if (ownForm.equals(Form)) {
+                    allForms.add(ownForm);
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                allForms.add(Form);
+            }
+           
+        }
+        return allForms;
+    }
     protected void setConcept(Concept concept) {
         this.concept = concept;
     }
@@ -411,6 +440,8 @@ public class Constituent extends Node {
     private Constituent parent;
     private ArrayList<Constituent> children;
     private ArrayList<Feature> fFeatures;
+    private ArrayList<Form> fForms;
+    
     private Concept concept;
     private Translation translation;
     

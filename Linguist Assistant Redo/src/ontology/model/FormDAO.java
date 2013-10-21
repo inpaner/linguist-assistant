@@ -68,8 +68,58 @@ public class FormDAO {
 	        
 	        return form;
 	    }
+	    public void create(Form form) {
+	       Object[] values = {
+	                form.getPK(),
+	                form.getName(),
+	                form.getSyntacticCategoryPK()
+	        };
+
+	        Connection conn = null;
+	        PreparedStatement ps = null;
+	        ResultSet rs = null;
+	        
+	        // Query latest sense then use next sense 
+	        // in sequence for creation
+	       /* String newSense = "";
+	        try {
+	            String sql = SQL_LATEST_SENSE;
+	            conn = fDAOFactory.getConnection();
+	            ps = DAOUtil.prepareStatement(conn, sql, false, values);
+	            rs = ps.executeQuery();
+	            
+	            String lastSense = "";
+	            if (rs.next()) {        
+	                lastSense = rs.getString("sense");
+	            }
+	            newSense = Concept.getNextSense(lastSense);
+	        } 
+	        catch (SQLException ex) {
+	            ex.printStackTrace();
+	        }
+	        */
+	        values = new Object[] {
+	        		form.getPK(),
+	                form.getName(),
+	                form.getSyntacticCategoryPK()
+	        };
+
+	        // Create concept
+	        try {
+	            String sql = SQL_CREATE;
+	            ps = DAOUtil.prepareStatement(conn, sql, false, values);
+	            ps.executeUpdate();
+	            
+	        }
+	        catch (SQLException ex) {
+	            ex.printStackTrace();
+	        }
+	        finally {
+	            DAOUtil.close(conn, ps, rs);
+	        }
+	    }
 	    private Form map(ResultSet rs) throws SQLException {
-	        Form form=new Form();
+	        Form form=new Form(null);
 	        form.setPk(rs.getInt("pk"));
 	        form.setSyntacticCategory(rs.getString("synName"));
 	        return form;

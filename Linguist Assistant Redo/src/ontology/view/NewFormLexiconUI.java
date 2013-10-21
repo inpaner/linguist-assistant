@@ -6,6 +6,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
+import ontology.model.Form;
+
 public class NewFormLexiconUI extends JFrame{
 	
 	private JLabel label;
@@ -76,7 +78,8 @@ public class NewFormLexiconUI extends JFrame{
 	}
 	public void saveForm(String name)
 	{
-		
+		Form f=new Form(name);
+		f.saveToDB();
 	}
 	public static void main(String[] args){
 		

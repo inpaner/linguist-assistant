@@ -53,6 +53,7 @@ public class LexiconUI extends JFrame {
    public JLabel view;
    public JLabel function;
    private DefaultTableModel model;
+   private Feature tempFeature;
    //private List<DefaultCellEditor> editors=new List<DefaultCellEditor>();
    
     JComboBox syntacticCategory = new JComboBox();
@@ -305,7 +306,7 @@ public class LexiconUI extends JFrame {
        {
     	   
     	   public void actionPerformed(ActionEvent arg0) {
-    		   	NewFormLexiconUI featureAdder=new NewFormLexiconUI();
+    		   	NewFormLexiconUI formAdder=new NewFormLexiconUI();
     		   
    			}
    		});
@@ -324,10 +325,12 @@ public class LexiconUI extends JFrame {
     		   if(c==null)
     			   System.out.println("Oh no!");
     		   else System.out.println(c.getLabel());
-    		   	EditFeatureLexiconUI featureEditor=new EditFeatureLexiconUI(c);
+    		   	final EditFeatureLexiconUI featureEditor=new EditFeatureLexiconUI(c);
     		   	featureEditor.getOk().addActionListener(new ActionListener() {
     				public void actionPerformed(ActionEvent e) {
-    					//newFeature=featureEditor.getFeature(); //TODO: wrap in a final class
+    					tempFeature=featureEditor.getFeature(); //TODO: wrap in a final class
+    					System.out.println("Successfully Loaded!" +tempFeature.getName());
+    					//TODO: save tempFeature to DB
     				}
     			});
    			}
