@@ -19,6 +19,7 @@ public class EditFeatureLexiconUI extends JFrame{
 	private JButton cancel;
 	private JTable table;
 	DefaultTableModel model;
+	private JScrollPane scrollPane;
 	JComboBox feature = new JComboBox();
 	Constituent con;
 	public EditFeatureLexiconUI(Constituent c){
@@ -91,6 +92,8 @@ public class EditFeatureLexiconUI extends JFrame{
 				}
 			);
 		table.setModel(model);
+		scrollPane=new JScrollPane(table);
+		
 		fillComboBox();
 	}
 	public void fillComboBox()
@@ -117,6 +120,7 @@ public class EditFeatureLexiconUI extends JFrame{
 		ok.setBounds(200,530,80,20);
 		cancel.setBounds(290, 530,100,20);
 		table.setBounds(30,60,500,200);
+		scrollPane.setBounds(30,60,500,200);
 		
 		
 	}
@@ -156,8 +160,7 @@ public class EditFeatureLexiconUI extends JFrame{
 		getContentPane().add(commentbox);
 		getContentPane().add(ok);
 		getContentPane().add(cancel);
-		
-		getContentPane().add(table);
+		getContentPane().add(scrollPane);
 		
 		
 		

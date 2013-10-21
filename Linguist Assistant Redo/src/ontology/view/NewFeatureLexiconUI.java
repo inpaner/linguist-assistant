@@ -17,6 +17,7 @@ public class NewFeatureLexiconUI extends JFrame {
 	public JButton addfeature;
 	private JTable table;
 	private DefaultTableModel model;
+	private JScrollPane scrollPane;
 	public NewFeatureLexiconUI(){
 		
 		initialize();
@@ -85,10 +86,11 @@ public class NewFeatureLexiconUI extends JFrame {
 						"Value name", "Character"
 					}
 				);
+		scrollPane=new JScrollPane(table);
 		table.setModel(model);
 		table.setBounds(10, 53, 564, 556);
-		
-		getContentPane().add(table);
+		scrollPane.setBounds(10, 53, 564, 556);
+		getContentPane().add(scrollPane);
 		
 		label.setVisible(true);
 		feature.setVisible(true);
