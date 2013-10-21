@@ -362,7 +362,7 @@ public class LexiconUI extends JFrame {
        int col=2;
        for(Feature f: c.getFeatures())
        {
-       	System.out.println(f.getName());
+       	//System.out.println(f.getName());
        	model.addColumn(f.getName());
        	/*for(int i=0;i<model.getRowCount();i++)
        	{

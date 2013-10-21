@@ -1,0 +1,25 @@
+<lexicon>
+	<Parts>
+		<POS>
+			<label>Noun</label>
+			<entries>
+				<entry>
+					<stem>air</stem>
+					<gloss>air</gloss>
+				</entry>
+			</entries>
+			<features>
+				<feature>
+					<name>gender</name>
+					<value>neuter</value>
+				</feature>
+			</features>
+			<forms>
+				<form>
+					<name>plural</name>
+					<value>air</value>
+				</form>
+			</forms>
+		</POS>
+	</Parts>
+</lexicon>
