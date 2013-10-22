@@ -1,13 +1,13 @@
 package grammar.model;
 
 public abstract class Node {
-    protected Integer fLevel;
+    protected Integer level;
     
-    void setLevel(Integer aLevel) {
-        fLevel = aLevel;
+    void setLevel(Integer level) {
+        this.level = level;
     }
     
     public int getLevel() {
-        return fLevel;
+        return level;
     }
 }
