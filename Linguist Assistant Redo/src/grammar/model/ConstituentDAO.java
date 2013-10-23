@@ -13,8 +13,9 @@ import commons.dao.DAOFactory;
 import commons.dao.DAOUtil;
 import commons.dao.DBUtil;
 
-public class ConstituentDAO {
-    private static final String SQL_GET_BY_SYNTACTIC_ABBR = 
+public class ConstituentDAO {    
+    
+    private static final String SQL_RETRIEVE_BY_SYNTACTIC_ABBR = 
             "SELECT SemanticCategory.pk AS pk, " +
             "       SemanticCategory.name AS semName, " +
             "       SemanticCategory.abbreviation AS semAbbr, " +
@@ -26,7 +27,7 @@ public class ConstituentDAO {
             "         ON SemanticCategory.syntacticCategoryPk = SyntacticCategory.pk " +
             " WHERE SyntacticCategory.abbreviation = (?); ";
     
-    private static final String SQL_GET_BY_SYNTACTIC_CATEGORY = 
+    private static final String SQL_RETRIEVE_BY_SYNTACTIC_CATEGORY = 
             "SELECT SemanticCategory.pk AS pk, " +
             "       SemanticCategory.name AS semName, " +
             "       SemanticCategory.abbreviation AS semAbbr, " +
@@ -38,7 +39,7 @@ public class ConstituentDAO {
             "         ON SemanticCategory.syntacticCategoryPk = SyntacticCategory.pk " +
             " WHERE SyntacticCategory.name = (?); ";
     
-    private static final String SQL_GET_ALL = 
+    private static final String SQL_RETRIEVE_ALL = 
             "SELECT SemanticCategory.pk AS pk, " +
             "       SemanticCategory.name AS semName, " +
             "       SemanticCategory.abbreviation AS semAbbr, " +
@@ -53,6 +54,7 @@ public class ConstituentDAO {
             "SELECT pk, name " +
             "  FROM Feature " +
             " WHERE semanticCategoryPK = (?); ";
+    
     private static final String SQL_GET_ALL_FORMS = 
             "SELECT pk, name " +
             "  FROM Form " +
@@ -62,7 +64,7 @@ public class ConstituentDAO {
         fDAOFactory = aDAOFactory;
     }
     
-    public Constituent getBySyntacticAbbr(String syntacticAbbr) {
+    public Constituent retrieveBySyntacticAbbr(String syntacticAbbr) {
         Constituent constituent = null;
         Object[] values = {
                 syntacticAbbr,
@@ -73,7 +75,7 @@ public class ConstituentDAO {
         ResultSet rs = null;
         
         try {
-            String sql = SQL_GET_BY_SYNTACTIC_ABBR;
+            String sql = SQL_RETRIEVE_BY_SYNTACTIC_ABBR;
             conn = fDAOFactory.getConnection();
             ps = DAOUtil.prepareStatement(conn, sql, false, values);
             rs = ps.executeQuery();
@@ -90,7 +92,7 @@ public class ConstituentDAO {
         return constituent;
     }
 
-    public Constituent getBySyntacticCategory(String category) {
+    public Constituent retrieveBySyntacticCategory(String category) {
         Constituent constituent = null;
         Object[] values = {
                 category,
@@ -101,7 +103,7 @@ public class ConstituentDAO {
         ResultSet rs = null;
         
         try {
-            String sql = SQL_GET_BY_SYNTACTIC_CATEGORY;
+            String sql = SQL_RETRIEVE_BY_SYNTACTIC_CATEGORY;
             conn = fDAOFactory.getConnection();
             ps = DAOUtil.prepareStatement(conn, sql, false, values);
             rs = ps.executeQuery();
@@ -126,7 +128,7 @@ public class ConstituentDAO {
         Object[] values = {};
 
         try {
-            String sql = SQL_GET_ALL;
+            String sql = SQL_RETRIEVE_ALL;
             conn = fDAOFactory.getConnection();
             ps = DAOUtil.prepareStatement(conn, sql, false, values);
             rs = ps.executeQuery();
@@ -163,7 +165,6 @@ public class ConstituentDAO {
                 String name = rs.getString("name");
                 allFeatures.add(new Feature(pk, name, constituent));
             }
-            
         } 
         catch (SQLException ex) {
             ex.printStackTrace();
@@ -171,8 +172,6 @@ public class ConstituentDAO {
         finally {
             DAOUtil.close(conn, ps, rs);
         }
-        
-        
         
         return allFeatures;
     }
@@ -185,7 +184,7 @@ public class ConstituentDAO {
         constituent.setSemanticCategory(rs.getString("semName"));
         constituent.setSemanticAbbreviation(rs.getString("semAbbr"));
         constituent.setDeepAbbreviation(rs.getString("deepAbbr"));
-        constituent.fLevel = 0;
+        constituent.level = 0;
         return constituent;
     }
     
@@ -211,16 +210,14 @@ public class ConstituentDAO {
 	                String name = rs.getString("name");
 	                allForms.add(new Form(name));
 	            }
-	            
 	        } 
+	        
 	        catch (SQLException ex) {
 	            ex.printStackTrace();
 	        }
 	        finally {
 	            DAOUtil.close(conn, ps, rs);
 	        }
-	        
-	        
 	        
 	        return allForms;
 	
