@@ -44,7 +44,7 @@ public class Constituent extends Node {
         return clone;
     }
     
-    public static List<Constituent> getAllConstituents() {
+    public static List<Constituent> getAll() {
         if (allConstituents == null) {
             DAOFactory factory = DAOFactory.getInstance();
             ConstituentDAO dao = new ConstituentDAO(factory);
@@ -275,13 +275,26 @@ public class Constituent extends Node {
             return true;
         if (!(other instanceof Constituent))
             return false;
-        
-        // really questionable implementation <_<
-        String falseName = syntacticCategory + level;
+
         Constituent otherCon = (Constituent) other;
+        
+        if (level != otherCon.level)
+            return false;
+        
+        if (syntacticCategory != otherCon.syntacticCategory)
+            return false;
+        
+        if (parent == null || otherCon.parent == null) 
+            return false;
+        
+        return parent.equals(otherCon.parent);
+        
+        
+        /*// really questionable implementation <_<
+        String falseName = syntacticCategory + level;
         return falseName.equals(otherCon.syntacticCategory + otherCon.level) 
                         ? true 
-                        : false;
+                        : false;*/
     }
     
     @Override
