@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import lexicon.model.Language;
+
 import commons.dao.DAOFactory;
 
 
@@ -12,7 +14,9 @@ public class Feature extends Node {
     private Integer fPk;
     private String fName;
     private String value;
+    private Language language;
     private Constituent parent;
+    private String description;
     private static Map<String, List<String>> fPossibleValues;
     
     static {
@@ -23,7 +27,7 @@ public class Feature extends Node {
         this.fName = name;
         this.value = value;
         this.parent = parent;
-        fLevel = parent.getLevel() + 1;
+        level = parent.getLevel() + 1;
     }
     
     
@@ -36,6 +40,7 @@ public class Feature extends Node {
         this(name, null, parent);
         value = getDefaultValue();
     }
+    
     public Feature(String name) {
     	 this.fName = name;
         value = getDefaultValue();
@@ -55,6 +60,22 @@ public class Feature extends Node {
     
     public String getValue() {
         return value;
+    }
+    
+    public String getDescription() {
+        return description;
+    }
+    
+    public void setDescription(String description) {
+        this.description = description;
+    }
+    
+    public void setLanguage(Language language) {
+        this.language = language;
+    }
+    
+    public Language getLanguage() {
+        return language;
     }
     
     protected void setValue(String newValue) {

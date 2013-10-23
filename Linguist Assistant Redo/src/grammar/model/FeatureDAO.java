@@ -12,11 +12,7 @@ import commons.dao.DAOUtil;
 import commons.dao.DBUtil;
 
 public class FeatureDAO {
-    
-    /*
-     * SQL Statements
-     */
-    private DAOFactory fDAOFactory;
+    private DAOFactory factory;
     
     private static final String SQL_POSSIBLE_VALUES = 
             "SELECT FeatureValue.name AS name " +
@@ -45,20 +41,25 @@ public class FeatureDAO {
             "       Feature.name = (?) " +
             " LIMIT 1; ";
     
-    private static final String SQL_ADD_FEATURE  = 
-            "SELECT FeatureValue.name AS name " +
-            "  FROM FeatureValue " +
-            "       JOIN Feature " +
-            "         ON FeatureValue.featurePk = Feature.pk " +
-            "       JOIN SemanticCategory " +
-            "         ON Feature.semanticCategoryPk = SemanticCategory.pk " +
-            "       JOIN SyntacticCategory " +
-            "         ON SemanticCategory.syntacticCategoryPk = SyntacticCategory.pk " +
-            " WHERE SyntacticCategory.name = (?) " +
-            "       AND " +
-            "       Feature.name = (?) " +
-            " LIMIT 1; ";
-       
+    private static final String FEATURE_FIELDS = 
+            " name, description, " +
+            " languagePk, semanticCategoryPk ";
+    
+    private static final String SQL_CREATE = 
+            "INSERT INTO Feature(" + FEATURE_FIELDS + ") " +
+            " VALUES (?, ?, ?, ?) ";
+   
+    private static final String SQL_DELETE =
+            "DELETE FROM Feature WHERE pk = (?)";
+           
+    private static final String SQL_UPDATE =
+            "UPDATE Feature SET " +
+            "   name = (?), " +
+            "   description = (?), " +
+            "   languagePk = (?), " +
+            "   semanticCategoryPk = (?) " +
+            " WHERE pk = (?)";
+                    
     public void main(String[] args) {
         Constituent cons = new Constituent(null);
         cons.setLabel("Noun");
@@ -66,7 +67,7 @@ public class FeatureDAO {
     }
     
     public FeatureDAO(DAOFactory aDAOFactory) {
-        fDAOFactory = aDAOFactory;
+        factory = aDAOFactory;
     }
 
     List<String> getPossibleValues(Feature aFeature) {
@@ -81,7 +82,7 @@ public class FeatureDAO {
         
         try {
             String sql = SQL_POSSIBLE_VALUES;
-            conn = fDAOFactory.getConnection();
+            conn = factory.getConnection();
             ps = DAOUtil.prepareStatement(conn, sql, false, values);
             rs = ps.executeQuery();
             
@@ -111,7 +112,7 @@ public class FeatureDAO {
         
         try {
             String sql = SQL_DEFAULT_VALUE;
-            conn = fDAOFactory.getConnection();
+            conn = factory.getConnection();
             ps = DAOUtil.prepareStatement(conn, sql, false, values);
             rs = ps.executeQuery();
             
@@ -127,20 +128,20 @@ public class FeatureDAO {
         return defaultValue;
     }
     
-    void addFeature(Feature aFeature) {
-        String defaultValue = "";
-        
+    void create(Feature feature) {
         Object[] values = {
-                aFeature.getPk(),
-                aFeature.getParent().getPk()
+                feature.getName(),
+                feature.getDescription(),
+                feature.getLanguage().getPk(),
+                feature.getParent().getPk()
         };
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         
         try {
-            String sql = SQL_ADD_FEATURE;
-            conn = fDAOFactory.getConnection();
+            String sql = SQL_CREATE;
+            conn = factory.getConnection();
             ps = DAOUtil.prepareStatement(conn, sql, false, values);
             ps.executeUpdate();
         }
@@ -152,4 +153,53 @@ public class FeatureDAO {
         }
     }
     
+    void update(Feature feature) {
+        Object[] values = {
+                feature.getName(),
+                feature.getDescription(),
+                feature.getLanguage().getPk(),
+                feature.getParent().getPk(),
+                feature.getPk(),
+        };
+        
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        
+        try {
+            String sql = SQL_CREATE;
+            conn = factory.getConnection();
+            ps = DAOUtil.prepareStatement(conn, sql, false, values);
+            ps.executeUpdate();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally {
+            DAOUtil.close(conn, ps, rs);
+        }
+    }
+    
+    void delete(Feature feature) {
+        Object[] values = {
+                feature.getPk(),
+        };
+        
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        
+        try {
+            String sql = SQL_DELETE;
+            conn = factory.getConnection();
+            ps = DAOUtil.prepareStatement(conn, sql, false, values);
+            ps.executeUpdate();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally {
+            DAOUtil.close(conn, ps, rs);
+        }
+    }
 }
