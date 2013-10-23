@@ -16,7 +16,7 @@ public class AddConstituent {
     private AddConstituentPanel addConstituentPanel;
     private GenericDialog dialog;
     
-    protected AddConstituent(Constituent toAdd, Constituent destination, int index) {
+    public AddConstituent(Constituent toAdd, Constituent destination, int index) {
         this.destination = destination;
         this.index = index;
         listeners = new ArrayList<>();
@@ -46,7 +46,7 @@ public class AddConstituent {
         }   
     }
     
-    protected void addListener(AddConstituent.Listener listener) {
+    public void addListener(AddConstituent.Listener listener) {
         listeners.add(listener);
     }
     

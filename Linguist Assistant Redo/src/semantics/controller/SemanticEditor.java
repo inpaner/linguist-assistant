@@ -1,5 +1,7 @@
-package grammar.controller;
+package semantics.controller;
 
+import grammar.controller.AddConstituent;
+import grammar.controller.AddConstituent.Listener;
 import grammar.model.Constituent;
 import grammar.model.Feature;
 import grammar.view.AddConstituentListener;
@@ -16,7 +18,6 @@ public class SemanticEditor {
     
     public static void main(String[] args) {
         new SemanticEditor();
-        
     }
     
     public SemanticEditor() {
