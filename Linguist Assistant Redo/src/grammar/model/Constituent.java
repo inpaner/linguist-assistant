@@ -21,14 +21,9 @@ import commons.dao.DBUtil;
  */
 
 public class Constituent extends Node {
-    private static List<Constituent> fAllConstituents;
-    private static Map<Integer, List<Feature>> fPossibleFeatures;
-    private static Map<Integer, List<Form>> fPossibleForms;
-    static {
-        fPossibleFeatures = new HashMap<>();
-        fPossibleForms = new HashMap<>();
-    }
-    
+    private static List<Constituent> allConstituents = new ArrayList<>();
+    private static Map<Integer, List<Feature>> fPossibleFeatures = new HashMap<>();
+    private static Map<Integer, List<Form>> fPossibleForms = new HashMap<>();
     
     public static void main(String[] args) {
         Constituent con = Constituent.getBySyntacticCategory("Noun");
@@ -44,105 +39,65 @@ public class Constituent extends Node {
         clone.semanticAbbreviation = toCopy.semanticAbbreviation;
         clone.syntacticCategory = toCopy.syntacticCategory;
         clone.syntacticAbbreviation = toCopy.syntacticAbbreviation;
-        clone.fLevel = toCopy.fLevel;
+        clone.level = toCopy.level;
         
         return clone;
     }
     
     public static List<Constituent> getAllConstituents() {
-        if (fAllConstituents == null) {
+        if (allConstituents == null) {
             DAOFactory factory = DAOFactory.getInstance();
             ConstituentDAO dao = new ConstituentDAO(factory);
-            fAllConstituents = dao.getAllConstituents();            
+            allConstituents = dao.getAllConstituents();            
         }
         
-        return fAllConstituents;
+        return allConstituents;
     }
     
     public static Constituent getBySyntacticAbbr(String syntacticAbbr) {
         DAOFactory factory = DAOFactory.getInstance();
         ConstituentDAO dao = new ConstituentDAO(factory);
-        return dao.getBySyntacticAbbr(syntacticAbbr);
+        return dao.retrieveBySyntacticAbbr(syntacticAbbr);
     }
     
     public static Constituent getBySyntacticCategory(String category) {
         DAOFactory factory = DAOFactory.getInstance();
         ConstituentDAO dao = new ConstituentDAO(factory);
-        return dao.getBySyntacticCategory(category);
-    }
-
-    
-    public Constituent(String syntacticAbbr, Constituent parent) {
-        this(parent); 
-        try {
-            String query =
-                    "SELECT SemanticCategory.name AS semName, " +
-                    "       SemanticCategory.abbreviation AS semAbbr, " +
-                    "       SemanticCategory.deepAbbreviation AS deepAbbr, " +
-                    "       SyntacticCategory.name AS synName, " +
-                    "       SyntacticCategory.abbreviation AS synAbbr " +
-                    "  FROM SemanticCategory " +
-                    "       JOIN SyntacticCategory " +
-                    "         ON SemanticCategory.syntacticCategoryPk = SyntacticCategory.pk " +
-                    " WHERE SyntacticCategory.abbreviation = '" + syntacticAbbr + "'; ";
-            ResultSet rs = DBUtil.executeQuery(query);
-            rs.next();
-            syntacticCategory = rs.getString("synName");
-            syntacticAbbreviation = rs.getString("synAbbr");
-            semanticCategory = rs.getString("semName");
-            semanticAbbreviation = rs.getString("semAbbr");
-            deepAbbreviation = rs.getString("deepAbbr");
-            
-            DBUtil.finishQuery();
-        } 
-        catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-    }
-    public Constituent(String syntacticCategory, Constituent parent, int dummy) {
-        this(parent); 
-        try {
-            String query =
-                    "SELECT SemanticCategory.name AS semName, " +
-                    "       SemanticCategory.abbreviation AS semAbbr, " +
-                    "       SemanticCategory.deepAbbreviation AS deepAbbr, " +
-                    "       SyntacticCategory.name AS synName, " +
-                    "       SyntacticCategory.abbreviation AS synAbbr " +
-                    "  FROM SemanticCategory " +
-                    "       JOIN SyntacticCategory " +
-                    "         ON SemanticCategory.syntacticCategoryPk = SyntacticCategory.pk " +
-                    " WHERE SyntacticCategory.name = '" + syntacticCategory + "'; ";
-            ResultSet rs = DBUtil.executeQuery(query);
-            rs.next();
-            this.syntacticCategory = rs.getString("synName");
-            syntacticAbbreviation = rs.getString("synAbbr");
-            semanticCategory = rs.getString("semName");
-            semanticAbbreviation = rs.getString("semAbbr");
-            deepAbbreviation = rs.getString("deepAbbr");
-            
-            DBUtil.finishQuery();
-        } 
-        catch (SQLException ex) {
-            ex.printStackTrace();
-        }
+        return dao.retrieveBySyntacticCategory(category);
     }
     
-    Constituent() {
-        this(null);
+    private Integer pk;
+    private String syntacticCategory;
+    private String syntacticAbbreviation;
+    private String semanticCategory;
+    private String semanticAbbreviation;
+    private String deepAbbreviation;
+    private Constituent parent;
+    private ArrayList<Constituent> children = new ArrayList<>();;
+    private ArrayList<Feature> features = new ArrayList<>();;
+    private ArrayList<Form> forms = new ArrayList<>();;
+    
+    private Concept concept;
+    private Translation translation;
+    
+    
+    public static Constituent getEmpty() {
+        return new Constituent();
+    }
+    
+    protected Constituent() {
+        level = 0;
     }
     
     public Constituent(Constituent parent) {
-        if (parent == null) {
-            fLevel = 0;
-        } else {
-            fLevel = parent.getLevel() + 1;
+        super();
+        if (parent != null) {
+            level = parent.getLevel() + 1;
         }
+        
         this.parent = parent;
-        children = new ArrayList<>();
-        fFeatures = new ArrayList<>();
     }
     
-    //TODO protected
     public void setLabel(String label) {
         this.syntacticCategory = label;
     }
@@ -155,11 +110,10 @@ public class Constituent extends Node {
         return parent;
     }
     
-    //TODO to protected
     public void addChild(Constituent child) {
         children.add(child);
         child.parent = this;
-        child.fLevel = fLevel + 1;
+        child.level = level + 1;
     }
     
     public List<Constituent> getChildren() {
@@ -171,17 +125,17 @@ public class Constituent extends Node {
     }
     
     protected void addFeature(Feature newFeature) {
-        fFeatures.add(newFeature);
+        features.add(newFeature);
     }
     
     public void updateFeature(Feature toUpdate, String newValue) {
         boolean setToDefault = toUpdate.getDefaultValue().equals(newValue);
-        if (!fFeatures.contains(toUpdate)) { 
+        if (!features.contains(toUpdate)) { 
             toUpdate.setValue(newValue);
-            fFeatures.add(toUpdate);
+            features.add(toUpdate);
         }
         else if (setToDefault) {
-            fFeatures.remove(toUpdate);
+            features.remove(toUpdate);
         }
         else {
             toUpdate.setValue(newValue);
@@ -189,7 +143,7 @@ public class Constituent extends Node {
     }
     
     public boolean hasFeatures() {
-        return fFeatures.size() > 0;
+        return features.size() > 0;
     }
     
     public List<Feature> getFeatures() {
@@ -200,13 +154,12 @@ public class Constituent extends Node {
             DAOFactory factory = DAOFactory.getInstance();
             ConstituentDAO dao = new ConstituentDAO(factory);
             possibleFeatures = dao.getAllFeatures(this);
-            fPossibleFeatures.put(pk, possibleFeatures);
-            
+            fPossibleFeatures.put(pk, possibleFeatures);   
         }
         
         for (Feature feature : possibleFeatures) {
             boolean found = false;
-            for (Feature ownFeature : fFeatures) {
+            for (Feature ownFeature : features) {
                 if (ownFeature.equals(feature)) {
                     allFeatures.add(ownFeature);
                     found = true;
@@ -230,12 +183,11 @@ public class Constituent extends Node {
             ConstituentDAO dao = new ConstituentDAO(factory);
             possibleForms = dao.getAllForms(this);
             fPossibleForms.put(pk, possibleForms);
-            
         }
         
         for (Form Form : possibleForms) {
             boolean found = false;
-            for (Form ownForm : fForms) {
+            for (Form ownForm : forms) {
                 if (ownForm.equals(Form)) {
                     allForms.add(ownForm);
                     found = true;
@@ -249,6 +201,7 @@ public class Constituent extends Node {
         }
         return allForms;
     }
+    
     protected void setConcept(Concept concept) {
         this.concept = concept;
     }
@@ -261,13 +214,13 @@ public class Constituent extends Node {
         return concept != null;
     }
     
-    private boolean isAncestor(Constituent potential) {
+    private boolean isAncestor(Constituent potentialAncestor) {
         System.out.println(parent);
-        if (potential.parent == null)
+        if (potentialAncestor.parent == null)
             return false;
-        if (this.equals(potential.parent))
+        if (this.equals(potentialAncestor.parent))
             return true;
-        return isAncestor(potential.parent);
+        return isAncestor(potentialAncestor.parent);
     }
     
     public void moveChild(Constituent newChild, int index) {
@@ -286,15 +239,12 @@ public class Constituent extends Node {
             System.out.println("2");
             return; 
         }
-        
         if (newChild.parent != null) {
             newChild.parent.children.remove(newChild);
             newChild.parent = null;
-            System.out.println("3");
         }
         if (oldIndex != -1 && oldIndex < index) {
             index--; // to account for prior removal from parent
-            System.out.println("4");
         }
         
         try {
@@ -308,7 +258,7 @@ public class Constituent extends Node {
         }
         
         newChild.parent = this;
-        newChild.fLevel = fLevel + 1;
+        newChild.level = level + 1;
     }
     
     @Override
@@ -317,7 +267,6 @@ public class Constituent extends Node {
     }
     
     
-    //TODO define Constituent.equals properly
     @Override
     public boolean equals(Object other) {
         if (other == null)
@@ -328,16 +277,16 @@ public class Constituent extends Node {
             return false;
         
         // really questionable implementation <_<
-        String falseName = syntacticCategory + fLevel;
+        String falseName = syntacticCategory + level;
         Constituent otherCon = (Constituent) other;
-        return falseName.equals(otherCon.syntacticCategory + otherCon.fLevel) 
+        return falseName.equals(otherCon.syntacticCategory + otherCon.level) 
                         ? true 
                         : false;
     }
     
     @Override
     public int hashCode() {
-        return this.toString().hashCode() + fLevel;
+        return this.toString().hashCode() + level;
     }
 
     public String getSyntacticCategory() {
@@ -413,7 +362,7 @@ public class Constituent extends Node {
     }
 
     public void setFeatures(ArrayList<Feature> features) {
-        this.fFeatures = features;
+        this.features = features;
     }
     
     void setPk(int aPk) {
@@ -423,27 +372,12 @@ public class Constituent extends Node {
     public Integer getPk() {
         return pk;
     }
-    public void setTranslation(Translation t)
-    {
-    	translation=t;
+    public void setTranslation(Translation t) {
+    	translation=t; 
     }
-    public Translation getTranslation()
-    {
+    public Translation getTranslation() {
     	return translation;
     }
-    private Integer pk;
-    private String syntacticCategory;
-    private String syntacticAbbreviation;
-    private String semanticCategory;
-    private String semanticAbbreviation;
-    private String deepAbbreviation;
-    private Constituent parent;
-    private ArrayList<Constituent> children;
-    private ArrayList<Feature> fFeatures;
-    private ArrayList<Form> fForms;
-    
-    private Concept concept;
-    private Translation translation;
-    
+
     
 }
