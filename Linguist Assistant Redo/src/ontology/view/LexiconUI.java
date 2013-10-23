@@ -72,7 +72,7 @@ public class LexiconUI extends JFrame {
    
    public void initialize(){
       // syntacticCategory.setModel(new DefaultComboBoxModel(new String[] {"Noun", "Verb", "Adjective", "Adverb", "Adposition", "Conjunction", "Phrasal", "Particle"}));
-       for(Constituent constituent : Constituent.getAllConstituents())
+       for(Constituent constituent : Constituent.getAll())
        {
     	   syntacticCategory.addItem(constituent.getLabel());
        }

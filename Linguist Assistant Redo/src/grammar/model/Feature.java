@@ -11,29 +11,25 @@ import commons.dao.DAOFactory;
 
 
 public class Feature extends Node {
-    private Integer fPk;
-    private String fName;
+    private Integer pk;
+    private String name;
     private String value;
     private Language language;
     private Constituent parent;
     private String description;
-    private static Map<String, List<String>> fPossibleValues;
-    
-    static {
-        fPossibleValues = new HashMap<>();
-    }
+    private static Map<String, List<String>> possibleValues = new HashMap<>();
     
     protected Feature(String name, String value, Constituent parent) {
-        this.fName = name;
+        this.name = name;
         this.value = value;
         this.parent = parent;
         level = parent.getLevel() + 1;
     }
     
     
-    protected Feature(Integer aPk, String aName, Constituent aParent) {
+    protected Feature(Integer pk, String aName, Constituent aParent) {
         this(aName, aParent);
-        fPk = aPk;
+        this.pk = pk;
     }
     
     protected Feature(String name, Constituent parent) {
@@ -42,7 +38,7 @@ public class Feature extends Node {
     }
     
     public Feature(String name) {
-    	 this.fName = name;
+    	this.name = name;
         value = getDefaultValue();
     }
     
@@ -50,12 +46,12 @@ public class Feature extends Node {
         return getPossibleValues().get(0);
     }
     
-    public void setName(String aName) {
-        fName = aName;
+    public void setName(String name) {
+        this.name = name;
     }
     
     public String getName() {
-        return fName;
+        return name;
     }
     
     public String getValue() {
@@ -78,8 +74,8 @@ public class Feature extends Node {
         return language;
     }
     
-    protected void setValue(String newValue) {
-        value = newValue;
+    protected void setValue(String value) {
+        this.value = value;
     }
 
     public Constituent getParent() {
@@ -88,7 +84,7 @@ public class Feature extends Node {
     
     @Override
     public String toString() {
-        return fName;
+        return name;
     }
     
     public static void main(String[] args) {
@@ -103,12 +99,12 @@ public class Feature extends Node {
     }
     
     public List<String> getPossibleValues() {
-        List<String> values = fPossibleValues.get(fName);
+        List<String> values = possibleValues.get(name);
         if (values == null) {
             DAOFactory factory = DAOFactory.getInstance();
             FeatureDAO dao = new FeatureDAO(factory);
             values = dao.getPossibleValues(this);
-            fPossibleValues.put(fName, values);
+            possibleValues.put(name, values);
         }
         
         return values;
@@ -136,6 +132,6 @@ public class Feature extends Node {
     }
     
     public Integer getPk() {
-        return fPk;
+        return pk;
     }
 }

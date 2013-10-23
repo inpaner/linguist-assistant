@@ -11,7 +11,6 @@ import ontology.model.ConceptDAO;
 import ontology.model.Tag;
 import ontology.view.AddConceptDialog;
 import ontology.view.OntologyList;
-import ontology.view.OntologyList.Event;
 import commons.dao.DAOFactory;
 import commons.view.MainFrame;
 

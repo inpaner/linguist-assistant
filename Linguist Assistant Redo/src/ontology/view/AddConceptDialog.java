@@ -40,7 +40,7 @@ public class AddConceptDialog extends JDialog {
         setSize(400, 600);
         setLocationRelativeTo(null);
         setLayout(new MigLayout());
-        Vector<Constituent> constituents = new Vector<>(Constituent.getAllConstituents());
+        Vector<Constituent> constituents = new Vector<>(Constituent.getAll());
         constituentBox = new JComboBox<>(constituents);
         
         JPanel panel = new JPanel();

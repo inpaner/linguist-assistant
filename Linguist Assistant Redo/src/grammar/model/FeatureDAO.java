@@ -115,9 +115,7 @@ public class FeatureDAO {
             conn = factory.getConnection();
             ps = DAOUtil.prepareStatement(conn, sql, false, values);
             rs = ps.executeQuery();
-            
             rs.next();
-            
         }
         catch (SQLException e) {
             e.printStackTrace();
@@ -167,7 +165,7 @@ public class FeatureDAO {
         ResultSet rs = null;
         
         try {
-            String sql = SQL_CREATE;
+            String sql = SQL_UPDATE;
             conn = factory.getConnection();
             ps = DAOUtil.prepareStatement(conn, sql, false, values);
             ps.executeUpdate();

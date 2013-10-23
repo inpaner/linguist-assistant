@@ -1,4 +1,4 @@
-package ontology.model;
+package lexicon.model;
 
 public class Entry {
 	private String stem;

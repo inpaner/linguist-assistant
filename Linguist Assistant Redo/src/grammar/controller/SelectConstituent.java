@@ -8,15 +8,15 @@ import grammar.view.GenericDialog;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddConstituent {
-    private List<AddConstituent.Listener> listeners;
+public class SelectConstituent {
+    private List<SelectConstituent.Listener> listeners;
     private Constituent destination;
     private int index;
     
     private AddConstituentPanel addConstituentPanel;
     private GenericDialog dialog;
     
-    public AddConstituent(Constituent toAdd, Constituent destination, int index) {
+    public SelectConstituent(Constituent toAdd, Constituent destination, int index) {
         this.destination = destination;
         this.index = index;
         listeners = new ArrayList<>();
@@ -26,13 +26,12 @@ public class AddConstituent {
         dialog.setPanel(addConstituentPanel);
     }
     
-    
     private class AddConstituentListener_ implements AddConstituentListener {
         @Override
         public void clickedOk(Constituent toAdd) {
             destination.moveChild(toAdd, index);
             dialog.closeDialog();
-            for (AddConstituent.Listener listener : listeners) {
+            for (SelectConstituent.Listener listener : listeners) {
                 listener.done();
             }
         }
@@ -40,13 +39,13 @@ public class AddConstituent {
         @Override
         public void clickedCancel() {
             dialog.closeDialog();
-            for (AddConstituent.Listener listener : listeners) {
+            for (SelectConstituent.Listener listener : listeners) {
                 listener.done();
             }
         }   
     }
     
-    public void addListener(AddConstituent.Listener listener) {
+    public void addListener(SelectConstituent.Listener listener) {
         listeners.add(listener);
     }
     

@@ -61,7 +61,7 @@ public class Concept extends Node {
     
     public Concept(Constituent aConstituent) {
         this.fConstituent = aConstituent;
-        fLevel = aConstituent.getLevel() + 1;
+        level = aConstituent.getLevel() + 1;
     }
     
     public Concept(String aStem, Constituent aConstituent) {

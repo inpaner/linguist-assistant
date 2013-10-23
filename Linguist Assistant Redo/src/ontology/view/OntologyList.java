@@ -85,7 +85,7 @@ public class OntologyList extends JPanel {
         searchField = new JTextField(15);
         searchField.getDocument().addDocumentListener(new SearchListener());
         
-        Vector<Constituent> constituents = new Vector<>(Constituent.getAllConstituents());
+        Vector<Constituent> constituents = new Vector<>(Constituent.getAll());
         constituentBox = new JComboBox<>(constituents);
         constituentBox.addItemListener(new ConstituentListener());
         

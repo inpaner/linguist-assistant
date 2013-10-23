@@ -1,5 +1,6 @@
 package ontology.model;
 
+import lexicon.model.Entry;
 import grammar.model.Feature;
 
 public class POS {

@@ -56,7 +56,7 @@ public class GrammarEditorPanel extends JPanel {
     private void initComponents() {
         setLayout(new MigLayout("wrap 2"));
         constituentLabel = new JLabel("Constituent: ");
-        Vector<Constituent> vector = new Vector<>(Constituent.getAllConstituents());
+        Vector<Constituent> vector = new Vector<>(Constituent.getAll());
         
         constituents = new JComboBox<>(vector);
         selectedConstituent = constituents.getItemAt(0);
@@ -66,7 +66,7 @@ public class GrammarEditorPanel extends JPanel {
         featuresTable = new JTable(featureModel);
         featuresTable.addMouseListener(new FeatureTableListener());
         featuresPane = new JScrollPane(featuresTable);
-        if(selectedConstituent.hasFeatures())
+        if (selectedConstituent.hasFeatures())
             selectedFeature = selectedConstituent.getFeatures().get(0);
         
         valuesModel = new ValueTableModel();
@@ -247,5 +247,4 @@ public class GrammarEditorPanel extends JPanel {
         @Override
         public void mouseReleased(MouseEvent e) {}
     }
-    
 }

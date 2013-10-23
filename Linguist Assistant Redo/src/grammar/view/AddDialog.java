@@ -19,7 +19,6 @@ public class AddDialog extends JDialog {
         panel.add(new JLabel("Add constituent lel"));
         setContentPane(panel);
         setVisible(true);
-        
     }
     
     

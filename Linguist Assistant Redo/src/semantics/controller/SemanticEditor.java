@@ -1,7 +1,7 @@
 package semantics.controller;
 
-import grammar.controller.AddConstituent;
-import grammar.controller.AddConstituent.Listener;
+import grammar.controller.SelectConstituent;
+import grammar.controller.SelectConstituent.Listener;
 import grammar.model.Constituent;
 import grammar.model.Feature;
 import grammar.view.AddConstituentListener;
@@ -49,8 +49,8 @@ public class SemanticEditor {
 
         @Override
         public void droppedButton(Constituent dropped, Constituent destination, int index) {
-            AddConstituent addConstituent = new AddConstituent(dropped, destination, index);
-            addConstituent.addListener(new AddConstituentListener());
+            SelectConstituent selectConstituent = new SelectConstituent(dropped, destination, index);
+            selectConstituent.addListener(new AddConstituentListener());
         }
     }
     
@@ -63,7 +63,7 @@ public class SemanticEditor {
         }
     }
     
-    private class AddConstituentListener implements AddConstituent.Listener {
+    private class AddConstituentListener implements SelectConstituent.Listener {
         @Override
         public void done() {
             display.refresh();
