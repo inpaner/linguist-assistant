@@ -15,8 +15,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
+import lexicon.view.LexiconUI;
 import ontology.controller.OntologyManager;
-import ontology.view.LexiconUI;
 import commons.view.MainFrame;
 import net.miginfocom.swing.MigLayout;
 

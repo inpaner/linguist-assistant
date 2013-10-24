@@ -8,8 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import lexicon.model.Form;
 import ontology.model.Concept;
-import ontology.model.Form;
 import commons.dao.DAOFactory;
 import commons.dao.DBUtil;
 

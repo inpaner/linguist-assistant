@@ -1,4 +1,4 @@
-package ontology.model;
+package lexicon.model;
 
 import grammar.model.Constituent;
 import grammar.model.Root;
@@ -17,6 +17,7 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import ontology.model.Concept;
+import ontology.model.POS;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;

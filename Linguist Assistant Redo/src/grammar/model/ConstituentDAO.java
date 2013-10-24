@@ -7,8 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import ontology.model.Form;
-
+import lexicon.model.Form;
 import commons.dao.DAOFactory;
 import commons.dao.DAOUtil;
 import commons.dao.DBUtil;

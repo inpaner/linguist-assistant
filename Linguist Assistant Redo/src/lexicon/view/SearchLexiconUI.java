@@ -1,4 +1,4 @@
-package ontology.view;
+package lexicon.view;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;

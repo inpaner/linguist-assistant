@@ -1,4 +1,4 @@
-package ontology.view;
+package lexicon.view;
 
 import grammar.model.Feature;
 

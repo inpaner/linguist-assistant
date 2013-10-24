@@ -2,13 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package ontology.view;
+package lexicon.view;
 
 //import com.sun.org.apache.xalan.internal.xsltc.compiler.SyntaxTreeNode;
 import grammar.model.Constituent;
 import grammar.model.Feature;
 import grammar.view.FeatureValuesListener;
-
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,8 +22,8 @@ import javax.swing.*;
 import javax.xml.bind.Marshaller.Listener;
 import javax.swing.table.DefaultTableModel;
 
+import lexicon.model.Form;
 import ontology.model.Concept;
-import ontology.model.Form;
 
 /**
  *
@@ -288,8 +287,8 @@ public class LexiconUI extends JFrame {
     	   
     	   public void actionPerformed(ActionEvent arg0) {
     		   	
-    		   	 c=new Constituent(syntacticCategory.getSelectedItem().toString(),null,0);
-    		   getConcepts();
+    		   	 //c=new Constituent(syntacticCategory.getSelectedItem().toString(),null,0);
+    		   	 getConcepts();
     		    updateFeatureColumns();
     		    populateTable(concepts);
     		  System.out.println(c.getLabel());

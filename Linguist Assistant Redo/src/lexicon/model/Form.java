@@ -1,4 +1,4 @@
-package ontology.model;
+package lexicon.model;
 
 import java.util.List;
 

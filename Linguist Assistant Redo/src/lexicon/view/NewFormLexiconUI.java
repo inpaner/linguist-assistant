@@ -1,4 +1,4 @@
-package ontology.view;
+package lexicon.view;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-import ontology.model.Form;
+import lexicon.model.Form;
 
 public class NewFormLexiconUI extends JFrame{
 	
