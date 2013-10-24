@@ -1,8 +1,11 @@
-package grammar.view;
+package semantics.view;
 
 import grammar.model.Constituent;
 import grammar.model.FileBrowsing;
 import grammar.model.XMLParser;
+import grammar.view.FeatureValuesListener;
+import grammar.view.FeatureValuesPanel;
+import grammar.view.GrammarEditorPanel;
 
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -133,10 +136,8 @@ public class SemanticEditorPanel extends JPanel {
         	public void actionPerformed(ActionEvent arg0) {
         		 MainFrame frame = new MainFrame();
         		 frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        	        GrammarEditorPanel panel = new GrammarEditorPanel();
-        	      frame.setPanel(panel);
-        	       
-        	    
+    		     GrammarEditorPanel panel = new GrammarEditorPanel();
+    		     frame.setPanel(panel);
         	}
         });
         btnLexicon=new JButton("View Lexicon");

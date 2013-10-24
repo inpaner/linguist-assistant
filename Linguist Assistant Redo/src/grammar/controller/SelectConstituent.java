@@ -25,7 +25,7 @@ public class SelectConstituent {
         addConstituentPanel.addListener(new AddConstituentListener_());
         dialog.setPanel(addConstituentPanel);
     }
-    
+     
     private class AddConstituentListener_ implements AddConstituentListener {
         @Override
         public void clickedOk(Constituent toAdd) {

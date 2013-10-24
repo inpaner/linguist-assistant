@@ -1,15 +1,15 @@
 package semantics.controller;
 
+import semantics.view.BlockListener;
+import semantics.view.SemanticEditorPanel;
 import grammar.controller.SelectConstituent;
 import grammar.controller.SelectConstituent.Listener;
 import grammar.model.Constituent;
 import grammar.model.Feature;
 import grammar.view.AddConstituentListener;
 import grammar.view.AddConstituentPanel;
-import grammar.view.BlockListener;
 import grammar.view.FeatureValuesListener;
 import grammar.view.GenericDialog;
-import grammar.view.SemanticEditorPanel;
 import commons.dao.DBUtil;
 import commons.view.MainFrame;
 

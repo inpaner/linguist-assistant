@@ -1,4 +1,4 @@
-package grammar.view;
+package semantics.view;
 
 import grammar.model.Constituent;
 
