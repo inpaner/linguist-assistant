@@ -1,4 +1,4 @@
-package commons.view;
+package commons.main;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -34,9 +34,8 @@ public class MainFrame extends JFrame {
         });
         
         
-        setTitle("Linguist's Assistant's Second Cousin Thrice Removed");
-        //setSize(800, 600);
-        setMaximumSize(FrameDimension);
+        setTitle("Linguist's Assistant 3.1");
+        setPreferredSize(new Dimension(1024, 768));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(true);
