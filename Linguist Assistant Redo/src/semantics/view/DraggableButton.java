@@ -23,6 +23,10 @@ public class DraggableButton extends JButton {
     private static DataFlavor buttonFlavor;    
     private ArrayList<DraggableButtonListener> listeners;
     
+    protected static DataFlavor getFlavor() {
+        return buttonFlavor;
+    }
+
     protected DraggableButton(Constituent constituent) {
         super(constituent.getLabel());
         this.constituent = constituent;
@@ -35,14 +39,14 @@ public class DraggableButton extends JButton {
         catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-
+    
         addMouseListener(new ClickedBox());
         DragSource ds = new DragSource();
         ds.createDefaultDragGestureRecognizer(
-                this, DnDConstants.ACTION_COPY, new DragGestureListener_());
+                this, DnDConstants.ACTION_COPY, new DragListener());
         
     }
-    
+
     private class ClickedBox implements MouseListener {
         @Override
         public void mouseClicked(MouseEvent e) {
@@ -52,20 +56,13 @@ public class DraggableButton extends JButton {
         }
 
         public void mouseEntered(MouseEvent e) {}
-
         public void mouseExited(MouseEvent e) {}
-
         public void mousePressed(MouseEvent e) {}
-
         public void mouseReleased(MouseEvent e) {}
     }
     
     protected Constituent getConstituent() {
         return Constituent.copy(constituent);
-    }
-    
-    protected static DataFlavor getFlavor() {
-        return buttonFlavor;
     }
     
     private class TransferableButton implements Transferable {
@@ -97,7 +94,7 @@ public class DraggableButton extends JButton {
         }
     }
     
-    private class DragGestureListener_ implements DragGestureListener {
+    private class DragListener implements DragGestureListener {
         @Override
         public void dragGestureRecognized(DragGestureEvent event) {
             Cursor cursor = null;

@@ -8,8 +8,7 @@ import java.util.List;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import commons.view.MainFrame;
-
+import commons.main.MainFrame;
 import net.miginfocom.swing.MigLayout;
 
 public class BlocksPanel extends JPanel {

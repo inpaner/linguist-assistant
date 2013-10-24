@@ -6,7 +6,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 
-import commons.view.MainFrame;
+import commons.main.MainFrame;
 import net.miginfocom.swing.MigLayout;
 
 public class OntologyDetails extends JPanel {

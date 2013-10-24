@@ -11,7 +11,7 @@ import grammar.view.AddConstituentPanel;
 import grammar.view.FeatureValuesListener;
 import grammar.view.GenericDialog;
 import commons.dao.DBUtil;
-import commons.view.MainFrame;
+import commons.main.MainFrame;
 
 public class SemanticEditor {
     private SemanticEditorPanel display;

@@ -20,7 +20,7 @@ import javax.swing.JTextArea;
 
 import lexicon.view.LexiconUI;
 import ontology.controller.OntologyManager;
-import commons.view.MainFrame;
+import commons.main.MainFrame;
 import net.miginfocom.swing.MigLayout;
 
 @SuppressWarnings("serial")
@@ -61,65 +61,52 @@ public class SemanticEditorPanel extends JPanel {
         initComponents();
         addComponents();
     }
-    private void readXML(String filename)
-    {
+    private void readXML(String filename) {
     	
-    	Constituent root = parser.read(filename);
-
-         	
-         	/*Block b=new Block(c);
-         	blocksPanel.add(b);*/
-    		updateConstituent(root);
-			getTranslation(root);
-    		 txtTranslation.repaint();
-	
-
-         
+    	Constituent root = parser.read(filename); 	
+     	updateConstituent(root);
+		getTranslation(root);
+		txtTranslation.repaint();
     }
-	private void getTranslation(Constituent c)
-    {
-    	if(c.hasChildren())
-    	{
-    		 for(Constituent k: c.getChildren())
-    		 {
-    			 
-    			getTranslation(k);
+	
+    private void getTranslation(Constituent c) {
+    	if (c.hasChildren()) {
+    		 for(Constituent k: c.getChildren()) {
+    			 getTranslation(k);
     		 }
     	}
-    	else  if(c.getTranslation()!=null)
-    		txtTranslation.append(c.getTranslation().toString()+" ");
-    	
-    		
+    	else if (c.getTranslation() != null)
+    		txtTranslation.append(c.getTranslation().toString() + " ");
     }
-    private void writeXML(String filename)
-    {
-        if(root!=null)
+    
+    private void writeXML(String filename) {
+        if(root != null)
            parser.writeXML(filename,root);
     }
     private void initComponents() {
-    	parser=new XMLParser();
-		txtTranslation=new JTextArea();
+    	parser = new XMLParser();
+		txtTranslation = new JTextArea();
     	txtTranslation.setEditable(false);
     	txtTranslation.setPreferredSize(new Dimension(400,50));
-    	//browser=new FileBrowsing();
+    	//browser = new FileBrowsing();
         blocksPanel = new BlocksPanel();
         blocksPanel.addBlockListener(new ImpBlockListener());
         featureValuesPanel = new FeatureValuesPanel();
      
         buttonPanel = new ButtonPanel();
         btnLoad=new JButton("Load XML");
+        
         btnLoad.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent arg0) {
-        		
-        			String filename=getFile();
-		        
+    			String filename=getFile();
 		        readXML(filename);}
         	
         });
+        
         btnSave=new JButton("Save XML");
         btnSave.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent arg0) {
-        		String filename=getFile();
+        		String filename = getFile();
         		writeXML(filename);
         		JOptionPane.showMessageDialog(null,null,"XML Saved", JOptionPane.INFORMATION_MESSAGE);
         	}

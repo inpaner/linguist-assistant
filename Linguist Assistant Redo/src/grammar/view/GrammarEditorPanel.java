@@ -22,8 +22,7 @@ import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
 import net.miginfocom.swing.MigLayout;
-
-import commons.view.MainFrame;
+import commons.main.MainFrame;
 
 @SuppressWarnings("serial")
 public class GrammarEditorPanel extends JPanel {

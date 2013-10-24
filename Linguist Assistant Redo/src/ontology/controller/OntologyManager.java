@@ -12,7 +12,7 @@ import ontology.model.Tag;
 import ontology.view.AddConceptDialog;
 import ontology.view.OntologyList;
 import commons.dao.DAOFactory;
-import commons.view.MainFrame;
+import commons.main.MainFrame;
 
 public class OntologyManager {
     Constituent noun;
