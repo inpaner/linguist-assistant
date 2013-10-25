@@ -59,11 +59,11 @@ public class ConstituentDAO {
             "  FROM SemanticCategory " +
             "       JOIN SyntacticCategory " +
             "         ON SemanticCategory.syntacticCategoryPk = SyntacticCategory.pk " +
-            " WHERE pk = (?) ";
+            " WHERE SemanticCategory.pk = (?) ";
     
     
     private static final String SQL_GET_ALL_FEATURES = 
-            "SELECT pk, name " +
+            "SELECT SemanticCategory.pk AS pk, name " +
             "  FROM Feature " +
             " WHERE semanticCategoryPK = (?); ";
     

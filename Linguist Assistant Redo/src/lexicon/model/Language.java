@@ -1,6 +1,12 @@
 package lexicon.model;
 
+import grammar.model.ConstituentDAO;
+
+import java.util.List;
+
 import org.apache.commons.lang3.text.WordUtils;
+
+import commons.dao.DAOFactory;
 
 public class Language {
     
@@ -8,13 +14,35 @@ public class Language {
      * Static factories
      */
     
+    public static void main(String[] args) {
+        for (Language item : Language.getAll()) {
+            System.out.println(item);
+        }
+    }
+    
+    public static List<Language> getAll() {
+        DAOFactory factory = DAOFactory.getInstance();
+        LanguageDAO dao = new LanguageDAO(factory);
+        return dao.retrieveAll();
+    }
+
     public static Language getEmpty() {
         return new Language();
     }
     
-    public static Language getInstance() {
-        return new Language();
+    public static Language getInstance(int pk) {
+        DAOFactory factory = DAOFactory.getInstance();
+        LanguageDAO dao = new LanguageDAO(factory);
+        return dao.retrieve(pk);
     }
+    
+    public static Language getInstance(String name) {
+        DAOFactory factory = DAOFactory.getInstance();
+        LanguageDAO dao = new LanguageDAO(factory);
+        return dao.retrieve(name);
+    }
+    
+    
     
     /*
      * Main class
@@ -22,6 +50,7 @@ public class Language {
     
     private int pk;
     private String name;
+    private String description = "";
     
     private Language() {}
     
@@ -41,6 +70,14 @@ public class Language {
         this.name = WordUtils.capitalize(name);
     }
     
+    public String getDescription() {
+        return description;
+    }
+    
+    public void setDescription(String description) {
+        this.description = description;
+    }
+    
     @Override
     public boolean equals(Object other) {
         if (other == null)
@@ -53,5 +90,10 @@ public class Language {
         Language otherLanguage = (Language) other;
         return name.equals(otherLanguage.name) ? true : false;
     }
-
+    
+    @Override
+    public String toString() {
+        return name;
+    }
+    
 }

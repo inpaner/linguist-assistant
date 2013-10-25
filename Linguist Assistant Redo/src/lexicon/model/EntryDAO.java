@@ -1,5 +1,7 @@
 package lexicon.model;
 
+import grammar.model.Constituent;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,53 +12,50 @@ import java.util.List;
 import commons.dao.DAOFactory;
 import commons.dao.DAOUtil;
 
-public class LanguageDAO {
-    private DAOFactory factory;
+public class EntryDAO {
+private DAOFactory factory;
     
     public static void main(String[] args) {
-        DAOFactory factory = DAOFactory.getInstance();
-        LanguageDAO dao = new LanguageDAO(factory);
-        Language empty = dao.retrieve(1);
-        dao.delete(empty);
+        EntryDAO dao = new EntryDAO(DAOFactory.getInstance());
+        Language lang = Language.getInstance("English");
+        Constituent c = Constituent.getBySyntacticCategory("Noun");
+        dao.retrieveAll(lang, c);
     }
     
-    public LanguageDAO(DAOFactory aDAOFactory) {
+    public EntryDAO(DAOFactory aDAOFactory) {
         factory = aDAOFactory;
     }
     
     private static final String FIELDS = 
-            " pk, name, description ";
+            " pk, stem, gloss, languagePk, categoryPk ";
     
     private static final String SQL_CREATE = 
-            "INSERT INTO Language(" +  FIELDS + ") " +
+            "INSERT INTO Lexicon(" +  FIELDS + ") " +
             " VALUES (?) ";
     
     private static final String SQL_RETRIEVE_BY_PK = 
             "SELECT " +  FIELDS + " " + 
-            " FROM Language " +
+            " FROM Lexicon " +
             " WHERE pk = (?) ";
-    
-    private static final String SQL_RETRIEVE_BY_UNIQUE = 
-            "SELECT " +  FIELDS + " " + 
-            " FROM Language " +
-            " WHERE name = (?) ";
     
     private static final String SQL_RETRIEVE_ALL = 
             "SELECT " +  FIELDS + " " + 
-            " FROM Language ";
-    
+            " FROM Lexicon " +
+            " WHERE languagePk = (?) " +
+            "       AND " +
+            "       categoryPk = (?) ";
     
     private static final String SQL_DELETE =
-            "DELETE FROM Language WHERE pk = (?)";
+            "DELETE FROM Entry WHERE pk = (?)";
         
     private static final String SQL_UPDATE =
-             "UPDATE Language SET " +
+             "UPDATE Lexicon SET " +
              "  name = (?) " +
              " WHERE pk = (?)";
         
-    void create(Language language) {
+    void create(Entry entry) {
         Object[] values = {
-                language.getName(),
+                entry.getStem(),
         };
         Connection conn = null;
         PreparedStatement ps = null;
@@ -77,14 +76,14 @@ public class LanguageDAO {
         }
     }
     
-    Language retrieve(int pk) {
+    Entry retrieve(int pk) {
         Object[] values = {
                 pk
         };
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        Language result = null;
+        Entry result = null;
         try {
             String sql = SQL_RETRIEVE_BY_PK;
             conn = factory.getConnection();
@@ -102,45 +101,23 @@ public class LanguageDAO {
         return result;
     }
     
-    Language retrieve(String name) {
+    List<Entry> retrieveAll(Language language, Constituent constituent) {
         Object[] values = {
-                name
+                language.getPk(),
+                constituent.getPk()
         };
-        Connection conn = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        Language result = null;
-        try {
-            String sql = SQL_RETRIEVE_BY_UNIQUE;
-            conn = factory.getConnection();
-            ps = DAOUtil.prepareStatement(conn, sql, false, values);
-            rs = ps.executeQuery();
-            result = map(rs);
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
-        finally {
-            DAOUtil.close(conn, ps, rs);
-        }
-        
-        return result;
-    }
-    
-    List<Language> retrieveAll() {
-        Object[] values = {};
         
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        List<Language> result = new ArrayList<>();
+        List<Entry> result = new ArrayList<>();
         try {
             String sql = SQL_RETRIEVE_ALL;
             conn = factory.getConnection();
             ps = DAOUtil.prepareStatement(conn, sql, false, values);
             rs = ps.executeQuery();
             while (rs.next()) {
-                Language item = map(rs);
+                Entry item = map(rs);
                 result.add(item);    
             }
         }
@@ -154,10 +131,10 @@ public class LanguageDAO {
         return result;
     }
     
-    void update(Language language) {
+    void update(Entry entry) {
         Object[] values = {
-                language.getName(),
-                language.getPk(),
+                entry.getStem(),
+                entry.getPk(),
         };
         
         Connection conn = null;
@@ -178,9 +155,9 @@ public class LanguageDAO {
         }
     }
     
-    void delete(Language language) {
+    void delete(Entry entry) {
         Object[] values = {
-                language.getPk(),
+                entry.getPk(),
         };
         
         Connection conn = null;
@@ -201,11 +178,16 @@ public class LanguageDAO {
         }
     }
     
-    private Language map(ResultSet rs) throws SQLException {
-        Language result = Language.getEmpty();
+    private Entry map(ResultSet rs) throws SQLException {
+        Entry result = Entry.getEmpty();
         result.setPk(rs.getInt("pk"));
-        result.setName(rs.getString("name"));
-        result.setDescription(rs.getString("description"));
+        result.setStem(rs.getString("stem"));
+        result.setGloss(rs.getString("gloss"));
+        
+        Language language = Language.getInstance(rs.getInt("languagePk"));
+        result.setLanguage(language);
+        Constituent constituent = Constituent.getInstance(rs.getInt("categoryPk"));
+        result.setConstituent(constituent);
         return result;
     }
 }
