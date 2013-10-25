@@ -21,12 +21,15 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
+import lexicon.model.Language;
 import net.miginfocom.swing.MigLayout;
+
 import commons.main.MainFrame;
 
 @SuppressWarnings("serial")
 public class GrammarEditorPanel extends JPanel {
     private List<Listener> listeners = new ArrayList<Listener>();
+    private JComboBox<Language> languages;
     private JComboBox<Constituent> constituents;
     private JTable featuresTable;
     private JTable valuesTable;
@@ -34,20 +37,44 @@ public class GrammarEditorPanel extends JPanel {
     private ValueTableModel valuesModel;
     
     public interface Listener {
-        public abstract void addFeature(Constituent constituent);
-        public abstract void editFeature(Feature feature, String name);
-        public abstract void deleteFeature(Feature feature);
-        public abstract void addValue(Feature feature);
-        public abstract void editValue(Feature feature, String name, int index);
-        public abstract void deleteValue(Feature feature, int index);
+        public abstract void addFeature(Event event);
+        public abstract void editFeature(Event event);
+        public abstract void deleteFeature(Event event);
+        public abstract void addValue(Event event);
+        public abstract void editValue(Event event);
+        public abstract void deleteValue(Event event);
     }
-
-    public GrammarEditorPanel() {
-        setLayout(new MigLayout("wrap 2"));
-        JLabel constituentLabel = new JLabel("Constituent: ");
-        Vector<Constituent> vector = new Vector<>(Constituent.getAll());
+    
+    public class Event {
+        private Language language;
+        private Constituent constituent;
+        private Feature feature;
+        private String replacement = "";
+        private int valueIndex = -1;
         
-        constituents = new JComboBox<>(vector);
+        private Event() {
+            constituent = selectedConstituent();
+            feature = selectedFeature();
+        }
+        
+        public Language getLanguage() {return language;}
+        
+        public Constituent getConstituent() {return constituent;}
+        
+        public Feature getFeature() {return feature;}
+        
+        public String replacement() {return replacement;}
+        
+        public int getValueIndex() {return valueIndex;}
+    }
+    
+    public GrammarEditorPanel() {
+        JLabel languageLabel = new JLabel("Language: ");
+        Vector<Language> langaugeList = new Vector<>(Language.getAll());
+        JLabel constituentLabel = new JLabel("Constituent: ");
+        Vector<Constituent> constituentList = new Vector<>(Constituent.getAll());
+        
+        constituents = new JComboBox<>(constituentList);
         constituents.addItemListener(new ComboListener());
         
         featureModel = new FeatureTableModel();
@@ -68,7 +95,8 @@ public class GrammarEditorPanel extends JPanel {
         delFeature.addActionListener(new DeleteFeatureListener());
         addValue.addActionListener(new AddValueListener());
         delValue.addActionListener(new DeleteValueListener());
-            
+        
+        setLayout(new MigLayout("wrap 2"));
         add(constituentLabel, "span, split");
         add(constituents, "wrap");
         add(featuresPane);
@@ -125,8 +153,10 @@ public class GrammarEditorPanel extends JPanel {
         
         @Override
         public void setValueAt(Object value, int rowIndex, int columnIndex) {
+            Event event = new Event();
+            event.replacement = (String) value;
             for (Listener listener : listeners) {
-                listener.editFeature(selectedFeature(), (String) value);
+                listener.editFeature(event);
             }
         }
         
@@ -173,8 +203,11 @@ public class GrammarEditorPanel extends JPanel {
         
         @Override
         public void setValueAt(Object value, int rowIndex, int columnIndex) {
+            Event event = new Event();
+            event.replacement = (String) value;
+            event.valueIndex = rowIndex;
             for (Listener listener : listeners) {
-                listener.editValue(selectedFeature(), (String) value, rowIndex);
+                listener.editValue(event);
             }
         }
 
@@ -239,7 +272,7 @@ public class GrammarEditorPanel extends JPanel {
                 return;
             }
             for (Listener listener : listeners) {
-                listener.deleteFeature(selectedFeature());
+                listener.deleteFeature(new Event());
             }
         }
     }
@@ -262,8 +295,10 @@ public class GrammarEditorPanel extends JPanel {
                 return;
             }
             
+            Event event = new Event();
+            event.valueIndex = index;
             for (Listener listener : listeners) {
-                listener.deleteValue(selectedFeature(), index);
+                listener.deleteValue(event);
             }
         }
     }
