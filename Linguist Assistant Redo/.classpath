@@ -4,17 +4,17 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
 	<classpathentry kind="lib" path="lib/sqlite-jdbc/sqlite-jdbc-3.7.2.jar">
 		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/D:/Dropbox/Programming/Commons/sqlite-jdbc/sqlite-jdbc-3.7.2-javadoc.jar!/"/>
+			<attribute name="javadoc_location" value="jar:file:/lib/sqlite-jdbc/sqlite-jdbc-3.7.2-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="lib/miglayout-4.0.jar">
+	<classpathentry kind="lib" path="lib/miglayout/miglayout-4.0.jar">
 		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/D:/Dropbox/Programming/Commons/miglayout/miglayout-4.0-javadoc.jar!/"/>
+			<attribute name="javadoc_location" value="jar:file:/lib/miglayout/miglayout-4.0-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="D:/Dropbox/Programming/Commons/commons-lang3-3.1/commons-lang3-3.1.jar">
+	<classpathentry kind="lib" path="lib/commons-lang/commons-lang3-3.1.jar">
 		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/D:/Dropbox/Programming/Commons/commons-lang3-3.1/commons-lang3-3.1-javadoc.jar!/"/>
+			<attribute name="javadoc_location" value="jar:file:/lib/commons-lang/commons-lang3-3.1-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
