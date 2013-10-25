@@ -7,10 +7,16 @@ import javax.swing.AbstractAction;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
+import commons.main.MainFrame;
+
+// Combined view-controller
+@SuppressWarnings("serial")
 public class ViewMenu extends JMenu {
+    MainFrame frame;
     
-    public ViewMenu() {
+    public ViewMenu(MainFrame frame) {
         super("View");
+        this.frame = frame;
         setMnemonic(KeyEvent.VK_V);
         
         JMenuItem grammar = new JMenuItem(new GrammarAction());

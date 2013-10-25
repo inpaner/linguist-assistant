@@ -1,7 +1,5 @@
 package commons.main;
 
-import javax.swing.Box;
-import javax.swing.BoxLayout;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 
@@ -11,13 +9,12 @@ import commons.menu.ViewMenu;
 
 @SuppressWarnings("serial")
 public class MainUi extends JPanel {
-    public MainUi() {
+    public MainUi(MainFrame frame) {
         setLayout(new MigLayout());
-        JMenuBar menuBar = new JMenuBar();
-        menuBar.add(new ViewMenu());
-        menuBar.add(new HelpMenu());
-        add(menuBar);
-        
+        JMenuBar menubar = new JMenuBar();
+        menubar.add(new ViewMenu(frame));
+        menubar.add(new HelpMenu());
+        frame.setJMenuBar(menubar);
     }
     
 }
