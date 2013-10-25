@@ -31,45 +31,16 @@ import ontology.model.Tag;
 
 @SuppressWarnings("serial")
 public class OntologyList extends JPanel {
-    private List<OntologyList.Listener> listeners;
+    private List<Listener> listeners;
     private List<Concept> concepts;
     private JComboBox<Tag> tagBox;
     private JTextField searchField;
     private JTable table;
     private OntologyTableModel model;
     private JComboBox<Constituent> constituentBox;
-    private JButton add;
     
     public interface Listener {
-        public abstract void searchChanged(Event event);
-        public abstract void selectedConcept(Event event);
-        public abstract void selectedTag(Event event);
-        public abstract void selectedConstituent(Event event);
-        public abstract void selectedAdd(Event event);
-        
-    }
-
-    public class Event {
-        private String text;
-        private Concept concept;
-        private Tag tag;
-        private Constituent constituent;
-        
-        public String getText() {
-            return text;
-        }
-        
-        public Concept getConcept() {
-            return concept;
-        }
-        
-        public Tag getTag() {
-            return tag;
-        }
-        
-        public Constituent getConstituent() {
-            return constituent;
-        }
+        public abstract void selectedConcept(Concept concept);
     }
     
     public OntologyList() {
@@ -91,22 +62,9 @@ public class OntologyList extends JPanel {
         
         Vector<Tag> tags = new Vector<>(Tag.getAllTags());
         tagBox = new JComboBox<>(tags);
-        tagBox.addItemListener(new TagListener());
+        tagBox.addItemListener(new ConstituentListener());
         
         JScrollPane scrollPane = new JScrollPane(table);
-        
-        add = new JButton("Add");
-        add.addActionListener(new ActionListener() {
-            
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                Event event = prepareEvent();
-                
-                for (Listener listener : listeners) {
-                    listener.selectedAdd(event);
-                }
-            }
-        });
         
         setLayout(new MigLayout());
         add(searchLabel, "span, split, center");
@@ -114,11 +72,16 @@ public class OntologyList extends JPanel {
         add(constituentBox);
         add(tagBox, "wrap");
         add(scrollPane, "wrap");
-        add(add, "center");
+        
+        refresh();
     }
     
-    public void refreshConcepts(List<Concept> concepts) {
-        this.concepts = concepts;
+    private void refresh() {
+        String substring = searchField.getText();
+        Tag tag = (Tag) tagBox.getSelectedItem();
+        Constituent constituent = (Constituent) constituentBox.getSelectedItem();
+        
+        concepts = Concept.getInstances(substring, tag, constituent); 
         model.fireTableDataChanged();
     }
     
@@ -179,75 +142,41 @@ public class OntologyList extends JPanel {
 
         @Override
         public void insertUpdate(DocumentEvent ev) {
-            Event event = prepareEvent();
-            for (Listener listener : listeners) {
-                listener.searchChanged(event);
-            }
+            refresh();
         }
         
         @Override
         public void removeUpdate(DocumentEvent ev) {
-            Event event = prepareEvent();
-            for (Listener listener : listeners) {
-                listener.searchChanged(event);
-            }
+            refresh();
         }        
     }
     
-    private Event prepareEvent() {
-        OntologyList.Event event = new OntologyList.Event();
-        int row = table.getSelectedRow();
-        int col = table.getSelectedColumn();
-        Concept concept = selectedConcept;
-        Tag tag = (Tag) tagBox.getSelectedItem();
-        Constituent constituent = (Constituent) constituentBox.getSelectedItem();
-        
-        event.text = searchField.getText();
-        event.concept = concept;
-        event.tag = tag;
-        event.constituent = constituent;
-        
-        return event;
-    }
     
     private class ListListener implements ListSelectionListener {
         @Override
         public void valueChanged(ListSelectionEvent ev) {
             if (!ev.getValueIsAdjusting()) {
-                /*ListSelectionModel lsm = (ListSelectionModel) ev.getSource();
-                int index = lsm.getMinSelectionIndex();
-                Concept selected = concepts.get(index);
-                */
-                Event event = prepareEvent();
                 for (Listener listener : listeners) {
-                    listener.selectedConcept(event);
+                    listener.selectedConcept(getSelectedConcept());
                 }
             }
         }
-        
+    }
+    
+    public Concept getSelectedConcept() {
+        int index = table.getSelectedRow();
+        if (index == -1) 
+            return null;
+        return concepts.get(index); 
     }
     
     private class ConstituentListener implements ItemListener {
         @Override
         public void itemStateChanged(ItemEvent ev) {
             if (ev.getStateChange() == ItemEvent.SELECTED) {
-                Event event = prepareEvent();
-                for (OntologyList.Listener listener : listeners) {
-                    listener.selectedConstituent(event);
-                }
+                refresh();
             }
         }
     }
     
-    private class TagListener implements ItemListener {
-        @Override
-        public void itemStateChanged(ItemEvent ev) {
-            if (ev.getStateChange() == ItemEvent.SELECTED) {
-                Event event = prepareEvent();
-                for (OntologyList.Listener listener : listeners) {
-                    listener.selectedTag(event);
-                }
-            }
-        }
-    }
 }

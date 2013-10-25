@@ -27,50 +27,9 @@ public class OntologyManager {
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         panel = new OntologyList();
         frame.setPanel(panel);
-
-        panel.addListener(new OntologyListListener());    
-        noun = Constituent.getByAbbreviation("N");
-        
-        List<Concept> concepts = Concept.getInstances("", Tag.getTagAll(), noun); 
-        
-        panel.refreshConcepts(concepts);
     }
     
-    private class OntologyListListener implements OntologyList.Listener {
-        @Override
-        public void searchChanged(OntologyList.Event event) {
-            genericRefresh(event);
-        }
 
-        @Override
-        public void selectedConcept(OntologyList.Event event) {}
-
-        @Override
-        public void selectedTag(OntologyList.Event event) {
-            genericRefresh(event);
-        }
-
-        @Override
-        public void selectedConstituent(OntologyList.Event event) {
-            genericRefresh(event);
-        }
-
-        @Override
-        public void selectedAdd(OntologyList.Event event) {
-            Concept toAdd = AddConceptDialog.getInstance();
-            System.out.println(toAdd.getStem());
-            DAOFactory factory = DAOFactory.getInstance();
-            ConceptDAO dao = new ConceptDAO(factory);
-            System.out.println(event.getConstituent().getLabel());
-            dao.create(toAdd);
-            
-            genericRefresh(event);
-        }
-    }
     
-    private void genericRefresh(OntologyList.Event event) {
-        List<Concept> concepts = Concept.getInstances(
-                event.getText(), event.getTag(), event.getConstituent()); 
-        panel.refreshConcepts(concepts);
-    }
+
 }
