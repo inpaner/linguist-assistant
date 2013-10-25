@@ -18,7 +18,7 @@ private DAOFactory factory;
     public static void main(String[] args) {
         EntryDAO dao = new EntryDAO(DAOFactory.getInstance());
         Language lang = Language.getInstance("English");
-        Constituent c = Constituent.getBySyntacticCategory("Noun");
+        Constituent c = Constituent.getByName("Noun");
         dao.retrieveAll(lang, c);
     }
     

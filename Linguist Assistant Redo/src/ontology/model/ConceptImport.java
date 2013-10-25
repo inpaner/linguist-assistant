@@ -39,7 +39,7 @@ public class ConceptImport {
             
             DAOFactory factory = DAOFactory.getInstance();
             ConceptDAO dao = new ConceptDAO(factory);
-            Constituent constituent = Constituent.getBySyntacticAbbr(SYNTACTIC_ABBR);
+            Constituent constituent = Constituent.getByAbbreviation(SYNTACTIC_ABBR);
             
             while (line != null) {
                 if (!line.isEmpty()) {
@@ -107,7 +107,7 @@ public class ConceptImport {
             
             DAOFactory factory = DAOFactory.getInstance();
             ConceptDAO dao = new ConceptDAO(factory);
-            Constituent constituent = Constituent.getBySyntacticAbbr(SYNTACTIC_ABBR);
+            Constituent constituent = Constituent.getByAbbreviation(SYNTACTIC_ABBR);
             Tag tag = Tag.getInstance(TAG_NAME);
             while (line != null) {
                 if (!line.isEmpty()) {

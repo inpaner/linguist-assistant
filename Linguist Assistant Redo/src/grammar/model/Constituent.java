@@ -25,19 +25,16 @@ public class Constituent extends Node {
     private static Map<Integer, List<Form>> fPossibleForms = new HashMap<>();
     
     public static void main(String[] args) {
-        Constituent con = Constituent.getBySyntacticCategory("Noun");
-        System.out.println(con.syntacticAbbreviation);
+        Constituent con = Constituent.getByName("Noun");
+        System.out.println(con.abbreviation);
     }
     
     // TODO implement properly with copying of features
     public static Constituent copy(Constituent toCopy) {
         Constituent clone = new Constituent();
         clone.pk = toCopy.pk;
-        clone.deepAbbreviation = toCopy.deepAbbreviation;
-        clone.semanticCategory = toCopy.semanticCategory;
-        clone.semanticAbbreviation = toCopy.semanticAbbreviation;
-        clone.syntacticCategory = toCopy.syntacticCategory;
-        clone.syntacticAbbreviation = toCopy.syntacticAbbreviation;
+        clone.name = toCopy.name;
+        clone.abbreviation = toCopy.abbreviation;
         clone.level = toCopy.level;
         
         return clone;
@@ -46,7 +43,6 @@ public class Constituent extends Node {
     public static List<Constituent> getAll() {
         DAOFactory factory = DAOFactory.getInstance();
         ConstituentDAO dao = new ConstituentDAO(factory);
-        
         return dao.getAllConstituents();
     }
     
@@ -56,24 +52,21 @@ public class Constituent extends Node {
         return dao.retrieve(pk);
     }
     
-    public static Constituent getBySyntacticAbbr(String syntacticAbbr) {
+    public static Constituent getByAbbreviation(String abbreviation) {
         DAOFactory factory = DAOFactory.getInstance();
         ConstituentDAO dao = new ConstituentDAO(factory);
-        return dao.retrieveBySyntacticAbbr(syntacticAbbr);
+        return dao.retrieveByAbbreviation(abbreviation);
     }
     
-    public static Constituent getBySyntacticCategory(String category) {
+    public static Constituent getByName(String name) {
         DAOFactory factory = DAOFactory.getInstance();
         ConstituentDAO dao = new ConstituentDAO(factory);
-        return dao.retrieveBySyntacticCategory(category);
+        return dao.retrieveByName(name);
     }
     
     private Integer pk;
-    private String syntacticCategory;
-    private String syntacticAbbreviation;
-    private String semanticCategory;
-    private String semanticAbbreviation;
-    private String deepAbbreviation;
+    private String name;
+    private String abbreviation;
     private Constituent parent;
     private ArrayList<Constituent> children = new ArrayList<>();;
     private ArrayList<Feature> features = new ArrayList<>();;
@@ -101,11 +94,11 @@ public class Constituent extends Node {
     }
     
     public void setLabel(String label) {
-        this.syntacticCategory = label;
+        this.name = label;
     }
     
     public String getLabel() {
-        return syntacticCategory;
+        return name;
     }
     
     public Constituent getParent() {
@@ -265,7 +258,7 @@ public class Constituent extends Node {
     
     @Override
     public String toString() {
-        return syntacticCategory;
+        return name;
     }
     
     
@@ -283,20 +276,14 @@ public class Constituent extends Node {
         if (level != otherCon.level)
             return false;
         
-        if (syntacticCategory != otherCon.syntacticCategory)
+        if (name != otherCon.name)
             return false;
         
         if (parent == null || otherCon.parent == null) 
             return false;
         
         return parent.equals(otherCon.parent);
-        
-        
-        /*// really questionable implementation <_<
-        String falseName = syntacticCategory + level;
-        return falseName.equals(otherCon.syntacticCategory + otherCon.level) 
-                        ? true 
-                        : false;*/
+
     }
     
     @Override
@@ -304,8 +291,8 @@ public class Constituent extends Node {
         return this.toString().hashCode() + level;
     }
 
-    public String getSyntacticCategory() {
-        return syntacticCategory;
+    public String getName() {
+        return name;
     }
     
     public void addNewFeature(String string) {
@@ -315,7 +302,7 @@ public class Constituent extends Node {
                     "  FROM SemanticCategory " +
                     "       JOIN SyntacticCategory " +
                     "         ON SemanticCategory.syntacticCategoryPk = SyntacticCategory.pk " +
-                    " WHERE SyntacticCategory.name = '" + syntacticCategory + "'; ";
+                    " WHERE SyntacticCategory.name = '" + name + "'; ";
             
             ResultSet rs = DBUtil.executeQuery(query);
             rs.next();
@@ -332,40 +319,16 @@ public class Constituent extends Node {
         }
     }
 
-    public String getSyntacticAbbreviation() {
-        return syntacticAbbreviation;
+    public String getAbbreviation() {
+        return abbreviation;
     }
 
-    public String getSemanticCategory() {
-        return semanticCategory;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getSemanticAbbreviation() {
-        return semanticAbbreviation;
-    }
-
-    public String getDeepAbbreviation() {
-        return deepAbbreviation;
-    }
-
-    public void setSyntacticCategory(String syntacticCategory) {
-        this.syntacticCategory = syntacticCategory;
-    }
-
-    public void setSyntacticAbbreviation(String syntacticAbbreviation) {
-        this.syntacticAbbreviation = syntacticAbbreviation;
-    }
-
-    public void setSemanticCategory(String semanticCategory) {
-        this.semanticCategory = semanticCategory;
-    }
-
-    public void setSemanticAbbreviation(String semanticAbbreviation) {
-        this.semanticAbbreviation = semanticAbbreviation;
-    }
-
-    public void setDeepAbbreviation(String deepAbbreviation) {
-        this.deepAbbreviation = deepAbbreviation;
+    public void setAbbreviation(String abbreviation) {
+        this.abbreviation = abbreviation;
     }
 
     public void setParent(Constituent parent) {

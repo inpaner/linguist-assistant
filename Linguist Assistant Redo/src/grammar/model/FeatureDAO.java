@@ -73,7 +73,7 @@ public class FeatureDAO {
     List<String> getPossibleValues(Feature aFeature) {
         ArrayList<String> possibleValues = new ArrayList<>();
         Object[] values = {
-                aFeature.getParent().getSyntacticCategory(),
+                aFeature.getParent().getName(),
                 aFeature.getName()
         };
         Connection conn = null;
@@ -103,7 +103,7 @@ public class FeatureDAO {
         String defaultValue = "";
         
         Object[] values = {
-                aFeature.getParent().getSyntacticCategory(),
+                aFeature.getParent().getName(),
                 aFeature.getName()
         };
         Connection conn = null;

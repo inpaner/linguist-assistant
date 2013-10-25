@@ -13,54 +13,32 @@ import commons.dao.DAOUtil;
 import commons.dao.DBUtil;
 
 public class ConstituentDAO {    
+    public static void main(String[] args) {
+        Constituent con = Constituent.getByName("Noun");
+        System.out.println(con.getName());
+    }
     
-    private static final String SQL_RETRIEVE_BY_SYNTACTIC_ABBR = 
-            "SELECT SemanticCategory.pk AS pk, " +
-            "       SemanticCategory.name AS semName, " +
-            "       SemanticCategory.abbreviation AS semAbbr, " +
-            "       SemanticCategory.deepAbbreviation AS deepAbbr, " +
-            "       SyntacticCategory.name AS synName, " +
-            "       SyntacticCategory.abbreviation AS synAbbr " +
-            "  FROM SemanticCategory " +
-            "       JOIN SyntacticCategory " +
-            "         ON SemanticCategory.syntacticCategoryPk = SyntacticCategory.pk " +
-            " WHERE SyntacticCategory.abbreviation = (?); ";
     
-    private static final String SQL_RETRIEVE_BY_SYNTACTIC_CATEGORY = 
-            "SELECT SemanticCategory.pk AS pk, " +
-            "       SemanticCategory.name AS semName, " +
-            "       SemanticCategory.abbreviation AS semAbbr, " +
-            "       SemanticCategory.deepAbbreviation AS deepAbbr, " +
-            "       SyntacticCategory.name AS synName, " +
-            "       SyntacticCategory.abbreviation AS synAbbr " +
-            "  FROM SemanticCategory " +
-            "       JOIN SyntacticCategory " +
-            "         ON SemanticCategory.syntacticCategoryPk = SyntacticCategory.pk " +
-            " WHERE SyntacticCategory.name = (?); ";
+    private static final String SQL_RETRIEVE_BY_ABBR = 
+            "SELECT pk, name, abbreviation, description " +
+            "  FROM Category " +
+            " WHERE abbreviation = (?); ";
     
+    private static final String SQL_RETRIEVE_BY_NAME = 
+            "SELECT pk, name, abbreviation, description " +
+            "  FROM Category " +
+            " WHERE name = (?); ";
+    
+            
     private static final String SQL_RETRIEVE_ALL = 
-            "SELECT SemanticCategory.pk AS pk, " +
-            "       SemanticCategory.name AS semName, " +
-            "       SemanticCategory.abbreviation AS semAbbr, " +
-            "       SemanticCategory.deepAbbreviation AS deepAbbr, " +
-            "       SyntacticCategory.name AS synName, " +
-            "       SyntacticCategory.abbreviation AS synAbbr " +
-            "  FROM SemanticCategory " +
-            "       JOIN SyntacticCategory " +
-            "         ON SemanticCategory.syntacticCategoryPk = SyntacticCategory.pk ";
+            "SELECT pk, name, abbreviation, description " +
+            "  FROM Category ";
     
     private static final String SQL_RETRIEVE = 
-            "SELECT SemanticCategory.pk AS pk, " +
-            "       SemanticCategory.name AS semName, " +
-            "       SemanticCategory.abbreviation AS semAbbr, " +
-            "       SemanticCategory.deepAbbreviation AS deepAbbr, " +
-            "       SyntacticCategory.name AS synName, " +
-            "       SyntacticCategory.abbreviation AS synAbbr " +
-            "  FROM SemanticCategory " +
-            "       JOIN SyntacticCategory " +
-            "         ON SemanticCategory.syntacticCategoryPk = SyntacticCategory.pk " +
-            " WHERE SemanticCategory.pk = (?) ";
-    
+            "SELECT pk, name, abbreviation, description " +
+            "  FROM Category " +
+            " WHERE pk = (?); ";
+            
     
     private static final String SQL_GET_ALL_FEATURES = 
             "SELECT SemanticCategory.pk AS pk, name " +
@@ -104,10 +82,10 @@ public class ConstituentDAO {
         return result;
     }
     
-    public Constituent retrieveBySyntacticAbbr(String syntacticAbbr) {
+    public Constituent retrieveByAbbreviation(String abbreviation) {
         Constituent constituent = null;
         Object[] values = {
-                syntacticAbbr,
+                abbreviation,
         };
 
         Connection conn = null;
@@ -115,7 +93,7 @@ public class ConstituentDAO {
         ResultSet rs = null;
         
         try {
-            String sql = SQL_RETRIEVE_BY_SYNTACTIC_ABBR;
+            String sql = SQL_RETRIEVE_BY_ABBR;
             conn = fDAOFactory.getConnection();
             ps = DAOUtil.prepareStatement(conn, sql, false, values);
             rs = ps.executeQuery();
@@ -132,7 +110,7 @@ public class ConstituentDAO {
         return constituent;
     }
 
-    public Constituent retrieveBySyntacticCategory(String category) {
+    public Constituent retrieveByName(String category) {
         Constituent constituent = null;
         Object[] values = {
                 category,
@@ -143,7 +121,7 @@ public class ConstituentDAO {
         ResultSet rs = null;
         
         try {
-            String sql = SQL_RETRIEVE_BY_SYNTACTIC_CATEGORY;
+            String sql = SQL_RETRIEVE_BY_NAME;
             conn = fDAOFactory.getConnection();
             ps = DAOUtil.prepareStatement(conn, sql, false, values);
             rs = ps.executeQuery();
@@ -219,11 +197,8 @@ public class ConstituentDAO {
     private Constituent map(ResultSet rs) throws SQLException {
         Constituent constituent = new Constituent();
         constituent.setPk(rs.getInt("pk"));
-        constituent.setSyntacticCategory(rs.getString("synName"));
-        constituent.setSyntacticAbbreviation(rs.getString("synAbbr"));
-        constituent.setSemanticCategory(rs.getString("semName"));
-        constituent.setSemanticAbbreviation(rs.getString("semAbbr"));
-        constituent.setDeepAbbreviation(rs.getString("deepAbbr"));
+        constituent.setName(rs.getString("name"));
+        constituent.setAbbreviation(rs.getString("abbreviation"));
         constituent.level = 0;
         return constituent;
     }

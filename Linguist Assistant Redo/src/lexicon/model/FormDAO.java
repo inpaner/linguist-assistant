@@ -1,7 +1,5 @@
 package lexicon.model;
 
-import grammar.model.Constituent;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -79,25 +77,6 @@ public class FormDAO {
 	        PreparedStatement ps = null;
 	        ResultSet rs = null;
 	        
-	        // Query latest sense then use next sense 
-	        // in sequence for creation
-	       /* String newSense = "";
-	        try {
-	            String sql = SQL_LATEST_SENSE;
-	            conn = fDAOFactory.getConnection();
-	            ps = DAOUtil.prepareStatement(conn, sql, false, values);
-	            rs = ps.executeQuery();
-	            
-	            String lastSense = "";
-	            if (rs.next()) {        
-	                lastSense = rs.getString("sense");
-	            }
-	            newSense = Concept.getNextSense(lastSense);
-	        } 
-	        catch (SQLException ex) {
-	            ex.printStackTrace();
-	        }
-	        */
 	        values = new Object[] {
 	        		form.getPK(),
 	                form.getName(),
@@ -118,6 +97,7 @@ public class FormDAO {
 	            DAOUtil.close(conn, ps, rs);
 	        }
 	    }
+	    
 	    private Form map(ResultSet rs) throws SQLException {
 	        Form form=new Form(null);
 	        form.setPk(rs.getInt("pk"));

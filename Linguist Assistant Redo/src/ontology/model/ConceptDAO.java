@@ -158,7 +158,7 @@ public class ConceptDAO {
     public static void main(String[] args) {
         DAOFactory factory = DAOFactory.getInstance();
         ConceptDAO dao = new ConceptDAO(factory);
-        Constituent con = Constituent.getBySyntacticAbbr("N");
+        Constituent con = Constituent.getByAbbreviation("N");
         
         long start = System.nanoTime();
         List<Concept> result = dao.retrieveBySubstring("Adah", con);

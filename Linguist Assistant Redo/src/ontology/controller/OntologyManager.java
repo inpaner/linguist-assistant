@@ -29,7 +29,7 @@ public class OntologyManager {
         frame.setPanel(panel);
 
         panel.addListener(new OntologyListListener());    
-        noun = Constituent.getBySyntacticAbbr("N");
+        noun = Constituent.getByAbbreviation("N");
         
         List<Concept> concepts = Concept.getInstances("", Tag.getTagAll(), noun); 
         

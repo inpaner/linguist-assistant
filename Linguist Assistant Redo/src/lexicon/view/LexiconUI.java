@@ -107,7 +107,7 @@ public class LexiconUI extends JFrame {
    }
    public void getConcepts()
    {
-		c=Constituent.getBySyntacticCategory(syntacticCategory.getSelectedItem().toString());
+		c=Constituent.getByName(syntacticCategory.getSelectedItem().toString());
 	    concepts = Concept.getInstances("", c);
    }
    public void setBounds(){
