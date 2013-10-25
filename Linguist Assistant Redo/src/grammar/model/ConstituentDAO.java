@@ -49,6 +49,19 @@ public class ConstituentDAO {
             "       JOIN SyntacticCategory " +
             "         ON SemanticCategory.syntacticCategoryPk = SyntacticCategory.pk ";
     
+    private static final String SQL_RETRIEVE = 
+            "SELECT SemanticCategory.pk AS pk, " +
+            "       SemanticCategory.name AS semName, " +
+            "       SemanticCategory.abbreviation AS semAbbr, " +
+            "       SemanticCategory.deepAbbreviation AS deepAbbr, " +
+            "       SyntacticCategory.name AS synName, " +
+            "       SyntacticCategory.abbreviation AS synAbbr " +
+            "  FROM SemanticCategory " +
+            "       JOIN SyntacticCategory " +
+            "         ON SemanticCategory.syntacticCategoryPk = SyntacticCategory.pk " +
+            " WHERE pk = (?) ";
+    
+    
     private static final String SQL_GET_ALL_FEATURES = 
             "SELECT pk, name " +
             "  FROM Feature " +
@@ -61,6 +74,34 @@ public class ConstituentDAO {
     
     public ConstituentDAO(DAOFactory aDAOFactory) {
         fDAOFactory = aDAOFactory;
+    }
+    
+    public Constituent retrieve(int pk) {
+        Object[] values = {
+                pk,
+        };
+
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Constituent result = null;
+        
+        try {
+            String sql = SQL_RETRIEVE;
+            conn = fDAOFactory.getConnection();
+            ps = DAOUtil.prepareStatement(conn, sql, false, values);
+            rs = ps.executeQuery();
+            rs.next();
+            result = map(rs);
+        } 
+        catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        finally {
+            DAOUtil.close(conn, ps, rs);
+        }
+        
+        return result;
     }
     
     public Constituent retrieveBySyntacticAbbr(String syntacticAbbr) {

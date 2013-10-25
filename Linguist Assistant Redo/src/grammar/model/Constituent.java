@@ -21,7 +21,6 @@ import commons.dao.DBUtil;
  */
 
 public class Constituent extends Node {
-    private static List<Constituent> allConstituents;
     private static Map<Integer, List<Feature>> fPossibleFeatures = new HashMap<>();
     private static Map<Integer, List<Form>> fPossibleForms = new HashMap<>();
     
@@ -47,9 +46,14 @@ public class Constituent extends Node {
     public static List<Constituent> getAll() {
         DAOFactory factory = DAOFactory.getInstance();
         ConstituentDAO dao = new ConstituentDAO(factory);
-        allConstituents = dao.getAllConstituents();            
+        
+        return dao.getAllConstituents();
+    }
     
-        return allConstituents;
+    public static Constituent getInstance(int pk) {
+        DAOFactory factory = DAOFactory.getInstance();
+        ConstituentDAO dao = new ConstituentDAO(factory);
+        return dao.retrieve(pk);
     }
     
     public static Constituent getBySyntacticAbbr(String syntacticAbbr) {
