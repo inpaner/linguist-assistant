@@ -1,7 +1,12 @@
    package grammar.controller;
 
+import commons.main.MainFrame;
+
 public class GrammarEditor {
-    public GrammarEditor() {
+    MainFrame frame;
+    
+    public GrammarEditor(MainFrame frame) {
         
     }
 }
+ 
