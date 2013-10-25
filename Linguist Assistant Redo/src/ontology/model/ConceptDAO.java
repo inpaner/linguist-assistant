@@ -28,7 +28,7 @@ public class ConceptDAO {
              " VALUES (?, ?, ?, ?)";
     
     private static final String SQL_RETRIEVE = 
-            "SELECT pk, stem, sense, gloss, semanticCategoryPk " +
+            "SELECT pk, stem, sense, gloss, categoryPk " +
             "  FROM Ontology " +
             " WHERE stem = (?) " +
             "       AND " +
@@ -124,10 +124,10 @@ public class ConceptDAO {
         }
     }
     
-    public Concept retrieve(String stem, String gloss, Constituent constituent) {
+    public Concept retrieve(String stem, String sense, Constituent constituent) {
         Object[] values = {
                 stem,
-                gloss,
+                sense,
                 constituent.getPk()
         };
 

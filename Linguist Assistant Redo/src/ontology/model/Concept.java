@@ -39,10 +39,10 @@ public class Concept extends Node {
         return getInstances(stemSubstring, Tag.getTagAll(), constituent);
     }
 
-    public static Concept getInstance(String stem, String gloss, Constituent constituent) {
+    public static Concept getInstance(String stem, String sense, Constituent constituent) {
         DAOFactory factory = DAOFactory.getInstance();
         ConceptDAO dao = new ConceptDAO(factory);
-        return dao.retrieve(stem, gloss, constituent);
+        return dao.retrieve(stem, sense, constituent);
     }
     
     public static Concept getEmpty(Constituent constituent) {
