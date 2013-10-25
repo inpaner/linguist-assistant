@@ -19,12 +19,12 @@ public class ConceptDAO {
             "  FROM Ontology " +
             " WHERE stem = (?) " +
             "       AND " +
-            "       semanticCategoryPk = (?) " +
+            "       categoryPk = (?) " +
             " ORDER BY sense DESC " +
             " LIMIT 1; ";
  
     private static final String SQL_CREATE =
-             "INSERT INTO Ontology(stem, sense, gloss, semanticCategoryPk) " +
+             "INSERT INTO Ontology(stem, sense, gloss, categoryPk) " +
              " VALUES (?, ?, ?, ?)";
     
     private static final String SQL_RETRIEVE = 
@@ -34,25 +34,25 @@ public class ConceptDAO {
             "       AND " +
             "       sense = (?) " +
             "       AND " +
-            "       semanticCategoryPk = (?) ";
+            "       categoryPk = (?) ";
     
     private static final String SQL_RETRIEVE_ALL_BY_SUBSTRING = 
-            "SELECT Ontology.pk AS pk, stem, sense, gloss, semanticCategoryPk " +
+            "SELECT Ontology.pk AS pk, stem, sense, gloss, categoryPk " +
             "  FROM Ontology " +
             " WHERE stem LIKE (?) " +
             "       AND " +
-            "       semanticCategoryPk = (?) " +
+            "       categoryPk = (?) " +
             " ORDER BY stem ";
     
     
     private static final String SQL_RETRIEVE_ALL_WITH_TAG = 
-            "SELECT Ontology.pk AS pk, stem, sense, gloss, semanticCategoryPk " +
+            "SELECT Ontology.pk AS pk, stem, sense, gloss, categoryPk " +
             "  FROM Ontology " +
             "  JOIN OntologyTag " +
             "       ON Ontology.pk = OntologyTag.ontologyPk " +
             " WHERE stem LIKE (?) " +
             "       AND " +
-            "       semanticCategoryPk = (?) " +
+            "       categoryPk = (?) " +
             "       AND " +
             "       tagPk = (?) " +
             " ORDER BY stem ";

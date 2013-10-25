@@ -57,4 +57,9 @@ public class Entry {
 	public Constituent getConstituent() {
 	    return constituent;
 	}
+	
+	@Override
+	public String toString() {
+	    return stem;
+	}
 }

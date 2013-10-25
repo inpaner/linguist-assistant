@@ -19,7 +19,9 @@ private DAOFactory factory;
         EntryDAO dao = new EntryDAO(DAOFactory.getInstance());
         Language lang = Language.getInstance("English");
         Constituent c = Constituent.getByName("Noun");
-        dao.retrieveAll(lang, c);
+        for (Entry entry : dao.retrieveAll(lang, c)) {
+            System.out.println(entry);
+        }
     }
     
     public EntryDAO(DAOFactory aDAOFactory) {
