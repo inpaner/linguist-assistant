@@ -75,7 +75,7 @@ public class GrammarEditorPanel extends JPanel {
         Vector<Constituent> constituentList = new Vector<>(Constituent.getAll());
         
         constituents = new JComboBox<>(constituentList);
-        constituents.addItemListener(new ComboListener());
+        constituents.addItemListener(new ConstiutentComboListener());
         
         featureModel = new FeatureTableModel();
         featuresTable = new JTable(featureModel);
@@ -105,7 +105,6 @@ public class GrammarEditorPanel extends JPanel {
         add(addValue, "center, flowx");
         add(delFeature, "cell 0 2");
         add(delValue, "cell 1 2");
-    
     }
     
     public static void main(String[] args) {
@@ -122,8 +121,13 @@ public class GrammarEditorPanel extends JPanel {
         }
     
         public int getRowCount() {
-            Constituent selected = selectedConstituent();
-        	return selected.getFeatures().size();
+            try {
+                Constituent selected = selectedConstituent();
+                return selected.getFeatures().size();
+            }
+            catch (IndexOutOfBoundsException ex) {
+                return 0;
+            }
         }
         
         public String getColumnName(int columnIndex) {
@@ -138,14 +142,13 @@ public class GrammarEditorPanel extends JPanel {
     
         public Object getValueAt(int rowIndex, int columnIndex) {
 
-            try {
+            try {  
                 Constituent selected = selectedConstituent();
                 Feature feature = selected.getFeatures().get(rowIndex);
-
                 return feature;
             }
             catch (IndexOutOfBoundsException ex) {
-                // TODO inform user that no features exist
+
             }
                 
             return null;
@@ -217,7 +220,7 @@ public class GrammarEditorPanel extends JPanel {
         }
     }
     
-    private class ComboListener implements ItemListener {
+    private class ConstiutentComboListener implements ItemListener {
         @Override
         public void itemStateChanged(ItemEvent ev) {
             if (ev.getStateChange() == ItemEvent.SELECTED) {
