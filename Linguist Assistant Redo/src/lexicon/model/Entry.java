@@ -1,5 +1,9 @@
 package lexicon.model;
 
+import ontology.model.ConceptDAO;
+
+import commons.dao.DAOFactory;
+
 import grammar.model.Constituent;
 
 public class Entry {
@@ -8,8 +12,10 @@ public class Entry {
         return new Entry();
     }
     
-    public static Entry getInstance() {
-        return null;
+    public static Entry getInstance(int pk) {
+        DAOFactory factory = DAOFactory.getInstance();
+        EntryDAO dao = new EntryDAO(factory);
+        return dao.retrieve(pk);
     }
     
     private int pk;

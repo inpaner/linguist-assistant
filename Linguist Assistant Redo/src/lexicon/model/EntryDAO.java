@@ -9,6 +9,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import ontology.model.Concept;
+
 import commons.dao.DAOFactory;
 import commons.dao.DAOUtil;
 
@@ -47,6 +49,11 @@ private DAOFactory factory;
             "       AND " +
             "       categoryPk = (?) ";
     
+    private static final String SQL_RETRIEVE_MAPPED_CONCEPTS = 
+            "SELECT pk, ontologyPk, lexiconPk " + 
+            " FROM OntologyLexicon " +
+            " WHERE lexiconPk = (?) ";
+        
     private static final String SQL_DELETE =
             "DELETE FROM Entry WHERE pk = (?)";
         
@@ -54,7 +61,7 @@ private DAOFactory factory;
              "UPDATE Lexicon SET " +
              "  name = (?) " +
              " WHERE pk = (?)";
-        
+    
     void create(Entry entry) {
         Object[] values = {
                 entry.getStem(),
@@ -121,6 +128,36 @@ private DAOFactory factory;
             while (rs.next()) {
                 Entry item = map(rs);
                 result.add(item);    
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally {
+            DAOUtil.close(conn, ps, rs);
+        }
+        
+        return result;
+    }
+    
+    List<Concept> retrieveMappedConcepts(Entry entry) {
+        Object[] values = {
+                entry.getPk()
+        };
+        
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        List<Concept> result = new ArrayList<>();
+        try {
+            String sql = SQL_RETRIEVE_MAPPED_CONCEPTS;
+            conn = factory.getConnection();
+            ps = DAOUtil.prepareStatement(conn, sql, false, values);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int pk = rs.getInt("ontologyPk");
+                Concept concept = Concept.getInstance(pk);
+                result.add(concept);
             }
         }
         catch (SQLException e) {
