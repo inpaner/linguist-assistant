@@ -2,6 +2,8 @@ package ontology.view;
 
 import grammar.model.Constituent;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -110,6 +112,7 @@ public class OntologyDetails extends JPanel {
         add(mappingsLabel);
         add(mappingsPane, "span, split 2");
         add(mappingBox);
+       
     }
     
     public void updateConcept(Concept concept) {
@@ -122,6 +125,7 @@ public class OntologyDetails extends JPanel {
         
         mappingsModel.updateEntries(concept.getMappings());
         mappingsModel.fireTableDataChanged();
+
     }
     
     @SuppressWarnings("serial")
@@ -159,7 +163,7 @@ public class OntologyDetails extends JPanel {
             Tag tag = tags.get(rowIndex);
             Object value;
             switch (columnIndex) {
-                case 0: value = tag.getName();
+                case 0: value = tag;
                         break;
                 default: value = "";
             }
@@ -209,7 +213,7 @@ public class OntologyDetails extends JPanel {
             Entry entry = entries.get(rowIndex);
             Object value;
             switch (columnIndex) {
-                case 0: value = entry.getStem();
+                case 0: value = entry;
                         break;
                 case 1: value = entry.getLanguage();
                         break;
@@ -224,4 +228,5 @@ public class OntologyDetails extends JPanel {
             return false;
         }
     }
+    
 }
