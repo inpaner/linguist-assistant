@@ -1,10 +1,11 @@
 package lexicon.model;
 
-import ontology.model.ConceptDAO;
+import grammar.model.Constituent;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import commons.dao.DAOFactory;
-
-import grammar.model.Constituent;
 
 public class Entry {
     
@@ -16,6 +17,14 @@ public class Entry {
         DAOFactory factory = DAOFactory.getInstance();
         EntryDAO dao = new EntryDAO(factory);
         return dao.retrieve(pk);
+    }
+    
+    public static List<Entry> getAll(String substring, 
+                Language language, Constituent constituent) {
+        
+        DAOFactory factory = DAOFactory.getInstance();
+        EntryDAO dao = new EntryDAO(factory);
+        return dao.retrieveAll(substring, language, constituent);
     }
     
     private int pk;
@@ -62,6 +71,15 @@ public class Entry {
 	
 	public Constituent getConstituent() {
 	    return constituent;
+	}
+	
+	// TODO getComment
+	public String getComment() {
+	    return "";
+	}
+	
+	public String getSampleSentence() {
+	    return "";
 	}
 	
 	@Override

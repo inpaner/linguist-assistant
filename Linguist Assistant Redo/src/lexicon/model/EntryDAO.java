@@ -21,7 +21,7 @@ private DAOFactory factory;
         EntryDAO dao = new EntryDAO(DAOFactory.getInstance());
         Language lang = Language.getInstance("English");
         Constituent c = Constituent.getByName("Noun");
-        for (Entry entry : dao.retrieveAll(lang, c)) {
+        for (Entry entry : dao.retrieveAll("", lang, c)) {
             System.out.println(entry);
         }
     }
@@ -42,12 +42,15 @@ private DAOFactory factory;
             " FROM Lexicon " +
             " WHERE pk = (?) ";
     
-    private static final String SQL_RETRIEVE_ALL = 
+    private static final String SQL_RETRIEVE_ALL_BY_SUBSTRING = 
             "SELECT " +  FIELDS + " " + 
             " FROM Lexicon " +
-            " WHERE languagePk = (?) " +
+            " WHERE stem LIKE (?) " +
             "       AND " +
-            "       categoryPk = (?) ";
+            "       languagePk = (?) " + 
+            "       AND " +
+            "       categoryPk = (?) " +
+            " ORDER BY STEM ";
     
     private static final String SQL_RETRIEVE_MAPPED_CONCEPTS = 
             "SELECT pk, ontologyPk, lexiconPk " + 
@@ -110,8 +113,9 @@ private DAOFactory factory;
         return result;
     }
     
-    List<Entry> retrieveAll(Language language, Constituent constituent) {
+    List<Entry> retrieveAll(String substring, Language language, Constituent constituent) {
         Object[] values = {
+                "%" + substring + "%",
                 language.getPk(),
                 constituent.getPk()
         };
@@ -121,7 +125,7 @@ private DAOFactory factory;
         ResultSet rs = null;
         List<Entry> result = new ArrayList<>();
         try {
-            String sql = SQL_RETRIEVE_ALL;
+            String sql = SQL_RETRIEVE_ALL_BY_SUBSTRING;
             conn = factory.getConnection();
             ps = DAOUtil.prepareStatement(conn, sql, false, values);
             rs = ps.executeQuery();
