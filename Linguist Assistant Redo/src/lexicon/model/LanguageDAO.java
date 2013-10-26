@@ -14,10 +14,7 @@ public class LanguageDAO {
     private DAOFactory factory;
     
     public static void main(String[] args) {
-        DAOFactory factory = DAOFactory.getInstance();
-        LanguageDAO dao = new LanguageDAO(factory);
-        Language empty = dao.retrieve(1);
-        dao.delete(empty);
+
     }
     
     public LanguageDAO(DAOFactory aDAOFactory) {
@@ -93,7 +90,12 @@ public class LanguageDAO {
             result = map(rs);
         }
         catch (SQLException e) {
-            e.printStackTrace();
+            if (e.getLocalizedMessage().equals("ResultSet closed")) {
+                // Language set to null. Do nothing. 
+            }
+            else {
+                e.printStackTrace();
+            }
         }
         finally {
             DAOUtil.close(conn, ps, rs);
