@@ -86,4 +86,10 @@ public class Entry {
 	public String toString() {
 	    return stem;
 	}
+	
+	public List<Form> getForms() {
+	    DAOFactory factory = DAOFactory.getInstance();
+	    FormDAO dao = new FormDAO(factory);
+	    return dao.retrieveAll(this);
+	}
 }
