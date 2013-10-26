@@ -94,12 +94,11 @@ public class FeatureDAO {
         return possibleValues;
     }
     
-    String getDefaultValue(Feature aFeature) {
+    String getDefaultValue(Feature feature) {
         String defaultValue = "";
         
         Object[] values = {
-                aFeature.getParent().getName(),
-                aFeature.getName()
+                feature.getPk()
         };
         Connection conn = null;
         PreparedStatement ps = null;
@@ -111,6 +110,7 @@ public class FeatureDAO {
             ps = DAOUtil.prepareStatement(conn, sql, false, values);
             rs = ps.executeQuery();
             rs.next();
+            defaultValue = rs.getString("name");
         }
         catch (SQLException e) {
             e.printStackTrace();
@@ -232,6 +232,8 @@ public class FeatureDAO {
         Feature feature = Feature.getEmpty(parent);
         feature.setPk(rs.getInt("pk"));
         feature.setName(rs.getString("name"));
+        String value = getDefaultValue(feature);
+        feature.setValue(value);
         feature.setDescription(rs.getString("description"));
         Language language = Language.getInstance(rs.getInt("languagePk"));
         feature.setLanguage(language);

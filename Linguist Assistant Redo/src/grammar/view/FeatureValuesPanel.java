@@ -26,8 +26,10 @@ public class FeatureValuesPanel extends JPanel {
     private JTable table;
     private List<FeatureValuesListener> listeners;
     private List<Feature> features;
+    private ComboListener comboListener;
     
     public FeatureValuesPanel() {
+        comboListener = new ComboListener();
         listeners = new ArrayList<>();
         table = new JTable() {
             @Override
@@ -52,30 +54,13 @@ public class FeatureValuesPanel extends JPanel {
         for (Feature feature : features) {
         	System.out.println("Adding feature");
             FeatureComboBox comboBox = new FeatureComboBox(feature);
+            comboBox.addListener(comboListener);
             DefaultCellEditor cellEditor = new DefaultCellEditor(comboBox);
             editors.add(cellEditor);
         }
 
         FeatureTableModel model = new FeatureTableModel();
         table.setModel(model);
-    }
-    
-    private class FeatureComboBox extends JComboBox<String> {
-        private Feature feature;
-        private FeatureComboBox(Feature feature) {
-            super(new Vector<String>(feature.getPossibleValues()));
-            this.feature = feature;
-            setSelectedItem(feature.getValue());
-            addItemListener(new ComboListener());
-        }
-        
-        private Feature getFeature() {
-            return feature;
-        }
-        
-        private String getValue() {
-            return (String) getSelectedItem();
-        }
     }
 
     private class FeatureTableModel extends AbstractTableModel {
@@ -109,7 +94,7 @@ public class FeatureValuesPanel extends JPanel {
                         break;
                 case 1: value = feature.getValue();
                         break;
-                default: value = feature.getValue(); // questionable
+                default: value = "";
             }
             
             return value;
@@ -124,15 +109,11 @@ public class FeatureValuesPanel extends JPanel {
         listeners.add(listener);
     }
     
-    
-    private class ComboListener implements ItemListener {
+    private class ComboListener implements FeatureComboBox.Listener {
         @Override
-        public void itemStateChanged(ItemEvent ev) {
-            if (ev.getStateChange() == ItemEvent.SELECTED) {
-                FeatureComboBox comboBox = (FeatureComboBox) ev.getSource();
-                for (FeatureValuesListener listener : listeners) {
-                    listener.featureValueChanged(comboBox.getFeature(), comboBox.getValue());
-                }
+        public void featureValueChanged(Feature feature, String value) {
+            for (FeatureValuesListener listener : listeners) {
+                listener.featureValueChanged(feature, value);
             }
         }
     }
