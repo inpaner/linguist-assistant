@@ -10,6 +10,7 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
+import lexicon.model.Entry;
 import commons.dao.DAOFactory;
 import commons.dao.DAOUtil;
 
@@ -28,6 +29,11 @@ public class ConceptDAO {
              " VALUES (?, ?, ?, ?)";
     
     private static final String SQL_RETRIEVE = 
+            "SELECT pk, stem, sense, gloss, categoryPk " +
+            "  FROM Ontology " +
+            " WHERE pk = (?) ";
+    
+    private static final String SQL_RETRIEVE_BY_STEM = 
             "SELECT pk, stem, sense, gloss, categoryPk " +
             "  FROM Ontology " +
             " WHERE stem = (?) " +
@@ -57,20 +63,26 @@ public class ConceptDAO {
             "       tagPk = (?) " +
             " ORDER BY stem ";
     
-    private static final String SQL_ADD_TAG = 
-            "INSERT INTO OntologyTag(ontologyPk, tagPk) " +
-            " VALUES (?, ?)";
     
+    private static final String SQL_RETRIEVE_MAPPED_ENTRIES = 
+            "SELECT pk, ontologyPk, lexiconPk " + 
+            " FROM OntologyLexicon " +
+            " WHERE ontologyPk = (?) ";
+    
+    
+    private static final String SQL_ADD_TAG = 
+        "INSERT INTO OntologyTag(ontologyPk, tagPk) " +
+        " VALUES (?, ?)";
+
     private static final String SQL_ALL_TAGS =
             "SELECT tagPk " +
             "  FROM OntologyTag " +
             " WHERE ontologyPk = (?) ";
             
-    
-    private DAOFactory fDAOFactory;
+    private DAOFactory factory;
     
     public ConceptDAO(DAOFactory aDAOFactory) {
-        fDAOFactory = aDAOFactory;
+        factory = aDAOFactory;
     }
     
     public void create(Concept aConcept) {
@@ -88,7 +100,7 @@ public class ConceptDAO {
         String newSense = "";
         try {
             String sql = SQL_LATEST_SENSE;
-            conn = fDAOFactory.getConnection();
+            conn = factory.getConnection();
             ps = DAOUtil.prepareStatement(conn, sql, false, values);
             rs = ps.executeQuery();
             
@@ -136,8 +148,8 @@ public class ConceptDAO {
         ResultSet rs = null;
         Concept concept = null;
         try {
-            String sql = SQL_RETRIEVE;
-            conn = fDAOFactory.getConnection();
+            String sql = SQL_RETRIEVE_BY_STEM;
+            conn = factory.getConnection();
             ps = DAOUtil.prepareStatement(conn, sql, false, values);
             rs = ps.executeQuery();
             
@@ -153,6 +165,67 @@ public class ConceptDAO {
         }
         
         return concept;
+    }
+    
+    public Concept retrieve(int pk) {
+        Object[] values = {
+                pk
+        };
+
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Concept concept = null;
+        try {
+            String sql = SQL_RETRIEVE;
+            conn = factory.getConnection();
+            ps = DAOUtil.prepareStatement(conn, sql, false, values);
+            rs = ps.executeQuery();
+            
+            if (rs.next()) {
+                int constituentPk = rs.getInt("categoryPk");
+                Constituent con = Constituent.getInstance(constituentPk);
+                concept = map(rs, con); 
+            }
+        } 
+        catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        finally {
+            DAOUtil.close(conn, ps, rs);
+        }
+        
+        return concept;
+    }
+    
+    List<Entry> retrieveMappedEntries(Concept concept) {
+        Object[] values = {
+                concept.getPk()
+        };
+        
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        List<Entry> result = new ArrayList<>();
+        try {
+            String sql = SQL_RETRIEVE_MAPPED_ENTRIES;
+            conn = factory.getConnection();
+            ps = DAOUtil.prepareStatement(conn, sql, false, values);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int pk = rs.getInt("lexiconPk");
+                Entry entry = Entry.getInstance(pk);
+                result.add(entry);
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally {
+            DAOUtil.close(conn, ps, rs);
+        }
+        
+        return result;
     }
     
     public static void main(String[] args) {
@@ -186,7 +259,7 @@ public class ConceptDAO {
         ResultSet rs = null;
         try {
             String sql = SQL_RETRIEVE_ALL_BY_SUBSTRING;
-            conn = fDAOFactory.getConnection();
+            conn = factory.getConnection();
             ps = DAOUtil.prepareStatement(conn, sql, false, values);
             rs = ps.executeQuery();
             
@@ -217,7 +290,7 @@ public class ConceptDAO {
         ResultSet rs = null;
         try {
             String sql = SQL_RETRIEVE_ALL_WITH_TAG;
-            conn = fDAOFactory.getConnection();
+            conn = factory.getConnection();
             ps = DAOUtil.prepareStatement(conn, sql, false, values);
             rs = ps.executeQuery();
             
@@ -249,7 +322,7 @@ public class ConceptDAO {
         
         try {
             String sql = SQL_ADD_TAG;
-            conn = fDAOFactory.getConnection();
+            conn = factory.getConnection();
             ps = DAOUtil.prepareStatement(conn, sql, false, values);
             ps.executeUpdate();   
         } 
@@ -272,7 +345,7 @@ public class ConceptDAO {
         ResultSet rs = null;
         try {
             String sql = SQL_ALL_TAGS;
-            conn = fDAOFactory.getConnection();
+            conn = factory.getConnection();
             ps = DAOUtil.prepareStatement(conn, sql, false, values);
             rs = ps.executeQuery();
             

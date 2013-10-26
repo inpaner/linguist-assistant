@@ -34,15 +34,15 @@ public class OntologyDetails extends JPanel {
     private JTextArea glossArea;
     private TagTableModel tagModel;
     private JXTable tagTable;
-    private LexiconTableModel entryModel;
+    private LexiconTableModel mappingsModel;
     private JXTable mappingsTable;
     
     public static void main(String[] args) {
         MainFrame frame = new MainFrame();
         OntologyDetails panel = new OntologyDetails();
         frame.setPanel(panel);
-        Constituent con = Constituent.getByName("Noun");
-        Concept c = Concept.getInstance("Aaron", "A", con);
+        Constituent con = Constituent.getByName("Verb");
+        Concept c = Concept.getInstance("run", "A", con);
         panel.updateConcept(c);
     }
     
@@ -87,8 +87,8 @@ public class OntologyDetails extends JPanel {
         
         // Lexicon Mappings
         JLabel mappingsLabel = new JLabel("Mappings");
-        entryModel = new LexiconTableModel();
-        mappingsTable = new JXTable(entryModel);
+        mappingsModel = new LexiconTableModel();
+        mappingsTable = new JXTable(mappingsModel);
         mappingsTable.setVisibleRowCount(3);
         JScrollPane mappingsPane = new JScrollPane(mappingsTable);
         JButton addMapping = new JButton("+");
@@ -120,7 +120,8 @@ public class OntologyDetails extends JPanel {
         tagModel.updateTags(concept.getTags());
         tagModel.fireTableDataChanged();
         
-        
+        mappingsModel.updateEntries(concept.getMappings());
+        mappingsModel.fireTableDataChanged();
     }
     
     @SuppressWarnings("serial")
@@ -187,7 +188,7 @@ public class OntologyDetails extends JPanel {
             return entries.size();
         }
         
-        public void updateTags(List<Entry> entries) {
+        public void updateEntries(List<Entry> entries) {
             this.entries = entries;
         }
         

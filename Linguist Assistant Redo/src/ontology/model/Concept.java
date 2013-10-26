@@ -6,6 +6,8 @@ import grammar.model.Node;
 import java.util.Arrays;
 import java.util.List;
 
+import lexicon.model.Entry;
+
 import commons.dao.DAOFactory;
 
 public class Concept extends Node {
@@ -44,6 +46,14 @@ public class Concept extends Node {
         ConceptDAO dao = new ConceptDAO(factory);
         return dao.retrieve(stem, sense, constituent);
     }
+    
+    public static Concept getInstance(int pk) {
+        DAOFactory factory = DAOFactory.getInstance();
+        ConceptDAO dao = new ConceptDAO(factory);
+        return dao.retrieve(pk);
+    }
+    
+    
     
     public static Concept getEmpty(Constituent constituent) {
         return new Concept(constituent);
@@ -114,6 +124,14 @@ public class Concept extends Node {
         ConceptDAO dao = new ConceptDAO(factory);
         return dao.retrieveAllTags(this);
     }
+    
+    public List<Entry> getMappings() {
+        DAOFactory factory = DAOFactory.getInstance();
+        ConceptDAO dao = new ConceptDAO(factory);
+        return dao.retrieveMappedEntries(this);
+    }
+    
+    
     
     @Override
     public boolean equals(Object other) {
