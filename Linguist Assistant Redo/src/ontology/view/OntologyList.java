@@ -45,11 +45,6 @@ public class OntologyList extends JPanel {
     
     public OntologyList() {
         listeners = new ArrayList<>();
-        model = new OntologyTableModel();
-        table = new JTable();
-        model = new OntologyTableModel();
-        table.setModel(model);
-        table.getSelectionModel().addListSelectionListener(new ListListener());
         concepts = new ArrayList<>();
         
         JLabel searchLabel = new JLabel("Search: ");
@@ -58,12 +53,15 @@ public class OntologyList extends JPanel {
         
         Vector<Constituent> constituents = new Vector<>(Constituent.getAll());
         constituentBox = new JComboBox<>(constituents);
-        constituentBox.addItemListener(new ConstituentListener());
+        constituentBox.addItemListener(new ComboListener());
         
         Vector<Tag> tags = new Vector<>(Tag.getAllTags());
         tagBox = new JComboBox<>(tags);
-        tagBox.addItemListener(new ConstituentListener());
+        tagBox.addItemListener(new ComboListener());
         
+        model = new OntologyTableModel();
+        table = new JTable(model);
+        table.getSelectionModel().addListSelectionListener(new ListListener());
         JScrollPane scrollPane = new JScrollPane(table);
         
         setLayout(new MigLayout());
@@ -170,7 +168,7 @@ public class OntologyList extends JPanel {
         return concepts.get(index); 
     }
     
-    private class ConstituentListener implements ItemListener {
+    private class ComboListener implements ItemListener {
         @Override
         public void itemStateChanged(ItemEvent ev) {
             if (ev.getStateChange() == ItemEvent.SELECTED) {

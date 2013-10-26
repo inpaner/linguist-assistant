@@ -41,21 +41,12 @@ public class SemanticEditorPanel extends JPanel {
 	private XMLParser parser;
     public static void main(String[] args) {
         MainFrame frame = new MainFrame();
-/*        Constituent con = new Constituent("C", null);
-        Constituent con2 = new Constituent("N", con);
-        Constituent con3 = new Constituent("V", con);
-        Constituent con4 = new Constituent("R", con);
-        Constituent con5 = new Constituent("E", con);
-        
-        con.addChild(con2);
-        con.addChild(con3);
-        con.addChild(con4);
-        con.addChild(con5);
-        
+      
         SemanticEditorPanel panel = new SemanticEditorPanel();
+        Constituent con = Constituent.getByName("Noun");
         panel.updateConstituent(con);
         frame.setPanel(panel);
-*/    }
+    }
     
     public SemanticEditorPanel() {
         initComponents();
