@@ -119,7 +119,6 @@ private DAOFactory factory;
                 language.getPk(),
                 constituent.getPk()
         };
-        
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
