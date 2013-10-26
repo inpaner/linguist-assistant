@@ -38,20 +38,14 @@ public class ConstituentDAO {
             "SELECT pk, name, abbreviation, description " +
             "  FROM Category " +
             " WHERE pk = (?); ";
-            
-    
-    private static final String SQL_GET_ALL_FEATURES = 
-            "SELECT SemanticCategory.pk AS pk, name " +
-            "  FROM Feature " +
-            " WHERE semanticCategoryPK = (?); ";
     
     private static final String SQL_GET_ALL_FORMS = 
             "SELECT pk, name " +
             "  FROM Form " +
-            " WHERE semanticCategoryPK = (?); ";
+            " WHERE categoryPK = (?); ";
     
-    public ConstituentDAO(DAOFactory aDAOFactory) {
-        fDAOFactory = aDAOFactory;
+    public ConstituentDAO(DAOFactory factory) {
+        this.factory = factory;
     }
     
     public Constituent retrieve(int pk) {
@@ -66,7 +60,7 @@ public class ConstituentDAO {
         
         try {
             String sql = SQL_RETRIEVE;
-            conn = fDAOFactory.getConnection();
+            conn = factory.getConnection();
             ps = DAOUtil.prepareStatement(conn, sql, false, values);
             rs = ps.executeQuery();
             rs.next();
@@ -94,7 +88,7 @@ public class ConstituentDAO {
         
         try {
             String sql = SQL_RETRIEVE_BY_ABBR;
-            conn = fDAOFactory.getConnection();
+            conn = factory.getConnection();
             ps = DAOUtil.prepareStatement(conn, sql, false, values);
             rs = ps.executeQuery();
             rs.next();
@@ -122,7 +116,7 @@ public class ConstituentDAO {
         
         try {
             String sql = SQL_RETRIEVE_BY_NAME;
-            conn = fDAOFactory.getConnection();
+            conn = factory.getConnection();
             ps = DAOUtil.prepareStatement(conn, sql, false, values);
             rs = ps.executeQuery();
             rs.next();
@@ -147,7 +141,7 @@ public class ConstituentDAO {
 
         try {
             String sql = SQL_RETRIEVE_ALL;
-            conn = fDAOFactory.getConnection();
+            conn = factory.getConnection();
             ps = DAOUtil.prepareStatement(conn, sql, false, values);
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -164,36 +158,40 @@ public class ConstituentDAO {
         return allConstituents;
     }
     
-    public List<Feature> getAllFeatures(Constituent constituent) {
-        ArrayList<Feature> allFeatures = new ArrayList<Feature>();
-        Connection conn = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        Object[] values = {
-                constituent.getPk()
-        };
-
-        try {
-            String sql = SQL_GET_ALL_FEATURES;
-            conn = fDAOFactory.getConnection();
-            ps = DAOUtil.prepareStatement(conn, sql, false, values);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                Integer pk = rs.getInt("pk");
-                String name = rs.getString("name");
-                allFeatures.add(new Feature(pk, name, constituent));
-            }
-        } 
-        catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        finally {
-            DAOUtil.close(conn, ps, rs);
-        }
         
-        return allFeatures;
-    }
+    public List<Form> getAllForms(Constituent constituent) {
+    	// TODO Auto-generated method stub
+    	 ArrayList<Form> allForms = new ArrayList<Form>();
+            Connection conn = null;
+            PreparedStatement ps = null;
+            ResultSet rs = null;
+            Object[] values = {
+                    constituent.getPk()
+            };
     
+            try {
+                String sql = SQL_GET_ALL_FORMS;
+                conn = factory.getConnection();
+                ps = DAOUtil.prepareStatement(conn, sql, false, values);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    Integer pk = rs.getInt("pk");
+                    String name = rs.getString("name");
+                    allForms.add(new Form(name));
+                }
+            } 
+            
+            catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+            finally {
+                DAOUtil.close(conn, ps, rs);
+            }
+            
+            return allForms;
+    
+    }
+
     private Constituent map(ResultSet rs) throws SQLException {
         Constituent constituent = new Constituent();
         constituent.setPk(rs.getInt("pk"));
@@ -203,38 +201,5 @@ public class ConstituentDAO {
         return constituent;
     }
     
-    private DAOFactory fDAOFactory;
-
-	public List<Form> getAllForms(Constituent constituent) {
-		// TODO Auto-generated method stub
-		 ArrayList<Form> allForms = new ArrayList<Form>();
-	        Connection conn = null;
-	        PreparedStatement ps = null;
-	        ResultSet rs = null;
-	        Object[] values = {
-	                constituent.getPk()
-	        };
-
-	        try {
-	            String sql = SQL_GET_ALL_FORMS;
-	            conn = fDAOFactory.getConnection();
-	            ps = DAOUtil.prepareStatement(conn, sql, false, values);
-	            rs = ps.executeQuery();
-	            while (rs.next()) {
-	                Integer pk = rs.getInt("pk");
-	                String name = rs.getString("name");
-	                allForms.add(new Form(name));
-	            }
-	        } 
-	        
-	        catch (SQLException ex) {
-	            ex.printStackTrace();
-	        }
-	        finally {
-	            DAOUtil.close(conn, ps, rs);
-	        }
-	        
-	        return allForms;
-	
-	}
+    private DAOFactory factory;
 }

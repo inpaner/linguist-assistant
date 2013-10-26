@@ -11,6 +11,17 @@ import commons.dao.DAOFactory;
 
 
 public class Feature extends Node {
+    
+    public static Feature getEmpty(Constituent parent) {
+        return new Feature(parent);
+    }
+    
+    public static List<Feature> getAll(Constituent constituent) {
+        DAOFactory factory = DAOFactory.getInstance();
+        FeatureDAO dao = new FeatureDAO(factory);
+        return dao.getAllFeatures(constituent);
+    }
+    
     private Integer pk;
     private String name;
     private String value;
@@ -19,13 +30,17 @@ public class Feature extends Node {
     private String description;
     private static Map<String, List<String>> possibleValues = new HashMap<>();
     
+    private Feature(Constituent parent) {
+        this.parent = parent;
+        parent.addFeature(this);
+    }
+    
     protected Feature(String name, String value, Constituent parent) {
         this.name = name;
         this.value = value;
         this.parent = parent;
         level = parent.getLevel() + 1;
     }
-    
     
     protected Feature(Integer pk, String aName, Constituent aParent) {
         this(aName, aParent);
@@ -133,5 +148,9 @@ public class Feature extends Node {
     
     public Integer getPk() {
         return pk;
+    }
+    
+    void setPk(int pk) {
+        this.pk = pk;
     }
 }

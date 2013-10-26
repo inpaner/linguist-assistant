@@ -23,12 +23,12 @@ import commons.dao.DBUtil;
 public class Constituent extends Node {
     private static Map<Integer, List<Feature>> fPossibleFeatures = new HashMap<>();
     private static Map<Integer, List<Form>> fPossibleForms = new HashMap<>();
-    
+/*    
     public static void main(String[] args) {
         Constituent con = Constituent.getByName("Noun");
         System.out.println(con.abbreviation);
     }
-    
+    */
     // TODO implement properly with copying of features
     public static Constituent copy(Constituent toCopy) {
         Constituent clone = new Constituent();
@@ -143,14 +143,9 @@ public class Constituent extends Node {
     
     public List<Feature> getFeatures() {
         List<Feature> allFeatures = new ArrayList<Feature>();
-        List<Feature> possibleFeatures = fPossibleFeatures.get(pk);
-        
-        if (possibleFeatures == null) {
-            DAOFactory factory = DAOFactory.getInstance();
-            ConstituentDAO dao = new ConstituentDAO(factory);
-            possibleFeatures = dao.getAllFeatures(this);
-            fPossibleFeatures.put(pk, possibleFeatures);   
-        }
+        DAOFactory factory = DAOFactory.getInstance();
+        FeatureDAO dao = new FeatureDAO(factory);
+        List<Feature> possibleFeatures = dao.getAllFeatures(this);
         
         for (Feature feature : possibleFeatures) {
             boolean found = false;
