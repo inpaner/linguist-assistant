@@ -1,8 +1,9 @@
 package lexicon.model;
 
 import grammar.model.Constituent;
+import grammar.model.Feature;
+import grammar.model.FeatureDAO;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import commons.dao.DAOFactory;
@@ -91,5 +92,11 @@ public class Entry {
 	    DAOFactory factory = DAOFactory.getInstance();
 	    FormDAO dao = new FormDAO(factory);
 	    return dao.retrieveAll(this);
+	}
+	
+	public List<Feature> getFeatures() {
+	    DAOFactory factory = DAOFactory.getInstance();
+        FeatureDAO dao = new FeatureDAO(factory);
+        return dao.retrieveAll(this);
 	}
 }

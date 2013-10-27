@@ -1,0 +1,9 @@
+SELECT FeatureValue.name
+  FROM FeatureValue
+       JOIN Feature
+         ON Feature.pk = FeatureValue.featurePk
+       JOIN LexiconFeature
+         ON FeatureValue.pk = LexiconFeature.featureValuePk
+ WHERE LexiconFeature.lexiconPk = 1
+ AND Feature.pk = 42
+
