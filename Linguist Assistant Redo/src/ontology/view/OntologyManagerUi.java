@@ -19,6 +19,7 @@ import commons.menu.ViewMenu;
 
 public class OntologyManagerUi extends JPanel {
     MainFrame frame;
+    private Concept selectedConcept;
     private OntologyList list;
     private OntologyDetails details;
     private JButton add;
@@ -34,6 +35,10 @@ public class OntologyManagerUi extends JPanel {
         public abstract void delMapping(Concept concept, Entry entry);
     }
     
+    public void addListener(Listener listener) {
+        listeners.add(listener);
+    }
+    
     public OntologyManagerUi(MainFrame frame) {
         this.frame = frame;
         JMenuBar menubar = new JMenuBar();
@@ -44,6 +49,7 @@ public class OntologyManagerUi extends JPanel {
         list = new OntologyList();
         details = new OntologyDetails();
         list.addListener(new ListListener());
+        details.addListener(new DetailListener());
         
         add = new JButton("Add");
         del = new JButton("Del");
@@ -53,41 +59,52 @@ public class OntologyManagerUi extends JPanel {
         setLayout(new MigLayout());
         add(list);
         add(details, "wrap");
-        add(add);
+        add(add, "span, split");
         add(del);
     }
     
+    public void update(Concept concept) {
+        details.update(concept);
+    }
+
     private class ListListener implements OntologyList.Listener {
         @Override
         public void selectedConcept(Concept concept) {
+            selectedConcept = concept;
             details.update(concept);
         }
     }
     
+    /**
+     * Serves as a 1:1 adapter for the Listener of this class
+     */
     private class DetailListener implements OntologyDetails.Listener {
-
         @Override
         public void addTag(Concept concept) {
-            // TODO Auto-generated method stub
-            
+            for (Listener listener : listeners) {
+                listener.addTag(concept);
+            }
         }
 
         @Override
         public void delTag(Concept concept, Tag tag) {
-            // TODO Auto-generated method stub
-            
+            for (Listener listener : listeners) {
+                listener.delTag(concept, tag);
+            }
         }
 
         @Override
         public void addMapping(Concept concept) {
-            // TODO Auto-generated method stub
-            
+            for (Listener listener : listeners) {
+                listener.addMapping(concept);
+            }
         }
 
         @Override
         public void delMapping(Concept concept, Entry entry) {
-            // TODO Auto-generated method stub
-            
+            for (Listener listener : listeners) {
+                listener.delMapping(concept, entry);
+            }
         }
         
     }
@@ -95,8 +112,9 @@ public class OntologyManagerUi extends JPanel {
     private class Add implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            // TODO Auto-generated method stub
-            
+            for (Listener listener : listeners) {
+                listener.add();
+            }
         }
     }
     

@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import lexicon.model.Entry;
-
+import lexicon.model.EntryDAO;
 import commons.dao.DAOFactory;
 
 public class Concept extends Node {
@@ -131,7 +131,29 @@ public class Concept extends Node {
         return dao.retrieveMappedEntries(this);
     }
     
+    public void addTag(Tag tag) {
+        DAOFactory factory = DAOFactory.getInstance();
+        ConceptDAO dao = new ConceptDAO(factory);
+        dao.addTag(this, tag);
+    }
     
+    public void deleteTag(Tag tag) {
+        DAOFactory factory = DAOFactory.getInstance();
+        ConceptDAO dao = new ConceptDAO(factory);
+        dao.deleteTag(this, tag);
+    }
+    
+    public void addMapping(Entry entry) {
+        DAOFactory factory = DAOFactory.getInstance();
+        ConceptDAO dao = new ConceptDAO(factory);
+        dao.createMapping(this, entry);
+    }
+    
+    public void deleteMapping(Entry entry) {
+        DAOFactory factory = DAOFactory.getInstance();
+        ConceptDAO dao = new ConceptDAO(factory);
+        dao.deleteMapping(this, entry);
+    }
     
     @Override
     public boolean equals(Object other) {

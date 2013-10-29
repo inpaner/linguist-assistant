@@ -39,6 +39,7 @@ public class OntologyDetails extends JPanel {
     private LexiconTableModel mappingsModel;
     private JXTable mappingsTable;
     private Concept concept;
+    private List<Listener> listeners = new ArrayList<>();
     
     public interface Listener {
         public abstract void addTag(Concept concept);
@@ -93,6 +94,8 @@ public class OntologyDetails extends JPanel {
         Box tagBox = new Box(BoxLayout.Y_AXIS);
         tagBox.add(addTag);
         tagBox.add(delTag);
+        addTag.addActionListener(new AddTag());
+        delTag.addActionListener(new DelTag());
         
         // Lexicon Mappings
         JLabel mappingsLabel = new JLabel("Mappings");
@@ -105,6 +108,8 @@ public class OntologyDetails extends JPanel {
         Box mappingBox = new Box(BoxLayout.Y_AXIS);
         mappingBox.add(addMapping);
         mappingBox.add(delMapping);
+        addMapping.addActionListener(new AddMapping());
+        delMapping.addActionListener(new DelMapping());
         
         setLayout(new MigLayout("wrap 1"));
         add(detailsLabel);
@@ -119,14 +124,17 @@ public class OntologyDetails extends JPanel {
         add(mappingsLabel);
         add(mappingsPane, "span, split 2");
         add(mappingBox);
-       
+    }
+    
+    public void addListener(Listener listener) {
+        listeners.add(listener);
     }
     
     public void update(Concept concept) {
         if (concept == null)
             return;
-        this.concept = concept;
         
+        this.concept = concept;
         stemField.setText(concept.getStem());
         senseField.setText(concept.getSense());
         glossArea.setText(concept.getGloss());
@@ -137,6 +145,17 @@ public class OntologyDetails extends JPanel {
         mappingsModel.updateEntries(concept.getMappings());
         mappingsModel.fireTableDataChanged();
     }
+    
+    public Tag getSelectedTag() {
+        int index = tagTable.getSelectedRow();
+        return tagModel.getTag(index);
+    }
+    
+    public Entry getSelectedEntry() {
+        int index = mappingsTable.getSelectedRow();
+        return mappingsModel.getEntry(index);
+    }
+    
     
     @SuppressWarnings("serial")
     private class TagTableModel extends AbstractTableModel {
@@ -173,12 +192,18 @@ public class OntologyDetails extends JPanel {
             Tag tag = tags.get(rowIndex);
             Object value;
             switch (columnIndex) {
-                case 0: value = tag;
-                        break;
-                default: value = "";
+            case 0: value = tag;
+                    break;
+            default: value = "";
             }
             
             return value;
+        }
+        
+        public Tag getTag(int index) {
+            if (index < 0 || index >= tags.size())
+                return null;
+            return tags.get(index);
         }
         
         public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -234,9 +259,50 @@ public class OntologyDetails extends JPanel {
             return value;
         }
         
+        public Entry getEntry(int index) {
+            if (index < 0 || index >= entries.size())
+                return null;
+            return entries.get(index);
+        }
+        
         public boolean isCellEditable(int rowIndex, int columnIndex) {
             return false;
         }
     }
     
+    private class AddTag implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            for (Listener listener : listeners) {
+                listener.addTag(concept);
+            }
+        }   
+    }
+    
+    private class DelTag implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            for (Listener listener : listeners) {
+                listener.delTag(concept, getSelectedTag());
+            }            
+        }   
+    }
+    
+    private class AddMapping implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            for (Listener listener : listeners) {
+                listener.addMapping(concept);
+            }            
+        }   
+    }
+    
+    private class DelMapping implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            for (Listener listener : listeners) {
+                listener.delMapping(concept, getSelectedEntry());
+            }            
+        }   
+    }
 }

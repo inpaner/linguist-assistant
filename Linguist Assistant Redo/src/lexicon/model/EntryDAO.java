@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ontology.model.Concept;
-
 import commons.dao.DAOFactory;
 import commons.dao.DAOUtil;
 
@@ -36,7 +35,7 @@ private DAOFactory factory;
     private static final String SQL_CREATE = 
             "INSERT INTO Lexicon(" +  FIELDS + ") " +
             " VALUES (?) ";
-    
+
     private static final String SQL_RETRIEVE_BY_PK = 
             "SELECT " +  FIELDS + " " + 
             " FROM Lexicon " +
@@ -87,7 +86,7 @@ private DAOFactory factory;
             DAOUtil.close(conn, ps, rs);
         }
     }
-    
+        
     Entry retrieve(int pk) {
         Object[] values = {
                 pk

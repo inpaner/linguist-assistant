@@ -69,16 +69,32 @@ public class ConceptDAO {
             " FROM OntologyLexicon " +
             " WHERE ontologyPk = (?) ";
     
-    
     private static final String SQL_ADD_TAG = 
         "INSERT INTO OntologyTag(ontologyPk, tagPk) " +
         " VALUES (?, ?)";
 
+    private static final String SQL_DELETE_TAG =
+            "DELETE FROM OntologyTag " +
+            " WHERE ontologyPk = (?) " +
+            "       AND" +
+            "       tagPk = (?) ";
+    
+    
     private static final String SQL_ALL_TAGS =
             "SELECT tagPk " +
             "  FROM OntologyTag " +
             " WHERE ontologyPk = (?) ";
             
+    private static final String SQL_CREATE_MAPPING =
+            "INSERT INTO OntologyLexicon(ontologyPk, lexiconPk) " +
+            " VALUES (?, ?) ";
+    
+    private static final String SQL_DELETE_MAPPING =
+            "DELETE FROM OntologyLexicon " +
+            " WHERE ontologyPk = (?) " +
+            "       AND" +
+            "       lexiconPk = (?) ";
+    
     private DAOFactory factory;
     
     public ConceptDAO(DAOFactory aDAOFactory) {
@@ -228,6 +244,52 @@ public class ConceptDAO {
         return result;
     }
     
+    public void createMapping(Concept concept, Entry entry) {
+        Object[] values = {
+                concept.getPk(),
+                entry.getPk()
+        };
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        
+        try {
+            String sql = SQL_CREATE_MAPPING;
+            conn = factory.getConnection();
+            ps = DAOUtil.prepareStatement(conn, sql, false, values);
+            ps.executeUpdate();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally {
+            DAOUtil.close(conn, ps, rs);
+        }
+    }
+    
+    public void deleteMapping(Concept concept, Entry entry) {
+        Object[] values = {
+                concept.getPk(),
+                entry.getPk()
+        };
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        
+        try {
+            String sql = SQL_DELETE_MAPPING;
+            conn = factory.getConnection();
+            ps = DAOUtil.prepareStatement(conn, sql, false, values);
+            ps.executeUpdate();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally {
+            DAOUtil.close(conn, ps, rs);
+        }
+    }
+    
     public static void main(String[] args) {
         DAOFactory factory = DAOFactory.getInstance();
         ConceptDAO dao = new ConceptDAO(factory);
@@ -322,6 +384,31 @@ public class ConceptDAO {
         
         try {
             String sql = SQL_ADD_TAG;
+            conn = factory.getConnection();
+            ps = DAOUtil.prepareStatement(conn, sql, false, values);
+            ps.executeUpdate();   
+        } 
+        catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        finally {
+            DAOUtil.close(conn, ps, rs);
+        }
+    }
+    
+    
+    public void deleteTag(Concept aConcept, Tag aTag) {
+        Object[] values = {
+                aConcept.getPk(),
+                aTag.getPk()
+        };
+
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        
+        try {
+            String sql = SQL_DELETE_TAG;
             conn = factory.getConnection();
             ps = DAOUtil.prepareStatement(conn, sql, false, values);
             ps.executeUpdate();   
