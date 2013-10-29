@@ -126,13 +126,13 @@ public class SemanticEditorPanel extends JPanel {
        	}
        });
         btnOntology=new JButton("View Ontology");
-        btnOntology.addActionListener(new ActionListener() {
+/*        btnOntology.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent arg0) {
        		OntologyManager om=new OntologyManager();
        		om.testCase(); 
        	       
        	}
-       });
+       });*/
     }
     private String getFile()
     {

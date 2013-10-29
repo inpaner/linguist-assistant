@@ -13,6 +13,7 @@ import java.util.Vector;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -31,6 +32,8 @@ import net.miginfocom.swing.MigLayout;
 import org.jdesktop.swingx.JXTable;
 
 import commons.main.MainFrame;
+import commons.menu.HelpMenu;
+import commons.menu.ViewMenu;
 
 public class LexiconList extends JPanel {
     
@@ -43,12 +46,18 @@ public class LexiconList extends JPanel {
     
     public static void main(String[] args) {
         MainFrame frame = new MainFrame();
-        LexiconList list = new LexiconList();
+        LexiconList list = new LexiconList(frame);
         frame.setPanel(list);
         list.refresh();
     }
     
-    public LexiconList() {
+    public LexiconList(MainFrame frame) {
+        // Init menubar
+        JMenuBar menubar = new JMenuBar();
+        menubar.add(new ViewMenu(frame));
+        menubar.add(new HelpMenu());
+        frame.setJMenuBar(menubar);
+        
         strategy = new StemStrategy();
         
         // Init UI components
@@ -71,7 +80,6 @@ public class LexiconList extends JPanel {
         formButton.addActionListener(new FormButtonListener());
         featureButton.addActionListener(new FeatureButtonListener());
         
-        
         table = new JXTable();
         table.setAutoResizeMode(JXTable.AUTO_RESIZE_OFF);
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -90,6 +98,8 @@ public class LexiconList extends JPanel {
         add(formButton);
         add(featureButton, "wrap");
         add(scrollpane);
+        
+        refresh();
     }
     
     private void refresh() {
@@ -147,7 +157,4 @@ public class LexiconList extends JPanel {
             refresh();
         }
     }
-    
-    
-    
 }

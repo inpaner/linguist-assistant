@@ -7,6 +7,9 @@ import javax.swing.AbstractAction;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
+import lexicon.LexiconManager;
+import lexicon.view.LexiconList;
+import ontology.controller.OntologyManager;
 import commons.main.MainFrame;
 
 // Combined view-controller
@@ -51,7 +54,7 @@ public class ViewMenu extends JMenu {
         }
         
         public void actionPerformed(ActionEvent e) {
-            
+            OntologyManager.run(frame);
         }
     }
     
@@ -65,7 +68,7 @@ public class ViewMenu extends JMenu {
         }
         
         public void actionPerformed(ActionEvent e) {
-            
+            LexiconManager.run(frame);
         }
     }
 }

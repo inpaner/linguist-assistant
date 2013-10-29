@@ -4,21 +4,18 @@ package ontology.view;
 
 import grammar.model.Constituent;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
-import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
@@ -29,13 +26,15 @@ import net.miginfocom.swing.MigLayout;
 import ontology.model.Concept;
 import ontology.model.Tag;
 
+import org.jdesktop.swingx.JXTable;
+
 @SuppressWarnings("serial")
 public class OntologyList extends JPanel {
     private List<Listener> listeners;
     private List<Concept> concepts;
     private JComboBox<Tag> tagBox;
     private JTextField searchField;
-    private JTable table;
+    private JXTable table;
     private OntologyTableModel model;
     private JComboBox<Constituent> constituentBox;
     
@@ -60,14 +59,16 @@ public class OntologyList extends JPanel {
         tagBox.addItemListener(new ComboListener());
         
         model = new OntologyTableModel();
-        table = new JTable(model);
+        table = new JXTable(model);
+        table.setAutoResizeMode(JXTable.AUTO_RESIZE_OFF);
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         table.getSelectionModel().addListSelectionListener(new ListListener());
         JScrollPane scrollPane = new JScrollPane(table);
         
         setLayout(new MigLayout());
-        add(searchLabel, "span, split, center");
-        add(searchField, "gap");
-        add(constituentBox);
+        add(searchLabel, "span, split");
+        add(searchField, "gap, wrap");
+        add(constituentBox, "span, split");
         add(tagBox, "wrap");
         add(scrollPane, "wrap");
         
@@ -155,13 +156,13 @@ public class OntologyList extends JPanel {
         public void valueChanged(ListSelectionEvent ev) {
             if (!ev.getValueIsAdjusting()) {
                 for (Listener listener : listeners) {
-                    listener.selectedConcept(getSelectedConcept());
+                    listener.selectedConcept(getSelected());
                 }
             }
         }
     }
     
-    public Concept getSelectedConcept() {
+    public Concept getSelected() {
         int index = table.getSelectedRow();
         if (index == -1) 
             return null;

@@ -1,6 +1,9 @@
-package commons.main;
+package commons;
 
 import java.util.prefs.Preferences;
+
+import commons.main.MainFrame;
+import commons.main.MainUi;
 
 
 public class Main {
@@ -16,7 +19,6 @@ public class Main {
         loadPreferences();
         frame = new MainFrame();
         frame.setPanel(new MainUi(frame));
-        
     }
     
     private void loadPreferences() {

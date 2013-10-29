@@ -38,6 +38,14 @@ public class OntologyDetails extends JPanel {
     private JXTable tagTable;
     private LexiconTableModel mappingsModel;
     private JXTable mappingsTable;
+    private Concept concept;
+    
+    public interface Listener {
+        public abstract void addTag(Concept concept);
+        public abstract void delTag(Concept concept, Tag tag);
+        public abstract void addMapping(Concept concept);
+        public abstract void delMapping(Concept concept, Entry entry);
+    }
     
     public static void main(String[] args) {
         MainFrame frame = new MainFrame();
@@ -45,11 +53,10 @@ public class OntologyDetails extends JPanel {
         frame.setPanel(panel);
         Constituent con = Constituent.getByName("Verb");
         Concept c = Concept.getInstance("run", "A", con);
-        panel.updateConcept(c);
+        panel.update(c);
     }
     
     public OntologyDetails() {
-        
         // Details
         JLabel detailsLabel = new JLabel("Details");
         
@@ -115,7 +122,11 @@ public class OntologyDetails extends JPanel {
        
     }
     
-    public void updateConcept(Concept concept) {
+    public void update(Concept concept) {
+        if (concept == null)
+            return;
+        this.concept = concept;
+        
         stemField.setText(concept.getStem());
         senseField.setText(concept.getSense());
         glossArea.setText(concept.getGloss());
@@ -125,7 +136,6 @@ public class OntologyDetails extends JPanel {
         
         mappingsModel.updateEntries(concept.getMappings());
         mappingsModel.fireTableDataChanged();
-
     }
     
     @SuppressWarnings("serial")

@@ -85,14 +85,16 @@ public class FeatureDAO {
     }
 
     List<String> getPossibleValues(Feature feature) {
-        ArrayList<String> possibleValues = new ArrayList<>();
+        List<String> possibleValues = new ArrayList<>();
         Object[] values = {
                 feature.getPk(),
         };
+        List<Integer> list = new ArrayList<>();
+        list.add(3);
+        
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        
         try {
             String sql = SQL_POSSIBLE_VALUES;
             conn = factory.getConnection();

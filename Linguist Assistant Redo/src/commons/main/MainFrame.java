@@ -69,6 +69,7 @@ public class MainFrame extends JFrame {
             validate();
             pack();
             setLocationRelativeTo(null);
+            repaint();
         }
     }
 
