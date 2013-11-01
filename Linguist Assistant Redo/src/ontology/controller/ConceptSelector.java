@@ -20,14 +20,13 @@ public class ConceptSelector {
     }
     
     private Concept selected;
-    private SelectConceptDialog dialog;
     
     private Concept getSelected() {
         return selected;
     }
     
     private ConceptSelector() {
-        dialog = new SelectConceptDialog(new DialogListener());
+        SelectConceptDialog dialog = new SelectConceptDialog(new DialogListener());
     }
     
     private class DialogListener implements SelectConceptDialog.Listener {

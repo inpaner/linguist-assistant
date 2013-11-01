@@ -14,7 +14,7 @@ import ontology.model.Concept;
 
 @SuppressWarnings("serial")
 public class SelectConceptDialog extends JDialog {
-    private Concept selectedConcept;
+    private Concept selected;
     private List<Listener> listeners = new ArrayList<>();
     
     public interface Listener {
@@ -28,8 +28,6 @@ public class SelectConceptDialog extends JDialog {
         setSize(400, 600);
         setLocationRelativeTo(null);
         setLayout(new MigLayout());
-        
-        selectedConcept = null;
         
         ConceptList list = new ConceptList();
         list.addListener(new ListListener());
@@ -55,7 +53,7 @@ public class SelectConceptDialog extends JDialog {
     private class ListListener implements ConceptList.Listener {
         @Override
         public void selectedConcept(Concept concept) {
-            selectedConcept = concept;
+            selected = concept;
         }
     }
     
@@ -63,7 +61,7 @@ public class SelectConceptDialog extends JDialog {
         @Override
         public void actionPerformed(ActionEvent e) {
             for (Listener listener : listeners) {
-                listener.select(selectedConcept);
+                listener.select(selected);
             }
             dispose();
         }
@@ -73,7 +71,7 @@ public class SelectConceptDialog extends JDialog {
         @Override
         public void actionPerformed(ActionEvent e) {
             for (Listener listener : listeners) {
-                listener.cancel(selectedConcept);
+                listener.cancel(selected);
             }
             dispose();
         }
