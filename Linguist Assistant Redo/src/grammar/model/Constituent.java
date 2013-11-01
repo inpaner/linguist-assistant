@@ -80,7 +80,7 @@ public class Constituent extends Node {
         return new Constituent();
     }
     
-    protected Constituent() {
+    public Constituent() {
         level = 0;
     }
     

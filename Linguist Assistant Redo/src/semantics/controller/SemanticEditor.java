@@ -27,12 +27,13 @@ public class SemanticEditor {
         display.addFeatureValuesListener(new ImpFeatureValuesListener());
         frame.setPanel(display);
         
-        Constituent con = Constituent.getByAbbreviation("C");
-        Constituent con2 = Constituent.getByAbbreviation("N");
+        Constituent con = new Constituent();//Constituent.getByAbbreviation("C");
+        con.setLabel("");
+        /*Constituent con2 = Constituent.getByAbbreviation("N");
         Constituent con3 = Constituent.getByAbbreviation("V");
         
         con.addChild(con2);
-        con.addChild(con3);
+        con.addChild(con3);*/
         
         display.updateConstituent(con);
     }
