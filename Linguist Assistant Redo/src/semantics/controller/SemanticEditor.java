@@ -1,5 +1,7 @@
 package semantics.controller;
 
+import javax.swing.JOptionPane;
+
 import semantics.view.BlockListener;
 import semantics.view.SemanticEditorPanel;
 import grammar.controller.SelectConstituent;
@@ -53,6 +55,22 @@ public class SemanticEditor {
             SelectConstituent selectConstituent = new SelectConstituent(dropped, destination, index);
             selectConstituent.addListener(new AddConstituentListener());
         }
+
+		@Override
+		public void tryDelete(Constituent constituent) {
+			int choice = JOptionPane.showConfirmDialog(display, "Delete this constituent?", "Confirm Delete",0);
+			if(choice==JOptionPane.YES_OPTION)
+			{
+				if (constituent.getParent() != null) {
+		            constituent.getParent().getChildren().remove(constituent);
+		            constituent.setParent(null);
+		            display.refresh();
+		        }
+			}
+			
+			
+			
+		}
     }
     
     private class ImpFeatureValuesListener implements FeatureValuesListener {

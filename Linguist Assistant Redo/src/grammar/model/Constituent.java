@@ -212,7 +212,7 @@ public class Constituent extends Node {
             return true;
         return isAncestor(potentialAncestor.parent);
     }
-    
+   
     public void moveChild(Constituent newChild, int index) {
         System.out.println(newChild.parent == null);
         int oldIndex = children.indexOf(newChild);
