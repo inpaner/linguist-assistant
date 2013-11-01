@@ -28,7 +28,7 @@ import org.jdesktop.swingx.plaf.misc.GlossyTaskPaneUI;
 
 import commons.main.MainFrame;
 
-public class OntologyDetails extends JPanel {
+public class ConceptDetails extends JPanel {
     private final int FIELD_WIDTH = 20;
     private final int AREA_HEIGHT = 3;
     private JTextField stemField;
@@ -50,14 +50,14 @@ public class OntologyDetails extends JPanel {
     
     public static void main(String[] args) {
         MainFrame frame = new MainFrame();
-        OntologyDetails panel = new OntologyDetails();
+        ConceptDetails panel = new ConceptDetails();
         frame.setPanel(panel);
         Constituent con = Constituent.getByName("Verb");
         Concept c = Concept.getInstance("run", "A", con);
         panel.update(c);
     }
     
-    public OntologyDetails() {
+    public ConceptDetails() {
         // Details
         JLabel detailsLabel = new JLabel("Details");
         

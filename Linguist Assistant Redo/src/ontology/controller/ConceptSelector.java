@@ -3,10 +3,10 @@ package ontology.controller;
 import ontology.model.Concept;
 import ontology.view.SelectConceptDialog;
 
-public class OntologySelector {
+public class ConceptSelector {
     
     public static void main(String[] args) {
-        Concept con = OntologySelector.select();
+        Concept con = ConceptSelector.select();
         if (con == null) {
             System.out.println("null");
         }
@@ -15,7 +15,7 @@ public class OntologySelector {
     }
     
     public static Concept select() {
-        OntologySelector controller = new OntologySelector();
+        ConceptSelector controller = new ConceptSelector();
         return controller.getSelected();
     }
     
@@ -26,7 +26,7 @@ public class OntologySelector {
         return selected;
     }
     
-    private OntologySelector() {
+    private ConceptSelector() {
         dialog = new SelectConceptDialog(new DialogListener());
     }
     

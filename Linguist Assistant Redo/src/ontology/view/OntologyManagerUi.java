@@ -20,8 +20,8 @@ import commons.menu.ViewMenu;
 public class OntologyManagerUi extends JPanel {
     MainFrame frame;
     private Concept selectedConcept;
-    private OntologyList list;
-    private OntologyDetails details;
+    private ConceptList list;
+    private ConceptDetails details;
     private JButton add;
     private JButton del;
     private List<Listener> listeners = new ArrayList<>();
@@ -46,8 +46,8 @@ public class OntologyManagerUi extends JPanel {
         menubar.add(new HelpMenu());
         frame.setJMenuBar(menubar);
         
-        list = new OntologyList();
-        details = new OntologyDetails();
+        list = new ConceptList();
+        details = new ConceptDetails();
         list.addListener(new ListListener());
         details.addListener(new DetailListener());
         
@@ -67,7 +67,7 @@ public class OntologyManagerUi extends JPanel {
         details.update(concept);
     }
 
-    private class ListListener implements OntologyList.Listener {
+    private class ListListener implements ConceptList.Listener {
         @Override
         public void selectedConcept(Concept concept) {
             selectedConcept = concept;
@@ -78,7 +78,7 @@ public class OntologyManagerUi extends JPanel {
     /**
      * Serves as a 1:1 adapter for the Listener of this class
      */
-    private class DetailListener implements OntologyDetails.Listener {
+    private class DetailListener implements ConceptDetails.Listener {
         @Override
         public void addTag(Concept concept) {
             for (Listener listener : listeners) {

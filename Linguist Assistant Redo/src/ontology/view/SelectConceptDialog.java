@@ -31,7 +31,7 @@ public class SelectConceptDialog extends JDialog {
         
         selectedConcept = null;
         
-        OntologyList list = new OntologyList();
+        ConceptList list = new ConceptList();
         list.addListener(new ListListener());
         JButton select = new JButton("Select");
         JButton cancel = new JButton("Cancel");
@@ -52,7 +52,7 @@ public class SelectConceptDialog extends JDialog {
         listeners.add(listener);
     }
 
-    private class ListListener implements OntologyList.Listener {
+    private class ListListener implements ConceptList.Listener {
         @Override
         public void selectedConcept(Concept concept) {
             selectedConcept = concept;
