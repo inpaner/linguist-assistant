@@ -212,9 +212,18 @@ public class Block extends Box {
         public void mousePressed(MouseEvent e) {
 
             if (e.getClickCount() == 1) {
-                for (BlockListener listener : listeners) {
-                    listener.selectedConstituent(constituent);
-                }
+	            if(e.getButton()==e.BUTTON1)
+	            {
+	                for (BlockListener listener : listeners) {
+	                    listener.selectedConstituent(constituent);
+	                }
+	            }
+	            else
+	            {
+	            	for (BlockListener listener : listeners) {
+	                    listener.tryDelete(constituent);
+	                }
+	            }
             }
             
         }

@@ -195,5 +195,11 @@ public class SemanticEditorPanel extends JPanel {
 
         @Override
         public void droppedButton(Constituent dropped, Constituent destination, int index) {}
+
+		@Override
+		public void tryDelete(Constituent constituent) {
+			// TODO Auto-generated method stub
+			
+		}
     }
 }
