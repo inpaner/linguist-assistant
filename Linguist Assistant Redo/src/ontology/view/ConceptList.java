@@ -30,7 +30,7 @@ import org.jdesktop.swingx.JXTable;
 
 @SuppressWarnings("serial")
 public class ConceptList extends JPanel {
-    private List<Listener> listeners;
+    private List<Listener> listeners = new ArrayList<>();
     private List<Concept> concepts;
     private JComboBox<Tag> tagBox;
     private JTextField searchField;
@@ -43,7 +43,6 @@ public class ConceptList extends JPanel {
     }
     
     public ConceptList() {
-        listeners = new ArrayList<>();
         concepts = new ArrayList<>();
         
         JLabel searchLabel = new JLabel("Search: ");

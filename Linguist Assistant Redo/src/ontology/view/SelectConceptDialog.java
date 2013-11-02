@@ -18,8 +18,8 @@ public class SelectConceptDialog extends JDialog {
     private List<Listener> listeners = new ArrayList<>();
     
     public interface Listener {
-        public void select(Concept concept);
-        public void cancel(Concept concept);
+        public abstract void select(Concept concept);
+        public abstract void cancel(Concept concept);
     }
     
     public SelectConceptDialog(Listener listener) {

@@ -4,6 +4,7 @@ import ontology.model.Concept;
 import ontology.view.SelectConceptDialog;
 
 public class ConceptSelector {
+    private Concept selected;
     
     public static void main(String[] args) {
         Concept con = ConceptSelector.select();
@@ -19,14 +20,12 @@ public class ConceptSelector {
         return controller.getSelected();
     }
     
-    private Concept selected;
-    
     private Concept getSelected() {
         return selected;
     }
     
     private ConceptSelector() {
-        SelectConceptDialog dialog = new SelectConceptDialog(new DialogListener());
+        new SelectConceptDialog(new DialogListener());
     }
     
     private class DialogListener implements SelectConceptDialog.Listener {

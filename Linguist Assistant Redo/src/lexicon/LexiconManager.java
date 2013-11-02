@@ -8,7 +8,7 @@ public class LexiconManager {
 
     public static void run(MainFrame frame) {
         if (panel == null) {
-            panel = new LexiconList(frame);
+            panel = new LexiconList();
         }
         
         frame.setPanel(panel);
