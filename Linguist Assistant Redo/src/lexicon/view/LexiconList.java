@@ -7,19 +7,21 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import lexicon.model.Entry;
 import lexicon.model.Language;
@@ -32,32 +34,29 @@ import net.miginfocom.swing.MigLayout;
 import org.jdesktop.swingx.JXTable;
 
 import commons.main.MainFrame;
-import commons.menu.HelpMenu;
-import commons.menu.ViewMenu;
 
+@SuppressWarnings("serial")
 public class LexiconList extends JPanel {
-    
+    private List<Entry> entries;
+    private List<Listener> listeners = new ArrayList<>();
     private JTextField searchField;
     private JComboBox<Constituent> constituentBox;
     private JComboBox<Language> languageBox;
     private JXTable table;
     private TableStrategy strategy;
     
+    public interface Listener {
+        public abstract void selectedEntry(Entry entry);
+    }
     
     public static void main(String[] args) {
         MainFrame frame = new MainFrame();
-        LexiconList list = new LexiconList(frame);
+        LexiconList list = new LexiconList();
         frame.setPanel(list);
         list.refresh();
     }
     
-    public LexiconList(MainFrame frame) {
-        // Init menubar
-        JMenuBar menubar = new JMenuBar();
-        menubar.add(new ViewMenu(frame));
-        menubar.add(new HelpMenu());
-        frame.setJMenuBar(menubar);
-        
+    public LexiconList() {
         strategy = new StemStrategy();
         
         // Init UI components
@@ -83,6 +82,8 @@ public class LexiconList extends JPanel {
         table = new JXTable();
         table.setAutoResizeMode(JXTable.AUTO_RESIZE_OFF);
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        table.getSelectionModel().addListSelectionListener(new ListListener());
+        
         JScrollPane scrollpane = new JScrollPane(table);
         scrollpane.setPreferredSize(new Dimension(400, 300));
         
@@ -107,8 +108,19 @@ public class LexiconList extends JPanel {
         Language language = languageBox.getItemAt(languageBox.getSelectedIndex());
         Constituent constituent = constituentBox.getItemAt(constituentBox.getSelectedIndex());
         
-        List<Entry> entries = Entry.getAll(substring, language, constituent);
+        entries = Entry.getAll(substring, language, constituent);
         strategy.update(table, entries);   
+    }
+    
+    public Entry getSelected() {
+        int index = table.getSelectedRow();
+        if (index == -1)
+            return null;
+        return entries.get(index); 
+    }
+    
+    public void addListener(Listener listener) {
+        listeners.add(listener);
     }
     
     private class SearchListener implements DocumentListener {
@@ -157,4 +169,16 @@ public class LexiconList extends JPanel {
             refresh();
         }
     }
+    
+    private class ListListener implements ListSelectionListener {
+        @Override
+        public void valueChanged(ListSelectionEvent ev) {
+            if (!ev.getValueIsAdjusting() && getSelected() != null) {
+                for (Listener listener : listeners) {
+                    listener.selectedEntry(getSelected());
+                }
+            }
+        }
+    }
+    
 }
