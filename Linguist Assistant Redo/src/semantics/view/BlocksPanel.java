@@ -23,7 +23,7 @@ public class BlocksPanel extends JPanel {
     
     public BlocksPanel() {
         initComponents();
-        addComponents();
+        //addComponents();
     }
     
     private void initComponents() {

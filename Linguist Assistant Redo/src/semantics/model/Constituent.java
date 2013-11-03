@@ -66,6 +66,8 @@ public class Constituent {
     }
     
     public String getLabel() {
+        if (category == null)
+            return "";
         return category.getLabel();
     }
     
@@ -90,6 +92,9 @@ public class Constituent {
     
     public List<Feature> getFeatures() {
         List<Feature> result = new ArrayList<>(); 
+        if (category == null) // root block
+            return result;
+        
         for (Feature feature : category.getFeatures()) {
             boolean found = false;
             for (Feature ownFeature : features) {
