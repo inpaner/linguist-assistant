@@ -9,6 +9,10 @@ import semantics.model.Constituent;
 public class HasFeature extends Input {
     private Feature feature;
     
+    public HasFeature(Feature feature) {
+        setFeature(feature);
+    }
+    
     public void setFeature(Feature feature) {
         this.feature = feature;
     }

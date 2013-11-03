@@ -1,14 +1,15 @@
 package rule.input;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import rule.Rule;
 import semantics.model.Constituent;
 
 public class HasChild extends Input {
     private Input condition;
     private String key;
+    
+    public HasChild(String key, Input condition) {
+        setKey(key);
+    }
     
     public void setCondition(Input condition) {
         this.condition = condition;

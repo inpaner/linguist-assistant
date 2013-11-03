@@ -23,9 +23,15 @@ public class Rule {
     }
     
     public Rule createLocalRule() {
-        Rule copy = new Rule();
-        copy.semanticSwitch = this.semanticSwitch;
-        return copy;
+        Rule result = createPassedRule();
+        result.constituents = this.constituents;
+        return result;
+    }
+    
+    public Rule createPassedRule() {
+        Rule result = new Rule();
+        result.semanticSwitch = this.semanticSwitch;
+        return result;
     }
     
     public void toggleSemanticSwitch() {
@@ -49,6 +55,15 @@ public class Rule {
         return input.evaluate(constituent);
     }
 
+    public void apply() {
+        if (semanticSwitch.isOn && localSwitch) {
+            for (Output output : outputs) {
+                output.setRoot(this);
+                output.apply();
+            }
+        }
+    }
+    
     private class Switch {
         boolean isOn = true;
     }
