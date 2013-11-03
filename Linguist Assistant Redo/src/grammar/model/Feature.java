@@ -134,7 +134,22 @@ public class Feature {
         if (!(other instanceof Feature))
             return false;
         
-        return toString().equals(other.toString()) ? true : false;
+        Feature otherF = (Feature) other;
+        boolean result = false;
+        // Must be equal: name, value, language, category name
+        if (name.equals(otherF.name)
+                && value.equals(otherF.value)
+                && parent.getName().equals(otherF.parent.getName())) {
+            
+            if (language != null && language.equals(otherF.language)) {
+                result = true;
+            }
+            else {
+                result = true;
+            }
+        }
+        
+        return result;
     }
     
     @Override
@@ -149,4 +164,6 @@ public class Feature {
     void setPk(int pk) {
         this.pk = pk;
     }
+    
+
 }
