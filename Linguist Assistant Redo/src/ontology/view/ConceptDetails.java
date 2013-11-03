@@ -1,6 +1,6 @@
 package ontology.view;
 
-import grammar.model.Constituent;
+import grammar.model.Category;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -52,7 +52,7 @@ public class ConceptDetails extends JPanel {
         MainFrame frame = new MainFrame();
         ConceptDetails panel = new ConceptDetails();
         frame.setPanel(panel);
-        Constituent con = Constituent.getByName("Verb");
+        Category con = Category.getByName("Verb");
         Concept c = Concept.getInstance("run", "A", con);
         panel.update(c);
     }

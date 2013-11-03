@@ -166,10 +166,10 @@ public class FeatureDAO {
         }
     }
     
-    public List<Feature> getAllFeatures(Constituent constituent) {
+    public List<Feature> getAllFeatures(Category category) {
         ArrayList<Feature> result = new ArrayList<Feature>();
         Object[] values = {
-                constituent.getPk()
+                category.getPk()
         };
 
         Connection conn = null;
@@ -182,7 +182,7 @@ public class FeatureDAO {
             ps = DAOUtil.prepareStatement(conn, sql, false, values);
             rs = ps.executeQuery();
             while (rs.next()) {
-                Feature feature = map(rs, constituent);
+                Feature feature = map(rs, category);
                 result.add(feature);
             }
         } 
@@ -298,7 +298,7 @@ public class FeatureDAO {
     }
     
 
-    private Feature map(ResultSet rs, Constituent parent) throws SQLException {
+    private Feature map(ResultSet rs, Category parent) throws SQLException {
         Feature feature = Feature.getEmpty(parent);
         feature.setPk(rs.getInt("pk"));
         feature.setName(rs.getString("name"));

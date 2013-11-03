@@ -1,6 +1,6 @@
 package lexicon.model;
 
-import grammar.model.Constituent;
+import grammar.model.Category;
 import grammar.model.Feature;
 import grammar.model.FeatureDAO;
 
@@ -21,18 +21,18 @@ public class Entry {
     }
     
     public static List<Entry> getAll(String substring, 
-                Language language, Constituent constituent) {
+                Language language, Category category) {
         
         DAOFactory factory = DAOFactory.getInstance();
         EntryDAO dao = new EntryDAO(factory);
-        return dao.retrieveAll(substring, language, constituent);
+        return dao.retrieveAll(substring, language, category);
     }
     
     private int pk;
 	private String stem;
 	private String gloss;
 	private Language language;
-	private Constituent constituent;
+	private Category category;
 	
 	void setPk(int pk) {
 	    this.pk = pk;
@@ -66,12 +66,12 @@ public class Entry {
 	    return language;
 	}
 	
-	protected void setConstituent(Constituent constituent) {
-	    this.constituent = constituent;
+	protected void setConstituent(Category category) {
+	    this.category = category;
 	}
 	
-	public Constituent getConstituent() {
-	    return constituent;
+	public Category getConstituent() {
+	    return category;
 	}
 	
 	// TODO getComment

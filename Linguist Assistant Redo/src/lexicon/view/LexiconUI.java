@@ -5,7 +5,7 @@
 package lexicon.view;
 
 //import com.sun.org.apache.xalan.internal.xsltc.compiler.SyntaxTreeNode;
-import grammar.model.Constituent;
+import grammar.model.Category;
 import grammar.model.Feature;
 import grammar.view.FeatureValuesListener;
 
@@ -59,7 +59,7 @@ public class LexiconUI extends JFrame {
     private JTable table;
     private JScrollPane tablePane;
     List<Concept> concepts;
-    Constituent c;
+    Category c;
    public LexiconUI(){
        initialize();
        setBounds();
@@ -71,9 +71,9 @@ public class LexiconUI extends JFrame {
    
    public void initialize(){
       // syntacticCategory.setModel(new DefaultComboBoxModel(new String[] {"Noun", "Verb", "Adjective", "Adverb", "Adposition", "Conjunction", "Phrasal", "Particle"}));
-       for(Constituent constituent : Constituent.getAll())
+       for(Category category : Category.getAll())
        {
-    	   syntacticCategory.addItem(constituent.getLabel());
+    	   syntacticCategory.addItem(category.getLabel());
        }
        syntacticCategory.setVisible(false);
        sCategory = new JLabel("Syntactic Category");
@@ -107,7 +107,7 @@ public class LexiconUI extends JFrame {
    }
    public void getConcepts()
    {
-		c=Constituent.getByName(syntacticCategory.getSelectedItem().toString());
+		c=Category.getByName(syntacticCategory.getSelectedItem().toString());
 	    concepts = Concept.getInstances("", c);
    }
    public void setBounds(){

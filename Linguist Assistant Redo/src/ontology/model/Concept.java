@@ -1,6 +1,6 @@
 package ontology.model;
 
-import grammar.model.Constituent;
+import grammar.model.Category;
 import grammar.model.Node;
 
 import java.util.Arrays;
@@ -10,13 +10,13 @@ import lexicon.model.Entry;
 import lexicon.model.EntryDAO;
 import commons.dao.DAOFactory;
 
-public class Concept extends Node {
+public class Concept {
     private Integer pk;
     private String stem;
     private String sense;
     private String gloss;
     private List<Tag> tags;
-    private Constituent fConstituent;
+    private Category fConstituent;
     
     private final static List<String> senseList = 
             Arrays.asList("A", "B", "C", "D", "E", "F", "G",
@@ -24,27 +24,27 @@ public class Concept extends Node {
                     "P", "Q", "R", "S", "T", "U", "V", "W",
                     "X", "Y", "Z", "AA", "AB", "AC", "AD");
     
-    public static List<Concept> getInstances(String stemSubString, Tag tag, Constituent constituent) {
+    public static List<Concept> getInstances(String stemSubString, Tag tag, Category category) {
         DAOFactory factory = DAOFactory.getInstance();
         ConceptDAO dao = new ConceptDAO(factory);
         List<Concept> result;
         if (tag.equals(Tag.getTagAll())) {
-            result = dao.retrieveBySubstring(stemSubString, constituent); 
+            result = dao.retrieveBySubstring(stemSubString, category); 
         }
         else {
-            result = dao.retrieveByTag(stemSubString, tag, constituent);
+            result = dao.retrieveByTag(stemSubString, tag, category);
         }
         return result;
     }
     
-    public static List<Concept> getInstances(String stemSubstring, Constituent constituent) {
-        return getInstances(stemSubstring, Tag.getTagAll(), constituent);
+    public static List<Concept> getInstances(String stemSubstring, Category category) {
+        return getInstances(stemSubstring, Tag.getTagAll(), category);
     }
 
-    public static Concept getInstance(String stem, String sense, Constituent constituent) {
+    public static Concept getInstance(String stem, String sense, Category category) {
         DAOFactory factory = DAOFactory.getInstance();
         ConceptDAO dao = new ConceptDAO(factory);
-        return dao.retrieve(stem, sense, constituent);
+        return dao.retrieve(stem, sense, category);
     }
     
     public static Concept getInstance(int pk) {
@@ -55,8 +55,8 @@ public class Concept extends Node {
     
     
     
-    public static Concept getEmpty(Constituent constituent) {
-        return new Concept(constituent);
+    public static Concept getEmpty(Category category) {
+        return new Concept(category);
     }
     
     // max of 30 senses only
@@ -69,12 +69,11 @@ public class Concept extends Node {
         return sense;
     }
     
-    public Concept(Constituent aConstituent) {
+    public Concept(Category aConstituent) {
         this.fConstituent = aConstituent;
-        level = aConstituent.getLevel() + 1;
     }
     
-    public Concept(String aStem, Constituent aConstituent) {
+    public Concept(String aStem, Category aConstituent) {
         this(aConstituent);
         this.stem = aStem;
     }
@@ -86,7 +85,7 @@ public class Concept extends Node {
         return pk;
     }
     
-    public Constituent getParent() {
+    public Category getParent() {
         return fConstituent;
     }
     

@@ -1,6 +1,6 @@
 package semantics.view;
 
-import grammar.model.Constituent;
+import grammar.model.Category;
 import grammar.model.FileBrowsing;
 import grammar.model.XMLParser;
 import grammar.view.FeatureValuesListener;
@@ -20,6 +20,7 @@ import javax.swing.JTextArea;
 
 import lexicon.view.LexiconUI;
 import ontology.controller.OntologyManager;
+import semantics.model.Constituent;
 import commons.main.MainFrame;
 import net.miginfocom.swing.MigLayout;
 
@@ -43,8 +44,8 @@ public class SemanticEditorPanel extends JPanel {
         MainFrame frame = new MainFrame();
       
         SemanticEditorPanel panel = new SemanticEditorPanel();
-        Constituent con = Constituent.getByName("Noun");
-        panel.updateConstituent(con);
+        Category con = Category.getByName("Noun");
+        //panel.updateConstituent(con);
         frame.setPanel(panel);
     }
     
@@ -56,24 +57,25 @@ public class SemanticEditorPanel extends JPanel {
     	
     	Constituent root = parser.read(filename); 	
      	updateConstituent(root);
-		getTranslation(root);
+		//getTranslation(root);
 		txtTranslation.repaint();
     }
-	
-    private void getTranslation(Constituent c) {
+/*	
+    private void getTranslation(Category c) {
     	if (c.hasChildren()) {
-    		 for(Constituent k: c.getChildren()) {
+    		 for(Category k: c.getChildren()) {
     			 getTranslation(k);
     		 }
     	}
     	else if (c.getTranslation() != null)
     		txtTranslation.append(c.getTranslation().toString() + " ");
     }
-    
+    */
     private void writeXML(String filename) {
         if(root != null)
            parser.writeXML(filename,root);
     }
+    
     private void initComponents() {
     	parser = new XMLParser();
 		txtTranslation = new JTextArea();
@@ -134,8 +136,7 @@ public class SemanticEditorPanel extends JPanel {
        	}
        });*/
     }
-    private String getFile()
-    {
+    private String getFile() {
     	JFileChooser fileChooser = new JFileChooser();
 		String filename=new String();
 		 
@@ -197,7 +198,7 @@ public class SemanticEditorPanel extends JPanel {
         public void droppedButton(Constituent dropped, Constituent destination, int index) {}
 
 		@Override
-		public void tryDelete(Constituent constituent) {
+		public void tryDelete(Constituent category) {
 			// TODO Auto-generated method stub
 			
 		}

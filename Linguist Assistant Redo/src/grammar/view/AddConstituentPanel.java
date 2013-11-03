@@ -1,6 +1,5 @@
 package grammar.view;
 
-import grammar.model.Constituent;
 import grammar.model.Feature;
 
 import java.awt.Dimension;
@@ -17,6 +16,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import semantics.model.Constituent;
 import net.miginfocom.swing.MigLayout;
 
 @SuppressWarnings("serial")
@@ -65,9 +65,8 @@ public class AddConstituentPanel extends JPanel {
     // not sure if this should be stuck in view
     private class ActualFeatureValuesListener implements FeatureValuesListener {
         @Override
-        public void featureValueChanged(Feature feature, String newValue) {
-            Constituent parent = feature.getParent();
-            parent.updateFeature(feature, newValue);
+        public void featureValueChanged(Constituent constituent, Feature feature, String newValue) {
+            constituent.updateFeature(feature, newValue);
         }
     }
     

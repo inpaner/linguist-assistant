@@ -1,6 +1,6 @@
 package ontology.model;
 
-import grammar.model.Constituent;
+import grammar.model.Category;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -152,11 +152,11 @@ public class ConceptDAO {
         }
     }
     
-    public Concept retrieve(String stem, String sense, Constituent constituent) {
+    public Concept retrieve(String stem, String sense, Category category) {
         Object[] values = {
                 stem,
                 sense,
-                constituent.getPk()
+                category.getPk()
         };
 
         Connection conn = null;
@@ -170,7 +170,7 @@ public class ConceptDAO {
             rs = ps.executeQuery();
             
             if (rs.next()) {
-                concept = map(rs, constituent); 
+                concept = map(rs, category); 
             }
         } 
         catch (SQLException ex) {
@@ -200,7 +200,7 @@ public class ConceptDAO {
             
             if (rs.next()) {
                 int constituentPk = rs.getInt("categoryPk");
-                Constituent con = Constituent.getInstance(constituentPk);
+                Category con = Category.getInstance(constituentPk);
                 concept = map(rs, con); 
             }
         } 
@@ -293,7 +293,7 @@ public class ConceptDAO {
     public static void main(String[] args) {
         DAOFactory factory = DAOFactory.getInstance();
         ConceptDAO dao = new ConceptDAO(factory);
-        Constituent con = Constituent.getByAbbreviation("N");
+        Category con = Category.getByAbbreviation("N");
         
         long start = System.nanoTime();
         List<Concept> result = dao.retrieveBySubstring("Adah", con);
@@ -309,11 +309,11 @@ public class ConceptDAO {
         System.out.println("Total time: " + seconds);
     }
     
-    public List<Concept> retrieveBySubstring(String stemSubString, Constituent constituent) {
+    public List<Concept> retrieveBySubstring(String stemSubString, Category category) {
         List<Concept> result = new ArrayList<>();
         Object[] values = {
                 "%" + stemSubString + "%",
-                constituent.getPk()
+                category.getPk()
         };
 
         Connection conn = null;
@@ -326,7 +326,7 @@ public class ConceptDAO {
             rs = ps.executeQuery();
             
             while (rs.next()) {
-                result.add(map(rs, constituent));
+                result.add(map(rs, category));
             }
         } 
         catch (SQLException ex) {
@@ -339,11 +339,11 @@ public class ConceptDAO {
         return result;
     }
 
-    public List<Concept> retrieveByTag(String stemSubString, Tag tag, Constituent constituent) {
+    public List<Concept> retrieveByTag(String stemSubString, Tag tag, Category category) {
         List<Concept> result = new ArrayList<>();
         Object[] values = {
                 "%" + stemSubString + "%",
-                constituent.getPk(),
+                category.getPk(),
                 tag.getPk()
         };
 
@@ -357,7 +357,7 @@ public class ConceptDAO {
             rs = ps.executeQuery();
             
             while (rs.next()) {
-                result.add(map(rs, constituent));
+                result.add(map(rs, category));
             }
         } 
         catch (SQLException ex) {
@@ -451,8 +451,8 @@ public class ConceptDAO {
         return result;
     }
     
-    private Concept map(ResultSet rs, Constituent constituent) throws SQLException {
-        Concept result = new Concept(constituent);
+    private Concept map(ResultSet rs, Category category) throws SQLException {
+        Concept result = new Concept(category);
         result.setPk(rs.getInt("pk"));
         result.setStem(rs.getString("stem"));
         result.setSense(rs.getString("sense"));

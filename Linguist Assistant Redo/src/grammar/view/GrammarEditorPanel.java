@@ -1,6 +1,6 @@
 package grammar.view;
 
-import grammar.model.Constituent;
+import grammar.model.Category;
 import grammar.model.Feature;
 
 import java.awt.event.ActionEvent;
@@ -30,7 +30,7 @@ import commons.main.MainFrame;
 public class GrammarEditorPanel extends JPanel {
     private List<Listener> listeners = new ArrayList<Listener>();
     private JComboBox<Language> languages;
-    private JComboBox<Constituent> constituents;
+    private JComboBox<Category> categories;
     private JTable featuresTable;
     private JTable valuesTable;
     private FeatureTableModel featureModel;
@@ -47,19 +47,19 @@ public class GrammarEditorPanel extends JPanel {
     
     public class Event {
         private Language language;
-        private Constituent constituent;
+        private Category category;
         private Feature feature;
         private String replacement = "";
         private int valueIndex = -1;
         
         private Event() {
-            constituent = selectedConstituent();
+            category = selectedConstituent();
             feature = selectedFeature();
         }
         
         public Language getLanguage() {return language;}
         
-        public Constituent getConstituent() {return constituent;}
+        public Category getConstituent() {return category;}
         
         public Feature getFeature() {return feature;}
         
@@ -72,10 +72,10 @@ public class GrammarEditorPanel extends JPanel {
         JLabel languageLabel = new JLabel("Language: ");
         Vector<Language> langaugeList = new Vector<>(Language.getAll());
         JLabel constituentLabel = new JLabel("Constituent: ");
-        Vector<Constituent> constituentList = new Vector<>(Constituent.getAll());
+        Vector<Category> constituentList = new Vector<>(Category.getAll());
         
-        constituents = new JComboBox<>(constituentList);
-        constituents.addItemListener(new ConstiutentComboListener());
+        categories = new JComboBox<>(constituentList);
+        categories.addItemListener(new ConstiutentComboListener());
         
         featureModel = new FeatureTableModel();
         featuresTable = new JTable(featureModel);
@@ -98,7 +98,7 @@ public class GrammarEditorPanel extends JPanel {
         
         setLayout(new MigLayout("wrap 2"));
         add(constituentLabel, "span, split");
-        add(constituents, "wrap");
+        add(categories, "wrap");
         add(featuresPane);
         add(valuesPane);
         add(addFeature, "center, flowx");
@@ -122,7 +122,7 @@ public class GrammarEditorPanel extends JPanel {
     
         public int getRowCount() {
             try {
-                Constituent selected = selectedConstituent();
+                Category selected = selectedConstituent();
                 return selected.getFeatures().size();
             }
             catch (IndexOutOfBoundsException ex) {
@@ -143,7 +143,7 @@ public class GrammarEditorPanel extends JPanel {
         public Object getValueAt(int rowIndex, int columnIndex) {
 
             try {  
-                Constituent selected = selectedConstituent();
+                Category selected = selectedConstituent();
                 Feature feature = selected.getFeatures().get(rowIndex);
                 return feature;
             }
@@ -230,9 +230,9 @@ public class GrammarEditorPanel extends JPanel {
         }
     }
     
-    private Constituent selectedConstituent() {
-        int index = constituents.getSelectedIndex();
-        return constituents.getItemAt(index);
+    private Category selectedConstituent() {
+        int index = categories.getSelectedIndex();
+        return categories.getItemAt(index);
     }
     
     private Feature selectedFeature() {

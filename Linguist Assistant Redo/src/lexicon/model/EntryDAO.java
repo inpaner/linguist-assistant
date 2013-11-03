@@ -1,6 +1,6 @@
 package lexicon.model;
 
-import grammar.model.Constituent;
+import grammar.model.Category;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,7 +19,7 @@ private DAOFactory factory;
     public static void main(String[] args) {
         EntryDAO dao = new EntryDAO(DAOFactory.getInstance());
         Language lang = Language.getInstance("English");
-        Constituent c = Constituent.getByName("Noun");
+        Category c = Category.getByName("Noun");
         for (Entry entry : dao.retrieveAll("", lang, c)) {
             System.out.println(entry);
         }
@@ -112,11 +112,11 @@ private DAOFactory factory;
         return result;
     }
     
-    List<Entry> retrieveAll(String substring, Language language, Constituent constituent) {
+    List<Entry> retrieveAll(String substring, Language language, Category category) {
         Object[] values = {
                 "%" + substring + "%",
                 language.getPk(),
-                constituent.getPk()
+                category.getPk()
         };
         Connection conn = null;
         PreparedStatement ps = null;
@@ -227,8 +227,8 @@ private DAOFactory factory;
         
         Language language = Language.getInstance(rs.getInt("languagePk"));
         result.setLanguage(language);
-        Constituent constituent = Constituent.getInstance(rs.getInt("categoryPk"));
-        result.setConstituent(constituent);
+        Category category = Category.getInstance(rs.getInt("categoryPk"));
+        result.setConstituent(category);
         return result;
     }
 }

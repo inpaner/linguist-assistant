@@ -1,6 +1,6 @@
 package semantics.view;
 
-import grammar.model.Constituent;
+import grammar.model.Category;
 
 import java.awt.Cursor;
 import java.awt.datatransfer.DataFlavor;
@@ -17,9 +17,11 @@ import java.util.ArrayList;
 
 import javax.swing.JButton;
 
+import semantics.model.Constituent;
+
 @SuppressWarnings("serial")
 public class DraggableButton extends JButton {
-    private Constituent constituent;
+    private Constituent category;
     private static DataFlavor buttonFlavor;    
     private ArrayList<DraggableButtonListener> listeners;
     
@@ -29,7 +31,7 @@ public class DraggableButton extends JButton {
 
     protected DraggableButton(Constituent constituent) {
         super(constituent.getLabel());
-        this.constituent = constituent;
+        this.category = constituent;
         listeners = new ArrayList<>();
         try { 
             buttonFlavor = new DataFlavor(
@@ -51,7 +53,7 @@ public class DraggableButton extends JButton {
         @Override
         public void mouseClicked(MouseEvent e) {
             for (DraggableButtonListener listener : listeners) {
-                listener.buttonPressed(constituent);
+                listener.buttonPressed(category);
             }
         }
 
@@ -62,7 +64,7 @@ public class DraggableButton extends JButton {
     }
     
     protected Constituent getConstituent() {
-        return Constituent.copy(constituent);
+        return Constituent.copy(category);
     }
     
     private class TransferableButton implements Transferable {

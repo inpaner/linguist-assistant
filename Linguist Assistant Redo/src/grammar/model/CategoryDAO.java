@@ -12,9 +12,9 @@ import commons.dao.DAOFactory;
 import commons.dao.DAOUtil;
 import commons.dao.DBUtil;
 
-public class ConstituentDAO {    
+public class CategoryDAO {    
     public static void main(String[] args) {
-        Constituent con = Constituent.getByName("Noun");
+        Category con = Category.getByName("Noun");
         System.out.println(con.getName());
     }
     
@@ -44,11 +44,11 @@ public class ConstituentDAO {
             "  FROM Form " +
             " WHERE categoryPK = (?); ";
     
-    public ConstituentDAO(DAOFactory factory) {
+    public CategoryDAO(DAOFactory factory) {
         this.factory = factory;
     }
     
-    public Constituent retrieve(int pk) {
+    public Category retrieve(int pk) {
         Object[] values = {
                 pk,
         };
@@ -56,7 +56,7 @@ public class ConstituentDAO {
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        Constituent result = null;
+        Category result = null;
         
         try {
             String sql = SQL_RETRIEVE;
@@ -76,8 +76,8 @@ public class ConstituentDAO {
         return result;
     }
     
-    public Constituent retrieveByAbbreviation(String abbreviation) {
-        Constituent constituent = null;
+    public Category retrieveByAbbreviation(String abbreviation) {
+        Category category = null;
         Object[] values = {
                 abbreviation,
         };
@@ -92,7 +92,7 @@ public class ConstituentDAO {
             ps = DAOUtil.prepareStatement(conn, sql, false, values);
             rs = ps.executeQuery();
             rs.next();
-            constituent = map(rs);
+            category = map(rs);
         } 
         catch (SQLException ex) {
             ex.printStackTrace();
@@ -101,11 +101,11 @@ public class ConstituentDAO {
             DAOUtil.close(conn, ps, rs);
         }
         
-        return constituent;
+        return category;
     }
 
-    public Constituent retrieveByName(String category) {
-        Constituent constituent = null;
+    public Category retrieveByName(String categoryString) {
+        Category category = null;
         Object[] values = {
                 category,
         };
@@ -120,7 +120,7 @@ public class ConstituentDAO {
             ps = DAOUtil.prepareStatement(conn, sql, false, values);
             rs = ps.executeQuery();
             rs.next();
-            constituent = map(rs);
+            category = map(rs);
         } 
         catch (SQLException ex) {
             ex.printStackTrace();
@@ -129,11 +129,11 @@ public class ConstituentDAO {
             DAOUtil.close(conn, ps, rs);
         }
         
-        return constituent;
+        return category;
     }
     
-    public List<Constituent> getAllConstituents() {
-        List<Constituent> allConstituents = new ArrayList<Constituent>();
+    public List<Category> getAllConstituents() {
+        List<Category> allConstituents = new ArrayList<Category>();
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -159,14 +159,14 @@ public class ConstituentDAO {
     }
     
         
-    public List<Form> getAllForms(Constituent constituent) {
+    public List<Form> getAllForms(Category category) {
     	// TODO Auto-generated method stub
     	 ArrayList<Form> allForms = new ArrayList<Form>();
             Connection conn = null;
             PreparedStatement ps = null;
             ResultSet rs = null;
             Object[] values = {
-                    constituent.getPk()
+                    category.getPk()
             };
     
             try {
@@ -192,13 +192,12 @@ public class ConstituentDAO {
     
     }
 
-    private Constituent map(ResultSet rs) throws SQLException {
-        Constituent constituent = new Constituent();
-        constituent.setPk(rs.getInt("pk"));
-        constituent.setName(rs.getString("name"));
-        constituent.setAbbreviation(rs.getString("abbreviation"));
-        constituent.level = 0;
-        return constituent;
+    private Category map(ResultSet rs) throws SQLException {
+        Category category = new Category();
+        category.setPk(rs.getInt("pk"));
+        category.setName(rs.getString("name"));
+        category.setAbbreviation(rs.getString("abbreviation"));
+        return category;
     }
     
     private DAOFactory factory;

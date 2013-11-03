@@ -1,7 +1,7 @@
 package semantics.view;
 
-import grammar.model.Constituent;
+import semantics.model.Constituent;
 
 public interface DraggableButtonListener {
-    public abstract void buttonPressed(Constituent constituent);
+    public abstract void buttonPressed(Constituent category);
 }

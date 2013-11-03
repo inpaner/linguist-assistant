@@ -1,6 +1,6 @@
 package ontology.model;
 
-import grammar.model.Constituent;
+import grammar.model.Category;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -39,11 +39,11 @@ public class ConceptImport {
             
             DAOFactory factory = DAOFactory.getInstance();
             ConceptDAO dao = new ConceptDAO(factory);
-            Constituent constituent = Constituent.getByAbbreviation(SYNTACTIC_ABBR);
+            Category category = Category.getByAbbreviation(SYNTACTIC_ABBR);
             
             while (line != null) {
                 if (!line.isEmpty()) {
-                    Concept concept = parseLine(line, constituent);
+                    Concept concept = parseLine(line, category);
                     parsed = concept.getStem();
                     dao.create(concept);
                     System.out.println("Added: " + parsed);
@@ -62,7 +62,7 @@ public class ConceptImport {
     }
 
     
-    Concept parseLine(String line, Constituent con) {
+    Concept parseLine(String line, Category con) {
         Concept concept = new Concept(con);
         line = line.trim();
         line = line.replaceAll("\\s+", " ");
@@ -86,7 +86,7 @@ public class ConceptImport {
         return concept;
     }
     
-    Concept extractByStem(String line, Constituent con) {
+    Concept extractByStem(String line, Category con) {
         line = line.trim();
         line = line.replaceAll("\\s+", " ");
         
@@ -107,11 +107,11 @@ public class ConceptImport {
             
             DAOFactory factory = DAOFactory.getInstance();
             ConceptDAO dao = new ConceptDAO(factory);
-            Constituent constituent = Constituent.getByAbbreviation(SYNTACTIC_ABBR);
+            Category category = Category.getByAbbreviation(SYNTACTIC_ABBR);
             Tag tag = Tag.getInstance(TAG_NAME);
             while (line != null) {
                 if (!line.isEmpty()) {
-                    Concept concept = extractByStem(line, constituent);
+                    Concept concept = extractByStem(line, category);
                     parsed = concept.getStem();
                     dao.addTag(concept, tag);
                     System.out.println("Added: " + parsed);

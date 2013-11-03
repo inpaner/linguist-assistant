@@ -10,44 +10,42 @@ import lexicon.model.Language;
 import commons.dao.DAOFactory;
 
 
-public class Feature extends Node {
+public class Feature {
     
-    public static Feature getEmpty(Constituent parent) {
+    public static Feature getEmpty(Category parent) {
         return new Feature(parent);
     }
     
-    public static List<Feature> getAll(Constituent constituent) {
+    public static List<Feature> getAll(Category category) {
         DAOFactory factory = DAOFactory.getInstance();
         FeatureDAO dao = new FeatureDAO(factory);
-        return dao.getAllFeatures(constituent);
+        return dao.getAllFeatures(category);
     }
     
     private Integer pk;
     private String name;
     private String value;
     private Language language;
-    private Constituent parent;
+    private Category parent;
     private String description;
     private static Map<String, List<String>> possibleValues = new HashMap<>();
     
-    private Feature(Constituent parent) {
+    private Feature(Category parent) {
         this.parent = parent;
-        parent.addFeature(this);
     }
     
-    protected Feature(String name, String value, Constituent parent) {
+    protected Feature(String name, String value, Category parent) {
         this.name = name;
         this.value = value;
         this.parent = parent;
-        level = parent.getLevel() + 1;
     }
     
-    protected Feature(Integer pk, String aName, Constituent aParent) {
+    protected Feature(Integer pk, String aName, Category aParent) {
         this(aName, aParent);
         this.pk = pk;
     }
     
-    protected Feature(String name, Constituent parent) {
+    protected Feature(String name, Category parent) {
         this(name, null, parent);
         value = getDefaultValue();
     }
@@ -89,11 +87,11 @@ public class Feature extends Node {
         return language;
     }
     
-    protected void setValue(String value) {
+    public void setValue(String value) {
         this.value = value;
     }
 
-    public Constituent getParent() {
+    public Category getParent() {
         return parent;
     }
     
@@ -103,10 +101,8 @@ public class Feature extends Node {
     }
     
     public static void main(String[] args) {
-        Constituent cons = new Constituent(null);
-        cons.setLabel("Clause");
+        Category cons = Category.getByName("Clause");
         Feature feat = new Feature("type", "chocoloate", cons);
-        cons.addFeature(feat);
         List<String> stuffs = feat.getPossibleValues();
         for (String stuff : stuffs) {
             System.out.println(stuff);
