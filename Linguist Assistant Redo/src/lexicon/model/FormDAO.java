@@ -1,6 +1,6 @@
 package lexicon.model;
 
-import grammar.model.Constituent;
+import grammar.model.Category;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -147,14 +147,14 @@ public class FormDAO {
     
 
     
-    private Form map(ResultSet rs, Language language, Constituent constituent) 
+    private Form map(ResultSet rs, Language language, Category category) 
                                                     throws SQLException {
         Form form = Form.getEmpty();
         form.setPk(rs.getInt("pk"));
         form.setName(rs.getString("name"));
         form.setDescription(rs.getString("description"));
         form.setLanguage(language);
-        form.setConstituent(constituent);
+        form.setConstituent(category);
 
         return form;
     }

@@ -2,11 +2,12 @@ package semantics.controller;
 
 import javax.swing.JOptionPane;
 
+import semantics.model.Constituent;
 import semantics.view.BlockListener;
 import semantics.view.SemanticEditorPanel;
 import grammar.controller.SelectConstituent;
 import grammar.controller.SelectConstituent.Listener;
-import grammar.model.Constituent;
+import grammar.model.Category;
 import grammar.model.Feature;
 import grammar.view.AddConstituentListener;
 import grammar.view.AddConstituentPanel;
@@ -29,14 +30,8 @@ public class SemanticEditor {
         display.addFeatureValuesListener(new ImpFeatureValuesListener());
         frame.setPanel(display);
         
-        Constituent con = new Constituent();//Constituent.getByAbbreviation("C");
-        con.setLabel("");
-        /*Constituent con2 = Constituent.getByAbbreviation("N");
-        Constituent con3 = Constituent.getByAbbreviation("V");
-        
-        con.addChild(con2);
-        con.addChild(con3);*/
-        
+        Constituent con = new Constituent();
+                
         display.updateConstituent(con);
     }
     
@@ -57,27 +52,22 @@ public class SemanticEditor {
         }
 
 		@Override
-		public void tryDelete(Constituent constituent) {
-			int choice = JOptionPane.showConfirmDialog(display, "Delete this constituent?", "Confirm Delete",0);
-			if(choice==JOptionPane.YES_OPTION)
-			{
-				if (constituent.getParent() != null) {
-		            constituent.getParent().getChildren().remove(constituent);
-		            constituent.setParent(null);
+		public void tryDelete(Constituent category) {
+			int choice = JOptionPane.showConfirmDialog(display, "Delete this constituent?", "Confirm Delete", 0); 
+			if(choice == JOptionPane.YES_OPTION) {
+				if (category.getParent() != null) {
+		            category.getParent().getChildren().remove(category);
+		            category.setParent(null);
 		            display.refresh();
 		        }
 			}
-			
-			
-			
 		}
     }
     
     private class ImpFeatureValuesListener implements FeatureValuesListener {
         @Override
-        public void featureValueChanged(Feature feature, String newValue) {
-            Constituent parent = feature.getParent();
-            parent.updateFeature(feature, newValue);
+        public void featureValueChanged(Constituent constituent, Feature feature, String newValue) {
+            constituent.updateFeature(feature, newValue);
             display.refresh();
         }
     }

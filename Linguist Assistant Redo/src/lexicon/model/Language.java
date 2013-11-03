@@ -1,6 +1,6 @@
 package lexicon.model;
 
-import grammar.model.ConstituentDAO;
+import grammar.model.CategoryDAO;
 
 import java.util.List;
 

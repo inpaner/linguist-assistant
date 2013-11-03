@@ -1,6 +1,6 @@
 package lexicon.model;
 
-import grammar.model.Constituent;
+import grammar.model.Category;
 import grammar.model.Root;
 
 import java.io.File;
@@ -25,6 +25,8 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+
+import semantics.model.Constituent;
 
 public class LexiconParser {
     private final String FILENAME = "data/lexicon.xml";
@@ -211,7 +213,7 @@ public class LexiconParser {
     public void myWrite(Root root) {
         
         try {
-            Constituent con = root.getConstituents().get(0);
+            Category con = root.getConstituents().get(0);
             
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dbBuilder;

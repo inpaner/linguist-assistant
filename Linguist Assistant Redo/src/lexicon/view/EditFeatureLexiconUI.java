@@ -1,6 +1,6 @@
 package lexicon.view;
 
-import grammar.model.Constituent;
+import grammar.model.Category;
 import grammar.model.Feature;
 
 import javax.swing.*;
@@ -21,8 +21,8 @@ public class EditFeatureLexiconUI extends JFrame{
 	DefaultTableModel model;
 	private JScrollPane scrollPane;
 	JComboBox feature = new JComboBox();
-	Constituent con;
-	public EditFeatureLexiconUI(Constituent c){
+	Category con;
+	public EditFeatureLexiconUI(Category c){
 		con=c;
 		initialize();
 		setBounds();

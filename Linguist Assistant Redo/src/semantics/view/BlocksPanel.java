@@ -1,6 +1,6 @@
 package semantics.view;
 
-import grammar.model.Constituent;
+import grammar.model.Category;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +8,7 @@ import java.util.List;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import semantics.model.Constituent;
 import commons.main.MainFrame;
 import net.miginfocom.swing.MigLayout;
 
@@ -22,7 +23,7 @@ public class BlocksPanel extends JPanel {
     
     public BlocksPanel() {
         initComponents();
-        // addComponents();
+        addComponents();
     }
     
     private void initComponents() {
@@ -55,9 +56,9 @@ public class BlocksPanel extends JPanel {
     
     public static void main(String[] args) {
         MainFrame frame = new MainFrame();
-        Constituent con = new Constituent(null);
-        Constituent con2 = new Constituent(null);
-        Constituent con3 = new Constituent(null);
+/*        Category con = new Category();
+        Category con2 = new Category();
+        Category con3 = new Category();
         con.setLabel("Noun");
         con2.setLabel("child 1");
         con3.setLabel("child 2");
@@ -65,6 +66,6 @@ public class BlocksPanel extends JPanel {
         con.addChild(con3);
         BlocksPanel panel = new BlocksPanel();
         panel.updateRoot(con);
-        frame.setPanel(panel);
+        frame.setPanel(panel);*/
     }
 }

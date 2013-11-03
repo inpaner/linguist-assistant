@@ -22,6 +22,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import semantics.model.Constituent;
+
 public class XMLParser {
     private final String FILENAME = "data/example-new.xml";
     
@@ -33,7 +35,7 @@ public class XMLParser {
     }
 
     public Constituent read(String filename) {
-        Constituent root = new Constituent(null);
+        Constituent root = new Constituent();
         try {
             File fXmlFile = new File(filename);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -90,23 +92,26 @@ public class XMLParser {
         for (int i = 0; i < childNodes.getLength(); i++) {
             Node childNode = childNodes.item(i);
             switch (childNode.getNodeName()) {
-            case "label":    constituent.setLabel(childNode.getTextContent());
-                             break;
-            
             case "subcons":  parseSubcons(childNode, constituent);
                              break;
             
             case "features": parseFeatures(childNode, constituent);
                              break;
+            /*
             
-            case "concept":  parseConcept(childNode, constituent);
+            
+            case "label":    constituent.setLabel(childNode.getTextContent());
+                             break;
+            
+            case "concept":  parseConcept(childNode, category);
                              break;
                              
-            case "word":	 constituent.setTranslation(new Translation(childNode.getTextContent()));
+            case "word":	 category.setTranslation(new Translation(childNode.getTextContent()));
 							 break;
                                                        
-            case "gloss": 	 constituent.setTranslation(new Translation(childNode.getTextContent()));
+            case "gloss": 	 category.setTranslation(new Translation(childNode.getTextContent()));
             				 break;
+            */
             default:         break;
             
             }
@@ -165,21 +170,21 @@ public class XMLParser {
             
             }
         }
-        
-        Feature feature = new Feature(name, value, parent);
+
+        Feature feature = new Feature(name, value, parent.getCategory());
         return feature;
     }
-    
+/*    
     private void parseConcept(Node conceptNode, Constituent parent) {
         String name = conceptNode.getTextContent();
-        Concept concept = new Concept(name, parent);
+        Concept concept = new Concept();
         parent.setConcept(concept);
     }
-    
+    */
     public void myWrite(Root root) {
         
         try {
-            Constituent con = root.getConstituents().get(0);
+            Category con = root.getConstituents().get(0);
             
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dbBuilder;

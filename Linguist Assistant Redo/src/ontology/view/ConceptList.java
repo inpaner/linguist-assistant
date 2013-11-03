@@ -2,7 +2,7 @@ package ontology.view;
 
 
 
-import grammar.model.Constituent;
+import grammar.model.Category;
 
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
@@ -36,7 +36,7 @@ public class ConceptList extends JPanel {
     private JTextField searchField;
     private JXTable table;
     private OntologyTableModel model;
-    private JComboBox<Constituent> constituentBox;
+    private JComboBox<Category> constituentBox;
     
     public interface Listener {
         public abstract void selectedConcept(Concept concept);
@@ -49,8 +49,8 @@ public class ConceptList extends JPanel {
         searchField = new JTextField(15);
         searchField.getDocument().addDocumentListener(new SearchListener());
         
-        Vector<Constituent> constituents = new Vector<>(Constituent.getAll());
-        constituentBox = new JComboBox<>(constituents);
+        Vector<Category> categories = new Vector<>(Category.getAll());
+        constituentBox = new JComboBox<>(categories);
         constituentBox.addItemListener(new ComboListener());
         
         Vector<Tag> tags = new Vector<>(Tag.getAllTags());
@@ -77,9 +77,9 @@ public class ConceptList extends JPanel {
     private void refresh() {
         String substring = searchField.getText();
         Tag tag = (Tag) tagBox.getSelectedItem();
-        Constituent constituent = (Constituent) constituentBox.getSelectedItem();
+        Category category = (Category) constituentBox.getSelectedItem();
         
-        concepts = Concept.getInstances(substring, tag, constituent); 
+        concepts = Concept.getInstances(substring, tag, category); 
         model.fireTableDataChanged();
     }
     

@@ -1,6 +1,6 @@
 package semantics.view;
 
-import grammar.model.Constituent;
+import semantics.model.Constituent;
 
 public interface BlockListener {
     public abstract void selectedConstituent(Constituent constituent);

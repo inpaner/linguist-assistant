@@ -1,6 +1,6 @@
 package ontology.view;
 
-import grammar.model.Constituent;
+import grammar.model.Category;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,7 +18,7 @@ import ontology.model.Concept;
 
 @SuppressWarnings("serial")
 public class AddConceptDialog extends JDialog {
-    private static JComboBox<Constituent> constituentBox;
+    private static JComboBox<Category> constituentBox;
     private static JTextField stemField;
     private static JTextField glossField;
     private JButton ok;
@@ -27,8 +27,8 @@ public class AddConceptDialog extends JDialog {
         new AddConceptDialog();
         String stem = stemField.getText();
         String gloss = glossField.getText();
-        Constituent constituent = (Constituent) constituentBox.getSelectedItem();
-        Concept concept = Concept.getEmpty(constituent);
+        Category category = (Category) constituentBox.getSelectedItem();
+        Concept concept = Concept.getEmpty(category);
         concept.setStem(stem);
         concept.setGloss(gloss);
         
@@ -40,8 +40,8 @@ public class AddConceptDialog extends JDialog {
         setSize(400, 600);
         setLocationRelativeTo(null);
         setLayout(new MigLayout());
-        Vector<Constituent> constituents = new Vector<>(Constituent.getAll());
-        constituentBox = new JComboBox<>(constituents);
+        Vector<Category> categories = new Vector<>(Category.getAll());
+        constituentBox = new JComboBox<>(categories);
         
         JPanel panel = new JPanel();
         JLabel stemLabel = new JLabel("Stem: ");

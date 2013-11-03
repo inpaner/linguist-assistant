@@ -1,6 +1,6 @@
 package grammar.view;
 
-import grammar.model.Constituent;
+import grammar.model.Category;
 import grammar.model.Feature;
 
 import java.awt.event.ItemEvent;
@@ -17,6 +17,7 @@ import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellEditor;
 
+import semantics.model.Constituent;
 import net.miginfocom.swing.MigLayout;
 
 // http://stackoverflow.com/a/4211552
@@ -27,6 +28,7 @@ public class FeatureValuesPanel extends JPanel {
     private List<FeatureValuesListener> listeners;
     private List<Feature> features;
     private ComboListener comboListener;
+    private Constituent constituent;
     
     public FeatureValuesPanel() {
         comboListener = new ComboListener();
@@ -49,6 +51,7 @@ public class FeatureValuesPanel extends JPanel {
     }
     
     public void setConstituent(Constituent constituent) {
+        this.constituent = constituent;
         editors = new ArrayList<>();
         features = constituent.getFeatures();
         for (Feature feature : features) {
@@ -113,7 +116,7 @@ public class FeatureValuesPanel extends JPanel {
         @Override
         public void featureValueChanged(Feature feature, String value) {
             for (FeatureValuesListener listener : listeners) {
-                listener.featureValueChanged(feature, value);
+                listener.featureValueChanged(constituent, feature, value);
             }
         }
     }

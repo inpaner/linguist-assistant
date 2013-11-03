@@ -1,6 +1,6 @@
 package semantics.view;
 
-import grammar.model.Constituent;
+import grammar.model.Category;
 
 import java.awt.Color;
 import java.awt.Cursor;
@@ -34,6 +34,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
+import semantics.model.Constituent;
 import net.miginfocom.swing.MigLayout;
 
 //TODO drag, drop, selection border
@@ -110,12 +111,14 @@ public class Block extends Box {
         else {
             conceptLabel.setText(" ");
         }
-        if(constituent.getTranslation()!=null)
-        {
+        
+        /*if(constituent.getTranslation()!=null) {
         	translationLabel.setText(constituent.getTranslation().toString());
         }
         translationLabel.setFont(translationFont);
         translationLabel.setForeground(Color.RED);
+        */
+        
         JPanel textPanel = new JPanel();
         //textPanel.setLayout(new MigLayout());
 		textPanel.add(translationLabel);
@@ -183,8 +186,8 @@ public class Block extends Box {
         showChildren = !showChildren;
     }
     
-    public void addSubBlock(Constituent c, int colorIndex) {
-           Block child = new Block(c,colorIndex+1);
+    public void addSubBlock(Constituent constituent, int colorIndex) {
+           Block child = new Block(constituent, colorIndex+1);
            children.add(child);
            contentBox.add(child);
            contentBox.add(newSpacer());
@@ -324,14 +327,12 @@ public class Block extends Box {
                 if (event.isDataFlavorSupported(blockFlavor)) { 
                     Block source = (Block) tr.getTransferData(blockFlavor);
                     // hover over self
-                    if (Block.this.equals(source)) {
-                        
-                    }
-                    // System.out.println("Hover other");
+                    if (Block.this.equals(source)) {}
                     else {
                         spacer.setBackground(Color.BLACK);    
                     }
                 }
+                
                 // dragged a Button
                 else if (event.isDataFlavorSupported(DraggableButton.getFlavor())) { 
                     spacer.setBackground(Color.BLACK);

@@ -3,19 +3,19 @@ package grammar.model;
 import java.util.ArrayList;
 
 public class Root {
-    private ArrayList<Constituent> constituents;
+    private ArrayList<Category> categories;
     
     
     protected Root() {
-        constituents = new ArrayList<>();
+        categories = new ArrayList<>();
     }
     
-    public ArrayList<Constituent> getConstituents() {
-        return constituents;
+    public ArrayList<Category> getConstituents() {
+        return categories;
     }
     
-    public void addConstituent(Constituent constituent) {
-        constituents.add(constituent);
+    public void addConstituent(Category category) {
+        categories.add(category);
     }
 
 

@@ -2,8 +2,8 @@ package lexicon.model;
 
 import java.util.List;
 
-import grammar.model.Constituent;
-import grammar.model.ConstituentDAO;
+import grammar.model.Category;
+import grammar.model.CategoryDAO;
 
 import commons.dao.DAOFactory;
 
@@ -13,7 +13,7 @@ public class Form {
     private String value;
     private String description;
     private Language language;
-    private Constituent constituent;
+    private Category category;
     
     
 	public int getPk() {
@@ -32,8 +32,8 @@ public class Form {
         return language;
     }
 
-    public Constituent getConstituent() {
-        return constituent;
+    public Category getConstituent() {
+        return category;
     }
 
     public void setValue(String value) {
@@ -48,8 +48,8 @@ public class Form {
         this.language = language;
     }
 
-    public void setConstituent(Constituent constituent) {
-        this.constituent = constituent;
+    public void setConstituent(Category category) {
+        this.category = category;
     }
 
     public static Form getEmpty() {
