@@ -7,11 +7,11 @@ import rule.Rule;
 import semantics.model.Constituent;
 
 public class HasChild extends Input {
-    private List<Input> conditions = new ArrayList<>();
+    private Input condition;
     private String key;
     
-    public void addRule(Input condition) {
-        conditions.add(condition);
+    public void setCondition(Input condition) {
+        this.condition = condition;
     }
     
     public void setKey(String key) {
@@ -23,7 +23,7 @@ public class HasChild extends Input {
     }
     
     /**
-     * Evaluates each constituent child with the added conditions.
+     * Evaluates each constituent child with the set condition.
      * 
      * Stores the child fulfilling the condition on Rule's map
      * using a key. Returns true for the first child found.
@@ -33,16 +33,12 @@ public class HasChild extends Input {
     public boolean evaluate(Constituent constituent) {
         boolean result = false;
         
-        checkNextChild:
         for (Constituent child : constituent.getChildren()) {
-            for (Input condition : conditions) {
-                if (!condition.evaluate(child)) {
-                    continue checkNextChild;
-                }    
-            }
-            result = true;
-            root.store(key, child);
-            break;
+            if (condition.evaluate(child)) {
+                result = true;
+                root.store(key, child);
+                break;
+            }    
         }
         
         return result;
@@ -51,8 +47,7 @@ public class HasChild extends Input {
     @Override
     public void setRoot(Rule root) {
         super.setRoot(root);
-        for (Input condition : conditions) {
-            condition.setRoot(root);
-        }
+        condition.setRoot(root);
+        
     }
 }

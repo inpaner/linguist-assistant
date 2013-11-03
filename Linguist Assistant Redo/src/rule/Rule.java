@@ -22,7 +22,7 @@ public class Rule {
         localSwitch = true;
     }
     
-    public Rule copyRule() {
+    public Rule createLocalRule() {
         Rule copy = new Rule();
         copy.semanticSwitch = this.semanticSwitch;
         return copy;
