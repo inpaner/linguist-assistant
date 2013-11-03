@@ -7,12 +7,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ontology.model.Concept;
+import rule.Rule;
 
 
 
 public class Constituent {
     private ArrayList<Constituent> children = new ArrayList<>();
     private ArrayList<Feature> features = new ArrayList<>();
+    private ArrayList<Rule> rules = new ArrayList<>();
     private Constituent parent;
     private Category category;
     private Concept concept;
@@ -177,4 +179,11 @@ public class Constituent {
         this.concept = concept;
     }
     
+    public void evaluate(Rule rule) {
+        for (Constituent child : children) {
+            evaluate(rule);
+        }
+        
+        
+    }
 }

@@ -1,7 +1,5 @@
 package ontology.view;
 
-
-
 import grammar.model.Category;
 
 import java.awt.event.ItemEvent;
