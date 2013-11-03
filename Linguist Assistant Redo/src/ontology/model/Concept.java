@@ -3,11 +3,13 @@ package ontology.model;
 import grammar.model.Category;
 import grammar.model.Node;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import lexicon.model.Entry;
 import lexicon.model.EntryDAO;
+import lexicon.model.Language;
 import commons.dao.DAOFactory;
 
 public class Concept {
@@ -129,6 +131,19 @@ public class Concept {
         ConceptDAO dao = new ConceptDAO(factory);
         return dao.retrieveMappedEntries(this);
     }
+    
+    public List<Entry> getMappings(Language language) {
+        List<Entry> result = new ArrayList<>();
+        for (Entry mapping : getMappings()) {
+            if (language.equals(mapping.getLanguage())) {
+                result.add(mapping);
+            }
+        }
+        
+        return result;
+    }
+    
+    
     
     public void addTag(Tag tag) {
         DAOFactory factory = DAOFactory.getInstance();

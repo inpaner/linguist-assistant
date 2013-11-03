@@ -10,6 +10,8 @@ import grammar.view.GrammarEditorPanel;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -26,10 +28,12 @@ import net.miginfocom.swing.MigLayout;
 
 @SuppressWarnings("serial")
 public class SemanticEditorPanel extends JPanel {
-    Constituent root;
-    BlocksPanel blocksPanel;
-    FeatureValuesPanel featureValuesPanel;
+    private Constituent root;
+    private BlocksPanel blocksPanel;
+    private FeatureValuesPanel featureValuesPanel;
     //FileBrowsing browser;
+    private List<Listener> listeners = new ArrayList<>();
+    
     private ButtonPanel buttonPanel;
     private JButton btnLoad;
     private JButton btnSave;
@@ -47,6 +51,10 @@ public class SemanticEditorPanel extends JPanel {
         Category con = Category.getByName("Noun");
         //panel.updateConstituent(con);
         frame.setPanel(panel);
+    }
+    
+    public interface Listener {
+        void generate();
     }
     
     public SemanticEditorPanel() {
@@ -93,7 +101,6 @@ public class SemanticEditorPanel extends JPanel {
         	public void actionPerformed(ActionEvent arg0) {
     			String filename=getFile();
 		        readXML(filename);}
-        	
         });
         
         btnSave=new JButton("Save XML");
@@ -104,13 +111,16 @@ public class SemanticEditorPanel extends JPanel {
         		JOptionPane.showMessageDialog(null,null,"XML Saved", JOptionPane.INFORMATION_MESSAGE);
         	}
         });
-        btnGenerate=new JButton("Generate Text");
+        
+        btnGenerate = new JButton("Apply Rules");
         btnGenerate.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent arg0) {
-        		txtTranslation.setText("");
-        		readXML("data/infected eye 1-2-generated.xml");
+        		for (Listener listener : listeners) {
+        		    listener.generate();
+        		}
         	}
         });
+        
         btnGrammar=new JButton("Edit Grammar");
         btnGrammar.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent arg0) {
@@ -128,10 +138,10 @@ public class SemanticEditorPanel extends JPanel {
        	}
        });
         btnOntology=new JButton("View Ontology");
-/*        btnOntology.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent arg0) {
-       		OntologyManager om=new OntologyManager();
-       		om.testCase(); 
+/*      btnOntology.addActionListener(new ActionListener() {
+    	public void actionPerformed(ActionEvent arg0) {
+   		OntologyManager om=new OntologyManager();
+   		om.testCase(); 
        	       
        	}
        });*/
@@ -153,6 +163,7 @@ public class SemanticEditorPanel extends JPanel {
           filename=fileChooser.getSelectedFile().toString();}
          return filename;
     }
+    
     private void addComponents() {
         setLayout(new MigLayout("wrap 2"));
         add(blocksPanel, "flowy");
@@ -166,6 +177,10 @@ public class SemanticEditorPanel extends JPanel {
         add(btnOntology);
 		add(txtTranslation);
         //add(browser);
+    }
+    
+    public void addListener(Listener listener) {
+        listeners.add(listener);
     }
     
     public void updateConstituent(Constituent root) {
@@ -198,9 +213,6 @@ public class SemanticEditorPanel extends JPanel {
         public void droppedButton(Constituent dropped, Constituent destination, int index) {}
 
 		@Override
-		public void tryDelete(Constituent category) {
-			// TODO Auto-generated method stub
-			
-		}
+		public void tryDelete(Constituent category) {}
     }
 }

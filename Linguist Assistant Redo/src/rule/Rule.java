@@ -17,7 +17,7 @@ public class Rule {
     private Switch semanticSwitch;
     private boolean localSwitch;
     
-    private Rule() {
+    public Rule() {
         semanticSwitch = new Switch();
         localSwitch = true;
     }
@@ -51,6 +51,7 @@ public class Rule {
     }
     
     public boolean evaluate(Constituent constituent) {
+        constituents = new HashMap<>();
         input.setRoot(this); // questionable
         return input.evaluate(constituent);
     }

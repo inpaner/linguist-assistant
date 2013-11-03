@@ -180,10 +180,19 @@ public class Constituent {
     }
     
     public void evaluate(Rule rule) {
+        rules = new ArrayList<>();
         for (Constituent child : children) {
-            evaluate(rule);
+            child.evaluate(rule.createPassedRule());
         }
         
-        
+        if (rule.evaluate(this)) {
+            rules.add(rule);
+        }
+    }
+    
+    public void applyRules() {
+        for (Rule rule : rules) {
+            
+        }
     }
 }

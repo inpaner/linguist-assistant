@@ -6,6 +6,7 @@ import grammar.model.FeatureDAO;
 
 import java.util.List;
 
+import ontology.model.Concept;
 import commons.dao.DAOFactory;
 
 public class Entry {
@@ -98,5 +99,11 @@ public class Entry {
 	    DAOFactory factory = DAOFactory.getInstance();
         FeatureDAO dao = new FeatureDAO(factory);
         return dao.retrieveAll(this);
+	}
+	
+	public List<Concept> getConcepts() {
+	    DAOFactory factory = DAOFactory.getInstance();
+	    EntryDAO dao = new EntryDAO(factory);
+        return dao.retrieveMappedConcepts(this);   
 	}
 }
