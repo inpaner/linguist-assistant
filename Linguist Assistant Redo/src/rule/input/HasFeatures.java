@@ -16,8 +16,7 @@ public class HasFeatures extends Input {
     
     @Override
     public boolean evaluate(Constituent constituent) {
-        boolean result = true;
-        
+        boolean result = true;        
         List<Feature> beingEvaluated = constituent.getFeatures();
         
         for (Feature feature : features) {
@@ -29,5 +28,6 @@ public class HasFeatures extends Input {
         
         return result;
     }
-
+    
+    
 }

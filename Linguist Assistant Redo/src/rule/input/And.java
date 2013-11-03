@@ -2,6 +2,7 @@ package rule.input;
 
 import java.util.List;
 
+import rule.Rule;
 import semantics.model.Constituent;
 
 public class And extends Input {
@@ -21,6 +22,14 @@ public class And extends Input {
                 return false;
         }
         return true;
+    }
+
+    @Override
+    public void setRoot(Rule root) {
+        super.setRoot(root);
+        for (Input rule : rules) {
+            rule.setRoot(root);
+        }
     }
 
 }
