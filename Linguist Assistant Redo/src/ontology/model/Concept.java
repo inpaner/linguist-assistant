@@ -143,8 +143,6 @@ public class Concept {
         return result;
     }
     
-    
-    
     public void addTag(Tag tag) {
         DAOFactory factory = DAOFactory.getInstance();
         ConceptDAO dao = new ConceptDAO(factory);

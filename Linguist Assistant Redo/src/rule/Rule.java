@@ -73,6 +73,10 @@ public class Rule {
         constituents.put(key, value);
     }
     
+    public Constituent getStored(String key) {
+        return constituents.get(key);
+    }
+    
     public void setInput(Input input) {
         this.input = input;
     }

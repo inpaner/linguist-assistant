@@ -6,10 +6,13 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
+import ontology.model.Concept;
+import lexicon.model.Language;
 import rule.Rule;
 import rule.input.And;
 import rule.input.HasCategory;
 import rule.input.HasChild;
+import rule.input.HasConcept;
 import semantics.model.Constituent;
 import semantics.view.BlockListener;
 import semantics.view.SemanticEditorPanel;
@@ -38,11 +41,18 @@ public class SemanticEditor {
         Category noun = Category.getByName("Noun");
         HasCategory hasClause = new HasCategory(clause);
         HasCategory hasNoun = new HasCategory(noun);
-        HasChild hasNounChild = new HasChild("NounChild", hasNoun);
+        HasConcept hasAlex = new HasConcept(Concept.getInstance("Alex", "A", noun));
+        And childConditions = new And();
+        childConditions.addRule(hasNoun);
+        childConditions.addRule(hasAlex);
+        
+        HasChild hasNounChild = new HasChild("NounChild", childConditions);
         
         And input1 = new And();
         input1.addRule(hasClause);
         input1.addRule(hasNounChild);
+                
+        Language english = Language.getInstance("English");
         
         Rule rule1 = new Rule();
         rule1.setInput(input1);

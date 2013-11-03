@@ -18,6 +18,7 @@ public class Constituent {
     private Constituent parent;
     private Category category;
     private Concept concept;
+    private Target target;
     
     public static Constituent copy(Constituent toCopy) {
         Constituent clone = new Constituent();
@@ -194,5 +195,13 @@ public class Constituent {
         for (Rule rule : rules) {
             
         }
+    }
+
+    public Target getTarget() {
+        if (target == null) {
+            target = new Target();
+        }
+        
+        return target;
     }
 }
