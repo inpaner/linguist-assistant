@@ -85,7 +85,14 @@ public class SemanticEditorPanel extends JPanel {
         if(root != null)
            parser.writeXML(filename,root);
     }
-    
+    public void appendTranslation(String word)
+    {
+    	txtTranslation.append(word+" ");
+    }
+    public void clearTranslation()
+    {
+    	txtTranslation.setText("");
+    }
     private void initComponents() {
     	parser = new XMLParser();
 		txtTranslation = new JTextArea();

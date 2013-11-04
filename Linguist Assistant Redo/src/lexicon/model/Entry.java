@@ -42,7 +42,14 @@ public class Entry {
 	public int getPk() {
 	    return pk;
 	}
-	
+	public Entry()
+	{
+		
+	}
+	public Entry(String stem)
+	{
+		setStem(stem);
+	}
 	public String getStem() {
 		return stem;
 	}

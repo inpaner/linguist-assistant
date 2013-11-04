@@ -11,7 +11,10 @@ public class Target {
         prefix = "";
         suffix = "";
     }
-    
+    public Target(String entry)
+    {
+    	this.setEntry(new Entry(entry));
+    }
     public void setEntry(Entry entry) {
         this.entry = entry;
     }

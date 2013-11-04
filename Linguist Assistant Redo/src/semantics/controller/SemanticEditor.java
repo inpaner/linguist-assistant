@@ -88,6 +88,7 @@ public class SemanticEditor {
         frame.setPanel(display);
         
         Constituent con = new Constituent();
+      
         display.updateConstituent(con);
         
         ruleTest();
@@ -146,9 +147,28 @@ public class SemanticEditor {
                 
                 System.out.println("Applying rules");
                 constituent.applyRules();
-                
+                display.clearTranslation();
+                displayTranslation(constituent);
                 display.refresh();
+               
             }
+        }
+        public void displayTranslation(Constituent c)
+        {
+        	if(c.hasChildren())
+        	{
+        	 for(Constituent child: c.getChildren())
+             {
+             	displayTranslation(child);
+             	
+             
+             }
+        	}
+        	else
+        	{
+        		System.out.println("Target is: "+c.getTarget().toString());
+             	display.appendTranslation(c.getTarget().toString());
+        	}
         }
         
         @Override
