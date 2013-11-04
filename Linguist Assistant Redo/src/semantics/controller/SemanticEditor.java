@@ -64,7 +64,6 @@ public class SemanticEditor {
         
         HasChild hasVerbChild = new HasChild("VerbChild", verbChildConditions);
         
-        
         And input2 = new And();
         input2.addRule(hasClause);
         input2.addRule(hasVerbChild);

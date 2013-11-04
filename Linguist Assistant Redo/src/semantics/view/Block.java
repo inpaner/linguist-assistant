@@ -32,6 +32,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
+import net.miginfocom.swing.MigLayout;
 import semantics.model.Constituent;
 
 
@@ -125,16 +126,18 @@ public class Block extends Box {
         */
         
         JPanel textPanel = new JPanel();
+        textPanel.setLayout(new MigLayout("wrap 1"));
         //textPanel.setLayout(new MigLayout());
-        textPanel.add(targetLabel);
-        textPanel.add(nameLabel);
         textPanel.add(conceptLabel);
+        textPanel.add(nameLabel);
+        textPanel.add(targetLabel);
         
         
         Box textBox = Box.createVerticalBox();
-		textBox.add(targetLabel);
-        textBox.add(nameLabel);
         textBox.add(conceptLabel);
+        textBox.add(nameLabel);
+        textBox.add(targetLabel);
+        
         
         contentBox = Box.createHorizontalBox();
         Border paneEdge = BorderFactory.createEmptyBorder(10, 10, 10, 10);
