@@ -1,12 +1,13 @@
 package rule.input;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import rule.Rule;
 import semantics.model.Constituent;
 
 public class Or extends Input {
-    private List<Input> conditions;
+    private List<Input> conditions = new ArrayList<>();
     
     public void addRule(Input rule) {
         conditions.add(rule);

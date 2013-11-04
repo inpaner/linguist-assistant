@@ -107,7 +107,7 @@ public class CategoryDAO {
     public Category retrieveByName(String categoryString) {
         Category category = null;
         Object[] values = {
-                category,
+                categoryString,
         };
 
         Connection conn = null;

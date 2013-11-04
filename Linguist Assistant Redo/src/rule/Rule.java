@@ -1,5 +1,6 @@
 package rule;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,7 +14,7 @@ public class Rule {
     private Map<String, Constituent> constituents = new HashMap<>();
     private Language language;
     private Input input;
-    private List<Output> outputs;
+    private List<Output> outputs = new ArrayList<>();
     private Switch semanticSwitch;
     private boolean localSwitch;
     
@@ -23,14 +24,17 @@ public class Rule {
     }
     
     public Rule createLocalRule() {
-        Rule result = createPassedRule();
+        Rule result = new Rule();
         result.constituents = this.constituents;
+        result.input = this.input;
+        result.outputs = this.outputs;
+        result.semanticSwitch = this.semanticSwitch;
+        result.input.setRoot(this.input.getRoot());
         return result;
     }
     
     public Rule createPassedRule() {
-        Rule result = new Rule();
-        result.semanticSwitch = this.semanticSwitch;
+        Rule result = createLocalRule();
         return result;
     }
     

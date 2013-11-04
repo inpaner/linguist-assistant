@@ -29,6 +29,7 @@ import net.miginfocom.swing.MigLayout;
 @SuppressWarnings("serial")
 public class SemanticEditorPanel extends JPanel {
     private Constituent root;
+    private Constituent selectedConstituent;
     private BlocksPanel blocksPanel;
     private FeatureValuesPanel featureValuesPanel;
     //FileBrowsing browser;
@@ -40,7 +41,7 @@ public class SemanticEditorPanel extends JPanel {
     private JButton btnGenerate;
     private JButton btnGrammar;
     private JButton btnLexicon;
-    private JButton btnOntology;
+    private JButton selectConstituent;
 	private JTextArea txtTranslation;
     
 	private XMLParser parser;
@@ -54,7 +55,8 @@ public class SemanticEditorPanel extends JPanel {
     }
     
     public interface Listener {
-        void generate();
+        void generate(Constituent constituent);
+        void setConcept(Constituent constituent);
     }
     
     public SemanticEditorPanel() {
@@ -116,7 +118,7 @@ public class SemanticEditorPanel extends JPanel {
         btnGenerate.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent arg0) {
         		for (Listener listener : listeners) {
-        		    listener.generate();
+        		    listener.generate(root);
         		}
         	}
         });
@@ -137,14 +139,16 @@ public class SemanticEditorPanel extends JPanel {
        	       
        	}
        });
-        btnOntology=new JButton("View Ontology");
-/*      btnOntology.addActionListener(new ActionListener() {
-    	public void actionPerformed(ActionEvent arg0) {
-   		OntologyManager om=new OntologyManager();
-   		om.testCase(); 
-       	       
+        selectConstituent = new JButton("Select Constituent");
+        selectConstituent.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                if (selectedConstituent == null)
+                     return;
+                for (Listener listener : listeners) {
+                    listener.setConcept(selectedConstituent);
+                }
        	}
-       });*/
+       });
     }
     private String getFile() {
     	JFileChooser fileChooser = new JFileChooser();
@@ -174,7 +178,7 @@ public class SemanticEditorPanel extends JPanel {
         add(btnGenerate);
         add(btnGrammar);
         add(btnLexicon);
-        add(btnOntology);
+        add(selectConstituent);
 		add(txtTranslation);
         //add(browser);
     }
@@ -203,6 +207,7 @@ public class SemanticEditorPanel extends JPanel {
     private class ImpBlockListener implements BlockListener {
         @Override
         public void selectedConstituent(Constituent constituent) {
+            selectedConstituent = constituent;
             featureValuesPanel.setConstituent(constituent);
         }
 
@@ -215,4 +220,5 @@ public class SemanticEditorPanel extends JPanel {
 		@Override
 		public void tryDelete(Constituent category) {}
     }
+
 }

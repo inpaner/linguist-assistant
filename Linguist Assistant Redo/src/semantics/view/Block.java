@@ -1,6 +1,5 @@
 package semantics.view;
 
-import grammar.model.Category;
 
 import java.awt.Color;
 import java.awt.Cursor;
@@ -22,7 +21,6 @@ import java.awt.dnd.DropTargetListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +33,7 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 
 import semantics.model.Constituent;
-import net.miginfocom.swing.MigLayout;
+
 
 //TODO drag, drop, selection border
 //TODO don't show selection if can't drag onto
@@ -50,7 +48,7 @@ public class Block extends Box {
     private List<Block> children;
     private List<Box> spacers;
     private Block parent;
-	private JLabel translationLabel;
+	private JLabel targetLabel;
     private JLabel nameLabel;
     private JLabel conceptLabel;
     private Box contentBox;
@@ -103,13 +101,20 @@ public class Block extends Box {
         
         nameLabel = new JLabel(constituent.getLabel());
         conceptLabel = new JLabel();
-		translationLabel=new JLabel();
-		btnDelete=new JButton("X");
+		targetLabel = new JLabel();
+		btnDelete = new JButton("X");
         if(constituent.getConcept() != null) {
             conceptLabel.setText(constituent.getConcept().getStem());
         } 
         else {
-            conceptLabel.setText(" ");
+            conceptLabel.setText("---");
+        }
+        
+        if (!constituent.getTarget().toString().isEmpty()) {
+            targetLabel.setText(constituent.getTarget().toString());
+        }
+        else {
+            targetLabel.setText("---");
         }
         
         /*if(constituent.getTranslation()!=null) {
@@ -121,12 +126,13 @@ public class Block extends Box {
         
         JPanel textPanel = new JPanel();
         //textPanel.setLayout(new MigLayout());
-		textPanel.add(translationLabel);
+        textPanel.add(targetLabel);
         textPanel.add(nameLabel);
         textPanel.add(conceptLabel);
         
+        
         Box textBox = Box.createVerticalBox();
-		textBox.add(translationLabel);
+		textBox.add(targetLabel);
         textBox.add(nameLabel);
         textBox.add(conceptLabel);
         

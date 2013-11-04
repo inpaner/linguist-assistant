@@ -1,11 +1,11 @@
 package semantics.controller;
 
-import java.text.RuleBasedCollator;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JOptionPane;
 
+import ontology.controller.ConceptSelector;
 import ontology.model.Concept;
 import lexicon.model.Language;
 import rule.Rule;
@@ -13,18 +13,14 @@ import rule.input.And;
 import rule.input.HasCategory;
 import rule.input.HasChild;
 import rule.input.HasConcept;
+import rule.output.SetTarget;
 import semantics.model.Constituent;
 import semantics.view.BlockListener;
 import semantics.view.SemanticEditorPanel;
 import grammar.controller.SelectConstituent;
-import grammar.controller.SelectConstituent.Listener;
 import grammar.model.Category;
 import grammar.model.Feature;
-import grammar.view.AddConstituentListener;
-import grammar.view.AddConstituentPanel;
 import grammar.view.FeatureValuesListener;
-import grammar.view.GenericDialog;
-import commons.dao.DBUtil;
 import commons.main.MainFrame;
 
 public class SemanticEditor {
@@ -41,34 +37,44 @@ public class SemanticEditor {
         Category noun = Category.getByName("Noun");
         HasCategory hasClause = new HasCategory(clause);
         HasCategory hasNoun = new HasCategory(noun);
-        HasConcept hasAlex = new HasConcept(Concept.getInstance("Alex", "A", noun));
-        And childConditions = new And();
-        childConditions.addRule(hasNoun);
-        childConditions.addRule(hasAlex);
+        HasConcept hasAlex = new HasConcept(Concept.getInstance("Aaron", "A", noun));
+        And nounChildConditions = new And();
+        nounChildConditions.addRule(hasNoun);
+        nounChildConditions.addRule(hasAlex);
         
-        HasChild hasNounChild = new HasChild("NounChild", childConditions);
+        HasChild hasNounChild = new HasChild("NounChild", nounChildConditions);
         
         And input1 = new And();
         input1.addRule(hasClause);
         input1.addRule(hasNounChild);
-                
-        Language english = Language.getInstance("English");
         
+        Language english = Language.getInstance("English");
+        SetTarget englishTarget = new SetTarget("NounChild", english);
         Rule rule1 = new Rule();
         rule1.setInput(input1);
+        rule1.addOutput(englishTarget);
         
         // Rule 2
         Category verb = Category.getByName("Verb");
         HasCategory hasVerb = new HasCategory(verb);
-        HasChild hasChildVerb = new HasChild("VerbChild", hasVerb);
+        HasConcept hasRun = new HasConcept(Concept.getInstance("run", "A", verb));
+        And verbChildConditions = new And();
+        verbChildConditions.addRule(hasVerb);
+        verbChildConditions.addRule(hasRun);
+        
+        HasChild hasVerbChild = new HasChild("VerbChild", verbChildConditions);
+        
         
         And input2 = new And();
         input2.addRule(hasClause);
-        input2.addRule(hasChildVerb);
+        input2.addRule(hasVerbChild);
+        
+        Language filipino = Language.getInstance("Filipino");
+        SetTarget filipinoTarget = new SetTarget("VerbChild", filipino);
         
         Rule rule2 = new Rule();
         rule2.setInput(input2);
-        
+        rule2.addOutput(filipinoTarget);
         
         rules.add(rule1);
         rules.add(rule2);
@@ -84,6 +90,8 @@ public class SemanticEditor {
         
         Constituent con = new Constituent();
         display.updateConstituent(con);
+        
+        ruleTest();
     }
     
     private class ImpBlockListener implements BlockListener {
@@ -132,10 +140,26 @@ public class SemanticEditor {
     
     private class UiListener implements SemanticEditorPanel.Listener {
         @Override
-        public void generate() {
-            System.out.println("hello");
+        public void generate(Constituent constituent) {
+            for (Rule rule : rules) {
+                System.out.println("Evaluating rules");
+                constituent.evaluate(rule);
+                
+                System.out.println("Applying rules");
+                constituent.applyRules();
+                
+                display.refresh();
+            }
         }
         
+        @Override
+        public void setConcept(Constituent constituent) {
+            Concept concept = ConceptSelector.select();
+            if (concept != null) {
+                constituent.setConcept(concept);
+                display.refresh();
+            }
+        }
     }
 
 }

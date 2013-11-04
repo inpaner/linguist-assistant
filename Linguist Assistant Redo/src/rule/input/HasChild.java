@@ -9,6 +9,7 @@ public class HasChild extends Input {
     
     public HasChild(String key, Input condition) {
         setKey(key);
+        setCondition(condition);
     }
     
     public void setCondition(Input condition) {
@@ -49,6 +50,5 @@ public class HasChild extends Input {
     public void setRoot(Rule root) {
         super.setRoot(root);
         condition.setRoot(root);
-        
     }
 }

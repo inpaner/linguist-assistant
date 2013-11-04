@@ -188,12 +188,18 @@ public class Constituent {
         
         if (rule.evaluate(this)) {
             rules.add(rule);
+            System.out.println("Rule Added");
         }
     }
     
     public void applyRules() {
+        for (Constituent child : children) {
+            child.applyRules();
+        }
+        
+        
         for (Rule rule : rules) {
-            
+            rule.apply();
         }
     }
 

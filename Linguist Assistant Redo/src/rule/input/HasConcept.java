@@ -17,7 +17,7 @@ public class HasConcept extends Input {
     @Override
     public boolean evaluate(Constituent constituent) {
         boolean result = false;
-        
+        System.out.println(concept);
         if (concept.equals(constituent.getConcept())) {
             result = true;
         }    

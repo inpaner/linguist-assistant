@@ -1,15 +1,16 @@
 package rule.input;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import rule.Rule;
 import semantics.model.Constituent;
 
 public class And extends Input {
-    private List<Input> rules;
+    private List<Input> conditions = new ArrayList<>();
     
     public void addRule(Input rule) {
-        rules.add(rule);
+        conditions.add(rule);
     }
     
     /**
@@ -17,7 +18,7 @@ public class And extends Input {
      */
     @Override
     public boolean evaluate(Constituent constituent) {
-        for (Input rule : rules) {
+        for (Input rule : conditions) {
             if (rule.evaluate(constituent) == false)
                 return false;
         }
@@ -27,7 +28,7 @@ public class And extends Input {
     @Override
     public void setRoot(Rule root) {
         super.setRoot(root);
-        for (Input rule : rules) {
+        for (Input rule : conditions) {
             rule.setRoot(root);
         }
     }

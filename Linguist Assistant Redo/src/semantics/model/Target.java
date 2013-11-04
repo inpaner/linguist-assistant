@@ -17,6 +17,7 @@ public class Target {
     }
     
     public String toString() {
+        if (entry == null) return "";
         return prefix + entry.getStem() + suffix;
     }
 }

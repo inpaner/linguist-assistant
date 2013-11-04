@@ -38,12 +38,13 @@ public class SetTarget extends Output {
             return;
         
         List<Entry> mappings = concept.getMappings(language);
-        
-        if (mappings.isEmpty()) 
+        if (mappings.isEmpty()) {
+            System.err.println("Empty mappings");
             return;
+        }
         
         Entry firstMapping = mappings.get(0);
-        
+        System.out.println(firstMapping);
         Target target = constituent.getTarget();
         target.setEntry(firstMapping);
     }
