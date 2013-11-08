@@ -34,7 +34,7 @@ public class Feature {
         this.parent = parent;
     }
     
-    protected Feature(String name, String value, Category parent) {
+    public Feature(String name, String value, Category parent) {
         this.name = name;
         this.value = value;
         this.parent = parent;

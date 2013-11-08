@@ -2,7 +2,7 @@ package semantics.view;
 
 import grammar.model.Category;
 import grammar.model.FileBrowsing;
-import grammar.model.XMLParser;
+import semantics.model.XMLParser;
 import grammar.view.FeatureValuesListener;
 import grammar.view.FeatureValuesPanel;
 import grammar.view.GrammarEditorPanel;
@@ -67,7 +67,7 @@ public class SemanticEditorPanel extends JPanel {
     	
     	Constituent root = parser.read(filename); 	
      	updateConstituent(root);
-		//getTranslation(root);
+     	applyRules();
 		txtTranslation.repaint();
     }
 /*	
@@ -124,9 +124,7 @@ public class SemanticEditorPanel extends JPanel {
         btnGenerate = new JButton("Apply Rules");
         btnGenerate.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent arg0) {
-        		for (Listener listener : listeners) {
-        		    listener.generate(root);
-        		}
+        		applyRules();
         	}
         });
         
@@ -156,6 +154,12 @@ public class SemanticEditorPanel extends JPanel {
                 }
        	}
        });
+    }
+    private void applyRules()
+    {
+    	for (Listener listener : listeners) {
+		    listener.generate(root);
+		}
     }
     private String getFile() {
     	JFileChooser fileChooser = new JFileChooser();
