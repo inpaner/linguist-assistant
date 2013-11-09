@@ -23,16 +23,16 @@ public class OntologyManagerUi extends JPanel {
     private ConceptList list;
     private ConceptDetails details;
     private JButton add;
-    private JButton del;
+    private JButton delete;
     private List<Listener> listeners = new ArrayList<>();
     
-    public interface Listener {
-        public void add();
-        public void delete(Concept constituent);
-        public abstract void addTag(Concept concept);
-        public abstract void delTag(Concept concept, Tag tag);
-        public abstract void addMapping(Concept concept);
-        public abstract void delMapping(Concept concept, Entry entry);
+    interface Listener {
+        void add();
+        void delete(Concept constituent);
+        void addTag(Concept concept);
+        void delTag(Concept concept, Tag tag);
+        void addMapping(Concept concept);
+        void delMapping(Concept concept, Entry entry);
     }
     
     public void addListener(Listener listener) {
@@ -52,15 +52,15 @@ public class OntologyManagerUi extends JPanel {
         details.addListener(new DetailListener());
         
         add = new JButton("Add");
-        del = new JButton("Del");
+        delete = new JButton("Del");
         add.addActionListener(new Add());
-        del.addActionListener(new Delete());
+        delete.addActionListener(new Delete());
         
         setLayout(new MigLayout());
         add(list);
         add(details, "wrap");
         add(add, "span, split");
-        add(del);
+        add(delete);
     }
     
     public void refresh() {
@@ -70,14 +70,14 @@ public class OntologyManagerUi extends JPanel {
     
     public void refresh(Concept concept) {
         list.refresh();
-        details.update(concept);
+        details.refresh(concept);
     }
 
     private class ListListener implements ConceptList.Listener {
         @Override
         public void selectedConcept(Concept concept) {
             selectedConcept = concept;
-            details.update(concept);
+            details.refresh(concept);
         }
     }
     
@@ -134,6 +134,5 @@ public class OntologyManagerUi extends JPanel {
                 listener.delete(selected);
             }
         }
-        
     }
 }
