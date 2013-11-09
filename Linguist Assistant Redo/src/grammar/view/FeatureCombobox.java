@@ -11,23 +11,23 @@ import java.util.Vector;
 import javax.swing.JComboBox;
 
 
-public class FeatureComboBox extends JComboBox<String> {
+@SuppressWarnings("serial")
+public class FeatureCombobox extends JComboBox<String> {
     private Feature feature;
-    private List<Listener> listeners;
+    private List<Listener> listeners = new ArrayList<Listener>();
     
     public interface Listener {
         public abstract void featureValueChanged(Feature feature, String value);
     }
     
-    public FeatureComboBox(Feature feature) {
+    public FeatureCombobox(Feature feature) {
         super(new Vector<String>(feature.getPossibleValues()));
-        listeners = new ArrayList<Listener>();
         this.feature = feature;
         setSelectedItem(feature.getValue());
         addItemListener(new ComboListener());
     }
     
-    private Feature getFeature() {
+    protected Feature getFeature() {
         return feature;
     }
     
@@ -35,7 +35,7 @@ public class FeatureComboBox extends JComboBox<String> {
         listeners.add(listener);
     }
     
-    private String getValue() {
+    protected String getValue() {
         return (String) getSelectedItem();
     }
     
@@ -44,7 +44,7 @@ public class FeatureComboBox extends JComboBox<String> {
         @Override
         public void itemStateChanged(ItemEvent ev) {
             if (ev.getStateChange() == ItemEvent.SELECTED) {
-                FeatureComboBox comboBox = (FeatureComboBox) ev.getSource();
+                FeatureCombobox comboBox = (FeatureCombobox) ev.getSource();
                 for (Listener listener : listeners) {
                     listener.featureValueChanged(comboBox.getFeature(), comboBox.getValue());
                 }

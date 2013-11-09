@@ -1,16 +1,10 @@
 package grammar.view;
 
-import grammar.model.Category;
 import grammar.model.Feature;
 
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
-
 import javax.swing.DefaultCellEditor;
-import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -25,14 +19,13 @@ import net.miginfocom.swing.MigLayout;
 public class FeatureValuesPanel extends JPanel {
     private List<TableCellEditor> editors;
     private JTable table;
-    private List<FeatureValuesListener> listeners;
+    private List<FeatureValuesListener> listeners = new ArrayList<>();
     private List<Feature> features;
     private ComboListener comboListener;
     private Constituent constituent;
     
     public FeatureValuesPanel() {
         comboListener = new ComboListener();
-        listeners = new ArrayList<>();
         table = new JTable() {
             @Override
             public TableCellEditor getCellEditor(int row, int column) {
@@ -55,8 +48,7 @@ public class FeatureValuesPanel extends JPanel {
         editors = new ArrayList<>();
         features = constituent.getFeatures();
         for (Feature feature : features) {
-        	System.out.println("Adding feature");
-            FeatureComboBox comboBox = new FeatureComboBox(feature);
+        	FeatureCombobox comboBox = new FeatureCombobox(feature);
             comboBox.addListener(comboListener);
             DefaultCellEditor cellEditor = new DefaultCellEditor(comboBox);
             editors.add(cellEditor);
@@ -112,7 +104,7 @@ public class FeatureValuesPanel extends JPanel {
         listeners.add(listener);
     }
     
-    private class ComboListener implements FeatureComboBox.Listener {
+    private class ComboListener implements FeatureCombobox.Listener {
         @Override
         public void featureValueChanged(Feature feature, String value) {
             for (FeatureValuesListener listener : listeners) {

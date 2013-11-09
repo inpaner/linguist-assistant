@@ -68,8 +68,9 @@ public class OntologyManager {
             Entry entry = EntrySelector.select(concept.getCategory());
             if (entry != null) {
                 concept.addMapping(entry);
+                panel.refresh(concept);
             }
-            panel.refresh(concept);
+          
         }
 
         @Override

@@ -1,6 +1,9 @@
 package lexicon.view;
 
 import grammar.model.Category;
+import grammar.model.Feature;
+import grammar.view.FeatureCombobox;
+import grammar.view.FeatureValuesListener;
 
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -11,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
+import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -22,6 +26,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.TableCellEditor;
 
 import lexicon.model.Entry;
 import lexicon.model.Language;
@@ -37,6 +42,8 @@ import commons.main.MainFrame;
 
 @SuppressWarnings("serial")
 public class LexiconList extends JPanel {
+    private List<List<TableCellEditor>> editors;
+    
     private List<Entry> entries;
     private List<Listener> listeners = new ArrayList<>();
     private JTextField searchField;
@@ -44,6 +51,9 @@ public class LexiconList extends JPanel {
     private JComboBox<Language> languageBox;
     private JXTable table;
     private TableStrategy strategy;
+    private int index;
+
+    private EntryFeatureComboListener featureComboListener;
     
     public interface Listener {
         public abstract void selectedEntry(Entry entry);
@@ -78,7 +88,22 @@ public class LexiconList extends JPanel {
         formButton.addActionListener(new FormButtonListener());
         featureButton.addActionListener(new FeatureButtonListener());
         
-        table = new JXTable();
+        featureComboListener = new EntryFeatureComboListener();
+        table = new JXTable() {
+            @Override
+            public TableCellEditor getCellEditor(int row, int column) {
+                int modelColumn = convertColumnIndexToModel(column);
+                
+                // For Feature view. Feature columns are index > 1
+                if (strategy instanceof FeatureStrategy 
+                        && column > 1) {
+                    return editors.get(row).get(column - 2);
+                }
+                else {
+                    return super.getCellEditor(row, column);
+                }
+            }
+        };
         table.setAutoResizeMode(JXTable.AUTO_RESIZE_OFF);
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         table.getSelectionModel().addListSelectionListener(new ListListener());
@@ -98,7 +123,6 @@ public class LexiconList extends JPanel {
         add(formButton);
         add(featureButton, "wrap");
         add(scrollpane);
-        
         refresh();
     }
     
@@ -108,14 +132,35 @@ public class LexiconList extends JPanel {
         Category category = categoryBox.getItemAt(categoryBox.getSelectedIndex());
         
         entries = Entry.getAll(substring, language, category);
-        strategy.update(table, entries);   
+        strategy.update(table, entries);
+        
+        if (strategy instanceof FeatureStrategy) {
+            editors = new ArrayList<>();
+            for (Entry entry : entries) {
+                List<TableCellEditor> entryEditors = new ArrayList<>();
+                for (Feature feature : entry.getFeatures()) {
+                    EntryFeatureCombobox comboBox = new EntryFeatureCombobox(entry, feature);
+                    comboBox.addListener(featureComboListener);
+                    DefaultCellEditor cellEditor = new DefaultCellEditor(comboBox);
+                    entryEditors.add(cellEditor);
+                }
+
+                editors.add(entryEditors);
+            }
+        }
+        
+        if (index >= 0) {
+            table.setRowSelectionInterval(index, index);
+        }
     }
     
     public Entry getSelected() {
+        Entry result = null;
         int index = table.getSelectedRow();
-        if (index == -1)
-            return null;
-        return entries.get(index); 
+        if (index >= 0) 
+            result = entries.get(index);
+            
+        return result; 
     }
     
     public void addListener(Listener listener) {
@@ -141,6 +186,16 @@ public class LexiconList extends JPanel {
         public void itemStateChanged(ItemEvent ev) {
             if (ev.getStateChange() == ItemEvent.SELECTED) {
                 refresh();
+            }
+        }
+    }
+    
+    private class EntryFeatureComboListener implements EntryFeatureCombobox.Listener {
+        @Override
+        public void featureValueChanged(Entry entry, Feature feature, String value) {
+            System.out.println(entry + " " + feature + " " + value);
+            for (Listener listener : listeners) {
+                
             }
         }
     }
@@ -173,6 +228,7 @@ public class LexiconList extends JPanel {
         @Override
         public void valueChanged(ListSelectionEvent ev) {
             if (!ev.getValueIsAdjusting() && getSelected() != null) {
+                index = table.getSelectedRow();
                 for (Listener listener : listeners) {
                     listener.selectedEntry(getSelected());
                 }
