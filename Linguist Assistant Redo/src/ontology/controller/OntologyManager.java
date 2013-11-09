@@ -5,6 +5,7 @@ import javax.swing.JOptionPane;
 import lexicon.model.Entry;
 import ontology.model.Concept;
 import ontology.model.Tag;
+import ontology.view.AddConceptDialog;
 import ontology.view.OntologyManagerUi;
 import commons.main.MainFrame;
 import commons.ui.UiHelper;
@@ -31,8 +32,10 @@ public class OntologyManager {
 
         @Override
         public void add() {
-            // TODO Auto-generated method stub
-            
+            Concept toAdd = ConceptCreator.create();
+            if (toAdd != null) {
+                toAdd.create();
+            }
         }
 
         @Override

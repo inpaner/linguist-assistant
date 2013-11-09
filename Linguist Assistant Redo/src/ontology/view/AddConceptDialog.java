@@ -4,6 +4,8 @@ import grammar.model.Category;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 
 import javax.swing.JButton;
@@ -14,30 +16,52 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import net.miginfocom.swing.MigLayout;
-import ontology.model.Concept;
 
 @SuppressWarnings("serial")
 public class AddConceptDialog extends JDialog {
-    private static JComboBox<Category> constituentBox;
-    private static JTextField stemField;
-    private static JTextField glossField;
+    private List<Listener> listeners = new ArrayList<>();
+    private JComboBox<Category> constituentBox;
+    private JTextField stemField;
+    private JTextField glossField;
     private JButton ok;
+    private JButton cancel;
     
-    public static Concept getInstance() {
-        new AddConceptDialog();
-        String stem = stemField.getText();
-        String gloss = glossField.getText();
-        Category category = (Category) constituentBox.getSelectedItem();
-        Concept concept = Concept.getEmpty(category);
-        concept.setStem(stem);
-        concept.setGloss(gloss);
+    public class Event {
+        private String stem;
+        private String gloss;
+        private Category category;
+        private Event() {
+            stem = stemField.getText();
+            gloss = glossField.getText();
+            category = (Category) constituentBox.getSelectedItem();
+        }
         
-        return concept;
+        public String getStem() {
+            return stem;
+        }
+        
+        public String getGloss() {
+            return gloss;
+        }
+        
+        public Category getCategory() {
+            return category;
+        }
     }
     
-    private AddConceptDialog() {
+    public interface Listener {
+        public abstract void add(Event event);
+        public abstract void cancel();
+    }
+    
+    public void addListener(Listener listener) {
+        listeners.add(listener);
+    }
+    
+    public AddConceptDialog(Listener listener) {
+        addListener(listener);
         setModalityType(ModalityType.TOOLKIT_MODAL);
-        setSize(400, 600);
+        setSize(200, 150);
         setLocationRelativeTo(null);
         setLayout(new MigLayout());
         Vector<Category> categories = new Vector<>(Category.getAll());
@@ -50,13 +74,9 @@ public class AddConceptDialog extends JDialog {
         glossField = new JTextField(20);
         
         ok = new JButton("Add");
-        ok.addActionListener(new ActionListener() {
-            
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                dispose();
-            }
-        });
+        cancel = new JButton("Cancel");
+        ok.addActionListener(new AddListener());
+        cancel.addActionListener(new CancelListener());
         
         panel.setLayout(new MigLayout("wrap 2"));
         panel.add(constituentBox, "span, split, wrap");
@@ -67,6 +87,27 @@ public class AddConceptDialog extends JDialog {
         panel.add(ok);
         setContentPane(panel);
         setVisible(true);
+    }
+    
+    private class AddListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Event event = new Event();
+            for (Listener listener : listeners) {
+                listener.add(event);
+            }
+            dispose();
+        }
+    }
+    
+    private class CancelListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            for (Listener listener : listeners) {
+                listener.cancel();
+            }
+            dispose();
+        }
     }
 
 }

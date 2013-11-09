@@ -18,7 +18,7 @@ public class Concept {
     private String sense;
     private String gloss;
     private List<Tag> tags;
-    private Category fConstituent;
+    private Category category;
     
     private final static List<String> senseList = 
             Arrays.asList("A", "B", "C", "D", "E", "F", "G",
@@ -69,13 +69,13 @@ public class Concept {
         return sense;
     }
     
-    public Concept(Category aConstituent) {
-        this.fConstituent = aConstituent;
+    public Concept(Category category) {
+        this.category = category;
     }
     
-    public Concept(String aStem, Category aConstituent) {
-        this(aConstituent);
-        this.stem = aStem;
+    public Concept(String stem, Category category) {
+        this(category);
+        this.stem = stem;
     }
     
     void setPk(Integer pk) {
@@ -86,11 +86,11 @@ public class Concept {
     }
     
     public Category getParent() {
-        return fConstituent;
+        return category;
     }
     
-    public void setStem(String aStem) {
-        stem = aStem;
+    public void setStem(String stem) {
+        this.stem = stem;
     }
     
     public String getStem() {
@@ -105,8 +105,8 @@ public class Concept {
         return this.sense;
     }
     
-    public void setGloss(String aGloss) {
-        gloss = aGloss;
+    public void setGloss(String gloss) {
+        this.gloss = gloss;
     }
     
     public String getGloss() {
@@ -157,6 +157,15 @@ public class Concept {
         DAOFactory factory = DAOFactory.getInstance();
         ConceptDAO dao = new ConceptDAO(factory);
         dao.createMapping(this, entry);
+    }
+    
+    public void create() {
+        // TODO error handling
+        if (pk != null)
+            return;
+        DAOFactory factory = DAOFactory.getInstance();
+        ConceptDAO dao = new ConceptDAO(factory);
+        dao.create(this);
     }
     
     public void delete() {

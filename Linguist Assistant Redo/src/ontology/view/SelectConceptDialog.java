@@ -63,7 +63,7 @@ public class SelectConceptDialog extends JDialog {
             for (Listener listener : listeners) {
                 listener.select(selected);
             }
-            dispose();
+            dispose();  
         }
     }
     
