@@ -55,8 +55,6 @@ public class Concept {
         return dao.retrieve(pk);
     }
     
-    
-    
     public static Concept getEmpty(Category category) {
         return new Concept(category);
     }
@@ -159,6 +157,12 @@ public class Concept {
         DAOFactory factory = DAOFactory.getInstance();
         ConceptDAO dao = new ConceptDAO(factory);
         dao.createMapping(this, entry);
+    }
+    
+    public void delete() {
+        DAOFactory factory = DAOFactory.getInstance();
+        ConceptDAO dao = new ConceptDAO(factory);
+        dao.delete(this);
     }
     
     public void deleteMapping(Entry entry) {

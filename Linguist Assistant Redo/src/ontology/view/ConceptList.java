@@ -72,7 +72,7 @@ public class ConceptList extends JPanel {
         refresh();
     }
     
-    private void refresh() {
+    void refresh() {
         String substring = searchField.getText();
         Tag tag = (Tag) tagBox.getSelectedItem();
         Category category = (Category) constituentBox.getSelectedItem();

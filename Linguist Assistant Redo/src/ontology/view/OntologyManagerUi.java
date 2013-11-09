@@ -63,7 +63,13 @@ public class OntologyManagerUi extends JPanel {
         add(del);
     }
     
-    public void update(Concept concept) {
+    public void refresh() {
+        Concept concept = null;
+        refresh(concept);
+    }
+    
+    public void refresh(Concept concept) {
+        list.refresh();
         details.update(concept);
     }
 

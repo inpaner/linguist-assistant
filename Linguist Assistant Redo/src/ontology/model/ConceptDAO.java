@@ -69,6 +69,9 @@ public class ConceptDAO {
             " FROM OntologyLexicon " +
             " WHERE ontologyPk = (?) ";
     
+    private static final String SQL_DELETE =
+        "DELETE FROM Ontology WHERE pk = (?)";
+    
     private static final String SQL_ADD_TAG = 
         "INSERT INTO OntologyTag(ontologyPk, tagPk) " +
         " VALUES (?, ?)";
@@ -78,7 +81,6 @@ public class ConceptDAO {
             " WHERE ontologyPk = (?) " +
             "       AND" +
             "       tagPk = (?) ";
-    
     
     private static final String SQL_ALL_TAGS =
             "SELECT tagPk " +
@@ -212,6 +214,29 @@ public class ConceptDAO {
         }
         
         return concept;
+    }
+    
+    void delete(Concept concept) {
+        Object[] values = {
+                concept.getPk(),
+        };
+        
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        
+        try {
+            String sql = SQL_DELETE;
+            conn = factory.getConnection();
+            ps = DAOUtil.prepareStatement(conn, sql, false, values);
+            ps.executeUpdate();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally {
+            DAOUtil.close(conn, ps, rs);
+        }
     }
     
     List<Entry> retrieveMappedEntries(Concept concept) {

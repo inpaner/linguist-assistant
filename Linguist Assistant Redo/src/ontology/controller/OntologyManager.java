@@ -1,13 +1,17 @@
 package ontology.controller;
 
+import javax.swing.JOptionPane;
+
 import lexicon.model.Entry;
 import ontology.model.Concept;
 import ontology.model.Tag;
 import ontology.view.OntologyManagerUi;
 import commons.main.MainFrame;
+import commons.ui.UiHelper;
 
 public class OntologyManager {
     private static OntologyManagerUi panel;
+    private MainFrame frame;
     
     public static void run(MainFrame frame) {
         if (panel == null) {
@@ -17,6 +21,7 @@ public class OntologyManager {
     }
     
     private OntologyManager(MainFrame frame) {
+        this.frame = frame;
         panel = new OntologyManagerUi(frame);
         panel.addListener(new OntologyUiListener());
         
@@ -32,8 +37,13 @@ public class OntologyManager {
 
         @Override
         public void delete(Concept concept) {
-            // TODO Auto-generated method stub
+            int response = UiHelper.confirmDelete(frame, concept.toString());
+            if (response != JOptionPane.YES_OPTION) {
+                return;
+            }
             
+            concept.delete();
+            panel.refresh();
         }
 
         @Override
@@ -45,7 +55,7 @@ public class OntologyManager {
         @Override
         public void delTag(Concept concept, Tag tag) {
             concept.deleteTag(tag);
-            panel.update(concept);
+            panel.refresh(concept);
         }
 
         @Override
@@ -57,7 +67,7 @@ public class OntologyManager {
         @Override
         public void delMapping(Concept concept, Entry entry) {
             concept.addMapping(entry);
-            panel.update(concept);
+            panel.refresh(concept);
         }
     }
 }
