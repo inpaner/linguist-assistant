@@ -1,5 +1,7 @@
 package lexicon.view;
 
+import grammar.model.Category;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -22,7 +24,7 @@ public class SelectEntryDialog extends JDialog {
         public void cancel(Entry entry);
     }
     
-    public SelectEntryDialog(Listener listener) {
+    public SelectEntryDialog(Listener listener, Category category) {
         listeners.add(listener);
         
         setModalityType(ModalityType.TOOLKIT_MODAL);
@@ -30,7 +32,7 @@ public class SelectEntryDialog extends JDialog {
         setLocationRelativeTo(null);
         setLayout(new MigLayout());
         
-        LexiconList list = new LexiconList();
+        LexiconList list = new LexiconList(category);
         list.addListener(new ListListener());
         JButton select = new JButton("Select");
         JButton cancel = new JButton("Cancel");

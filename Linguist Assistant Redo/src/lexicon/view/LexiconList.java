@@ -40,7 +40,7 @@ public class LexiconList extends JPanel {
     private List<Entry> entries;
     private List<Listener> listeners = new ArrayList<>();
     private JTextField searchField;
-    private JComboBox<Category> constituentBox;
+    private JComboBox<Category> categoryBox;
     private JComboBox<Language> languageBox;
     private JXTable table;
     private TableStrategy strategy;
@@ -49,11 +49,10 @@ public class LexiconList extends JPanel {
         public abstract void selectedEntry(Entry entry);
     }
     
-    public static void main(String[] args) {
-        MainFrame frame = new MainFrame();
-        LexiconList list = new LexiconList();
-        frame.setPanel(list);
-        list.refresh();
+    public LexiconList(Category category) {
+        this();
+        categoryBox.setSelectedItem(category);
+        refresh();
     }
     
     public LexiconList() {
@@ -65,8 +64,8 @@ public class LexiconList extends JPanel {
         searchField.getDocument().addDocumentListener(new SearchListener());
         
         Vector<Category> categories = new Vector<>(Category.getAll());
-        constituentBox = new JComboBox<>(categories);
-        constituentBox.addItemListener(new ComboListener());
+        categoryBox = new JComboBox<>(categories);
+        categoryBox.addItemListener(new ComboListener());
         
         Vector<Language> languages = new Vector<>(Language.getAll());
         languageBox = new JComboBox<>(languages);
@@ -92,7 +91,7 @@ public class LexiconList extends JPanel {
         add(searchLabel, "span, split");
         add(searchField, "wrap");
         
-        add(constituentBox, "span, split");
+        add(categoryBox, "span, split");
         add(languageBox, "gap para, wrap");
         
         add(stemButton, "span, split");
@@ -106,7 +105,7 @@ public class LexiconList extends JPanel {
     private void refresh() {
         String substring = searchField.getText();
         Language language = languageBox.getItemAt(languageBox.getSelectedIndex());
-        Category category = constituentBox.getItemAt(constituentBox.getSelectedIndex());
+        Category category = categoryBox.getItemAt(categoryBox.getSelectedIndex());
         
         entries = Entry.getAll(substring, language, category);
         strategy.update(table, entries);   

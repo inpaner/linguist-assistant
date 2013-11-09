@@ -1,29 +1,19 @@
 package lexicon;
 
+import grammar.model.Category;
 import lexicon.model.Entry;
 import lexicon.view.SelectEntryDialog;
 
 public class EntrySelector {
     private Entry selected;
     
-    public static void main(String[] args) {
-        Entry con = EntrySelector.select();
-        if (con == null) {
-            System.out.println("null");
-        }
-        else 
-            System.out.println(con.getLanguage());
-    }
-    
-    
-    
-    public static Entry select() {
-        EntrySelector controller = new EntrySelector();
+    public static Entry select(Category category) {
+        EntrySelector controller = new EntrySelector(category);
         return controller.getSelected();
     }
     
-    private EntrySelector() {
-        new SelectEntryDialog(new DialogListener());
+    private EntrySelector(Category category) {
+        new SelectEntryDialog(new DialogListener(), category);
     }
     
     private Entry getSelected() {

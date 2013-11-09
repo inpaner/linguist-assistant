@@ -273,6 +273,10 @@ public class ConceptDetails extends JPanel {
     private class AddTag implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
+            if (concept == null)
+                return;
+            
+            
             for (Listener listener : listeners) {
                 listener.addTag(concept);
             }
@@ -282,6 +286,9 @@ public class ConceptDetails extends JPanel {
     private class DelTag implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
+            if (concept == null)
+                return;
+            
             for (Listener listener : listeners) {
                 listener.delTag(concept, getSelectedTag());
             }            
@@ -291,6 +298,9 @@ public class ConceptDetails extends JPanel {
     private class AddMapping implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
+            if (concept == null)
+                return;
+            
             for (Listener listener : listeners) {
                 listener.addMapping(concept);
             }            
@@ -300,6 +310,9 @@ public class ConceptDetails extends JPanel {
     private class DelMapping implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
+            if (concept == null)
+                return;
+            
             for (Listener listener : listeners) {
                 listener.delMapping(concept, getSelectedEntry());
             }            

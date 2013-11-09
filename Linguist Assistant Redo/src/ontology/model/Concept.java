@@ -113,6 +113,10 @@ public class Concept {
         return gloss;
     }
     
+    public Category getCategory() {
+        return category;
+    }
+    
     @Override
     public String toString() {
         return this.stem + "-" + this.sense;

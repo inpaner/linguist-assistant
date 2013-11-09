@@ -1,7 +1,9 @@
 package ontology.controller;
 
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 
+import lexicon.EntrySelector;
 import lexicon.model.Entry;
 import ontology.model.Concept;
 import ontology.model.Tag;
@@ -63,14 +65,21 @@ public class OntologyManager {
 
         @Override
         public void addMapping(Concept concept) {
-            // TODO Auto-generated method stub
-            
+            Entry entry = EntrySelector.select(concept.getCategory());
+            if (entry != null) {
+                concept.addMapping(entry);
+            }
+            panel.refresh(concept);
         }
 
         @Override
         public void delMapping(Concept concept, Entry entry) {
-            concept.addMapping(entry);
-            panel.refresh(concept);
+            String toDelete = concept + " mapping to " + entry; 
+            int response = UiHelper.confirmDelete(frame, toDelete);
+            if (response == JOptionPane.YES_OPTION) {
+                concept.deleteMapping(entry);
+                panel.refresh(concept);
+            }
         }
     }
 }
