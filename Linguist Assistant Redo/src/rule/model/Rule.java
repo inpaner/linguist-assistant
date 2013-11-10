@@ -88,4 +88,18 @@ public class Rule {
     public void addOutput(Output output) {
         outputs.add(output);
     }
+
+	public List<Output> getOutputs() {
+		return outputs;
+	}
+
+	public void setOutputs(List<Output> outputs) {
+		this.outputs = outputs;
+	}
+
+	public Input getInput() {
+		return input;
+	}
+    
+   
 }
