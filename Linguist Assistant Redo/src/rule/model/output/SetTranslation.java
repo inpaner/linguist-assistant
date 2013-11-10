@@ -8,11 +8,11 @@ import lexicon.model.Language;
 import semantics.model.Constituent;
 import semantics.model.Target;
 
-public class SetTarget extends Output {
+public class SetTranslation extends Output {
     private String key;
     private Language language;
     
-    public SetTarget(String key, Language language) {
+    public SetTranslation(String key, Language language) {
         setKey(key);
         setLanguage(language);
     }

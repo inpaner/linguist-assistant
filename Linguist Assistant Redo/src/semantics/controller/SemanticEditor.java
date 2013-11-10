@@ -13,7 +13,7 @@ import rule.model.input.And;
 import rule.model.input.HasCategory;
 import rule.model.input.HasChild;
 import rule.model.input.HasConcept;
-import rule.model.output.SetTarget;
+import rule.model.output.SetTranslation;
 import semantics.model.Constituent;
 import semantics.view.BlockListener;
 import semantics.view.SemanticEditorPanel;
@@ -49,7 +49,7 @@ public class SemanticEditor {
         input1.addRule(hasNounChild);
         
         Language english = Language.getInstance("English");
-        SetTarget englishTarget = new SetTarget("NounChild", english);
+        SetTranslation englishTarget = new SetTranslation("NounChild", english);
         Rule rule1 = new Rule();
         rule1.setInput(input1);
         rule1.addOutput(englishTarget);
@@ -69,7 +69,7 @@ public class SemanticEditor {
         input2.addRule(hasVerbChild);
         
         Language filipino = Language.getInstance("Filipino");
-        SetTarget filipinoTarget = new SetTarget("VerbChild", filipino);
+        SetTranslation filipinoTarget = new SetTranslation("VerbChild", filipino);
         
         Rule rule2 = new Rule();
         rule2.setInput(input2);
