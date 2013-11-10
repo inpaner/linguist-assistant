@@ -22,6 +22,14 @@ public class Feature {
         return dao.getAllFeatures(category);
     }
     
+    public static Feature copy(Feature toCopy) {
+        Feature result = getEmpty(toCopy.parent);
+        result.name = toCopy.name;
+        result.value = toCopy.value;
+        result.language = result.language;
+        return result;
+    }
+    
     private Integer pk;
     private String name;
     private String value;
@@ -154,7 +162,19 @@ public class Feature {
     
     @Override
     public int hashCode() {
-        return this.toString().hashCode();
+        int result = parent.hashCode();
+        if (name != null) {
+            result += name.hashCode();
+        }
+        if (value != null) {
+            result += value.hashCode();
+        }
+        if (language != null) {
+            result += language.hashCode();
+        }
+        
+        
+        return result;
     }
     
     public Integer getPk() {

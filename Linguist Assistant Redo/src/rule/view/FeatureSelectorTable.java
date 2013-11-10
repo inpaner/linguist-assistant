@@ -29,8 +29,7 @@ public class FeatureSelectorTable extends JPanel {
     private List<Feature> features;
     private List<List<FeatureCheckbox>> checkboxesList = new ArrayList<>();
     private Map<Feature, FeatureCheckbox> checkboxMap = new HashMap<>();
-    private JButton ok;
-    private JButton cancel;
+
     
     public static void main(String[] args) {    
         MainFrame frame = new MainFrame();
@@ -77,18 +76,10 @@ public class FeatureSelectorTable extends JPanel {
         }   
         JScrollPane scrollpane = new JScrollPane(innerPanel);
 
-        /*
-         * Buttons
-         */
-        ok = new JButton("Ok");
-        cancel = new JButton("Cancel");
-        ok.addActionListener(new OkListener());
-        cancel.addActionListener(new CancelListener());
-        
+
         setLayout(new MigLayout());
-        add(scrollpane, "wrap");
-        add(ok, "span, split, right");
-        add(cancel);
+        add(scrollpane);
+        
     }
     
     public List<List<Feature>> getSelected() {
@@ -119,22 +110,5 @@ public class FeatureSelectorTable extends JPanel {
             }
         }
     }
-    
-    private class OkListener implements ActionListener {
 
-        @Override
-        public void actionPerformed(ActionEvent ev) {
-            getSelected();
-        }
-        
-    }
-    
-    private class CancelListener implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent ev) {
-            
-        }
-        
-    }
 }
