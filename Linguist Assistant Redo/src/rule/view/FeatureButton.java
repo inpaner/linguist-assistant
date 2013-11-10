@@ -1,14 +1,16 @@
 package rule.view;
 
+import grammar.model.Feature;
+
 import java.awt.Component;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JTable;
-import javax.swing.UIManager;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
@@ -20,11 +22,15 @@ import javax.swing.table.TableColumnModel;
 @SuppressWarnings("serial")
 public class FeatureButton extends JButton  
         implements TableCellRenderer, MouseListener {  
-    protected FeatureButton rendererComponent;  
+    protected FeatureButton rendererComponent;
+    protected String title;
     protected int column;  
-    protected boolean mousePressed = false;  
+    protected int row;
+    protected boolean mousePressed = false;
+    private List<List<Feature>> featuresList;
 
-    public FeatureButton(ActionListener listener) {  
+    public FeatureButton(ActionListener listener) {
+        title = "";
         rendererComponent = this;  
         rendererComponent.addActionListener(listener);  
     }  
@@ -32,6 +38,7 @@ public class FeatureButton extends JButton
     public Component getTableCellRendererComponent(  
             JTable table, Object value,  
             boolean isSelected, boolean hasFocus, int row, int column) {  
+        
         if (table != null) {  
             JTableHeader header = table.getTableHeader();  
             if (header != null) {  
@@ -40,9 +47,10 @@ public class FeatureButton extends JButton
                 rendererComponent.setFont(header.getFont());  
                 header.addMouseListener(rendererComponent);  
             }  
-        }  
+        }
+        setRow(row);
         setColumn(column); 
-        rendererComponent.setText("Check All");  
+        rendererComponent.setText(title);  
         return rendererComponent;  
     }  
 
@@ -53,10 +61,34 @@ public class FeatureButton extends JButton
     public int getColumn() {  
         return column;  
     }  
-
+    
+    protected void setRow(int row) {
+        this.row = row;
+    }
+    
+    public int getRow() {
+        return row;
+    }
+    
+    public void setTitle(String title) {
+        this.title = title;
+    }
+    
+    public String getTitle() {
+        return title;
+    }
+    
+    public List<List<Feature>> getFeaturesList() {
+        return featuresList;
+    }
+    
+    public void setFeaturesList(List<List<Feature>> list) {
+        featuresList = list;
+    }
+    
     protected void handleClickEvent(MouseEvent e) {  
         if (mousePressed) {  
-            mousePressed=false;  
+            mousePressed = false;  
             JTableHeader header = (JTableHeader)(e.getSource());  
             JTable tableView = header.getTable();  
             TableColumnModel columnModel = tableView.getColumnModel();  
@@ -64,15 +96,15 @@ public class FeatureButton extends JButton
             int column = tableView.convertColumnIndexToModel(viewColumn);  
 
             if (viewColumn == this.column && e.getClickCount() == 1 && column != -1) {  
-                doClick();  
                 System.out.println("clicky");
+                //doClick();  
             }  
         }  
     }  
 
     public void mouseClicked(MouseEvent e) {  
         handleClickEvent(e);  
-        ((JTableHeader)e.getSource()).repaint();  
+        ((JTableHeader) e.getSource()).repaint();  
     }  
 
     public void mousePressed(MouseEvent e) {  
