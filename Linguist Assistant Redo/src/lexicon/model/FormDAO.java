@@ -58,7 +58,7 @@ public class FormDAO {
        Object[] values = {
                 form.getPK(),
                 form.getName(),
-                form.getConstituent().getPk()
+                form.getCategory().getPk()
         };
 
         Connection conn = null;

@@ -1,6 +1,7 @@
 package lexicon.view;
 
 import grammar.model.Category;
+import grammar.model.Feature;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,6 +14,7 @@ import javax.swing.JPanel;
 
 import net.miginfocom.swing.MigLayout;
 import lexicon.model.Entry;
+import lexicon.model.Form;
 
 @SuppressWarnings("serial")
 public class SelectEntryDialog extends JDialog {
@@ -53,6 +55,19 @@ public class SelectEntryDialog extends JDialog {
         @Override
         public void selectedEntry(Entry entry) {
             selected = entry;
+        }
+
+        @Override
+        public void featureValueChanged(Entry entry, Feature feature,
+                String value) {
+            // TODO Auto-generated method stub
+            
+        }
+
+        @Override
+        public void formValueChanged(Entry entry, Form form, String value) {
+            // TODO Auto-generated method stub
+            
         }
     }
     

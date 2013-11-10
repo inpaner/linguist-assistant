@@ -108,7 +108,7 @@ public class Entry {
         return dao.retrieveAll(this);
 	}
 	
-	public List<Concept> getConcepts() {
+	public List<Concept> getMappings() {
 	    DAOFactory factory = DAOFactory.getInstance();
 	    EntryDAO dao = new EntryDAO(factory);
         return dao.retrieveMappedConcepts(this);   

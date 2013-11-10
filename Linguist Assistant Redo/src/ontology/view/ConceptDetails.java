@@ -54,7 +54,7 @@ public class ConceptDetails extends JPanel {
         frame.setPanel(panel);
         Category con = Category.getByName("Verb");
         Concept c = Concept.getInstance("run", "A", con);
-        panel.update(c);
+        panel.refresh(c);
     }
     
     public ConceptDetails() {
@@ -130,7 +130,7 @@ public class ConceptDetails extends JPanel {
         listeners.add(listener);
     }
     
-    public void update(Concept concept) {
+    public void refresh(Concept concept) {
         if (concept == null)
             return;
         

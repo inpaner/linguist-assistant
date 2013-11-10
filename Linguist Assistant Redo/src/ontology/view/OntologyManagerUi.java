@@ -26,7 +26,7 @@ public class OntologyManagerUi extends JPanel {
     private JButton delete;
     private List<Listener> listeners = new ArrayList<>();
     
-    interface Listener {
+    public interface Listener {
         void add();
         void delete(Concept constituent);
         void addTag(Concept concept);

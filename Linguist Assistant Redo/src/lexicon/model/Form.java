@@ -1,10 +1,6 @@
 package lexicon.model;
 
-import java.util.List;
-
 import grammar.model.Category;
-import grammar.model.CategoryDAO;
-
 import commons.dao.DAOFactory;
 
 public class Form {
@@ -32,7 +28,7 @@ public class Form {
         return language;
     }
 
-    public Category getConstituent() {
+    public Category getCategory() {
         return category;
     }
 

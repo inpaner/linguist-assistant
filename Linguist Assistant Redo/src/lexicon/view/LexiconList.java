@@ -29,6 +29,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableCellEditor;
 
 import lexicon.model.Entry;
+import lexicon.model.Form;
 import lexicon.model.Language;
 import lexicon.view.table.FeatureStrategy;
 import lexicon.view.table.FormStrategy;
@@ -56,7 +57,9 @@ public class LexiconList extends JPanel {
     private EntryFeatureComboListener featureComboListener;
     
     public interface Listener {
-        public abstract void selectedEntry(Entry entry);
+        void selectedEntry(Entry entry);
+        void featureValueChanged(Entry entry, Feature feature, String value);
+        void formValueChanged(Entry entry, Form form, String value);
     }
     
     public LexiconList(Category category) {
