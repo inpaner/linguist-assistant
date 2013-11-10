@@ -9,14 +9,12 @@ import javax.swing.table.AbstractTableModel;
 public class SpelloutTableModel extends AbstractTableModel {
     private List<FeatureButton> rows;
     private List<FeatureButton> cols;
-    private List<String> firstCol = new ArrayList<>();
     private List<List<String>> values = new ArrayList<>();
     
     SpelloutTableModel(List<FeatureButton> rows, List<FeatureButton> cols) {
         this.rows = rows;
         this.cols = cols;
         for (int i = 0; i < rows.size(); i++) {
-            firstCol.add("");
             List<String> colList = new ArrayList<>();
             
             for (int j = 0; j < cols.size(); j++) {
@@ -59,5 +57,19 @@ public class SpelloutTableModel extends AbstractTableModel {
         boolean result = true;
 
         return result;
+    }
+    
+    public void addRow() {
+        List<String> newRow = new ArrayList<>();
+        
+        for (int i = 0; i < cols.size(); i++) {
+            newRow.add("");
+        }
+        
+        values.add(newRow);
+    }
+    
+    public void addColumn() {
+        
     }
 }

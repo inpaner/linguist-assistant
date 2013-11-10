@@ -35,6 +35,7 @@ public class SpelloutTableUi extends JPanel {
     private List<FeatureButton> colButtons;
     private FeatureButton cornerButton;
     private SpelloutTableModel model;
+    RuleButtonListener buttonListener;
     
     public static void main(String[] args) {
         MainFrame frame = new MainFrame();
@@ -47,14 +48,15 @@ public class SpelloutTableUi extends JPanel {
         this.category = category;
         rowButtons = new ArrayList<>();
         colButtons = new ArrayList<>();
-        cornerButton = new FeatureButton(new RuleButtonListener(), "corner");
+        buttonListener = new RuleButtonListener();
+        cornerButton = new FeatureButton(buttonListener, "corner");
         
-        FeatureButton b1 = new FeatureButton(new RuleButtonListener(), "b1");
+        FeatureButton initialRow = new FeatureButton(buttonListener, "b1");
         
-        FeatureButton b2 = new FeatureButton(new RuleButtonListener(), "b2");
+        FeatureButton initialCol = new FeatureButton(buttonListener, "b2");
         
-        rowButtons.add(b1);
-        colButtons.add(b2);
+        rowButtons.add(initialRow);
+        colButtons.add(initialCol);
         
         model = new SpelloutTableModel(rowButtons, colButtons);
         table = new JTable();
@@ -69,6 +71,12 @@ public class SpelloutTableUi extends JPanel {
         
         JScrollPane tablePane = new JScrollPane(table); 
         add(tablePane);
+    }
+    
+    private void addRow() {
+        FeatureButton newRow = new FeatureButton(buttonListener);
+        rowButtons.add(newRow);
+        
     }
     
     private class RuleButtonListener implements ActionListener {
