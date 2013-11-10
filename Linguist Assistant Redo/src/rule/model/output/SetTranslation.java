@@ -54,4 +54,12 @@ public class SetTranslation extends Output {
         target.setEntry(firstMapping);
     }
 
+	public String getKey() {
+		return key;
+	}
+
+	public Language getLanguage() {
+		return language;
+	}
+
 }

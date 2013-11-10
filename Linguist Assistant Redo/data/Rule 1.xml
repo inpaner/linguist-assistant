@@ -1,0 +1,20 @@
+<rule>
+	<meta
+		name = "Rule 1",
+		description = "Test",
+		comment = "",
+		enabled = "true",
+		type = "simple"
+	/>
+
+	<input name = "And", optional = "false">
+		<input name = "HasCategory", category = "Clause", optional = "false"/>
+		<input name = "HasChild", optional = "false", var = "NounChild">
+			<input name = "HasCategory", category = "Noun", optional = "false"/>
+		</input>
+	</input>
+
+	<outputs>
+		<output name = "SetTranslation", language = "English", var = "NounChild"/>
+	</outputs>
+</rule>

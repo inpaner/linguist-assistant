@@ -1,0 +1,21 @@
+<rule>
+	<meta
+		name = "Rule 2",
+		description = "Test",
+		comment = "",
+		enabled = "true",
+		type = "simple"
+	/>
+
+	<input name = "And", optional = "false">
+		<input name = "HasCategory", category = "Clause", optional = "false"/>
+		<input name = "HasChild", optional = "false", var = "VerbChild">
+			<input name = "HasCategory", category = "Verb", optional = "false"/>
+		</input>
+	</input>
+
+	<outputs>
+		<output name = "SetTranslation", language = "Filipino", var = "NounChild"/>
+		<output name = "SetPrefix", prefix = "na-"/>
+	</outputs>
+</rule>
