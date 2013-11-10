@@ -80,7 +80,6 @@ public class FeatureSelectorTable extends JPanel {
             List<Feature> features = new ArrayList<>();
             for (FeatureCheckbox checkbox : checkboxes) {
                 if (checkbox.isSelected()) {
-                    System.out.println(checkbox.getFeature() + " " + checkbox.getValue());
                     features.add(checkbox.getFeature());
                 }
             }

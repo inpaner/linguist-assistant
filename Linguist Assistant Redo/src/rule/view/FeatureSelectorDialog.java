@@ -30,6 +30,11 @@ public class FeatureSelectorDialog extends JDialog {
     }
     
     public FeatureSelectorDialog(Listener listener, Category category) {
+        init(listener, category);
+        setVisible(true);
+    }
+    
+    private void init(Listener listener, Category category) {
         listeners.add(listener);
         setModalityType(ModalityType.TOOLKIT_MODAL);
         setSize(600, 400);
@@ -51,16 +56,16 @@ public class FeatureSelectorDialog extends JDialog {
         content.add(table, "wrap");
         content.add(ok, "span, split, right");
         content.add(cancel);
-        
         setContentPane(content);
-        setVisible(true);
     }
     
     public FeatureSelectorDialog(Listener listener, Category category, 
             String titleString, List<Feature> features) {
-        this(listener, category);
+        
+        init(listener, category);
         this.title.setText(titleString);
         table.setSelected(features);
+        setVisible(true);
     }
     
     private class OkListener implements ActionListener {

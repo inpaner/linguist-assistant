@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -28,13 +29,21 @@ public class FeatureButton extends JButton
     protected int row;
     protected boolean mousePressed = false;
     private List<List<Feature>> featuresList;
-
+    private String tag;
     public FeatureButton(ActionListener listener) {
         title = "";
         rendererComponent = this;  
         rendererComponent.addActionListener(listener);  
     }  
+    
+    public FeatureButton(ActionListener listener, String tag) {
+        title = "";
+        rendererComponent = this;  
+        rendererComponent.addActionListener(listener);
+        this.tag = tag;
+    }  
 
+    
     public Component getTableCellRendererComponent(  
             JTable table, Object value,  
             boolean isSelected, boolean hasFocus, int row, int column) {  
@@ -96,8 +105,7 @@ public class FeatureButton extends JButton
             int column = tableView.convertColumnIndexToModel(viewColumn);  
 
             if (viewColumn == this.column && e.getClickCount() == 1 && column != -1) {  
-                System.out.println("clicky");
-                //doClick();  
+                doClick();  
             }  
         }  
     }  

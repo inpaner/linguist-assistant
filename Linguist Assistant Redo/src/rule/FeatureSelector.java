@@ -11,16 +11,26 @@ public class FeatureSelector {
     private String title;
     private List<List<Feature>> features = new ArrayList<>();
     
-    public static void main(String[] args) {
-        Category noun = Category.getByName("Noun");
-        FeatureSelector selector = FeatureSelector.getSelector(noun);
-        System.out.println(selector.getTitle());
-        System.out.println(selector.getFeatures().size());
-    }
-    
     public static FeatureSelector getSelector(Category category) {
         return new FeatureSelector(category);
     }
+    
+    public static FeatureSelector getSelector(
+            Category category, String title, List<List<Feature>> featuresList) {
+        
+        List<Feature> flat = new ArrayList<>();
+        
+        if (featuresList == null) {
+            return new FeatureSelector(category);
+        }
+        
+        for (List<Feature> features : featuresList) {
+            flat.addAll(features);
+        }
+        
+        return new FeatureSelector(category, title, flat);
+    }
+    
     
     
     private FeatureSelector(Category category) {
