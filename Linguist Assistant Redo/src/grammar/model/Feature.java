@@ -160,6 +160,22 @@ public class Feature {
         return result;
     }
     
+    public boolean equivalent(Feature other) {
+        boolean result = false;
+        if (name.equals(other.name)
+                && parent.getName().equals(other.parent.getName())) {
+            
+            if (language != null && language.equals(other.language)) {
+                result = true;
+            }
+            else {
+                result = true;
+            }
+        }
+        
+        return result;
+    }
+    
     @Override
     public int hashCode() {
         int result = parent.hashCode();
