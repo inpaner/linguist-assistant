@@ -1,4 +1,4 @@
-package rule.input;
+package rule.model.input;
 
 import ontology.model.Concept;
 import semantics.model.Constituent;

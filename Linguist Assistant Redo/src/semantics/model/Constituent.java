@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ontology.model.Concept;
-import rule.Rule;
+import rule.model.Rule;
 
 
 

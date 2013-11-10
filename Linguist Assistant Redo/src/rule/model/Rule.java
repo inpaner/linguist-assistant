@@ -1,4 +1,4 @@
-package rule;
+package rule.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 import lexicon.model.Language;
-import rule.input.Input;
-import rule.output.Output;
+import rule.model.input.Input;
+import rule.model.output.Output;
 import semantics.model.Constituent;
 
 public class Rule {

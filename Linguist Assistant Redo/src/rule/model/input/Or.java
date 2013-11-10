@@ -1,12 +1,12 @@
-package rule.input;
+package rule.model.input;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import rule.Rule;
+import rule.model.Rule;
 import semantics.model.Constituent;
 
-public class And extends Input {
+public class Or extends Input {
     private List<Input> conditions = new ArrayList<>();
     
     public void addRule(Input rule) {
@@ -14,16 +14,17 @@ public class And extends Input {
     }
     
     /**
-     * Short circuit AND evaluation
+     * Short circuit OR evaluation
      */
     @Override
     public boolean evaluate(Constituent constituent) {
         for (Input rule : conditions) {
-            if (rule.evaluate(constituent) == false)
-                return false;
+            if (rule.evaluate(constituent) == true)
+                return true;
         }
-        return true;
+        return false;
     }
+
 
     @Override
     public void setRoot(Rule root) {
@@ -32,5 +33,4 @@ public class And extends Input {
             rule.setRoot(root);
         }
     }
-
 }

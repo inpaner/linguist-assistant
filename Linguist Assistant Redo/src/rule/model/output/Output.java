@@ -1,6 +1,6 @@
-package rule.output;
+package rule.model.output;
 
-import rule.Rule;
+import rule.model.Rule;
 
 public abstract class Output {
     protected Rule root;

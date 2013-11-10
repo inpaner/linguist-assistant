@@ -1,4 +1,4 @@
-package rule.input;
+package rule.model.input;
 
 import grammar.model.Feature;
 

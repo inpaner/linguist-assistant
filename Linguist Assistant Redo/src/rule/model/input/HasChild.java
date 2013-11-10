@@ -1,6 +1,6 @@
-package rule.input;
+package rule.model.input;
 
-import rule.Rule;
+import rule.model.Rule;
 import semantics.model.Constituent;
 
 public class HasChild extends Input {

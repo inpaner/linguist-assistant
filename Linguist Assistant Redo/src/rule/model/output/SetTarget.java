@@ -1,4 +1,4 @@
-package rule.output;
+package rule.model.output;
 
 import java.util.List;
 
