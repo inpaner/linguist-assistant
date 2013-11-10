@@ -10,6 +10,7 @@ public class Target {
     
     public Target() {
         prefix = "";
+        translation = "";
         suffix = "";
     }
     

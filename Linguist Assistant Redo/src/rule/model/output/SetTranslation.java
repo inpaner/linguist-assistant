@@ -43,6 +43,11 @@ public class SetTranslation extends Output {
             return;
         }
         
+        /*
+         *  Gets the first mapping only, as program doesn't
+         *  handle multiple mappings yet.
+         */
+        
         Entry firstMapping = mappings.get(0);
         System.out.println(firstMapping);
         Target target = constituent.getTarget();
