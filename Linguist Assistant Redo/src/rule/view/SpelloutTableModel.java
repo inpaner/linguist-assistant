@@ -61,7 +61,6 @@ public class SpelloutTableModel extends AbstractTableModel {
     
     public void addRow() {
         List<String> newRow = new ArrayList<>();
-        
         for (int i = 0; i < cols.size(); i++) {
             newRow.add("");
         }
@@ -70,6 +69,8 @@ public class SpelloutTableModel extends AbstractTableModel {
     }
     
     public void addColumn() {
-        
+        for (List<String> row : values) {
+            row.add("");
+        }
     }
 }

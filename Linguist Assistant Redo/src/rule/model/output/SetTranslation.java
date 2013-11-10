@@ -16,7 +16,8 @@ public class SetTranslation extends Output {
         setKey(key);
         setLanguage(language);
     }
-    
+        
+
     public void setKey(String key) {
         this.key = key;
     }
@@ -49,7 +50,6 @@ public class SetTranslation extends Output {
          */
         
         Entry firstMapping = mappings.get(0);
-        System.out.println(firstMapping);
         Target target = constituent.getTarget();
         target.setEntry(firstMapping);
     }

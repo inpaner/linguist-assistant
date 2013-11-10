@@ -56,6 +56,7 @@ public class Rule {
     
     public boolean evaluate(Constituent constituent) {
         constituents = new HashMap<>();
+        constituents.put("root", constituent);
         input.setRoot(this); // questionable
         return input.evaluate(constituent);
     }

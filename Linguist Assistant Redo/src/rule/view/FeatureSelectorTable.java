@@ -91,7 +91,6 @@ public class FeatureSelectorTable extends JPanel {
         return result;
     }
     
-    
     public void setSelected(List<Feature> features) {
         for (Feature basis : features) {
             FeatureCheckbox checkbox = checkboxMap.get(basis);

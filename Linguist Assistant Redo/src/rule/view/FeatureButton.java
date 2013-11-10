@@ -29,20 +29,12 @@ public class FeatureButton extends JButton
     protected int row;
     protected boolean mousePressed = false;
     private List<List<Feature>> featuresList;
-    private String tag;
+    
     public FeatureButton(ActionListener listener) {
         title = "";
         rendererComponent = this;  
         rendererComponent.addActionListener(listener);  
     }  
-    
-    public FeatureButton(ActionListener listener, String tag) {
-        title = "";
-        rendererComponent = this;  
-        rendererComponent.addActionListener(listener);
-        this.tag = tag;
-    }  
-
     
     public Component getTableCellRendererComponent(  
             JTable table, Object value,  

@@ -23,8 +23,36 @@ public class Target {
         translation = entry.getStem();
     }
     
+    public Entry getEntry() {
+        return entry;
+    }
+
+    public String getPrefix() {
+        return prefix;
+    }
+
+    public String getSuffix() {
+        return suffix;
+    }
+
+    public String getTranslation() {
+        return translation;
+    }
+
+    public void setPrefix(String prefix) {
+        this.prefix = prefix;
+    }
+
+    public void setSuffix(String suffix) {
+        this.suffix = suffix;
+    }
+
+    public void setTranslation(String translation) {
+        this.translation = translation;
+    }
+
     public String toString() {
         if (entry == null) return "";
-        return prefix + translation + suffix;
+        return getPrefix() + getTranslation() + getSuffix();
     }
 }
