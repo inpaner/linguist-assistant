@@ -1,6 +1,7 @@
 package rule.view;
 
 import java.awt.Component;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -17,15 +18,15 @@ import javax.swing.table.TableColumnModel;
  * http://www.coderanch.com/t/343795/GUI/java/Check-Box-JTable-header
  */
 @SuppressWarnings("serial")
-class ButtonHeader extends JButton  
+public class FeatureButton extends JButton  
         implements TableCellRenderer, MouseListener {  
-    protected ButtonHeader rendererComponent;  
+    protected FeatureButton rendererComponent;  
     protected int column;  
     protected boolean mousePressed = false;  
 
-    public ButtonHeader(ItemListener itemListener) {  
+    public FeatureButton(ActionListener listener) {  
         rendererComponent = this;  
-        rendererComponent.addItemListener(itemListener);  
+        rendererComponent.addActionListener(listener);  
     }  
 
     public Component getTableCellRendererComponent(  
@@ -42,7 +43,6 @@ class ButtonHeader extends JButton
         }  
         setColumn(column); 
         rendererComponent.setText("Check All");  
-        setBorder(UIManager.getBorder("TableHeader.cellBorder"));  
         return rendererComponent;  
     }  
 
@@ -65,6 +65,7 @@ class ButtonHeader extends JButton
 
             if (viewColumn == this.column && e.getClickCount() == 1 && column != -1) {  
                 doClick();  
+                System.out.println("clicky");
             }  
         }  
     }  

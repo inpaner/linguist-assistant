@@ -1,8 +1,5 @@
 package rule.view;
 
-import java.awt.Component;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,9 +8,6 @@ import java.util.Map;
 import grammar.model.Category;
 import grammar.model.Feature;
 
-import javax.swing.DefaultCellEditor;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -22,9 +16,6 @@ import javax.swing.JSeparator;
 import commons.main.MainFrame;
 import net.miginfocom.swing.MigLayout;
 
-/*
- * http://www.coderanch.com/t/343795/GUI/java/Check-Box-JTable-header
- */
 public class FeatureSelectorTable extends JPanel {
     private List<Feature> features;
     private List<List<FeatureCheckbox>> checkboxesList = new ArrayList<>();
