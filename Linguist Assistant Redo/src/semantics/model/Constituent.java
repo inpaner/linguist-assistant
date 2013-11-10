@@ -8,6 +8,7 @@ import java.util.List;
 
 import ontology.model.Concept;
 import rule.model.Rule;
+import rule.model.RuleSet;
 
 
 
@@ -101,7 +102,7 @@ public class Constituent {
         for (Feature feature : category.getFeatures()) {
             boolean found = false;
             for (Feature ownFeature : features) {
-                if (ownFeature.equals(feature)) {
+                if (ownFeature.equivalent(feature)) {
                     result.add(ownFeature);
                     found = true;
                     break;
@@ -180,24 +181,25 @@ public class Constituent {
         this.concept = concept;
     }
     
-    public void evaluate(Rule rule) {
-        rules = new ArrayList<>();
+    public boolean evaluate(Rule rule) {
+        boolean result = false;
         for (Constituent child : children) {
             child.evaluate(rule.createPassedRule());
         }
         
         if (rule.evaluate(this)) {
             rules.add(rule);
-            System.out.println("Rule Added");
+            result = true;
         }
+        
+        return result;
     }
+    
     
     public void applyRules() {
         for (Constituent child : children) {
             child.applyRules();
         }
-        
-        
         for (Rule rule : rules) {
             rule.apply();
         }

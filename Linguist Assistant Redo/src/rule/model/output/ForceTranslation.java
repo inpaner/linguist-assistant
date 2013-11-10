@@ -29,13 +29,9 @@ public class ForceTranslation extends Output {
 
     @Override
     public void apply() {
-        Constituent constituent = root.getStored(key);
-        Concept concept = constituent.getConcept();
-        
-        if (concept == null) 
-            return;
-        
+        Constituent constituent = root.getStored(key);        
         Target target = constituent.getTarget();
+        System.out.println(translation);
         target.setTranslation(translation);
     }
 

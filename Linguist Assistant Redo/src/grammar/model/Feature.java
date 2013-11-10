@@ -149,10 +149,11 @@ public class Feature {
                 && value.equals(otherF.value)
                 && parent.getName().equals(otherF.parent.getName())) {
             
+            
             if (language != null && language.equals(otherF.language)) {
                 result = true;
             }
-            else {
+            else if (language == null) {
                 result = true;
             }
         }
@@ -168,7 +169,7 @@ public class Feature {
             if (language != null && language.equals(other.language)) {
                 result = true;
             }
-            else {
+            else if (language == null) {
                 result = true;
             }
         }

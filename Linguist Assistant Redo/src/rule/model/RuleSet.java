@@ -16,12 +16,15 @@ public class RuleSet {
         boolean result = false;
         
         for (Rule rule : rules) {
-            if (rule.evaluate(constituent)) {
+            if (constituent.evaluate(rule)) {
                 result = true;
-                break;
             }
         }
         
         return result;
+    }
+    
+    public List<Rule> getRules() {
+        return rules;
     }
 }

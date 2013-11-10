@@ -8,7 +8,9 @@ import javax.swing.JOptionPane;
 import ontology.controller.ConceptSelector;
 import ontology.model.Concept;
 import lexicon.model.Language;
+import rule.RuleMaker;
 import rule.model.Rule;
+import rule.model.RuleSet;
 import rule.model.input.And;
 import rule.model.input.HasCategory;
 import rule.model.input.HasChild;
@@ -26,6 +28,7 @@ import commons.main.MainFrame;
 public class SemanticEditor {
     private SemanticEditorPanel display;
     private List<Rule> rules = new ArrayList<>();
+    private RuleSet ruleset;
     
     public static void main(String[] args) {
         new SemanticEditor();
@@ -127,6 +130,7 @@ public class SemanticEditor {
         @Override
         public void featureValueChanged(Constituent constituent, Feature feature, String newValue) {
             constituent.updateFeature(feature, newValue);
+            System.out.println("here");
             display.refresh();
         }
     }
@@ -141,6 +145,7 @@ public class SemanticEditor {
     private class UiListener implements SemanticEditorPanel.Listener {
         @Override
         public void generate(Constituent constituent) {
+            /*
             for (Rule rule : rules) {
                 System.out.println("Evaluating rules");
                 constituent.evaluate(rule);
@@ -152,6 +157,11 @@ public class SemanticEditor {
                 display.refresh();
                
             }
+            */
+            ruleset.evaluate(constituent);
+            constituent.applyRules();
+            display.refresh();
+            
         }
         public void displayTranslation(Constituent c)
         {
@@ -178,6 +188,11 @@ public class SemanticEditor {
                 constituent.setConcept(concept);
                 display.refresh();
             }
+        }
+        @Override
+        public void getRule() {
+            Category noun = Category.getByName("Noun");
+            ruleset = RuleMaker.getRuleSet(noun);
         }
     }
 

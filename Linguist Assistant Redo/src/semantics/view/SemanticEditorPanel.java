@@ -44,18 +44,11 @@ public class SemanticEditorPanel extends JPanel {
 	private JTextArea txtTranslation;
     
 	private XMLParser parser;
-    public static void main(String[] args) {
-        MainFrame frame = new MainFrame();
-      
-        SemanticEditorPanel panel = new SemanticEditorPanel();
-        Category con = Category.getByName("Noun");
-        //panel.updateConstituent(con);
-        frame.setPanel(panel);
-    }
     
     public interface Listener {
         void generate(Constituent constituent);
         void setConcept(Constituent constituent);
+        void getRule();
     }
     
     public SemanticEditorPanel() {
@@ -69,17 +62,7 @@ public class SemanticEditorPanel extends JPanel {
      	applyRules();
 		txtTranslation.repaint();
     }
-/*	
-    private void getTranslation(Category c) {
-    	if (c.hasChildren()) {
-    		 for(Category k: c.getChildren()) {
-    			 getTranslation(k);
-    		 }
-    	}
-    	else if (c.getTranslation() != null)
-    		txtTranslation.append(c.getTranslation().toString() + " ");
-    }
-    */
+
     private void writeXML(String filename) {
         if(root != null)
            parser.writeXML(filename,root);
@@ -101,7 +84,8 @@ public class SemanticEditorPanel extends JPanel {
         blocksPanel = new BlocksPanel();
         blocksPanel.addBlockListener(new ImpBlockListener());
         featureValuesPanel = new FeatureValuesPanel();
-     
+        
+        
         buttonPanel = new ButtonPanel();
         btnLoad=new JButton("Load XML");
         
@@ -136,11 +120,13 @@ public class SemanticEditorPanel extends JPanel {
     		     frame.setPanel(panel);
         	}
         });
-        btnLexicon=new JButton("View Lexicon");
+        btnLexicon=new JButton("Create Rule");
         btnLexicon.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent arg0) {
-       		
-       	       
+        	    for (Listener listener : listeners) {
+        	        listener.getRule();
+        	    }
+       	           
        	}
        });
         selectConstituent = new JButton("Select Constituent");

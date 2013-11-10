@@ -21,6 +21,7 @@ import rule.FeatureSelector;
 import rule.model.Rule;
 import rule.model.RuleSet;
 import rule.model.input.And;
+import rule.model.input.HasCategory;
 import rule.model.input.HasFeature;
 import rule.model.input.Input;
 import rule.model.input.Or;
@@ -36,13 +37,6 @@ public class SpelloutTableUi extends JPanel {
     private FeatureButton cornerButton;
     private SpelloutTableModel model;
     RuleButtonListener buttonListener;
-    
-    public static void main(String[] args) {
-        MainFrame frame = new MainFrame();
-        Category category = Category.getByName("Noun");
-        SpelloutTableUi ui = new SpelloutTableUi(category);
-        frame.setPanel(ui);
-    }
     
     public SpelloutTableUi(Category category) {
         this.category = category;
@@ -91,21 +85,28 @@ public class SpelloutTableUi extends JPanel {
     public RuleSet getRules() {
         RuleSet result = new RuleSet();
         Input cornerInputs = null;
+        HasCategory hasCategory = new HasCategory(category);
         
-        if (!cornerButton.getFeaturesList().isEmpty()) {
+        if (cornerButton.getFeaturesList() != null) {
             cornerInputs = getInput(cornerButton.getFeaturesList());
         }
         
-        for (FeatureButton row : rowButtons) {
+        //for (FeatureButton row : rowButtons) {
+        for (int i = 0; i < rowButtons.size(); i++) {
+            FeatureButton row  = rowButtons.get(i);
             Input rowInputs = getInput(row.getFeaturesList());
-            for (FeatureButton col : colButtons) {
+            
+            //for (FeatureButton col : colButtons) {
+            for (int j = 0; j < colButtons.size(); j++) {
+                FeatureButton col = colButtons.get(j);
                 Input colInputs = getInput(col.getFeaturesList());
                 
-                int rowIndex = row.getRow();
-                int colIndex = col.getColumn();
-                String translation = (String) model.getValueAt(rowIndex, colIndex);
+                int rowIndex = i;
+                int colIndex = j;
+                String translation = (String) model.getValueAt(rowIndex, colIndex + 1);
                 
                 And input = new And();
+                input.addRule(hasCategory);
                 input.addRule(rowInputs);
                 input.addRule(colInputs);
                 if (cornerInputs != null) {
@@ -114,6 +115,7 @@ public class SpelloutTableUi extends JPanel {
                 
                 ForceTranslation output = new ForceTranslation();
                 output.setKey("root");
+                System.out.println(translation);
                 output.setTranslation(translation);
                 
                 Rule rule = new Rule();

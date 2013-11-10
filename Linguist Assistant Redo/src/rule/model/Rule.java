@@ -35,6 +35,7 @@ public class Rule {
     
     public Rule createPassedRule() {
         Rule result = createLocalRule();
+        result.constituents = new HashMap<>();
         return result;
     }
     

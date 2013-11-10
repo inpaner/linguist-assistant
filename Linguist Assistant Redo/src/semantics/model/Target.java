@@ -52,7 +52,6 @@ public class Target {
     }
 
     public String toString() {
-        if (entry == null) return "";
         return getPrefix() + getTranslation() + getSuffix();
     }
 }
