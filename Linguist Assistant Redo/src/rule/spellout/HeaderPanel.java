@@ -23,7 +23,7 @@ import javax.swing.border.TitledBorder;
 import commons.main.MainFrame;
 import net.miginfocom.swing.MigLayout;
 
-public class SpelloutHeader extends JPanel {
+public class HeaderPanel extends JPanel {
     private Category category;
     private List<Listener> listeners = new ArrayList<>();
     private JTextField ruleName;
@@ -33,7 +33,7 @@ public class SpelloutHeader extends JPanel {
         void typeChanged(SpelloutType spelloutType);
     }
     
-    public SpelloutHeader(Category category) {
+    public HeaderPanel(Category category) {
         this.category = category;
         
         /*
