@@ -22,7 +22,8 @@ import lexicon.model.Form;
 
 public class BaseFormPanel extends JPanel {
     public List<Listener> listeners = new ArrayList<>();
-    private JComboBox<Form> forms;    
+    private JComboBox<Form> forms;
+    private JTextArea featuresArea;    
     
     public interface Listener {
         void selectedFeatures();
@@ -50,7 +51,7 @@ public class BaseFormPanel extends JPanel {
         forms = new JComboBox<>(formsVector);
         
         JButton features = new JButton("Features");
-        JTextArea featuresArea = new JTextArea(3, 20);
+        featuresArea = new JTextArea(3, 20);
         featuresArea.setEditable(false);
         JScrollPane featuresScroll = new JScrollPane(featuresArea);
         
@@ -67,8 +68,27 @@ public class BaseFormPanel extends JPanel {
         return forms.getItemAt(forms.getSelectedIndex());
     }
     
-    public void setFeatures(List<Feature> features) {
-        
+    public void setFeatures(List<List<Feature>> featuresList) {
+        featuresArea.setText("");
+        for (List<Feature> features: featuresList) {
+            String name = "";
+            String values ="";
+            int index = 0;
+            for (Feature feature : features) {
+                name = feature.getName();
+                if (index != 0) {
+                    values = values + " or ";
+                }
+                values = values + feature.getValue();
+                index++;
+            }
+            String line = name + " = " + values  + "\n";
+            featuresArea.append(line);
+        }
+    }
+    
+    public void addListener(Listener listener) {
+        listeners.add(listener);
     }
     
     private class FeaturesListener implements ActionListener {

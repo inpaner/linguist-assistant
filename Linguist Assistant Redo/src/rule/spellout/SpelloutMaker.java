@@ -37,7 +37,6 @@ public class SpelloutMaker {
         @Override
         public void cancel() {
             // TODO Auto-generated method stub
-            
         }
         
     }
