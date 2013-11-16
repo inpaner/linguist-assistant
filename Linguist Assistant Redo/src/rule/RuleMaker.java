@@ -2,7 +2,7 @@ package rule;
 
 import grammar.model.Category;
 import rule.model.RuleSet;
-import rule.view.RuleMakerDialog;
+import rule.spellout.RuleMakerDialog;
 
 public class RuleMaker {
     private RuleSet result;

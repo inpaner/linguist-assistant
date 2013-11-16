@@ -1,10 +1,12 @@
-package rule.view;
+package rule.spellout;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.table.AbstractTableModel;
+
+import rule.generic.FeatureButton;
 
 public class SpelloutTableModel extends AbstractTableModel {
     private List<FeatureButton> rows;

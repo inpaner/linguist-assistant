@@ -1,4 +1,4 @@
-package rule.view;
+package rule.generic;
 
 import java.util.ArrayList;
 import java.util.HashMap;

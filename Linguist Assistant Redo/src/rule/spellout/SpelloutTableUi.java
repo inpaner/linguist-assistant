@@ -1,4 +1,4 @@
-package rule.view;
+package rule.spellout;
 
 import grammar.model.Category;
 import grammar.model.Feature;
@@ -18,6 +18,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.TableColumn;
 
 import rule.FeatureSelector;
+import rule.generic.FeatureButton;
 import rule.model.Rule;
 import rule.model.RuleSet;
 import rule.model.input.And;

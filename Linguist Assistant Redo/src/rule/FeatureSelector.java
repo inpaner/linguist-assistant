@@ -3,7 +3,7 @@ package rule;
 import java.util.ArrayList;
 import java.util.List;
 
-import rule.view.FeatureSelectorDialog;
+import rule.generic.FeatureSelectorDialog;
 import grammar.model.Category;
 import grammar.model.Feature;
 

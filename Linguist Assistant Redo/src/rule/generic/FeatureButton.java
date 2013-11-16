@@ -1,4 +1,4 @@
-package rule.view;
+package rule.generic;
 
 import grammar.model.Feature;
 
