@@ -8,7 +8,6 @@ import javax.swing.JOptionPane;
 import ontology.controller.ConceptSelector;
 import ontology.model.Concept;
 import lexicon.model.Language;
-import rule.RuleMaker;
 import rule.model.Rule;
 import rule.model.RuleSet;
 import rule.model.input.And;
@@ -16,6 +15,7 @@ import rule.model.input.HasCategory;
 import rule.model.input.HasChild;
 import rule.model.input.HasConcept;
 import rule.model.output.SetTranslation;
+import rule.spellout.SpelloutMaker;
 import semantics.model.Constituent;
 import semantics.view.BlockListener;
 import semantics.view.SemanticEditorPanel;
@@ -192,7 +192,7 @@ public class SemanticEditor {
         @Override
         public void getRule() {
             Category noun = Category.getByName("Noun");
-            ruleset = RuleMaker.getRuleSet(noun);
+            ruleset = SpelloutMaker.getRuleSet(noun);
         }
     }
 

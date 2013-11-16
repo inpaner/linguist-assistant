@@ -1,4 +1,4 @@
-package rule.spellout;
+package rule.spellout.view;
 
 import grammar.model.Category;
 import grammar.model.Feature;
@@ -17,7 +17,7 @@ import net.miginfocom.swing.MigLayout;
 import rule.generic.FeatureSelectorDialog.Listener;
 import rule.model.RuleSet;
 
-public class RuleMakerDialog extends JDialog {
+public class SpelloutDialog extends JDialog {
     private SpelloutTableUi table;
     private JButton ok;
     private JButton cancel;
@@ -28,7 +28,7 @@ public class RuleMakerDialog extends JDialog {
         public void cancel();
     }
     
-    public RuleMakerDialog(Listener listener, Category category) {
+    public SpelloutDialog(Listener listener, Category category) {
         listeners.add(listener);
         setModalityType(ModalityType.TOOLKIT_MODAL);
         setSize(600, 400);

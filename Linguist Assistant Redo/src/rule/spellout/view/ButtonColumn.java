@@ -1,4 +1,4 @@
-package rule.spellout;
+package rule.spellout.view;
 
 import java.awt.*;
 import java.awt.event.*;

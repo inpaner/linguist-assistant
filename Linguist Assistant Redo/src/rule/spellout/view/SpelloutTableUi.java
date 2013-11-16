@@ -1,4 +1,4 @@
-package rule.spellout;
+package rule.spellout.view;
 
 import grammar.model.Category;
 import grammar.model.Feature;

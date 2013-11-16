@@ -1,4 +1,4 @@
-package rule.spellout;
+package rule.spellout.view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,6 +20,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
+import rule.spellout.SpelloutType;
 import commons.main.MainFrame;
 import net.miginfocom.swing.MigLayout;
 

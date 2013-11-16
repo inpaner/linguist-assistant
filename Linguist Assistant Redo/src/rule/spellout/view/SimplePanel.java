@@ -1,9 +1,10 @@
-package rule.spellout;
+package rule.spellout.view;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import rule.spellout.ModType;
 import net.miginfocom.swing.MigLayout;
 
 public class SimplePanel extends JPanel {

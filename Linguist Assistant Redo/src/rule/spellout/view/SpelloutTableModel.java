@@ -1,4 +1,4 @@
-package rule.spellout;
+package rule.spellout.view;
 
 import java.util.ArrayList;
 import java.util.List;
