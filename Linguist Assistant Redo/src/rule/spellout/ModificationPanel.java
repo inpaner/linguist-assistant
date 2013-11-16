@@ -1,5 +1,7 @@
 package rule.spellout;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,8 +18,6 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.border.TitledBorder;
 
-import rule.spellout.HeaderPanel.Listener;
-import commons.main.MainFrame;
 import net.miginfocom.swing.MigLayout;
 
 public class ModificationPanel extends JPanel {
@@ -26,7 +26,7 @@ public class ModificationPanel extends JPanel {
     
     public interface Listener {
         void selectedStructures();
-        void selectedMod(ModType type);
+        void selectedMod(ModType type, Boolean reduplication);
         void selectedTrigger();
     }
     
@@ -52,7 +52,8 @@ public class ModificationPanel extends JPanel {
         modGroup.add(newTranslationRadio);
         modGroup.add(addWordRadio);
         
-        Box radioBox = new Box(BoxLayout.X_AXIS);
+        JPanel radioBox = new JPanel();
+        radioBox.setLayout(new MigLayout("wrap 2, flowy"));
         TitledBorder border = BorderFactory.createTitledBorder("Type of Modification");
         border.setTitleJustification(TitledBorder.LEFT);
         border.setTitlePosition(TitledBorder.TOP);
@@ -90,6 +91,16 @@ public class ModificationPanel extends JPanel {
         private ModRadio(String title, ModType mod) {
             super(title);
             this.mod = mod;
+        }
+    }
+    
+    private class RadioListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            ModRadio radio = (ModRadio) e.getSource();
+            for (Listener listener : listeners) {
+                listener.selectedMod(radio.mod, false);
+            }
         }
     }
 }
