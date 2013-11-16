@@ -44,6 +44,10 @@ public class Rule {
         globalSwitch = !globalSwitch;
     }
     
+    public void setGlobalSwitch(boolean on) {
+        globalSwitch = on;
+    }
+    
     public void toggleSemanticSwitch() {
         semanticSwitch.isOn = !semanticSwitch.isOn;
     }

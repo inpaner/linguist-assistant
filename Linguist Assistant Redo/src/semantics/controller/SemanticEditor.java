@@ -191,9 +191,10 @@ public class SemanticEditor {
         }
         @Override
         public void getRule() {
-            Category noun = Category.getByName("Noun");
-            ruleset = SpelloutMaker.getRuleSet(noun);
+            // TODO Auto-generated method stub
+            
         }
+
     }
 
 }

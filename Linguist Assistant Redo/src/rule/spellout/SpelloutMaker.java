@@ -1,19 +1,20 @@
 package rule.spellout;
 
 import grammar.model.Category;
+import rule.model.Rule;
 import rule.model.RuleSet;
 import rule.spellout.view.SpelloutDialog;
 
 public class SpelloutMaker {
-    private RuleSet result;
+    private Rule result;
     
     public static void main(String[] args) {
         Category noun = Category.getByName("Noun");
-        RuleSet set = SpelloutMaker.getRuleSet(noun);
-        System.out.println(set.getRules().size());
+        Rule set = SpelloutMaker.getRules(noun);
+        
     }
     
-    public static RuleSet getRuleSet(Category category) {
+    public static Rule getRules(Category category) {
         SpelloutMaker maker = new SpelloutMaker(category);
         return maker.getResult();
         
@@ -23,7 +24,7 @@ public class SpelloutMaker {
         new SpelloutDialog(new Listener(), category);
     }
     
-    private RuleSet getResult() {
+    private Rule getResult() {
         return result;
     }
     
