@@ -18,6 +18,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.TableColumn;
 
 import rule.FeatureSelector;
+import rule.RuleUtils;
 import rule.generic.FeatureButton;
 import rule.model.Rule;
 import rule.model.RuleSet;
@@ -89,18 +90,18 @@ public class SpelloutTableUi extends JPanel {
         HasCategory hasCategory = new HasCategory(category);
         
         if (cornerButton.getFeaturesList() != null) {
-            cornerInputs = getInput(cornerButton.getFeaturesList());
+            cornerInputs = RuleUtils.getInput(cornerButton.getFeaturesList());
         }
         
         //for (FeatureButton row : rowButtons) {
         for (int i = 0; i < rowButtons.size(); i++) {
             FeatureButton row  = rowButtons.get(i);
-            Input rowInputs = getInput(row.getFeaturesList());
+            Input rowInputs = RuleUtils.getInput(row.getFeaturesList());
             
             //for (FeatureButton col : colButtons) {
             for (int j = 0; j < colButtons.size(); j++) {
                 FeatureButton col = colButtons.get(j);
-                Input colInputs = getInput(col.getFeaturesList());
+                Input colInputs = RuleUtils.getInput(col.getFeaturesList());
                 
                 int rowIndex = i;
                 int colIndex = j;
@@ -130,20 +131,6 @@ public class SpelloutTableUi extends JPanel {
         return result;
     }
     
-    private Input getInput(List<List<Feature>> featuresList) {
-        And result = new And();
-        
-        for (List<Feature> features : featuresList) {
-            Or or = new Or();
-            for (Feature feature : features) {
-                HasFeature hasFeature = new HasFeature(feature);
-                or.addRule(hasFeature);
-            }
-            result.addRule(or);
-        }
-        
-        return result;
-    }
     
     private class RuleButtonListener implements ActionListener {
         @Override

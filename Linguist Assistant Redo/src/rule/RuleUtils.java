@@ -11,6 +11,9 @@ import rule.model.input.Or;
 
 public class RuleUtils {
     public static Input getInput(List<List<Feature>> featuresList) {
+        if (featuresList == null || featuresList.isEmpty())
+            return null;
+        
         And result = new And();
         
         for (List<Feature> features : featuresList) {
