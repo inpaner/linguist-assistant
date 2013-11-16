@@ -15,8 +15,9 @@ public class Rule {
     private Language language;
     private Input input;
     private List<Output> outputs = new ArrayList<>();
+    private boolean globalSwitch = true;;
     private Switch semanticSwitch;
-    private boolean localSwitch;
+    private boolean localSwitch = true;
     
     public Rule() {
         semanticSwitch = new Switch();
@@ -39,12 +40,20 @@ public class Rule {
         return result;
     }
     
+    public void toggleGlobalSwitch() {
+        globalSwitch = !globalSwitch;
+    }
+    
     public void toggleSemanticSwitch() {
         semanticSwitch.isOn = !semanticSwitch.isOn;
     }
     
     public void toggleLocalSwitch() {
         localSwitch = !localSwitch;
+    }
+    
+    public boolean getGlobalSwitch() {
+        return globalSwitch;
     }
     
     public boolean getSemanticSwitch() {
