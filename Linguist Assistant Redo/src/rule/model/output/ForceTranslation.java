@@ -8,7 +8,7 @@ import semantics.model.Constituent;
 import semantics.model.Target;
 
 public class ForceTranslation extends Output {
-    private String key;
+    private String key = "root";
     private String translation;
     
     public void setKey(String key) {
@@ -31,7 +31,6 @@ public class ForceTranslation extends Output {
     public void apply() {
         Constituent constituent = root.getStored(key);        
         Target target = constituent.getTarget();
-        System.out.println(translation);
         target.setTranslation(translation);
     }
 

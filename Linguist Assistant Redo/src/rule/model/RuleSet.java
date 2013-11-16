@@ -5,7 +5,7 @@ import java.util.List;
 
 import semantics.model.Constituent;
 
-public class RuleSet {
+public class RuleSet extends Rule {
     private List<Rule> rules = new ArrayList<>();
     
     public void addRule(Rule rule) {
