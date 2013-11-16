@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import rule.spellout.ModType;
+import semantics.model.Affix;
 import net.miginfocom.swing.MigLayout;
 
 public class SimpleUi extends JPanel {
@@ -56,7 +57,7 @@ public class SimpleUi extends JPanel {
         affixLabel.setText(type.toString());
     }
     
-    public String getAffix() {
+    public String getAffixText() {
         return affix.getText();
     }
     

@@ -6,12 +6,17 @@ import java.util.List;
 import javax.swing.JPanel;
 
 import commons.main.MainFrame;
-
 import grammar.model.Category;
 import grammar.model.Feature;
 import rule.FeatureSelector;
+import rule.RuleUtils;
 import rule.model.Rule;
+import rule.model.input.And;
+import rule.model.input.Input;
+import rule.model.output.Output;
+import rule.model.output.SetAffix;
 import rule.spellout.view.SimpleUi;
+import semantics.model.Affix;
 
 public class Simple implements Spellout {
     public static void main(String[] args) {
@@ -35,11 +40,50 @@ public class Simple implements Spellout {
     
     @Override
     public Rule getRule() {
-        // TODO Auto-generated method stub
-        return null;
+        Input featuresInput = RuleUtils.getInput(featuresList);
+        
+        Output modOutput = null;
+        switch(modType) {
+            case ADD_WORD:
+                break;
+            
+            case CIRUMFIX:
+                break;
+            
+            case INFIX:
+                break;
+            
+            case NEW_TRANSLATION:
+                break;
+            
+            case PREFIX:
+            case SUFFIX:
+                Affix affix = Affix.get(modType.toString());
+                modOutput = new SetAffix(affix, view.getAffixText());
+                
+                break;
+            
+            default:
+                break;    
+        }
+        
+        Rule result = new Rule();
+        And rootInput = new And();
+        
+        // Trigger Word
+        
+        // Forms
+        
+        // Features
+        if (featuresInput != null) {
+            rootInput.addRule(featuresInput);
+        }
+        
+        result.setInput(rootInput);
+        result.addOutput(modOutput);
+        return result;
     }
-
-
+    
     @Override
     public void loadRule(Rule rule) {
         // TODO Auto-generated method stub
@@ -57,10 +101,11 @@ public class Simple implements Spellout {
         @Override
         public void selectedMod(ModType type, Boolean reduplication) {
             Simple.this.modType = type;
+            view.setModType(type);
         }
 
         @Override
-        public void selectedTrigger() {
+        public void selectedWord() {
             // TODO Auto-generated method stub
             
         }

@@ -3,10 +3,12 @@ package rule.spellout.view;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 
 import grammar.model.Category;
 
+import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -28,7 +30,7 @@ public class ModificationPanel extends JPanel {
     public interface Listener {
         void selectedStructures();
         void selectedMod(ModType type, Boolean reduplication);
-        void selectedTrigger();
+        void selectedWord();
     }
     
     public ModificationPanel() {
@@ -52,6 +54,14 @@ public class ModificationPanel extends JPanel {
         modGroup.add(circumfixRadio);
         modGroup.add(newTranslationRadio);
         modGroup.add(addWordRadio);
+        prefixRadio.setSelected(true);
+        
+        if (true) {
+            infixRadio.setEnabled(false);
+            circumfixRadio.setEnabled(false);
+            newTranslationRadio.setEnabled(false);
+            addWordRadio.setEnabled(false);
+        }
         
         JPanel radioBox = new JPanel();
         radioBox.setLayout(new MigLayout("wrap 2, flowy"));
@@ -70,6 +80,13 @@ public class ModificationPanel extends JPanel {
         JButton triggerWord = new JButton("Triggers");
         JLabel dummy = new JLabel("WORDS HERE");
         JCheckBox triggerExcluded = new JCheckBox("Excluded");
+        
+        RadioListener radioListener = new RadioListener();
+        for (Enumeration<AbstractButton> buttons = modGroup.getElements(); buttons.hasMoreElements();) {
+            AbstractButton button = buttons.nextElement();
+            button.addActionListener(radioListener);
+        }
+        
         
         setLayout(new MigLayout("wrap 2"));
         add(structures);
