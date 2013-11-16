@@ -63,7 +63,6 @@ public class Form {
         FormDAO dao = new FormDAO(factory);
         
         return null;
-        
     }
 	
 	void setPk(int aPk) {
@@ -88,5 +87,12 @@ public class Form {
 		return pk;
 	}
 	
-	
+	@Override
+	public String toString() {
+	    String result = name;
+	    if (value != null && !value.isEmpty()) {
+	        result = " - " + value;
+	    }
+	    return result;
+	}
 }
