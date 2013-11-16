@@ -27,31 +27,53 @@ public class Target {
         return entry;
     }
 
-    public String getPrefix() {
-        return prefix;
-    }
-
-    public String getSuffix() {
-        return suffix;
-    }
-
     public String getTranslation() {
         return translation;
     }
-
-    public void setPrefix(String prefix) {
-        this.prefix = prefix;
+    
+    public void setAffix(Affix affix, String value) {
+        switch (affix) {
+            case CIRUMFIX:
+                break;
+            case INFIX:
+                break;
+            case PREFIX:
+                prefix = value;
+                break;
+            case SUFFIX:
+                suffix = value;
+                break;
+            default:
+                break;
+        }
     }
-
-    public void setSuffix(String suffix) {
-        this.suffix = suffix;
+    
+    public String getAffix(Affix affix) {
+        String result = "";
+        
+        switch (affix) {
+            case CIRUMFIX:
+                break;
+            case INFIX:
+                break;
+            case PREFIX:
+                result = prefix;
+                break;
+            case SUFFIX:
+                result = suffix;
+                break;
+            default:
+                ;
+        }
+        
+        return result;
     }
-
+    
     public void setTranslation(String translation) {
         this.translation = translation;
     }
 
     public String toString() {
-        return getPrefix() + getTranslation() + getSuffix();
+        return prefix + getTranslation() + suffix;
     }
 }
