@@ -16,9 +16,10 @@ import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
 import rule.generic.FeatureSelectorDialog.Listener;
 import rule.model.RuleSet;
+import rule.spellout.Table;
 
 public class SpelloutDialog extends JDialog {
-    private SpelloutTableUi table;
+    private Table table;
     private JButton ok;
     private JButton cancel;
     private List<Listener> listeners = new ArrayList<>();
@@ -31,11 +32,11 @@ public class SpelloutDialog extends JDialog {
     public SpelloutDialog(Listener listener, Category category) {
         listeners.add(listener);
         setModalityType(ModalityType.TOOLKIT_MODAL);
-        setSize(600, 400);
+        setSize(600, 600);
         setLocationRelativeTo(null);
         setLayout(new MigLayout());
         
-        table = new SpelloutTableUi(category);
+        table = new Table(category);
         ok = new JButton("Ok");
         cancel = new JButton("Cancel");
         ok.addActionListener(new OkListener());

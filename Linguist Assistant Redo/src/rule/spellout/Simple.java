@@ -119,4 +119,9 @@ public class Simple implements Spellout {
         
     }
 
+    @Override
+    public JPanel getView() {
+        return view;
+    }
+
 }
