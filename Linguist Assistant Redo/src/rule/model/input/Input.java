@@ -24,5 +24,4 @@ public abstract class Input {
     public void setRoot(Rule root) {
         this.root = root;
     }
-    
 }
