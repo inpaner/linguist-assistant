@@ -46,7 +46,7 @@ public class FeatureValuesPanel extends JPanel {
     public void setConstituent(Constituent constituent) {
         this.constituent = constituent;
         editors = new ArrayList<>();
-        features = constituent.getFeatures();
+        features = constituent.getAllFeatures();
         for (Feature feature : features) {
         	FeatureCombobox comboBox = new FeatureCombobox(feature);
             comboBox.addListener(comboListener);

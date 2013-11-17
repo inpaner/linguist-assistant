@@ -22,7 +22,7 @@ public class HasFeature extends Input {
     public boolean evaluate(Constituent constituent) {
         boolean result = true;        
         
-        if (!constituent.getFeatures().contains(feature)) {
+        if (!constituent.getAllFeatures().contains(feature)) {
             result = false;    
         }
         
