@@ -8,6 +8,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
+import java.util.EventListener;
 import java.util.Iterator;
 import java.util.Vector;
 
@@ -40,7 +41,6 @@ import commons.main.MainFrame;
 public class NewRuleTree extends JPanel {
     private JTree fileTree;
     private FileSystemModel fileSystemModel;
-    private JTextArea fileDetailsTextArea = new JTextArea();
     private File selected;
     private JTextField field;
 
@@ -51,17 +51,16 @@ public class NewRuleTree extends JPanel {
     }
 
     public NewRuleTree() {
-        String directory = "rules";
-        fileDetailsTextArea.setEditable(false);
+        String directory = "rule";
         fileSystemModel = new FileSystemModel(new File(directory));
         fileTree = new JTree(fileSystemModel);
         fileTree.addTreeSelectionListener(new TreeSelectionListener() {
             public void valueChanged(TreeSelectionEvent event) {
-              File file = (File) fileTree.getLastSelectedPathComponent();
-              fileDetailsTextArea.setText(getFileDetails(file));
+                File file = (File) fileTree.getLastSelectedPathComponent();
+                
             }
         });
-        
+
         fileTree.addMouseListener(new TreeListener());
         fileTree.setEditable(true);
         setLayout(new MigLayout());
@@ -78,8 +77,27 @@ public class NewRuleTree extends JPanel {
         return buffer.toString();
     }
     
+    private void reset() {
+        removeAll();
+        fileTree = new JTree(fileSystemModel);
+        fileTree.addTreeSelectionListener(new TreeSelectionListener() {
+            public void valueChanged(TreeSelectionEvent event) {
+                File file = (File) fileTree.getLastSelectedPathComponent();
+                
+            }
+        });
+
+        fileTree.addMouseListener(new TreeListener());
+        fileTree.setEditable(true);
+
+        add(fileTree);
+        invalidate();
+        validate();
+        repaint();
+    }
+    
     private class TreeListener extends MouseAdapter {
-        
+
         @Override
         public void mousePressed(MouseEvent e) {
             int row = fileTree.getRowForLocation(e.getX(), e.getY());
@@ -92,151 +110,140 @@ public class NewRuleTree extends JPanel {
             }
         }
     }
-    
-    
+
+
     private void rightClicked(File file, int x, int y) {
-    
+
         // check if folder or file
-            // if if(file.isDirectory()){, folder na kagad else file na un tapos may lalabas na context menu
+        // if if(file.isDirectory()){, folder na kagad else file na un tapos may lalabas na context menu
         //if folder, add file/folder, edit/delete folder
         //if file, edit and delete
-        
+
         if (file.isDirectory()) {
             JPopupMenu popup = folderPopup();
             popup.show(this, x, y);
         }
         else{
-        	JPopupMenu popup = filePopup();
+            JPopupMenu popup = filePopup();
             popup.show(this, x, y);
-        	
+
         }
     }
-    
+
     private JPopupMenu folderPopup() {
         JPopupMenu result = new JPopupMenu();
-        
-      
+
+
         JMenuItem menuItem = new JMenuItem("Add Folder");
         menuItem.setMnemonic(KeyEvent.VK_P);
         menuItem.getAccessibleContext().setAccessibleDescription("Add Folder");
         menuItem.addActionListener(new AddFolderListener());
         result.add(menuItem);
-        
-     
-        menuItem = new JMenuItem("Edit Folder");
-        menuItem.setMnemonic(KeyEvent.VK_F);
-        menuItem.addActionListener(new EditFolderListener());
-        result.add(menuItem);
-        
+
         menuItem = new JMenuItem("Delete Folder");
         menuItem.setMnemonic(KeyEvent.VK_F);
         menuItem.addActionListener(new DeleteFolderListener());
         result.add(menuItem);
-        
+
         menuItem = new JMenuItem("Add File");
         menuItem.setMnemonic(KeyEvent.VK_P);
         menuItem.addActionListener(new AddFileListener());
         result.add(menuItem);
-        
+
         return result;
     }
-    
+
     private JPopupMenu filePopup() {
         JPopupMenu result = new JPopupMenu();
-        
-      
+
+
         JMenuItem menuItem = new JMenuItem("Edit File");
         menuItem.setMnemonic(KeyEvent.VK_F);
         menuItem.addActionListener(new EditFileListener());
         result.add(menuItem);
-        
+
         menuItem = new JMenuItem("Delete File");
         menuItem.setMnemonic(KeyEvent.VK_F);
         menuItem.addActionListener(new DeleteFileListener());
         result.add(menuItem);
-        
+
         return result;
     }
-    
+
 
     /* 
      * Private Listeners
      */
-  /*  private class AddFolderListener implements ActionListener { 
+    /*  private class AddFolderListener implements ActionListener { 
     	@Override 
     	public void actionPerformed(ActionEvent e) { 
     		String folderName = "NEW FOLDER";
-    		
+
     		JPanel panel=null;
 			folderName = JOptionPane.showInputDialog(field);
     		String path = selected.getPath(); 
     		File newFile = new File(path + "\\" + folderName); newFile.mkdir(); 
-    	
+
     		} 
     	} */
-    
+
     private class AddFolderListener implements ActionListener { 
-    	@Override 
-    	public void actionPerformed(ActionEvent e) {
-    		String folderName = "NEW FILE.xml"; 
-    		String path = selected.getPath(); 
-    		folderName = JOptionPane.showInputDialog(field);
-    		File newFile = new File(path + "\\" + folderName); 
-    		try { newFile.createNewFile(); 
-    		} catch (IOException ex) { // TODO Auto-generated catch block ex.printStackTrace(); } } }
-    		}
-    	}
-    }
-    
-    private class EditFolderListener implements ActionListener {
-        @Override
+        @Override 
         public void actionPerformed(ActionEvent e) {
-            System.out.println("Editing: " + selected);
-            
-        }    
+            String folderName = "NEW FILE.xml"; 
+            String path = selected.getPath(); 
+            folderName = JOptionPane.showInputDialog(field);
+            File newFile = new File(path + "\\" + folderName); 
+            newFile.mkdir();
+            reset();
+        }
     }
-    
+
     private class DeleteFolderListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             System.out.println("Deleting: " + selected);
             selected.delete();
-     
+            reset();
         }    
     }
-    
+
     private class AddFileListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-        	String folderName = "NEW FILE.xml"; 
-    		String path = selected.getPath(); 
-    		folderName = JOptionPane.showInputDialog(field);
-    		File newFile = new File(path + "\\" + folderName); 
-    		try { newFile.createNewFile(); 
-    		} catch (IOException ex) { // TODO Auto-generated catch block ex.printStackTrace(); } } }
-    		}
+            String folderName = "NEW FILE.xml"; 
+            String path = selected.getPath(); 
+            folderName = JOptionPane.showInputDialog(field);
+            File newFile = new File(path + "\\" + folderName); 
+            try { 
+                newFile.createNewFile(); 
+                reset();
+            } 
+            catch (IOException ex) { 
+                ex.printStackTrace();
+            }
         }    
     }
-    
+
     private class EditFileListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             System.out.println("Editing: " + selected);
-            
         }    
     }
-    
+
     private class DeleteFileListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             System.out.println("Deleting: " + selected);
             selected.delete();
-            
-     
+            reset();
+
         }    
     }
-    
+
 }
+
 
 class FileSystemModel implements TreeModel {
     private File root;
@@ -325,5 +332,7 @@ class FileSystemModel implements TreeModel {
             return getName();
         }
     }
+    
+
 }
 
