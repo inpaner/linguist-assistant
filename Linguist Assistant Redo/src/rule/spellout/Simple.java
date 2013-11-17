@@ -19,11 +19,6 @@ import rule.spellout.view.SimpleUi;
 import semantics.model.Affix;
 
 public class Simple implements Spellout {
-    public static void main(String[] args) {
-        MainFrame frame = new MainFrame();
-        Simple simple = new Simple(Category.getByName("Noun"));
-        frame.setPanel(simple.view);
-    }
     
     Category category;
     SpelloutType type = SpelloutType.SIMPLE;
@@ -60,7 +55,6 @@ public class Simple implements Spellout {
             case SUFFIX:
                 Affix affix = Affix.get(modType.toString());
                 modOutput = new SetAffix(affix, view.getAffixText());
-                
                 break;
             
             default:

@@ -214,7 +214,7 @@ public class SemanticEditorPanel extends JPanel {
         public void droppedButton(Constituent dropped, Constituent destination, int index) {}
 
 		@Override
-		public void tryDelete(Constituent category) {}
+		public void rightClick(Constituent category) {}
     }
 
 }

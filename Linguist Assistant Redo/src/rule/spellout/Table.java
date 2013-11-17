@@ -1,4 +1,4 @@
-package rule.spellout.view;
+package rule.spellout;
 
 import grammar.model.Category;
 import grammar.model.Feature;
@@ -28,10 +28,12 @@ import rule.model.input.HasFeature;
 import rule.model.input.Input;
 import rule.model.input.Or;
 import rule.model.output.ForceTranslation;
+import rule.spellout.view.ButtonColumn;
+import rule.spellout.view.SpelloutTableModel;
 import commons.main.MainFrame;
 import net.miginfocom.swing.MigLayout;
 
-public class SpelloutTableUi extends JPanel {
+public class Table extends JPanel implements Spellout {
     private Category category;
     private JTable table;
     private List<FeatureButton> rowButtons;
@@ -40,7 +42,7 @@ public class SpelloutTableUi extends JPanel {
     private SpelloutTableModel model;
     RuleButtonListener buttonListener;
     
-    public SpelloutTableUi(Category category) {
+    public Table(Category category) {
         this.category = category;
         JButton addRow = new JButton("Add Row");
         JButton addCol = new JButton("Add Column");
@@ -84,7 +86,7 @@ public class SpelloutTableUi extends JPanel {
         add(tablePane);
     }
     
-    public RuleSet getRules() {
+    public Rule getRule() {
         RuleSet result = new RuleSet();
         Input cornerInputs = null;
         HasCategory hasCategory = new HasCategory(category);
@@ -117,7 +119,6 @@ public class SpelloutTableUi extends JPanel {
                 
                 ForceTranslation output = new ForceTranslation();
                 output.setKey("root");
-                System.out.println(translation);
                 output.setTranslation(translation);
                 
                 Rule rule = new Rule();
@@ -181,5 +182,18 @@ public class SpelloutTableUi extends JPanel {
         model.addColumn();   
         model.fireTableDataChanged();
     }
+    }
+
+
+
+    @Override
+    public void loadRule(Rule rule) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public JPanel getView() {
+        return this;
     }
 }

@@ -15,7 +15,7 @@ import rule.model.input.HasCategory;
 import rule.model.input.HasChild;
 import rule.model.input.HasConcept;
 import rule.model.output.SetTranslation;
-import rule.spellout.SpelloutMaker;
+import rule.spellout.SpelloutWrapper;
 import semantics.model.Constituent;
 import semantics.view.BlockListener;
 import semantics.view.SemanticEditorPanel;
@@ -114,7 +114,7 @@ public class SemanticEditor {
         }
 
 		@Override
-		public void tryDelete(Constituent category) {
+		public void rightClick(Constituent category) {
 			int choice = JOptionPane.showConfirmDialog(display, "Delete this constituent?", "Confirm Delete", 0); 
 			if(choice == JOptionPane.YES_OPTION) {
 				if (category.getParent() != null) {
