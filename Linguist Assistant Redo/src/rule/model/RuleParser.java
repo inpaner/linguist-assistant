@@ -27,7 +27,7 @@ public class RuleParser {
             DocumentBuilder dbBuilder = dbFactory.newDocumentBuilder();
             Document xml = dbBuilder.newDocument();
         
-            Element rootElement = xml.createElement("rules");
+            Element rootElement = xml.createElement("rule");
             xml.appendChild(rootElement);
 
                          
