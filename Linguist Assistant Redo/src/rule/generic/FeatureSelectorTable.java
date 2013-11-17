@@ -1,5 +1,8 @@
 package rule.generic;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,10 +11,15 @@ import java.util.Map;
 import grammar.model.Category;
 import grammar.model.Feature;
 
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
+import javax.swing.SwingUtilities;
+import javax.swing.tree.TreePath;
+
+import org.apache.commons.lang3.StringUtils;
 
 import commons.main.MainFrame;
 import net.miginfocom.swing.MigLayout;
@@ -20,22 +28,10 @@ public class FeatureSelectorTable extends JPanel {
     private List<Feature> features;
     private List<List<FeatureCheckbox>> checkboxesList = new ArrayList<>();
     private Map<Feature, FeatureCheckbox> checkboxMap = new HashMap<>();
-
+    private List<Listener> listeners = new ArrayList<>();
     
-    public static void main(String[] args) {    
-        MainFrame frame = new MainFrame();
-        Category category = Category.getByName("Noun");
-        FeatureSelectorTable panel = new FeatureSelectorTable(category);
-        frame.setPanel(panel);
-        
-        Feature feature = Feature.getEmpty(category);
-        feature.setName("number");
-        feature.setValue("dual");
-        
-        List<Feature> test = new ArrayList<>();
-        test.add(feature);
-        
-        panel.setSelected(test);
+    interface Listener {
+        void setTitle(String title);
     }
     
     public FeatureSelectorTable(Category category) {
@@ -54,10 +50,10 @@ public class FeatureSelectorTable extends JPanel {
             innerPanel.add(new JSeparator(), "growx");
             
             for (String value : feature.getPossibleValues()) {
-
                 Feature copy = Feature.copy(feature);
                 copy.setValue(value);
-                FeatureCheckbox checkbox = new FeatureCheckbox(copy); 
+                FeatureCheckbox checkbox = new FeatureCheckbox(copy);
+                checkbox.addMouseListener(new RightClickListener());
                 innerPanel.add(checkbox);
                 checkboxes.add(checkbox);
                 checkboxMap.put(copy, checkbox);
@@ -99,5 +95,22 @@ public class FeatureSelectorTable extends JPanel {
             }
         }
     }
+    
+    public void addListener(Listener listener) {
+        listeners.add(listener);
+    }
+    
+    private class RightClickListener extends MouseAdapter {
 
+        @Override
+        public void mousePressed(MouseEvent e) {
+            if (SwingUtilities.isRightMouseButton(e)) {
+                JCheckBox checkbox = (JCheckBox) e.getSource();
+                for (Listener listener : listeners) {
+                    listener.setTitle(checkbox.getText());
+                }
+            }
+        }
+    }
+    
 }
