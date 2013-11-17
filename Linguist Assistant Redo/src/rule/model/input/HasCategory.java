@@ -23,7 +23,5 @@ public class HasCategory extends Input {
         }    
     
         return result;
-    }
-    
-    
+    }    
 }

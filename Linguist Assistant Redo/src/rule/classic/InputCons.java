@@ -43,9 +43,21 @@ public class InputCons extends Constituent {
         return null;
     }
 
-    public List<List<Feature>> getFeaturesList() {
+    public List<List<Feature>> getFeatureInputs() {
         // TODO Auto-generated method stub
         return featureInputs;
+    }
+    
+    public void setFeatureInputs(List<List<Feature>> list) {
+        featureInputs = list;
+    }
+    
+    public void setOptional(boolean optional) {
+        this.optional = optional;
+    }
+    
+    public boolean isOptional() {
+        return optional;
     }
     
 }

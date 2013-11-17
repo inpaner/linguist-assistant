@@ -1,5 +1,10 @@
 package rule.classic.view;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
@@ -18,6 +23,8 @@ public class InputDetailsPanel extends JPanel {
     private InputCons cons;
     private JLabel concept;
     private JTextArea featuresArea;
+    private List<Listener> listeners = new ArrayList<>();
+    private JCheckBox optional;
     
     public static void main(String[] args) {
         new MainFrame().setPanel(new InputDetailsPanel());
@@ -27,11 +34,15 @@ public class InputDetailsPanel extends JPanel {
         void addConcept(InputCons cons);
         void deleteConcept(InputCons cons);
         void editFeatures(InputCons cons);
-        void toggleOptional(InputCons cons);
+        void toggleOptional(InputCons cons, boolean optional);
+    }
+    
+    public void addListener(Listener listener) {
+        listeners.add(listener);
     }
     
     public InputDetailsPanel() {
-        JCheckBox optional = new JCheckBox("Optional");
+        optional = new JCheckBox("Optional");
         JLabel consLabel = new JLabel("Concept: ");
         concept = new JLabel("---");
         JButton addConcept = new JButton("+");
@@ -54,6 +65,11 @@ public class InputDetailsPanel extends JPanel {
         add(deleteConcept);
         add(new JSeparator(), "span, split, gapleft rel, growx, wrap");
         
+        optional.addActionListener(new SetOptional());
+        addConcept.addActionListener(new AddConcept());
+        deleteConcept.addActionListener(new DeleteConcept());
+        editFeatures.addActionListener(new EditFeatures());
+        
         add(featuresLabel, "span, split, wrap");
         add(featuresScroll, "span, split, wrap");
         add(editFeatures, "span, split, right");
@@ -62,13 +78,58 @@ public class InputDetailsPanel extends JPanel {
     public void setConstituent(InputCons cons) {
         this.cons = cons;
         Concept concept = cons.getConcept();
+        
         if (concept == null) {
             this.concept.setText("---");
         }
+        
         else {
             this.concept.setText(concept.toString());
         }
-        String text = RuleUtils.getFeaturesText(cons.getFeaturesList());
+        
+        String text = RuleUtils.getFeaturesText(cons.getFeatureInputs());
         featuresArea.setText(text);
+        
+        optional.setSelected(cons.isOptional());
+    }
+    
+    private class AddConcept implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            for (Listener listener : listeners) {
+                listener.addConcept(cons);
+            }
+        }
+        
+    }
+    
+    private class DeleteConcept implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            for (Listener listener : listeners) {
+                listener.deleteConcept(cons);
+            }
+        }
+        
+    }
+    
+    private class EditFeatures implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            for (Listener listener : listeners) {
+                listener.editFeatures(cons);
+            }
+        }
+        
+    }
+    
+    private class SetOptional implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            for (Listener listener : listeners) {
+                listener.toggleOptional(cons, optional.isSelected());
+            }
+        }
+        
     }
 }
