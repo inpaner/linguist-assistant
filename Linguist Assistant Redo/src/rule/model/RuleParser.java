@@ -27,7 +27,7 @@ public class RuleParser {
             DocumentBuilder dbBuilder = dbFactory.newDocumentBuilder();
             Document xml = dbBuilder.newDocument();
         
-            Element rootElement = xml.createElement("rule");
+            Element rootElement = xml.createElement("rules");
             xml.appendChild(rootElement);
 
                          
@@ -44,22 +44,38 @@ public class RuleParser {
             	Element input = xml.createElement("input");
             	rootElement.appendChild(input);
             	if(rule.getInput() instanceof And){
-            		
-            	}
-            	else if(rule.getInput() instanceof HasCategory){
-            		
-            	}
-            	else if(rule.getInput() instanceof HasChild){
-            		
-            	}
-            	else if(rule.getInput() instanceof HasConcept){
-            		
-            	}
-            	else if(rule.getInput() instanceof HasFeature){
-            		
+            		And casted = (And) rule.getInput();
+            		input.setAttribute("name", "And");
+            		Boolean x = casted.isOptional();
+            		input.setAttribute("optional", x.toString());
             	}
             	else if(rule.getInput() instanceof Or){
-            		
+            		Or casted = (Or) rule.getInput();
+            		input.setAttribute("name", "Or");
+            		Boolean x = casted.isOptional();
+            		input.setAttribute("optional", x.toString());
+            	}
+            	else if(rule.getInput() instanceof HasCategory){
+            		HasCategory casted = (HasCategory) rule.getInput();
+            		input.setAttribute("name", "HasCategory");
+            		input.setAttribute("category", casted.getCategory().getName());
+            		Boolean x = casted.isOptional();
+            		input.setAttribute("optional", x.toString());
+            	}
+            	else if(rule.getInput() instanceof HasChild){
+            		HasChild casted = (HasChild) rule.getInput();
+            		input.setAttribute("name", "HasChild");
+            		Boolean x = casted.isOptional();
+            		input.setAttribute("optional", x.toString());
+            		input.setAttribute("var", casted.getKey());
+            	}
+            	else if(rule.getInput() instanceof HasConcept){
+            		HasConcept casted = (HasConcept) rule.getInput();
+            		input.setAttribute("name", "HasConcept");
+            	}
+            	else if(rule.getInput() instanceof HasFeature){
+            		HasFeature casted = (HasFeature) rule.getInput();
+            		input.setAttribute("name", "HasFeature");
             	}
             }
             
@@ -73,19 +89,20 @@ public class RuleParser {
             			SetTranslation casted = (SetTranslation) rule.getOutputs().get(i);
             			output.setAttribute("name", "SetTranslation");
             			output.setAttribute("language", casted.getLanguage().getName());
-            			output.setAttribute("key", casted.getKey());
+            			output.setAttribute("var", casted.getKey());
             		}
             		else if(rule.getOutputs().get(i) instanceof ForceTranslation){
-            			
+            			ForceTranslation casted = (ForceTranslation) rule.getOutputs().get(i);
+            			output.setAttribute("name", "ForceTranslation");
+            			output.setAttribute("translation", casted.getTranslation());
+            			output.setAttribute("var", casted.getKey());
             		}
             		else if(rule.getOutputs().get(i) instanceof SetAffix){
-            			
+            			SetAffix casted = (SetAffix) rule.getOutputs().get(i);
+            			output.setAttribute("name", "SetAffix");
+            			output.setAttribute("Affix", casted.getAffix().toString());
+            			output.setAttribute("value", casted.getValue());
             		}
-            		/*
-            		else if(rule.getOutputs().get(i) instanceof SetPrefix){
-            			
-            		}
-            		*/
             		outputs.appendChild(output);
             	}
             }

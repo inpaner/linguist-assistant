@@ -5,6 +5,7 @@ import semantics.model.Constituent;
 
 public abstract class Input {
     protected Rule root;
+    protected boolean optional = false;
     
     public abstract boolean evaluate(Constituent constituent);
     
@@ -13,5 +14,11 @@ public abstract class Input {
     }
     public void setRoot(Rule root) {
         this.root = root;
+    }
+    public boolean isOptional() {
+        return optional;
+    }
+    public void setOptional(boolean optional) {
+        this.optional = optional;
     }
 }
