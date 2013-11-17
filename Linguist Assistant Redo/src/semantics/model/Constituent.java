@@ -91,7 +91,9 @@ public class Constituent {
     }
     
     public void addFeature(Feature newFeature) {
-        features.add(newFeature);
+
+    		features.add(newFeature);
+
     }
     
     public List<Feature> getFeatures() {
@@ -112,6 +114,7 @@ public class Constituent {
                 result.add(feature);
             }
         }
+       // result=features;
         return result;
     }
     

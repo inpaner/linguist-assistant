@@ -192,6 +192,7 @@ public class SemanticEditor {
         @Override
         public void getRule() {
             // TODO Auto-generated method stub
+        	
             
         }
 

@@ -97,12 +97,17 @@ public class XMLParser {
             switch (childNode.getNodeName()) {
             case "label":    constituent.setCategory(new Category());
             					constituent.getCategory().setLabel(childNode.getTextContent());
+            					//sSystem.out.println(constituent.getCategory().getLabel());
                              break;
             
             case "subcons":  parseSubcons(childNode, constituent);
                              break;
             
             case "features": parseFeatures(childNode, constituent);
+            				for(Feature f: constituent.getFeatures())
+            				{
+            					System.out.println("Feature added: "+f.getName()+", "+f.getValue());
+            				}
                              break;
             
             case "concept":  parseConcept(childNode, constituent);
@@ -145,12 +150,17 @@ public class XMLParser {
             switch (childNode.getNodeName()) {
             case "feature": Feature feature = parseFeature(childNode, parent); //is there now a distinction between general and specific features? Features from loaded XMLs don't show up.--Andrew
                             parent.addFeature(feature);
+                            for(Feature f: parent.getFeatures())
+            				{
+            					System.out.println("Feature added: "+f.getName()+", "+f.getValue());
+            				}
                             break;
             
             default:        break;
             
             }
         }
+        
     }
     
     private Feature parseFeature(Node featureNode, Constituent parent) {

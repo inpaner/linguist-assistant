@@ -1,6 +1,7 @@
 package semantics.view;
 
 import grammar.model.Category;
+import grammar.model.Feature;
 import grammar.model.FileBrowsing;
 import semantics.model.XMLParser;
 import grammar.view.FeatureValuesListener;
@@ -59,7 +60,7 @@ public class SemanticEditorPanel extends JPanel {
     	
     	Constituent root = parser.read(filename); 	
      	updateConstituent(root);
-     	applyRules();
+     	//applyRules();
 		txtTranslation.repaint();
     }
 
@@ -204,6 +205,10 @@ public class SemanticEditorPanel extends JPanel {
         @Override
         public void selectedConstituent(Constituent constituent) {
             selectedConstituent = constituent;
+            for(Feature f: constituent.getFeatures())
+            {
+            	System.out.println("Feature name: " +f.getName()+", values: "+f.getValue());
+            }
             featureValuesPanel.setConstituent(constituent);
         }
 
