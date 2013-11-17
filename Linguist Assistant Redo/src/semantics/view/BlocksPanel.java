@@ -1,7 +1,5 @@
 package semantics.view;
 
-import grammar.model.Category;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +7,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import semantics.model.Constituent;
-import commons.main.MainFrame;
 import net.miginfocom.swing.MigLayout;
 
 public class BlocksPanel extends JPanel {
@@ -23,7 +20,6 @@ public class BlocksPanel extends JPanel {
     
     public BlocksPanel() {
         initComponents();
-        //addComponents();
     }
     
     private void initComponents() {
@@ -51,21 +47,7 @@ public class BlocksPanel extends JPanel {
         listeners.add(listener);
         if (rootBlock != null) {
             rootBlock.addBlockListener(listener);
+            System.out.println("Listener added");
         }
-    }
-    
-    public static void main(String[] args) {
-        MainFrame frame = new MainFrame();
-/*        Category con = new Category();
-        Category con2 = new Category();
-        Category con3 = new Category();
-        con.setLabel("Noun");
-        con2.setLabel("child 1");
-        con3.setLabel("child 2");
-        con.addChild(con2);
-        con.addChild(con3);
-        BlocksPanel panel = new BlocksPanel();
-        panel.updateRoot(con);
-        frame.setPanel(panel);*/
     }
 }

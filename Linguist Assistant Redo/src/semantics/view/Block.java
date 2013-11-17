@@ -142,6 +142,8 @@ public class Block extends Box {
         contentBox = Box.createHorizontalBox();
         Border paneEdge = BorderFactory.createEmptyBorder(10, 10, 10, 10);
         contentBox.setBorder(paneEdge);
+        
+        
         contentBox.add(textBox);
         contentBox.add(newSpacer());
         add(contentBox);
@@ -233,7 +235,7 @@ public class Block extends Box {
 	            else
 	            {
 	            	for (BlockListener listener : listeners) {
-	                    listener.tryDelete(constituent);
+	                    listener.rightClick(constituent);
 	                }
 	            }
             }

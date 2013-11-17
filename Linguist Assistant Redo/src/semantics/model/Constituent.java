@@ -154,7 +154,7 @@ public class Constituent {
         }
         if (newChild.parent != null) {
             newChild.parent.children.remove(newChild);
-            newChild.parent = null;
+            newChild.parent = this;
         }
         if (oldIndex != -1 && oldIndex < index) {
             index--; // to account for prior removal from parent
