@@ -1,19 +1,23 @@
 package rule.tree;
 
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.Vector;
 
 import javax.swing.ImageIcon;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.JTree;
 import javax.swing.SwingUtilities;
 import javax.swing.event.TreeModelEvent;
@@ -38,6 +42,7 @@ public class NewRuleTree extends JPanel {
     private FileSystemModel fileSystemModel;
     private JTextArea fileDetailsTextArea = new JTextArea();
     private File selected;
+    private JTextField field;
 
     public static void main(String[] args) {
         MainFrame frame = new MainFrame();
@@ -46,7 +51,7 @@ public class NewRuleTree extends JPanel {
     }
 
     public NewRuleTree() {
-        String directory = "rule";
+        String directory = "rules";
         fileDetailsTextArea.setEditable(false);
         fileSystemModel = new FileSystemModel(new File(directory));
         fileTree = new JTree(fileSystemModel);
@@ -100,27 +105,54 @@ public class NewRuleTree extends JPanel {
             JPopupMenu popup = folderPopup();
             popup.show(this, x, y);
         }
+        else{
+        	JPopupMenu popup = filePopup();
+            popup.show(this, x, y);
+        	
+        }
     }
     
     private JPopupMenu folderPopup() {
         JPopupMenu result = new JPopupMenu();
         
-        // New project menu item
-        JMenuItem menuItem = new JMenuItem("Add Folder",new ImageIcon("images/newproject.png"));
+      
+        JMenuItem menuItem = new JMenuItem("Add Folder");
         menuItem.setMnemonic(KeyEvent.VK_P);
         menuItem.getAccessibleContext().setAccessibleDescription("Add Folder");
         menuItem.addActionListener(new AddFolderListener());
         result.add(menuItem);
         
-        // New File menu item
-        menuItem = new JMenuItem("Edit Folder", new ImageIcon("images/newfile.png"));
+     
+        menuItem = new JMenuItem("Edit Folder");
         menuItem.setMnemonic(KeyEvent.VK_F);
         menuItem.addActionListener(new EditFolderListener());
         result.add(menuItem);
         
-        menuItem = new JMenuItem("Delete Folder", new ImageIcon("images/newfile.png"));
+        menuItem = new JMenuItem("Delete Folder");
         menuItem.setMnemonic(KeyEvent.VK_F);
         menuItem.addActionListener(new DeleteFolderListener());
+        result.add(menuItem);
+        
+        menuItem = new JMenuItem("Add File");
+        menuItem.setMnemonic(KeyEvent.VK_P);
+        menuItem.addActionListener(new AddFileListener());
+        result.add(menuItem);
+        
+        return result;
+    }
+    
+    private JPopupMenu filePopup() {
+        JPopupMenu result = new JPopupMenu();
+        
+      
+        JMenuItem menuItem = new JMenuItem("Edit File");
+        menuItem.setMnemonic(KeyEvent.VK_F);
+        menuItem.addActionListener(new EditFileListener());
+        result.add(menuItem);
+        
+        menuItem = new JMenuItem("Delete File");
+        menuItem.setMnemonic(KeyEvent.VK_F);
+        menuItem.addActionListener(new DeleteFileListener());
         result.add(menuItem);
         
         return result;
@@ -130,17 +162,37 @@ public class NewRuleTree extends JPanel {
     /* 
      * Private Listeners
      */
-    private class AddFolderListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            System.out.println("Adding: " + selected);
-        }    
+  /*  private class AddFolderListener implements ActionListener { 
+    	@Override 
+    	public void actionPerformed(ActionEvent e) { 
+    		String folderName = "NEW FOLDER";
+    		
+    		JPanel panel=null;
+			folderName = JOptionPane.showInputDialog(field);
+    		String path = selected.getPath(); 
+    		File newFile = new File(path + "\\" + folderName); newFile.mkdir(); 
+    	
+    		} 
+    	} */
+    
+    private class AddFolderListener implements ActionListener { 
+    	@Override 
+    	public void actionPerformed(ActionEvent e) {
+    		String folderName = "NEW FILE.xml"; 
+    		String path = selected.getPath(); 
+    		folderName = JOptionPane.showInputDialog(field);
+    		File newFile = new File(path + "\\" + folderName); 
+    		try { newFile.createNewFile(); 
+    		} catch (IOException ex) { // TODO Auto-generated catch block ex.printStackTrace(); } } }
+    		}
+    	}
     }
     
     private class EditFolderListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             System.out.println("Editing: " + selected);
+            
         }    
     }
     
@@ -148,6 +200,39 @@ public class NewRuleTree extends JPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
             System.out.println("Deleting: " + selected);
+            selected.delete();
+     
+        }    
+    }
+    
+    private class AddFileListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+        	String folderName = "NEW FILE.xml"; 
+    		String path = selected.getPath(); 
+    		folderName = JOptionPane.showInputDialog(field);
+    		File newFile = new File(path + "\\" + folderName); 
+    		try { newFile.createNewFile(); 
+    		} catch (IOException ex) { // TODO Auto-generated catch block ex.printStackTrace(); } } }
+    		}
+        }    
+    }
+    
+    private class EditFileListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            System.out.println("Editing: " + selected);
+            
+        }    
+    }
+    
+    private class DeleteFileListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            System.out.println("Deleting: " + selected);
+            selected.delete();
+            
+     
         }    
     }
     
