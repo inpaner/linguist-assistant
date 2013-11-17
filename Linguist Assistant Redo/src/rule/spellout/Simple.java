@@ -12,6 +12,7 @@ import rule.FeatureSelector;
 import rule.RuleUtils;
 import rule.model.Rule;
 import rule.model.input.And;
+import rule.model.input.HasCategory;
 import rule.model.input.Input;
 import rule.model.output.Output;
 import rule.model.output.SetAffix;
@@ -35,7 +36,22 @@ public class Simple implements Spellout {
     
     @Override
     public Rule getRule() {
+        
+        
         Input featuresInput = RuleUtils.getInput(featuresList);
+        Input categoryInput = new HasCategory(category);
+        
+        And rootInput = new And();
+        rootInput.addRule(categoryInput);
+        // Trigger Word
+        
+        // Forms
+        
+        // Features
+        if (featuresInput != null) {
+            rootInput.addRule(featuresInput);
+        }
+        
         
         Output modOutput = null;
         switch(modType) {
@@ -61,17 +77,9 @@ public class Simple implements Spellout {
                 break;    
         }
         
+        
+        
         Rule result = new Rule();
-        And rootInput = new And();
-        
-        // Trigger Word
-        
-        // Forms
-        
-        // Features
-        if (featuresInput != null) {
-            rootInput.addRule(featuresInput);
-        }
         
         result.setInput(rootInput);
         result.addOutput(modOutput);

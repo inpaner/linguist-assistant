@@ -183,6 +183,19 @@ public class Constituent {
     
     public boolean evaluate(Rule rule) {
         boolean result = false;
+        if (rule instanceof RuleSet) {
+            RuleSet rs = (RuleSet) rule;
+            
+            for (Rule subRule : rs.getRules()) {
+                if (this.evaluate(subRule)) {
+                    System.out.println("applied");
+                    result = true;
+                }
+            }
+            
+            return result;
+        }        
+        
         for (Constituent child : children) {
             child.evaluate(rule.createPassedRule());
         }

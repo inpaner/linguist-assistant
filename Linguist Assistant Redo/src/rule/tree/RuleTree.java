@@ -13,6 +13,7 @@ import java.util.Iterator;
 import java.util.Vector;
 
 import javax.swing.ImageIcon;
+import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -33,24 +34,41 @@ import net.miginfocom.swing.MigLayout;
 import org.apache.commons.lang3.StringUtils;
 
 import commons.main.MainFrame;
+import commons.menu.HelpMenu;
+import commons.menu.ViewMenu;
 
 /*
  * http://www.javaprogrammingforums.com/java-swing-tutorials
  *      /7944-how-use-jtree-create-file-system-viewer-tree.html
  */
-public class NewRuleTree extends JPanel {
+public class RuleTree extends JPanel {
     private JTree fileTree;
     private FileSystemModel fileSystemModel;
     private File selected;
     private JTextField field;
-
+    private static RuleTree tree;
+    
+    public static void run(MainFrame frame) {
+        if (tree == null) {
+            new RuleTree(frame);
+        }
+        
+        frame.setPanel(tree);
+    }
+    
     public static void main(String[] args) {
         MainFrame frame = new MainFrame();
-        NewRuleTree panel = new NewRuleTree();
+        RuleTree panel = new RuleTree(frame);
         frame.setPanel(panel);
     }
 
-    public NewRuleTree() {
+    public RuleTree(MainFrame frame) {
+        tree = this;
+        JMenuBar menubar = new JMenuBar();
+        menubar.add(new ViewMenu(frame));
+        menubar.add(new HelpMenu());
+        frame.setJMenuBar(menubar);
+        
         String directory = "rule";
         fileSystemModel = new FileSystemModel(new File(directory));
         fileTree = new JTree(fileSystemModel);

@@ -15,7 +15,7 @@ import rule.model.input.HasCategory;
 import rule.model.input.HasChild;
 import rule.model.input.HasConcept;
 import rule.model.output.SetTranslation;
-import rule.spellout.SpelloutWrapper;
+import rule.spellout.SpelloutMaker;
 import semantics.model.Constituent;
 import semantics.view.BlockListener;
 import semantics.view.SemanticEditorPanel;
@@ -26,12 +26,21 @@ import grammar.view.FeatureValuesListener;
 import commons.main.MainFrame;
 
 public class SemanticEditor {
-    private SemanticEditorPanel display;
+    private static SemanticEditorPanel panel;
     private List<Rule> rules = new ArrayList<>();
-    private RuleSet ruleset;
+    
+    private Rule rule;
+    
+    public static void run(MainFrame frame) {
+        if (panel == null) {
+            new SemanticEditor(frame);
+        }
+        frame.setPanel(panel);
+    }
+    
     
     public static void main(String[] args) {
-        new SemanticEditor();
+        new SemanticEditor(new MainFrame());
     }
     
     private void ruleTest() {
@@ -82,19 +91,18 @@ public class SemanticEditor {
         rules.add(rule2);
     }
     
-    public SemanticEditor() {
-        MainFrame frame = new MainFrame();
-        display = new SemanticEditorPanel();
-        display.addBlockListener(new ImpBlockListener());
-        display.addFeatureValuesListener(new ImpFeatureValuesListener());
-        display.addListener(new UiListener());
-        frame.setPanel(display);
+    public SemanticEditor(MainFrame frame) {
+        panel = new SemanticEditorPanel(frame);
+        panel.addBlockListener(new ImpBlockListener());
+        panel.addFeatureValuesListener(new ImpFeatureValuesListener());
+        panel.addListener(new UiListener());
+        frame.setPanel(panel);
         
         Constituent con = new Constituent();
       
-        display.updateConstituent(con);
+        panel.updateConstituent(con);
         
-        ruleTest();
+        //ruleTest();
     }
     
     private class ImpBlockListener implements BlockListener {
@@ -104,23 +112,25 @@ public class SemanticEditor {
         @Override
         public void droppedBlock(Constituent dropped, Constituent destination, int index) {
             destination.moveChild(dropped, index);
-            display.refresh();
+            panel.refresh();
         }
 
         @Override
         public void droppedButton(Constituent dropped, Constituent destination, int index) {
-            SelectConstituent selectConstituent = new SelectConstituent(dropped, destination, index);
-            selectConstituent.addListener(new AddConstituentListener());
+            //SelectConstituent selectConstituent = new SelectConstituent(dropped, destination, index);
+            //selectConstituent.addListener(new AddConstituentListener());
+            destination.moveChild(dropped, index);
+            panel.refresh();
         }
 
 		@Override
 		public void rightClick(Constituent category) {
-			int choice = JOptionPane.showConfirmDialog(display, "Delete this constituent?", "Confirm Delete", 0); 
+			int choice = JOptionPane.showConfirmDialog(panel, "Delete this constituent?", "Confirm Delete", 0); 
 			if(choice == JOptionPane.YES_OPTION) {
 				if (category.getParent() != null) {
 		            category.getParent().getChildren().remove(category);
 		            category.setParent(null);
-		            display.refresh();
+		            panel.refresh();
 		        }
 			}
 		}
@@ -131,14 +141,14 @@ public class SemanticEditor {
         public void featureValueChanged(Constituent constituent, Feature feature, String newValue) {
             constituent.updateFeature(feature, newValue);
             System.out.println("here");
-            display.refresh();
+            panel.refresh();
         }
     }
     
     private class AddConstituentListener implements SelectConstituent.Listener {
         @Override
         public void done() {
-            display.refresh();
+            panel.refresh();
         }
     }
     
@@ -158,9 +168,12 @@ public class SemanticEditor {
                
             }
             */
-            ruleset.evaluate(constituent);
+            for (Rule rule : rules) {
+                constituent.evaluate(rule);
+            }
+            //rule.evaluate(constituent);
             constituent.applyRules();
-            display.refresh();
+            panel.refresh();
             
         }
         public void displayTranslation(Constituent c)
@@ -177,7 +190,7 @@ public class SemanticEditor {
         	else
         	{
         		System.out.println("Target is: "+c.getTarget().toString());
-             	display.appendTranslation(c.getTarget().toString());
+             	panel.appendTranslation(c.getTarget().toString());
         	}
         }
         
@@ -186,13 +199,15 @@ public class SemanticEditor {
             Concept concept = ConceptSelector.select();
             if (concept != null) {
                 constituent.setConcept(concept);
-                display.refresh();
+                panel.refresh();
             }
         }
         @Override
         public void getRule() {
-            // TODO Auto-generated method stub
-            
+            rule = SpelloutMaker.create(Category.getByName("Noun"));
+            if (rule != null) {
+                rules.add(rule);
+            }
         }
 
     }
