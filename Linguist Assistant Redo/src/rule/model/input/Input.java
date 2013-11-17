@@ -24,10 +24,4 @@ public abstract class Input {
     public void setRoot(Rule root) {
         this.root = root;
     }
-    public boolean isOptional() {
-        return optional;
-    }
-    public void setOptional(boolean optional) {
-        this.optional = optional;
-    }
 }
