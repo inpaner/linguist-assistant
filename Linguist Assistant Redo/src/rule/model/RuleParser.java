@@ -15,9 +15,8 @@ import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import rule.model.output.Output;
-import rule.model.output.SetTranslation;
-import semantics.model.Constituent;
+import rule.model.input.*;
+import rule.model.output.*;
 
 public class RuleParser {
 	
@@ -41,6 +40,29 @@ public class RuleParser {
             meta.setAttribute("type", "Simple");
             rootElement.appendChild(meta);
             
+            if(rule.getInput() != null){
+            	Element input = xml.createElement("input");
+            	rootElement.appendChild(input);
+            	if(rule.getInput() instanceof And){
+            		
+            	}
+            	else if(rule.getInput() instanceof HasCategory){
+            		
+            	}
+            	else if(rule.getInput() instanceof HasChild){
+            		
+            	}
+            	else if(rule.getInput() instanceof HasConcept){
+            		
+            	}
+            	else if(rule.getInput() instanceof HasFeature){
+            		
+            	}
+            	else if(rule.getInput() instanceof Or){
+            		
+            	}
+            }
+            
             if(rule.getOutputs().get(0) != null){
             	Element outputs = xml.createElement("outputs");
             	rootElement.appendChild(outputs);
@@ -53,6 +75,17 @@ public class RuleParser {
             			output.setAttribute("language", casted.getLanguage().getName());
             			output.setAttribute("key", casted.getKey());
             		}
+            		else if(rule.getOutputs().get(i) instanceof ForceTranslation){
+            			
+            		}
+            		else if(rule.getOutputs().get(i) instanceof SetAffix){
+            			
+            		}
+            		/*
+            		else if(rule.getOutputs().get(i) instanceof SetPrefix){
+            			
+            		}
+            		*/
             		outputs.appendChild(output);
             	}
             }
