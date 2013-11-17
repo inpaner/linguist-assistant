@@ -1,11 +1,14 @@
 package rule.classic;
 
+import java.awt.Dialog.ModalityType;
 import java.util.List;
 
 import grammar.controller.SelectConstituent;
 
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
+import net.miginfocom.swing.MigLayout;
 import commons.main.MainFrame;
 import rule.classic.view.ClassicUi;
 import rule.classic.view.InputDetailsPanel;
@@ -23,8 +26,15 @@ public class ClassicRuleMaker {
     private int cons = 0;
 
     public ClassicRuleMaker(MainFrame frame) {
+        JDialog dialog = new JDialog();
+        dialog.setModalityType(ModalityType.TOOLKIT_MODAL);
+        dialog.setSize(800, 500);
+        dialog.setLocationRelativeTo(null);
+        dialog.setLayout(new MigLayout());
+        
+        
+        
         view = new ClassicUi();
-        frame.setPanel(view);
         InputDetailsPanel inputView = view.getInputDetails();
         InputDetailsMgr inputMgr = new InputDetailsMgr(inputView);
         inputMgr.addListener(new DoneListener());
@@ -36,6 +46,9 @@ public class ClassicRuleMaker {
         view.setOutputRoot(outputRoot);
         
         view.refresh();
+        
+        dialog.setContentPane(view);
+        dialog.setVisible(true);
     }
     
     private OutputCons getOutput(InputCons cons) {

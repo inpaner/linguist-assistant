@@ -1,5 +1,7 @@
 package rule.tree;
 
+import grammar.model.Category;
+
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,6 +15,7 @@ import java.util.Iterator;
 import java.util.Vector;
 
 import javax.swing.ImageIcon;
+import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
@@ -33,6 +36,8 @@ import net.miginfocom.swing.MigLayout;
 
 import org.apache.commons.lang3.StringUtils;
 
+import rule.classic.ClassicRuleMaker;
+import rule.spellout.SpelloutMaker;
 import commons.main.MainFrame;
 import commons.menu.HelpMenu;
 import commons.menu.ViewMenu;
@@ -46,6 +51,7 @@ public class RuleTree extends JPanel {
     private FileSystemModel fileSystemModel;
     private File selected;
     private JTextField field;
+    private MainFrame frame;
     private static RuleTree tree;
     
     public static void run(MainFrame frame) {
@@ -63,6 +69,7 @@ public class RuleTree extends JPanel {
     }
 
     public RuleTree(MainFrame frame) {
+        this.frame = frame;
         tree = this;
         JMenuBar menubar = new JMenuBar();
         menubar.add(new ViewMenu(frame));
@@ -153,21 +160,35 @@ public class RuleTree extends JPanel {
 
 
         JMenuItem menuItem = new JMenuItem("Add Folder");
-        menuItem.setMnemonic(KeyEvent.VK_P);
+        menuItem.setMnemonic(KeyEvent.VK_A);
         menuItem.getAccessibleContext().setAccessibleDescription("Add Folder");
         menuItem.addActionListener(new AddFolderListener());
         result.add(menuItem);
 
         menuItem = new JMenuItem("Delete Folder");
-        menuItem.setMnemonic(KeyEvent.VK_F);
+        menuItem.setMnemonic(KeyEvent.VK_D);
         menuItem.addActionListener(new DeleteFolderListener());
         result.add(menuItem);
 
         menuItem = new JMenuItem("Add File");
-        menuItem.setMnemonic(KeyEvent.VK_P);
+        menuItem.setMnemonic(KeyEvent.VK_F);
         menuItem.addActionListener(new AddFileListener());
         result.add(menuItem);
+        
+        JMenuItem rulemenu = new JMenu("Add Rule");
 
+        menuItem = new JMenuItem("Classic Rule");
+        menuItem.setMnemonic(KeyEvent.VK_C);
+        menuItem.addActionListener(new Classic());
+        rulemenu.add(menuItem);
+        
+        menuItem = new JMenuItem("Spellout Rule");
+        menuItem.setMnemonic(KeyEvent.VK_C);
+        menuItem.addActionListener(new Spellout());
+        rulemenu.add(menuItem);
+
+        result.add(rulemenu);
+        
         return result;
     }
 
@@ -257,6 +278,21 @@ public class RuleTree extends JPanel {
             selected.delete();
             reset();
 
+        }    
+    }
+    
+    private class Classic implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            new ClassicRuleMaker(frame);
+        }    
+    }
+
+    
+    private class Spellout implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            SpelloutMaker.create(Category.getByName("Noun"));
         }    
     }
 
