@@ -32,5 +32,9 @@ public class And extends Input {
             rule.setRoot(root);
         }
     }
+    
+    public List<Input> getConditions(){
+    	return conditions;
+    }
 
 }
