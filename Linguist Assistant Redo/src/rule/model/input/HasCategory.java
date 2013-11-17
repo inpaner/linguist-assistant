@@ -13,6 +13,10 @@ public class HasCategory extends Input {
     public void setCategory(Category category) {
         this.category = category;
     }
+    
+    public Category getCategory(){
+    	return category;
+    }
 
     @Override
     public boolean evaluate(Constituent constituent) {
