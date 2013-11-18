@@ -117,8 +117,8 @@ public class SemanticEditor {
 
         @Override
         public void droppedButton(Constituent dropped, Constituent destination, int index) {
-            //SelectConstituent selectConstituent = new SelectConstituent(dropped, destination, index);
-            //selectConstituent.addListener(new AddConstituentListener());
+            SelectConstituent selectConstituent = new SelectConstituent(dropped, destination, index);
+            selectConstituent.addListener(new AddConstituentListener());
             destination.moveChild(dropped, index);
             panel.refresh();
         }

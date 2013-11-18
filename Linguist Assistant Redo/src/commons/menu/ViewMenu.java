@@ -11,6 +11,7 @@ import lexicon.LexiconManager;
 import lexicon.view.LexiconList;
 import ontology.controller.OntologyManager;
 import rule.tree.RuleTree;
+//import rule.tree.RuleTree;
 import semantics.controller.SemanticEditor;
 import commons.main.MainFrame;
 

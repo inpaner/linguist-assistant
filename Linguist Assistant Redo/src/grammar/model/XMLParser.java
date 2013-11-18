@@ -143,7 +143,7 @@ public class XMLParser {
             
             switch (childNode.getNodeName()) {
             case "feature": Feature feature = parseFeature(childNode, parent);
-                            parent.addFeature(feature);
+                            //parent.updateFeature(feature,parent);
                             break;
             
             default:        break;

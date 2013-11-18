@@ -212,7 +212,7 @@ public class SemanticEditorPanel extends JPanel {
         @Override
         public void selectedConstituent(Constituent constituent) {
             selectedConstituent = constituent;
-            for(Feature f: constituent.getFeatures())
+            for(Feature f: constituent.getAllFeatures())
             {
             	System.out.println("Feature name: " +f.getName()+", values: "+f.getValue());
             }

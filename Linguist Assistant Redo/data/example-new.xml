@@ -10,7 +10,7 @@
             <features>
                 <feature>
                     <name>salience band</name>
-                    <value>backgrounded-actions</value>
+                    <value>backgrounded actions</value>
                 </feature>
             </features> 
             <subcons>

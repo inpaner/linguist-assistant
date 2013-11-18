@@ -90,7 +90,7 @@ public class Constituent {
         }
     }
     
-    }
+
     
     public List<Feature> getAllFeatures() {
         List<Feature> result = new ArrayList<>(); 
