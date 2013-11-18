@@ -28,4 +28,24 @@ public class RuleUtils {
         return result;
     }
     
+    public static String getFeaturesText(List<List<Feature>> featuresList) {
+        String result = "";
+        for (List<Feature> features: featuresList) {
+            String name = "";
+            String values ="";
+            int index = 0;
+            for (Feature feature : features) {
+                name = feature.getName();
+                if (index != 0) {
+                    values = values + " or ";
+                }
+                values = values + feature.getValue();
+                index++;
+            }
+            String line = name + " = " + values  + "\n";
+            result = result + line;
+        }
+        
+        return result;
+    }
 }

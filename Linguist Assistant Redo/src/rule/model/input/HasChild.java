@@ -51,4 +51,8 @@ public class HasChild extends Input {
         super.setRoot(root);
         condition.setRoot(root);
     }
+    
+    public Input getCondition(){
+    	return condition;
+    }
 }

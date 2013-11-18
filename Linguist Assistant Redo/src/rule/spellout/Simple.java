@@ -59,7 +59,7 @@ public class Simple implements Spellout {
             case PREFIX:
             case SUFFIX:
                 Affix affix = Affix.get(modType.toString());
-                modOutput = new SetAffix(affix, view.getAffixText());
+                //modOutput = new SetAffix(affix, view.getAffixText());
                 
                 break;
             

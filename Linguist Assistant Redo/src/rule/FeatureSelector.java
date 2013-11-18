@@ -11,6 +11,17 @@ public class FeatureSelector {
     private String title;
     private List<List<Feature>> features = new ArrayList<>();
     
+    public static List<List<Feature>> select(Category category, List<List<Feature>> features) {
+        FeatureSelector selector;
+        if (features == null || features.isEmpty()) {
+            selector = getSelector(category);
+        }
+        else {
+            selector = getSelector(category, "", features);
+        }
+        return selector.getFeatures();
+    }
+    
     public static FeatureSelector getSelector(Category category) {
         return new FeatureSelector(category);
     }

@@ -11,6 +11,11 @@ public class SetAffix extends Output {
     
     private String key = "root";
     
+    public SetAffix(Affix affix, String value) {
+        setAffix(affix);
+        setValue(value);
+    }
+    
     public void setKey(String key) {
         this.key = key;
     }
@@ -18,9 +23,7 @@ public class SetAffix extends Output {
     public String getKey() {
         return key;
     }
-    
 
-    
     public void setAffix(Affix affix) {
         this.affix = affix;
     }

@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import rule.RuleUtils;
 import commons.main.MainFrame;
 import net.miginfocom.swing.MigLayout;
 import lexicon.model.Form;
@@ -70,21 +71,8 @@ public class BaseFormPanel extends JPanel {
     
     public void setFeatures(List<List<Feature>> featuresList) {
         featuresArea.setText("");
-        for (List<Feature> features: featuresList) {
-            String name = "";
-            String values ="";
-            int index = 0;
-            for (Feature feature : features) {
-                name = feature.getName();
-                if (index != 0) {
-                    values = values + " or ";
-                }
-                values = values + feature.getValue();
-                index++;
-            }
-            String line = name + " = " + values  + "\n";
-            featuresArea.append(line);
-        }
+        String text = RuleUtils.getFeaturesText(featuresList);
+        featuresArea.append(text);
     }
     
     public void addListener(Listener listener) {

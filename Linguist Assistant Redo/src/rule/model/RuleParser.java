@@ -27,7 +27,7 @@ public class RuleParser {
             DocumentBuilder dbBuilder = dbFactory.newDocumentBuilder();
             Document xml = dbBuilder.newDocument();
         
-            Element rootElement = xml.createElement("rules");
+            Element rootElement = xml.createElement("rule");
             xml.appendChild(rootElement);
 
                          
@@ -48,6 +48,9 @@ public class RuleParser {
             		input.setAttribute("name", "And");
             		Boolean x = casted.isOptional();
             		input.setAttribute("optional", x.toString());
+            		for(int i = 0; i < casted.getConditions().size(); i++){
+            			writeNested(casted.getConditions().get(i), input);
+            		}
             	}
             	else if(rule.getInput() instanceof Or){
             		Or casted = (Or) rule.getInput();
@@ -123,6 +126,52 @@ public class RuleParser {
             tfe.printStackTrace();
         }
 		
+	}
+	
+	public void writeNested(Input child, Element input){
+		input.appendChild(input);
+		
+		if(child instanceof And){
+    		And casted = (And) child;
+    		input.setAttribute("name", "And");
+    		Boolean x = casted.isOptional();
+    		input.setAttribute("optional", x.toString());
+    		for(int i = 0; i < casted.getConditions().size(); i++){
+    			writeNested(casted.getConditions().get(i), input);
+    		}
+    	}
+    	else if(child instanceof Or){
+    		Or casted = (Or) child;
+    		input.setAttribute("name", "Or");
+    		Boolean x = casted.isOptional();
+    		input.setAttribute("optional", x.toString());
+    		for(int i = 0; i < casted.getConditions().size(); i++){
+    			writeNested(casted.getConditions().get(i), input);
+    		}
+    	}
+    	else if(child instanceof HasCategory){
+    		HasCategory casted = (HasCategory) child;
+    		input.setAttribute("name", "HasCategory");
+    		input.setAttribute("category", casted.getCategory().getName());
+    		Boolean x = casted.isOptional();
+    		input.setAttribute("optional", x.toString());
+    	}
+    	else if(child instanceof HasChild){
+    		HasChild casted = (HasChild) child;
+    		input.setAttribute("name", "HasChild");
+    		Boolean x = casted.isOptional();
+    		input.setAttribute("optional", x.toString());
+    		input.setAttribute("var", casted.getKey());
+    		writeNested(casted.getCondition(), input);
+    	}
+    	else if(child instanceof HasConcept){
+    		HasConcept casted = (HasConcept) child;
+    		input.setAttribute("name", "HasConcept");
+    	}
+    	else if(child instanceof HasFeature){
+    		HasFeature casted = (HasFeature) child;
+    		input.setAttribute("name", "HasFeature");
+    	}
 	}
 	
 }

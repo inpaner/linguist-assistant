@@ -90,13 +90,9 @@ public class Constituent {
         }
     }
     
-    public void addFeature(Feature newFeature) {
-
-    		features.add(newFeature);
-
     }
     
-    public List<Feature> getFeatures() {
+    public List<Feature> getAllFeatures() {
         List<Feature> result = new ArrayList<>(); 
         if (category == null) // root block
             return result;
@@ -114,7 +110,7 @@ public class Constituent {
                 result.add(feature);
             }
         }
-       // result=features;
+
         return result;
     }
     
