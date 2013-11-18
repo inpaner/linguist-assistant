@@ -10,6 +10,8 @@ import javax.swing.JMenuItem;
 import lexicon.LexiconManager;
 import lexicon.view.LexiconList;
 import ontology.controller.OntologyManager;
+import rule.tree.RuleTree;
+import semantics.controller.SemanticEditor;
 import commons.main.MainFrame;
 
 // Combined view-controller
@@ -25,10 +27,14 @@ public class ViewMenu extends JMenu {
         JMenuItem grammar = new JMenuItem(new GrammarAction());
         JMenuItem ontology = new JMenuItem(new OntologyAction());
         JMenuItem lexicon = new JMenuItem(new LexiconAction());
+        JMenuItem semantic = new JMenuItem(new SemanticAction());
+        JMenuItem rules = new JMenuItem(new RuleAction());
         
         add(grammar);
         add(ontology);
         add(lexicon);
+        add(semantic);
+        add(rules);
     }
     
     
@@ -69,6 +75,34 @@ public class ViewMenu extends JMenu {
         
         public void actionPerformed(ActionEvent e) {
             LexiconManager.run(frame);
+        }
+    }
+    
+    
+    @SuppressWarnings("serial")
+    private class SemanticAction extends AbstractAction {
+        private SemanticAction() {
+            super("Semantics");
+            putValue(SHORT_DESCRIPTION, "");
+            putValue(MNEMONIC_KEY, KeyEvent.VK_S);
+        }
+        
+        public void actionPerformed(ActionEvent e) {
+            SemanticEditor.run(frame);
+        }
+    }
+    
+
+    @SuppressWarnings("serial")
+    private class RuleAction extends AbstractAction {
+        private RuleAction() {
+            super("Rules");
+            putValue(SHORT_DESCRIPTION, "");
+            putValue(MNEMONIC_KEY, KeyEvent.VK_R);
+        }
+        
+        public void actionPerformed(ActionEvent e) {
+            RuleTree.run(frame);
         }
     }
 }

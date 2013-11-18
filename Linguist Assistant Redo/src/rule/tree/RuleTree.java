@@ -1,5 +1,7 @@
 package rule.tree;
 
+import grammar.model.Category;
+
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,10 +10,13 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
+import java.util.EventListener;
 import java.util.Iterator;
 import java.util.Vector;
 
 import javax.swing.ImageIcon;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -31,37 +36,56 @@ import net.miginfocom.swing.MigLayout;
 
 import org.apache.commons.lang3.StringUtils;
 
+import rule.classic.ClassicRuleMaker;
+import rule.spellout.SpelloutMaker;
 import commons.main.MainFrame;
+import commons.menu.HelpMenu;
+import commons.menu.ViewMenu;
 
 /*
  * http://www.javaprogrammingforums.com/java-swing-tutorials
  *      /7944-how-use-jtree-create-file-system-viewer-tree.html
  */
-public class NewRuleTree extends JPanel {
+public class RuleTree extends JPanel {
     private JTree fileTree;
     private FileSystemModel fileSystemModel;
-    private JTextArea fileDetailsTextArea = new JTextArea();
     private File selected;
     private JTextField field;
-
+    private MainFrame frame;
+    private static RuleTree tree;
+    
+    public static void run(MainFrame frame) {
+        if (tree == null) {
+            new RuleTree(frame);
+        }
+        
+        frame.setPanel(tree);
+    }
+    
     public static void main(String[] args) {
         MainFrame frame = new MainFrame();
-        NewRuleTree panel = new NewRuleTree();
+        RuleTree panel = new RuleTree(frame);
         frame.setPanel(panel);
     }
 
-    public NewRuleTree() {
-        String directory = "rules";
-        fileDetailsTextArea.setEditable(false);
+    public RuleTree(MainFrame frame) {
+        this.frame = frame;
+        tree = this;
+        JMenuBar menubar = new JMenuBar();
+        menubar.add(new ViewMenu(frame));
+        menubar.add(new HelpMenu());
+        frame.setJMenuBar(menubar);
+        
+        String directory = "rule";
         fileSystemModel = new FileSystemModel(new File(directory));
         fileTree = new JTree(fileSystemModel);
         fileTree.addTreeSelectionListener(new TreeSelectionListener() {
             public void valueChanged(TreeSelectionEvent event) {
-              File file = (File) fileTree.getLastSelectedPathComponent();
-              fileDetailsTextArea.setText(getFileDetails(file));
+                File file = (File) fileTree.getLastSelectedPathComponent();
+                
             }
         });
-        
+
         fileTree.addMouseListener(new TreeListener());
         fileTree.setEditable(true);
         setLayout(new MigLayout());
@@ -78,8 +102,27 @@ public class NewRuleTree extends JPanel {
         return buffer.toString();
     }
     
+    private void reset() {
+        removeAll();
+        fileTree = new JTree(fileSystemModel);
+        fileTree.addTreeSelectionListener(new TreeSelectionListener() {
+            public void valueChanged(TreeSelectionEvent event) {
+                File file = (File) fileTree.getLastSelectedPathComponent();
+                
+            }
+        });
+
+        fileTree.addMouseListener(new TreeListener());
+        fileTree.setEditable(true);
+
+        add(fileTree);
+        invalidate();
+        validate();
+        repaint();
+    }
+    
     private class TreeListener extends MouseAdapter {
-        
+
         @Override
         public void mousePressed(MouseEvent e) {
             int row = fileTree.getRowForLocation(e.getX(), e.getY());
@@ -92,151 +135,169 @@ public class NewRuleTree extends JPanel {
             }
         }
     }
-    
-    
+
+
     private void rightClicked(File file, int x, int y) {
-    
+
         // check if folder or file
-            // if if(file.isDirectory()){, folder na kagad else file na un tapos may lalabas na context menu
+        // if if(file.isDirectory()){, folder na kagad else file na un tapos may lalabas na context menu
         //if folder, add file/folder, edit/delete folder
         //if file, edit and delete
-        
+
         if (file.isDirectory()) {
             JPopupMenu popup = folderPopup();
             popup.show(this, x, y);
         }
         else{
-        	JPopupMenu popup = filePopup();
+            JPopupMenu popup = filePopup();
             popup.show(this, x, y);
-        	
+
         }
     }
-    
+
     private JPopupMenu folderPopup() {
         JPopupMenu result = new JPopupMenu();
-        
-      
+
+
         JMenuItem menuItem = new JMenuItem("Add Folder");
-        menuItem.setMnemonic(KeyEvent.VK_P);
+        menuItem.setMnemonic(KeyEvent.VK_A);
         menuItem.getAccessibleContext().setAccessibleDescription("Add Folder");
         menuItem.addActionListener(new AddFolderListener());
         result.add(menuItem);
-        
-     
-        menuItem = new JMenuItem("Edit Folder");
-        menuItem.setMnemonic(KeyEvent.VK_F);
-        menuItem.addActionListener(new EditFolderListener());
-        result.add(menuItem);
-        
+
         menuItem = new JMenuItem("Delete Folder");
-        menuItem.setMnemonic(KeyEvent.VK_F);
+        menuItem.setMnemonic(KeyEvent.VK_D);
         menuItem.addActionListener(new DeleteFolderListener());
         result.add(menuItem);
-        
+
         menuItem = new JMenuItem("Add File");
-        menuItem.setMnemonic(KeyEvent.VK_P);
+        menuItem.setMnemonic(KeyEvent.VK_F);
         menuItem.addActionListener(new AddFileListener());
         result.add(menuItem);
         
+        JMenuItem rulemenu = new JMenu("Add Rule");
+
+        menuItem = new JMenuItem("Classic Rule");
+        menuItem.setMnemonic(KeyEvent.VK_C);
+        menuItem.addActionListener(new Classic());
+        rulemenu.add(menuItem);
+        
+        menuItem = new JMenuItem("Spellout Rule");
+        menuItem.setMnemonic(KeyEvent.VK_C);
+        menuItem.addActionListener(new Spellout());
+        rulemenu.add(menuItem);
+
+        result.add(rulemenu);
+        
         return result;
     }
-    
+
     private JPopupMenu filePopup() {
         JPopupMenu result = new JPopupMenu();
-        
-      
+
+
         JMenuItem menuItem = new JMenuItem("Edit File");
         menuItem.setMnemonic(KeyEvent.VK_F);
         menuItem.addActionListener(new EditFileListener());
         result.add(menuItem);
-        
+
         menuItem = new JMenuItem("Delete File");
         menuItem.setMnemonic(KeyEvent.VK_F);
         menuItem.addActionListener(new DeleteFileListener());
         result.add(menuItem);
-        
+
         return result;
     }
-    
+
 
     /* 
      * Private Listeners
      */
-  /*  private class AddFolderListener implements ActionListener { 
+    /*  private class AddFolderListener implements ActionListener { 
     	@Override 
     	public void actionPerformed(ActionEvent e) { 
     		String folderName = "NEW FOLDER";
-    		
+
     		JPanel panel=null;
 			folderName = JOptionPane.showInputDialog(field);
     		String path = selected.getPath(); 
     		File newFile = new File(path + "\\" + folderName); newFile.mkdir(); 
-    	
+
     		} 
     	} */
-    
+
     private class AddFolderListener implements ActionListener { 
-    	@Override 
-    	public void actionPerformed(ActionEvent e) {
-    		String folderName = "NEW FILE.xml"; 
-    		String path = selected.getPath(); 
-    		folderName = JOptionPane.showInputDialog(field);
-    		File newFile = new File(path + "\\" + folderName); 
-    		try { newFile.createNewFile(); 
-    		} catch (IOException ex) { // TODO Auto-generated catch block ex.printStackTrace(); } } }
-    		}
-    	}
-    }
-    
-    private class EditFolderListener implements ActionListener {
-        @Override
+        @Override 
         public void actionPerformed(ActionEvent e) {
-            System.out.println("Editing: " + selected);
-            
-        }    
+            String folderName = "NEW FILE.xml"; 
+            String path = selected.getPath(); 
+            folderName = JOptionPane.showInputDialog(field);
+            File newFile = new File(path + "\\" + folderName); 
+            newFile.mkdir();
+            reset();
+        }
     }
-    
+
     private class DeleteFolderListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             System.out.println("Deleting: " + selected);
             selected.delete();
-     
+            reset();
         }    
     }
-    
+
     private class AddFileListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-        	String folderName = "NEW FILE.xml"; 
-    		String path = selected.getPath(); 
-    		folderName = JOptionPane.showInputDialog(field);
-    		File newFile = new File(path + "\\" + folderName); 
-    		try { newFile.createNewFile(); 
-    		} catch (IOException ex) { // TODO Auto-generated catch block ex.printStackTrace(); } } }
-    		}
+            String folderName = "NEW FILE.xml"; 
+            String path = selected.getPath(); 
+            folderName = JOptionPane.showInputDialog(field);
+            File newFile = new File(path + "\\" + folderName); 
+            try { 
+                newFile.createNewFile(); 
+                reset();
+            } 
+            catch (IOException ex) { 
+                ex.printStackTrace();
+            }
         }    
     }
-    
+
     private class EditFileListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             System.out.println("Editing: " + selected);
-            
         }    
     }
-    
+
     private class DeleteFileListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             System.out.println("Deleting: " + selected);
             selected.delete();
-            
-     
+            reset();
+
         }    
     }
     
+    private class Classic implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            new ClassicRuleMaker(frame);
+        }    
+    }
+
+    
+    private class Spellout implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            SpelloutMaker.create(Category.getByName("Noun"));
+        }    
+    }
+
 }
+
 
 class FileSystemModel implements TreeModel {
     private File root;
@@ -325,5 +386,7 @@ class FileSystemModel implements TreeModel {
             return getName();
         }
     }
+    
+
 }
 

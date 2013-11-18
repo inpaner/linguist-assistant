@@ -12,6 +12,7 @@ import rule.FeatureSelector;
 import rule.RuleUtils;
 import rule.model.Rule;
 import rule.model.input.And;
+import rule.model.input.HasCategory;
 import rule.model.input.Input;
 import rule.model.output.Output;
 import rule.model.output.SetAffix;
@@ -19,11 +20,6 @@ import rule.spellout.view.SimpleUi;
 import semantics.model.Affix;
 
 public class Simple implements Spellout {
-    public static void main(String[] args) {
-        MainFrame frame = new MainFrame();
-        Simple simple = new Simple(Category.getByName("Noun"));
-        frame.setPanel(simple.view);
-    }
     
     Category category;
     SpelloutType type = SpelloutType.SIMPLE;
@@ -40,7 +36,22 @@ public class Simple implements Spellout {
     
     @Override
     public Rule getRule() {
+        
+        
         Input featuresInput = RuleUtils.getInput(featuresList);
+        Input categoryInput = new HasCategory(category);
+        
+        And rootInput = new And();
+        rootInput.addRule(categoryInput);
+        // Trigger Word
+        
+        // Forms
+        
+        // Features
+        if (featuresInput != null) {
+            rootInput.addRule(featuresInput);
+        }
+        
         
         Output modOutput = null;
         switch(modType) {
@@ -59,25 +70,16 @@ public class Simple implements Spellout {
             case PREFIX:
             case SUFFIX:
                 Affix affix = Affix.get(modType.toString());
-                //modOutput = new SetAffix(affix, view.getAffixText());
-                
+                modOutput = new SetAffix(affix, view.getAffixText());
                 break;
             
             default:
                 break;    
         }
         
+        
+        
         Rule result = new Rule();
-        And rootInput = new And();
-        
-        // Trigger Word
-        
-        // Forms
-        
-        // Features
-        if (featuresInput != null) {
-            rootInput.addRule(featuresInput);
-        }
         
         result.setInput(rootInput);
         result.addOutput(modOutput);
@@ -117,6 +119,11 @@ public class Simple implements Spellout {
             view.setFeatures(featuresList);
         }
         
+    }
+
+    @Override
+    public JPanel getView() {
+        return view;
     }
 
 }

@@ -13,7 +13,7 @@ public class SpelloutTableModel extends AbstractTableModel {
     private List<FeatureButton> cols;
     private List<List<String>> values = new ArrayList<>();
     
-    SpelloutTableModel(List<FeatureButton> rows, List<FeatureButton> cols) {
+    public SpelloutTableModel(List<FeatureButton> rows, List<FeatureButton> cols) {
         this.rows = rows;
         this.cols = cols;
         for (int i = 0; i < rows.size(); i++) {

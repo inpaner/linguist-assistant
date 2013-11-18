@@ -262,16 +262,16 @@ public class XMLParser {
             Element feat = xml.createElement("features");
             mainElement.appendChild(feat);
                 
-            for(int i = 0; i < constituent.getFeatures().size(); i++) {
+            for(int i = 0; i < constituent.getAllFeatures().size(); i++) {
                 Element feature = xml.createElement("feature");
                 feat.appendChild(feature);
                 
                 Element name = xml.createElement("name");
-                name.appendChild(xml.createTextNode(constituent.getFeatures().get(i).getName()));
+                name.appendChild(xml.createTextNode(constituent.getAllFeatures().get(i).getName()));
                 feature.appendChild(name);
                 
                 Element value = xml.createElement("value");
-                value.appendChild(xml.createTextNode(constituent.getFeatures().get(i).getValue()));
+                value.appendChild(xml.createTextNode(constituent.getAllFeatures().get(i).getValue()));
                 feature.appendChild(value);
             }
         }

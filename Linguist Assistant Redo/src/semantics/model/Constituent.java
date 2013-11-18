@@ -153,7 +153,7 @@ public class Constituent {
         }
         if (newChild.parent != null) {
             newChild.parent.children.remove(newChild);
-            newChild.parent = null;
+            newChild.parent = this;
         }
         if (oldIndex != -1 && oldIndex < index) {
             index--; // to account for prior removal from parent
@@ -182,6 +182,19 @@ public class Constituent {
     
     public boolean evaluate(Rule rule) {
         boolean result = false;
+        if (rule instanceof RuleSet) {
+            RuleSet rs = (RuleSet) rule;
+            
+            for (Rule subRule : rs.getRules()) {
+                if (this.evaluate(subRule)) {
+                    System.out.println("applied");
+                    result = true;
+                }
+            }
+            
+            return result;
+        }        
+        
         for (Constituent child : children) {
             child.evaluate(rule.createPassedRule());
         }

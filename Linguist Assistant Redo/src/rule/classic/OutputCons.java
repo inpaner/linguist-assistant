@@ -4,8 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import rule.model.output.Output;
+import semantics.model.Constituent;
 
-public class OutputCons {
+public class OutputCons extends Constituent {
     String key = "root";
     
     boolean toAdd = false;

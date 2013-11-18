@@ -1,5 +1,8 @@
 package rule.classic.view;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
@@ -18,15 +21,25 @@ public class OutputDetailsPanel extends JPanel {
     public OutputDetailsPanel() {
         delete = new JCheckBox("Delete");
         
-        JButton addOutput = new JButton("+");
-        JButton deleteOutput = new JButton("—");
+        JButton setFeature = new JButton("Set Features");
+        JButton setTranslation = new JButton("Set Translation");
         setLayout(new MigLayout());
+        add(delete);
+        add(setFeature);
+        add(setTranslation);
+        
     }
     
     public void setConstituent(OutputCons cons) {
         this.cons = cons;
-        
         delete.setSelected(cons.isToDelete());
-                
+    }
+    
+    public class SetFeature implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            
+        }
+        
     }
 }

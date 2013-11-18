@@ -44,6 +44,7 @@ public class FeatureSelectorDialog extends JDialog {
         JLabel titleLabel = new JLabel("Title");
         title = new JTextField(20);
         table = new FeatureSelectorTable(category);
+        table.addListener(new TitleListener());
         ok = new JButton("Ok");
         cancel = new JButton("Cancel");
         ok.addActionListener(new OkListener());
@@ -88,6 +89,15 @@ public class FeatureSelectorDialog extends JDialog {
                 listener.cancel();
             }
             dispose();
+        }
+        
+    }
+    
+    private class TitleListener implements FeatureSelectorTable.Listener {
+
+        @Override
+        public void setTitle(String title) {
+            FeatureSelectorDialog.this.title.setText(title);
         }
         
     }

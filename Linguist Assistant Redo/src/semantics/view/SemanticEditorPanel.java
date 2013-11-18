@@ -17,6 +17,7 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
@@ -24,6 +25,8 @@ import javax.swing.JTextArea;
 import ontology.controller.OntologyManager;
 import semantics.model.Constituent;
 import commons.main.MainFrame;
+import commons.menu.HelpMenu;
+import commons.menu.ViewMenu;
 import net.miginfocom.swing.MigLayout;
 
 @SuppressWarnings("serial")
@@ -52,7 +55,11 @@ public class SemanticEditorPanel extends JPanel {
         void getRule();
     }
     
-    public SemanticEditorPanel() {
+    public SemanticEditorPanel(MainFrame frame) {
+        JMenuBar menubar = new JMenuBar();
+        menubar.add(new ViewMenu(frame));
+        menubar.add(new HelpMenu());
+        frame.setJMenuBar(menubar);
         initComponents();
         addComponents();
     }
@@ -219,7 +226,7 @@ public class SemanticEditorPanel extends JPanel {
         public void droppedButton(Constituent dropped, Constituent destination, int index) {}
 
 		@Override
-		public void tryDelete(Constituent category) {}
+		public void rightClick(Constituent category) {}
     }
 
 }
