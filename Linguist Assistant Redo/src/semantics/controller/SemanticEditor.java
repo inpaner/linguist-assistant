@@ -14,6 +14,8 @@ import rule.model.input.And;
 import rule.model.input.HasCategory;
 import rule.model.input.HasChild;
 import rule.model.input.HasConcept;
+import rule.model.input.HasFeature;
+import rule.model.output.ForceTranslation;
 import rule.model.output.SetTranslation;
 import rule.spellout.SpelloutMaker;
 import semantics.model.Constituent;
@@ -38,57 +40,44 @@ public class SemanticEditor {
         frame.setPanel(panel);
     }
     
-    
-    public static void main(String[] args) {
-        new SemanticEditor(new MainFrame());
-    }
-    
     private void ruleTest() {
         // Rule 1
         Category clause = Category.getByName("Clause");
+        Category np = Category.getByName("Noun Phrase");
         Category noun = Category.getByName("Noun");
+        Category verb = Category.getByName("Verb");
+                
         HasCategory hasClause = new HasCategory(clause);
+        HasCategory hasNP = new HasCategory(np);
         HasCategory hasNoun = new HasCategory(noun);
-        HasConcept hasAlex = new HasConcept(Concept.getInstance("Aaron", "A", noun));
+                
         And nounChildConditions = new And();
         nounChildConditions.addRule(hasNoun);
-        nounChildConditions.addRule(hasAlex);
         
         HasChild hasNounChild = new HasChild("NounChild", nounChildConditions);
+        Feature feature = new Feature("semantic role", "agent", np);
+        HasFeature hasFeature = new HasFeature(feature);
         
+        And npConditions = new And();
+        npConditions.addRule(hasNP);
+        npConditions.addRule(hasNounChild);
+        npConditions.addRule(hasFeature);
+        
+        HasChild hasNPChild = new HasChild("NPChild", npConditions);
+                
         And input1 = new And();
         input1.addRule(hasClause);
-        input1.addRule(hasNounChild);
+        input1.addRule(hasNPChild);
         
-        Language english = Language.getInstance("English");
-        SetTranslation englishTarget = new SetTranslation("NounChild", english);
+        ForceTranslation englishTarget = new ForceTranslation();
+        englishTarget.setTranslation("I am a Noun!");
+        englishTarget.setKey("NounChild");
+        
         Rule rule1 = new Rule();
         rule1.setInput(input1);
         rule1.addOutput(englishTarget);
         
-        // Rule 2
-        Category verb = Category.getByName("Verb");
-        HasCategory hasVerb = new HasCategory(verb);
-        HasConcept hasRun = new HasConcept(Concept.getInstance("run", "A", verb));
-        And verbChildConditions = new And();
-        verbChildConditions.addRule(hasVerb);
-        verbChildConditions.addRule(hasRun);
-        
-        HasChild hasVerbChild = new HasChild("VerbChild", verbChildConditions);
-        
-        And input2 = new And();
-        input2.addRule(hasClause);
-        input2.addRule(hasVerbChild);
-        
-        Language filipino = Language.getInstance("Filipino");
-        SetTranslation filipinoTarget = new SetTranslation("VerbChild", filipino);
-        
-        Rule rule2 = new Rule();
-        rule2.setInput(input2);
-        rule2.addOutput(filipinoTarget);
-        
         rules.add(rule1);
-        rules.add(rule2);
     }
     
     public SemanticEditor(MainFrame frame) {
@@ -102,7 +91,7 @@ public class SemanticEditor {
       
         panel.updateConstituent(con);
         
-        //ruleTest();
+        ruleTest();
     }
     
     private class ImpBlockListener implements BlockListener {
@@ -117,8 +106,8 @@ public class SemanticEditor {
 
         @Override
         public void droppedButton(Constituent dropped, Constituent destination, int index) {
-            SelectConstituent selectConstituent = new SelectConstituent(dropped, destination, index);
-            selectConstituent.addListener(new AddConstituentListener());
+            //SelectConstituent selectConstituent = new SelectConstituent(dropped, destination, index);
+            //selectConstituent.addListener(new AddConstituentListener());
             destination.moveChild(dropped, index);
             panel.refresh();
         }

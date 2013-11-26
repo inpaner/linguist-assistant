@@ -72,7 +72,16 @@ public class Rule {
         constituents = new HashMap<>();
         constituents.put("root", constituent);
         input.setRoot(this); // questionable
-        return input.evaluate(constituent);
+        System.out.println("------------------------------");
+        System.out.println("Applying Rule on Constituent: " + constituent.getCategory());
+        boolean result = input.evaluate(constituent);
+        System.out.println(result);
+        System.out.println("Constituent keys: ");
+        
+        for (String key : constituents.keySet()) {
+            System.out.println(key);
+        }
+        return result;
     }
 
     public void apply() {
