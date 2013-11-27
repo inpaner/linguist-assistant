@@ -10,6 +10,9 @@ import semantics.model.Constituent;
 import semantics.view.BlockListener;
 import semantics.view.BlocksPanel;
 import semantics.view.ButtonPanel;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ClassicUi extends JPanel {
     private BlocksPanel input;
@@ -18,6 +21,7 @@ public class ClassicUi extends JPanel {
     private OutputCons outputRoot;
     private InputDetailsPanel inputDetails;
     private OutputDetailsPanel outputDetails;
+    private JButton btnCopyStructure;
 
     public static void main(String[] args) {
         new MainFrame().setPanel(new ClassicUi());
@@ -30,12 +34,16 @@ public class ClassicUi extends JPanel {
         output = new BlocksPanel();
         outputDetails = new OutputDetailsPanel();
         
-        setLayout(new MigLayout());
-        add(input);
-        add(inputDetails, "wrap");
-        add(buttons, "wrap");
-        add(output);
-        add(outputDetails);
+        setLayout(new MigLayout("", "[][][]", "[][][]"));
+        add(input, "cell 0 0");
+        add(inputDetails, "cell 2 0");
+        add(buttons, "cell 0 1");
+        add(output, "cell 0 2");
+        
+        btnCopyStructure = new JButton("Copy structure");
+       
+        add(btnCopyStructure, "cell 1 2");
+        add(outputDetails, "cell 2 2");
 
     }
 
@@ -57,10 +65,17 @@ public class ClassicUi extends JPanel {
         output.addBlockListener(listener);
     }
     
+    public void addCopyListener(ActionListener listener)
+    {
+    	 btnCopyStructure.addActionListener(listener);
+    }
+    
     public void setInputRoot(InputCons root) {
         inputRoot = root;
     }
-    
+    public InputCons getInputRoot(){
+    	return inputRoot;
+    }
     public void setOutputRoot(OutputCons root) {
         outputRoot = root;
     }
