@@ -1,5 +1,8 @@
 package semantics.controller;
 
+import rule.classic.ClassicRuleMaker;
+import rule.classic.InputCons;
+import rule.classic.OutputCons;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -78,6 +81,14 @@ public class SemanticEditor {
         rule1.addOutput(englishTarget);
         
         rules.add(rule1);
+    }
+    private void classicRuleTest()
+    {
+    	//TODO: declare or get a new classic rule; clone current constituent to input constituent (?), getOutput of the input constituent; create a rule; evaluate rule
+    	InputCons input=new InputCons();
+    	 // OutputCons output=new ClassicRuleMaker(p).getOutput(inputCons); //not sure how to pass this lol
+    	 Rule r=new Rule();
+    	 
     }
     
     public SemanticEditor(MainFrame frame) {

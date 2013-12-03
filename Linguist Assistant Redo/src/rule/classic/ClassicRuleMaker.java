@@ -94,7 +94,7 @@ public class ClassicRuleMaker {
     	copy.setConcept(orig.getConcept());
     	for(Feature f:orig.getAllFeatures())
     	{
-    		copy.updateFeature(f, f.getValue()); //not sure if this is working properly
+    		copy.updateFeature(f, f.getValue()); //TODO: fix feature copying
     	}
     	for(Constituent c: orig.getChildren())
     	{
