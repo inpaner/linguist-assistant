@@ -67,6 +67,7 @@ public class SemanticEditorPanel extends JPanel {
     	
     	Constituent root = parser.read(filename); 	
      	updateConstituent(root);
+     	System.out.println("Constituent updated");
      	//applyRules();
 		txtTranslation.repaint();
     }

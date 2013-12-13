@@ -47,38 +47,59 @@ public class SemanticEditor {
         // Rule 1
         Category clause = Category.getByName("Clause");
         Category np = Category.getByName("Noun Phrase");
+        Category vp = Category.getByName("Verb Phrase");
         Category noun = Category.getByName("Noun");
         Category verb = Category.getByName("Verb");
                 
         HasCategory hasClause = new HasCategory(clause);
         HasCategory hasNP = new HasCategory(np);
         HasCategory hasNoun = new HasCategory(noun);
-                
+        
         And nounChildConditions = new And();
         nounChildConditions.addRule(hasNoun);
         
         HasChild hasNounChild = new HasChild("NounChild", nounChildConditions);
-        Feature feature = new Feature("semantic role", "agent", np);
-        HasFeature hasFeature = new HasFeature(feature);
         
         And npConditions = new And();
         npConditions.addRule(hasNP);
         npConditions.addRule(hasNounChild);
-        npConditions.addRule(hasFeature);
         
         HasChild hasNPChild = new HasChild("NPChild", npConditions);
                 
+        
+        // vp child
+        HasCategory hasVP = new HasCategory(vp);
+        HasCategory hasVerb = new HasCategory(verb);
+        
+        And verbChildConditions = new And();
+        verbChildConditions.addRule(hasVerb);
+        
+        HasChild hasVerbChild = new HasChild("VerbChild", verbChildConditions);
+        And vpConditions = new And();
+        vpConditions.addRule(hasVP);
+        vpConditions.addRule(hasVerbChild);
+        
+        HasChild hasVPChild = new HasChild("VPChild", vpConditions);
+        hasVPChild.setOptional(true);
+        
         And input1 = new And();
         input1.addRule(hasClause);
         input1.addRule(hasNPChild);
+        input1.addRule(hasVPChild);
         
         ForceTranslation englishTarget = new ForceTranslation();
         englishTarget.setTranslation("I am a Noun!");
         englishTarget.setKey("NounChild");
         
+        ForceTranslation verbTarget = new ForceTranslation();
+        verbTarget.setTranslation("I am an optional verb!");
+        verbTarget.setKey("VerbChild");
+        
         Rule rule1 = new Rule();
         rule1.setInput(input1);
         rule1.addOutput(englishTarget);
+        rule1.addOutput(verbTarget);
+        
         
         rules.add(rule1);
     }
