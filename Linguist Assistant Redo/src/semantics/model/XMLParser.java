@@ -95,9 +95,9 @@ public class XMLParser {
         for (int i = 0; i < childNodes.getLength(); i++) {
             Node childNode = childNodes.item(i);
             switch (childNode.getNodeName()) {
-            case "label":    constituent.setCategory(new Category());
-            					constituent.getCategory().setLabel(childNode.getTextContent());
-            					//sSystem.out.println(constituent.getCategory().getLabel());
+            case "label":    constituent.setCategory(Category.getByName(childNode.getTextContent()));
+            					//constituent.getCategory().setLabel(childNode.getTextContent());
+            					System.out.println("category added: "+constituent.getCategory().getLabel());
                              break;
             
             case "subcons":  parseSubcons(childNode, constituent);

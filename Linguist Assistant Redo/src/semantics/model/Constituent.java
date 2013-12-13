@@ -82,7 +82,7 @@ public class Constituent {
         	
             toUpdate.setValue(newValue);
             features.add(toUpdate);
-            //System.out.println("Feature added!");
+            System.out.println("Feature "+toUpdate.getName()+" added to Constituent "+getLabel());
         }
         else if (setToDefault) {
         	
