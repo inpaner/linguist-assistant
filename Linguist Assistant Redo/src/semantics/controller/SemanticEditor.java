@@ -1,39 +1,26 @@
 package semantics.controller;
 
-import rule.classic.ClassicRuleMaker;
-import rule.classic.InputCons;
-import rule.classic.OutputCons;
-import java.util.ArrayList;
-import java.util.List;
+import grammar.controller.SelectConstituent;
+import grammar.model.Category;
+import grammar.model.Feature;
+import grammar.view.FeatureValuesListener;
 
 import javax.swing.JOptionPane;
 
 import ontology.controller.ConceptSelector;
 import ontology.model.Concept;
-import lexicon.model.Language;
+import rule.classic.InputCons;
+import rule.generic.RuleEngine;
 import rule.model.Rule;
-import rule.model.RuleSet;
-import rule.model.input.And;
-import rule.model.input.HasCategory;
-import rule.model.input.HasChild;
-import rule.model.input.HasConcept;
-import rule.model.input.HasFeature;
-import rule.model.output.ForceTranslation;
-import rule.model.output.ReorderChildren;
-import rule.model.output.SetTranslation;
 import rule.spellout.SpelloutMaker;
 import semantics.model.Constituent;
 import semantics.view.BlockListener;
 import semantics.view.SemanticEditorPanel;
-import grammar.controller.SelectConstituent;
-import grammar.model.Category;
-import grammar.model.Feature;
-import grammar.view.FeatureValuesListener;
+
 import commons.main.MainFrame;
 
 public class SemanticEditor {
     private static SemanticEditorPanel panel;
-    private List<Rule> rules = new ArrayList<>();
     
     private Rule rule;
     
@@ -44,66 +31,6 @@ public class SemanticEditor {
         frame.setPanel(panel);
     }
     
-    private void ruleTest() {
-        // Rule 1
-        Category clause = Category.getByName("Clause");
-        Category np = Category.getByName("Noun Phrase");
-        Category vp = Category.getByName("Verb Phrase");
-        Category noun = Category.getByName("Noun");
-        Category verb = Category.getByName("Verb");
-                
-        HasCategory hasClause = new HasCategory(clause);
-        HasCategory hasNP = new HasCategory(np);
-        HasCategory hasNoun = new HasCategory(noun);
-        
-        And nounChildConditions = new And();
-        nounChildConditions.addRule(hasNoun);
-        
-        HasChild hasNounChild = new HasChild("NounChild", nounChildConditions);
-        
-        And npConditions = new And();
-        npConditions.addRule(hasNP);
-        npConditions.addRule(hasNounChild);
-        
-        HasChild hasNPChild = new HasChild("NPChild", npConditions);
-                
-        
-        // vp child
-        HasCategory hasVP = new HasCategory(vp);
-        HasCategory hasVerb = new HasCategory(verb);
-        
-        And verbChildConditions = new And();
-        verbChildConditions.addRule(hasVerb);
-        
-        HasChild hasVerbChild = new HasChild("VerbChild", verbChildConditions);
-        And vpConditions = new And();
-        vpConditions.addRule(hasVP);
-        vpConditions.addRule(hasVerbChild);
-        
-        HasChild hasVPChild = new HasChild("VPChild", vpConditions);
-        hasVPChild.setOptional(true);
-        
-        And input1 = new And();
-        input1.addRule(hasClause);
-        input1.addRule(hasNPChild);
-        input1.addRule(hasVPChild);
-        
-        ForceTranslation englishTarget = new ForceTranslation();
-        englishTarget.setTranslation("I am a Noun!");
-        englishTarget.setKey("NounChild");
-        
-        ForceTranslation verbTarget = new ForceTranslation();
-        verbTarget.setTranslation("I am an optional verb!");
-        verbTarget.setKey("VerbChild");
-        
-        Rule rule1 = new Rule();
-        rule1.setInput(input1);
-        rule1.addOutput(englishTarget);
-        rule1.addOutput(verbTarget);
-        
-        
-        rules.add(rule1);
-    }
     private void classicRuleTest()
     {
     	//TODO: declare or get a new classic rule; clone current constituent to input constituent (?), getOutput of the input constituent; create a rule; evaluate rule
@@ -111,45 +38,6 @@ public class SemanticEditor {
     	 // OutputCons output=new ClassicRuleMaker(p).getOutput(inputCons); //not sure how to pass this lol
     	 Rule r=new Rule();
     	 
-    }
-    
-    private void ruleTest2() {
-        // Rule 1
-        Category clause = Category.getByName("Clause");
-        Category np = Category.getByName("Noun Phrase");
-        Category noun = Category.getByName("Noun");
-        Category verb = Category.getByName("Verb");
-                
-        HasCategory hasClause = new HasCategory(clause);
-        HasCategory hasNP = new HasCategory(np);
-        HasCategory hasNoun = new HasCategory(noun);
-        HasCategory hasVerb = new HasCategory(verb);
-              
-        HasChild hasNounChild = new HasChild("NounChild", hasNoun);
-        HasChild hasVerbChild = new HasChild("VerbChild", hasVerb);
-        
-        And npConditions = new And();
-        npConditions.addRule(hasNP);
-        npConditions.addRule(hasNounChild);
-        npConditions.addRule(hasVerbChild);
-        
-        HasChild hasNPChild = new HasChild("NPChild", npConditions);
-                
-        And input1 = new And();
-        input1.addRule(hasClause);
-        input1.addRule(hasNPChild);
-        
-        ReorderChildren reorder = new ReorderChildren();
-        reorder.setKey("NPChild");
-        reorder.addChild("VerbChild");
-        reorder.addChild("NounChild");
-        
-        
-        Rule rule1 = new Rule();
-        rule1.setInput(input1);
-        rule1.addOutput(reorder);
-        
-        rules.add(rule1);
     }
     
     public SemanticEditor(MainFrame frame) {
@@ -163,7 +51,6 @@ public class SemanticEditor {
       
         panel.updateConstituent(con);
         
-        ruleTest2();
     }
     
     private class ImpBlockListener implements BlockListener {
@@ -216,27 +103,12 @@ public class SemanticEditor {
     private class UiListener implements SemanticEditorPanel.Listener {
         @Override
         public void generate(Constituent constituent) {
-            /*
-            for (Rule rule : rules) {
-                System.out.println("Evaluating rules");
-                constituent.evaluate(rule);
-                
-                System.out.println("Applying rules");
-                constituent.applyRules();
-                display.clearTranslation();
-                displayTranslation(constituent);
-                display.refresh();
-               
-            }
-            */
-            for (Rule rule : rules) {
-                constituent.evaluate(rule);
-            }
-            //rule.evaluate(constituent);
-            constituent.applyRules();
-            panel.refresh();
             
+            RuleEngine engine = new RuleEngine(constituent);
+            engine.apply();
+            panel.refresh();
         }
+        
         public void displayTranslation(Constituent c)
         {
         	if(c.hasChildren())
@@ -267,7 +139,7 @@ public class SemanticEditor {
         public void getRule() {
             rule = SpelloutMaker.create(Category.getByName("Noun"));
             if (rule != null) {
-                rules.add(rule);
+                //rules.add(rule);
             }
         }
 

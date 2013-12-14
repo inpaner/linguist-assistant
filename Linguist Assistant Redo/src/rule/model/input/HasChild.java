@@ -43,6 +43,9 @@ public class HasChild extends Input {
             }    
         }
         
+        if (optional) {
+            result = true;
+        }
         return result;
     }
 

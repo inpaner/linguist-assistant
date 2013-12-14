@@ -149,7 +149,8 @@ public class Feature {
         // Must be equal: name, value, language, category name
         if (name.equals(otherF.name)
                 && value.equals(otherF.value)
-                && parent.getName().equals(otherF.parent.getName())) {
+                //&& parent.getName().equals(otherF.parent.getName())
+                        ) {
             
             
             if (language != null && language.equals(otherF.language)) {

@@ -21,7 +21,6 @@ public class HasFeature extends Input {
     @Override
     public boolean evaluate(Constituent constituent) {
         boolean result = true;        
-        
         if (!constituent.getAllFeatures().contains(feature)) {
             result = false;    
         }
