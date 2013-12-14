@@ -47,9 +47,7 @@ public class RuleEngine {
         
         
         // Rule 1
-        Feature mostAgent = Feature.getEmpty(np);
-        mostAgent.setName("semantic role");
-        mostAgent.setValue("agent");
+        Feature mostAgent = Feature.get(np, "semantic role", "agent");
         HasFeature hasMostAgent = new HasFeature(mostAgent);
         
         And rule1Input = new And();
@@ -64,9 +62,7 @@ public class RuleEngine {
         
         
         // Rule 2
-        Feature mostPatient = Feature.getEmpty(np);
-        mostPatient.setName("semantic role");
-        mostPatient.setValue("patient");
+        Feature mostPatient = Feature.get(np, "semantic role", "patient");
         HasFeature hasMostPatient = new HasFeature(mostPatient);
         
         And rule2Input = new And();
@@ -81,14 +77,10 @@ public class RuleEngine {
         
         
         // Rule 3
-        Feature destination = Feature.getEmpty(np);
-        destination.setName("semantic role");
-        destination.setValue("destination");
+        Feature destination = Feature.get(np, "semantic role", "destination");
         HasFeature hasDestination = new HasFeature(destination);
         
-        Feature beneficiary = Feature.getEmpty(np);
-        beneficiary.setName("semantic role");
-        beneficiary.setValue("beneficiary");
+        Feature beneficiary = Feature.get(np, "semantic role", "beneficiary");
         HasFeature hasBeneficiary = new HasFeature(beneficiary);
         
         Or destinationOrBeneficiary = new Or();
@@ -130,9 +122,7 @@ public class RuleEngine {
         
         //// Rule 1
         // Noun: participant tracking = routine
-        Feature trackingRoutine = Feature.getEmpty(noun);
-        trackingRoutine.setName("participant tracking");
-        trackingRoutine.setValue("routine");
+        Feature trackingRoutine = Feature.get(noun, "participant tracking", "routine");
         HasFeature hasTrackingRoutine = new HasFeature(trackingRoutine);
         
         And nounConds = new And();
@@ -141,9 +131,7 @@ public class RuleEngine {
         HasChild routineNounChild = new HasChild("noun", nounConds);
         
         // NP: complement type = object (target)
-        Feature complementObject = Feature.getEmpty(np);
-        complementObject.setName("complement type");
-        complementObject.setValue("object");
+        Feature complementObject = Feature.get(np, "complement type", "object");
         HasFeature hasComplementObject = new HasFeature(complementObject);
         
         And npCOConds = new And();
@@ -164,9 +152,7 @@ public class RuleEngine {
         
         //// Rule 2
         // NP: complement type = object, type = undefined
-        Feature typeUndefined = Feature.getEmpty(np);
-        typeUndefined.setName("type");
-        typeUndefined.setValue("undefined");
+        Feature typeUndefined = Feature.get(np, "type", "undefined");
         HasFeature hasTypeUndefined = new HasFeature(typeUndefined);
         
         And npCOTUConds = new And();
@@ -176,9 +162,7 @@ public class RuleEngine {
         HasChild npCOTUChild = new HasChild("co tu", npCOTUConds);
         
         // NP: complement type = directional (target)
-        Feature complementDirectional = Feature.getEmpty(np);
-        complementDirectional.setName("complement type");
-        complementDirectional.setValue("directional");
+        Feature complementDirectional = Feature.get(np, "complement type", "directional");
         HasFeature hasComplementDirectional = new HasFeature(complementDirectional);
         
         And npCDConds = new And();
@@ -206,9 +190,7 @@ public class RuleEngine {
         HasChild npCDTUChild = new HasChild("target", npCDTUConds);
         
         // NP: complement type = actor (target)
-        Feature complementActor = Feature.getEmpty(np);
-        complementActor.setName("complement type");
-        complementActor.setValue("actor");
+        Feature complementActor = Feature.get(np, "complement type", "actor");
         HasFeature hasComplementActor = new HasFeature(complementActor);
         
         And npCAConds = new And();
@@ -316,18 +298,12 @@ public class RuleEngine {
        
         HasCategory hasNP = new HasCategory(np);
         
-        Feature typeFocus = Feature.getEmpty(np);
-        typeFocus.setName("type");
-        typeFocus.setValue("focus");
+        Feature typeFocus = Feature.get(np, "type", "focus");
         HasFeature hasTypeFocus = new HasFeature(typeFocus);
-        
-        //HasCategory hasNoun = new HasCategory(noun);
-        //HasChild nounChild = new HasChild("noun", hasNoun);
         
         And rule1Input = new And();
         rule1Input.addRule(hasNP);
         rule1Input.addRule(hasTypeFocus);
-        //rule1Input.addRule(nounChild);
         
         // output
         AddConstituent addAng = new AddConstituent(marker, "root");
@@ -340,25 +316,18 @@ public class RuleEngine {
         
         ////////Rule 2 (complement type = actor | object) -> marker = ng
         // input
-        Feature typeUndefined = Feature.getEmpty(np);
-        typeUndefined.setName("type");
-        typeUndefined.setValue("undefined");
+        Feature typeUndefined = Feature.get(np, "type", "undefined");
         HasFeature hasTypeUndefined = new HasFeature(typeUndefined);
           
-        Feature complementActor = Feature.getEmpty(np);
-        complementActor.setName("complement type");
-        complementActor.setValue("actor");
+        Feature complementActor = Feature.get(np, "complement type", "actor");
         HasFeature hasComplementActor = new HasFeature(complementActor);
         
-        Feature complementObject = Feature.getEmpty(np);
-        complementObject.setName("complement type");
-        complementObject.setValue("object");
+        Feature complementObject = Feature.get(np, "complement type", "object");
         HasFeature hasComplementObject = new HasFeature(complementObject);
         
         Or actorOrObject = new Or();
         actorOrObject.addRule(hasComplementActor);
         actorOrObject.addRule(hasComplementObject);
-        
         
         And rule2Input = new And();
         rule2Input.addRule(hasNP);
@@ -378,9 +347,7 @@ public class RuleEngine {
        
         ////////Rule 3 (complement type = directional) -> marker = sa
         // input
-        Feature complementDirectional = Feature.getEmpty(np);
-        complementDirectional.setName("complement type");
-        complementDirectional.setValue("directional");
+        Feature complementDirectional = Feature.get(np, "complement type", "directional");
         HasFeature hasComplementDirectional = new HasFeature(complementDirectional);
         
         And rule3Input = new And();
@@ -412,40 +379,33 @@ public class RuleEngine {
         HasCategory hasVerb = new HasCategory(verb);
         
         //////// List of Feature Rules
-        Feature af = Feature.getEmpty(verb);
-        af.setName("focus");
-        af.setValue("af");
+        Feature af = Feature.get(verb, "focus", "af");
         HasFeature hasAF = new HasFeature(af);
         
-        Feature of = Feature.getEmpty(verb);
-        of.setName("focus");
-        of.setValue("of");
+        Feature of = Feature.get(verb, "focus", "of");
         HasFeature hasOF = new HasFeature(of);
         
-        Feature df = Feature.getEmpty(verb);
-        of.setName("focus");
-        of.setValue("df");
+        Feature df = Feature.get(verb, "focus", "df");
         HasFeature hasDF = new HasFeature(df);
               
-        Feature imperfective = Feature.getEmpty(verb);
-        imperfective.setName("surface aspect");
-        imperfective.setValue("imperfective");
+        Feature imperfective = Feature.get(verb, "surface aspect", "imperfective");
         HasFeature hasImperfective = new HasFeature(imperfective);
         
-        Feature perfective = Feature.getEmpty(verb);
-        perfective.setName("surface aspect");
-        perfective.setValue("perfective");
+        Feature perfective = Feature.get(verb, "surface aspect", "perfective");
         HasFeature hasPerfective = new HasFeature(perfective);
+        
+        Feature contemplative = Feature.get(verb, "surface aspect", "contemplative");
+        HasFeature hasContemplative = new HasFeature(contemplative);
         
         
         //////// Actual Rules
         // AF Imperfective
         And afImperfectiveInput = new And(); 
         afImperfectiveInput.addRule(hasVerb);
-        afImperfectiveInput.addRule(hasAF); // always  changes
-        afImperfectiveInput.addRule(hasImperfective); // always changes
+        afImperfectiveInput.addRule(hasAF); 
+        afImperfectiveInput.addRule(hasImperfective); 
         
-        SetFormTranslation afImperfectiveOutput = new SetFormTranslation("af imperfective"); // always changes
+        SetFormTranslation afImperfectiveOutput = new SetFormTranslation("af imperfective"); 
         
         Rule afImperfective = new Rule();
         afImperfective.setInput(afImperfectiveInput); 
@@ -465,11 +425,110 @@ public class RuleEngine {
         afPerfective.addOutput(afPerfectiveOutput);
         
         
+        // AF Contemplative
+        And afContemplativeInput = new And();
+        afContemplativeInput.addRule(hasVerb);
+        afContemplativeInput.addRule(hasAF);
+        afContemplativeInput.addRule(hasContemplative);
+        
+        SetFormTranslation afContemplativeOutput = new SetFormTranslation("af contemplative");
+        
+        Rule afContemplative = new Rule();
+        afContemplative.setInput(afContemplativeInput);
+        afContemplative.addOutput(afContemplativeOutput);
+        
+        
+        // OF Imperfective
+        And ofImperfectiveInput = new And(); 
+        ofImperfectiveInput.addRule(hasVerb);
+
+        ofImperfectiveInput.addRule(hasOF);
+        ofImperfectiveInput.addRule(hasImperfective);
+        
+        SetFormTranslation ofImperfectiveOutput = new SetFormTranslation("of imperfective");
+        
+        Rule ofImperfective = new Rule();
+        ofImperfective.setInput(ofImperfectiveInput); 
+        ofImperfective.addOutput(ofImperfectiveOutput);
+        
+        
+        // OF Perfective
+        And ofPerfectiveInput = new And();
+        ofPerfectiveInput.addRule(hasVerb);
+        ofPerfectiveInput.addRule(hasOF);
+        ofPerfectiveInput.addRule(hasPerfective);
+        
+        SetFormTranslation ofPerfectiveOutput = new SetFormTranslation("of perfective");
+        
+        Rule ofPerfective = new Rule();
+        ofPerfective.setInput(ofPerfectiveInput);
+        ofPerfective.addOutput(ofPerfectiveOutput);
+        
+        
+        // OF Contemplative
+        And ofContemplativeInput = new And();
+        ofContemplativeInput.addRule(hasVerb);
+        ofContemplativeInput.addRule(hasOF);
+        ofContemplativeInput.addRule(hasContemplative);
+        
+        SetFormTranslation ofContemplativeOutput = new SetFormTranslation("of contemplative");
+        
+        Rule ofContemplative = new Rule();
+        ofContemplative.setInput(ofContemplativeInput);
+        ofContemplative.addOutput(ofContemplativeOutput);
+        
+        
+        // DF Imperfective
+        And dfImperfectiveInput = new And(); 
+        dfImperfectiveInput.addRule(hasVerb);
+
+        dfImperfectiveInput.addRule(hasDF);
+        dfImperfectiveInput.addRule(hasImperfective);
+        
+        SetFormTranslation dfImperfectiveOutput = new SetFormTranslation("df imperfective");
+        
+        Rule dfImperfective = new Rule();
+        dfImperfective.setInput(dfImperfectiveInput); 
+        dfImperfective.addOutput(dfImperfectiveOutput);
+        
+        
+        // DF Perfective
+        And dfPerfectiveInput = new And();
+        dfPerfectiveInput.addRule(hasVerb);
+        dfPerfectiveInput.addRule(hasDF);
+        dfPerfectiveInput.addRule(hasPerfective);
+        
+        SetFormTranslation dfPerfectiveOutput = new SetFormTranslation("df perfective");
+        
+        Rule dfPerfective = new Rule();
+        dfPerfective.setInput(dfPerfectiveInput);
+        dfPerfective.addOutput(dfPerfectiveOutput);
+        
+        
+        // DF Contemplative
+        And dfContemplativeInput = new And();
+        dfContemplativeInput.addRule(hasVerb);
+        dfContemplativeInput.addRule(hasDF);
+        dfContemplativeInput.addRule(hasContemplative);
+        
+        SetFormTranslation dfContemplativeOutput = new SetFormTranslation("df contemplative");
+        
+        Rule dfContemplative = new Rule();
+        dfContemplative.setInput(dfContemplativeInput);
+        dfContemplative.addOutput(dfContemplativeOutput);
+        
+        
         //////// RuleSet
         RuleSet rule = new RuleSet();
         rule.addRule(afImperfective);
         rule.addRule(afPerfective);
-        
+        rule.addRule(afContemplative);
+        rule.addRule(ofImperfective);
+        rule.addRule(ofPerfective);
+        rule.addRule(ofContemplative);
+        rule.addRule(dfImperfective);
+        rule.addRule(dfPerfective);
+        rule.addRule(dfContemplative);
         
         
         rules.add(rule);
@@ -496,9 +555,7 @@ public class RuleEngine {
         
         //////// NP
         //// type: Focus
-        Feature typeFocus = Feature.getEmpty(np);
-        typeFocus.setName("type");
-        typeFocus.setValue("focus");
+        Feature typeFocus = Feature.get(np, "type", "focus");
         HasFeature hasTypeFocus = new HasFeature(typeFocus);
         
         And typeFocusConds = new And();
@@ -508,16 +565,12 @@ public class RuleEngine {
         typeFocusChild.setOptional(true);
         
         //// type: undefined
-        Feature typeUndefined = Feature.getEmpty(np);
-        typeUndefined.setName("type");
-        typeUndefined.setValue("undefined");
+        Feature typeUndefined = Feature.get(np, "type", "undefined");
         HasFeature hasTypeUndefined = new HasFeature(typeUndefined);
         
         
         // complement: actor
-        Feature complementActor = Feature.getEmpty(np);
-        complementActor.setName("complement type");
-        complementActor.setValue("actor");
+        Feature complementActor = Feature.get(np, "complement type", "actor");
         HasFeature hasComplementActor = new HasFeature(complementActor);
         
         And complementActorConds = new And();
@@ -530,9 +583,7 @@ public class RuleEngine {
         
         
         // complement: object
-        Feature complementObject = Feature.getEmpty(np);
-        complementObject.setName("complement type");
-        complementObject.setValue("object");
+        Feature complementObject = Feature.get(np, "complement type", "object");
         HasFeature hasComplementObject = new HasFeature(complementObject);
         
         And complementObjectConds = new And();
@@ -545,9 +596,7 @@ public class RuleEngine {
         
         
         // complement: directional
-        Feature complementDirectional = Feature.getEmpty(np);
-        complementDirectional.setName("complement type");
-        complementDirectional.setValue("object");
+        Feature complementDirectional = Feature.get(np, "complement type", "object");
         HasFeature hasComplementDirectional = new HasFeature(complementDirectional);
         
         And complementDirectionalConds = new And();
