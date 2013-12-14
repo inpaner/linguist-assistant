@@ -17,6 +17,7 @@ import rule.model.output.AddConstituent;
 import rule.model.output.ForceTranslation;
 import rule.model.output.Output;
 import rule.model.output.ReorderChildren;
+import rule.model.output.SetFeature;
 import rule.model.output.SetFormTranslation;
 import semantics.model.Constituent;
 
@@ -27,7 +28,8 @@ public class RuleEngine {
     
     public RuleEngine(Constituent constituent) {
         this.constituent = constituent;
-        rule5();
+        rule1();
+        //rule5();
         //rule7();
         //rule8();
     }
@@ -43,12 +45,72 @@ public class RuleEngine {
         Category np = Category.getByName("Noun Phrase");
         HasCategory hasNP = new HasCategory(np);
         
-        Feature typeFocus = Feature.getEmpty(np);
-        typeFocus.setName("semantic role");
-        typeFocus.setValue("focus");
-        HasFeature hasTypeFocus = new HasFeature(typeFocus);
+        
+        // Rule 1
+        Feature mostAgent = Feature.getEmpty(np);
+        mostAgent.setName("semantic role");
+        mostAgent.setValue("agent");
+        HasFeature hasMostAgent = new HasFeature(mostAgent);
+        
+        And rule1Input = new And();
+        rule1Input.addRule(hasNP);
+        rule1Input.addRule(hasMostAgent);
+        
+        SetFeature rule1Output = new SetFeature(np, "complement type", "actor");
+        
+        Rule rule1 = new Rule();
+        rule1.setInput(rule1Input);
+        rule1.addOutput(rule1Output);
         
         
+        // Rule 2
+        Feature mostPatient = Feature.getEmpty(np);
+        mostPatient.setName("semantic role");
+        mostPatient.setValue("patient");
+        HasFeature hasMostPatient = new HasFeature(mostPatient);
+        
+        And rule2Input = new And();
+        rule2Input.addRule(hasNP);
+        rule2Input.addRule(hasMostPatient);
+        
+        SetFeature rule2Output = new SetFeature(np, "complement type", "object");
+        
+        Rule rule2 = new Rule();
+        rule2.setInput(rule2Input);
+        rule2.addOutput(rule2Output);
+        
+        
+        // Rule 3
+        Feature destination = Feature.getEmpty(np);
+        destination.setName("semantic role");
+        destination.setValue("destination");
+        HasFeature hasDestination = new HasFeature(destination);
+        
+        Feature beneficiary = Feature.getEmpty(np);
+        beneficiary.setName("semantic role");
+        beneficiary.setValue("beneficiary");
+        HasFeature hasBeneficiary = new HasFeature(beneficiary);
+        
+        Or destinationOrBeneficiary = new Or();
+        destinationOrBeneficiary.addRule(hasDestination);
+        destinationOrBeneficiary.addRule(hasBeneficiary);
+        
+        And rule3Input = new And();
+        rule3Input.addRule(hasNP);
+        rule3Input.addRule(destinationOrBeneficiary);
+        
+        SetFeature rule3Output = new SetFeature(np, "complement type", "directional");
+        
+        Rule rule3 = new Rule();
+        rule3.setInput(rule3Input);
+        rule3.addOutput(rule3Output);
+        
+        RuleSet rule = new RuleSet();
+        rule.addRule(rule1);
+        rule.addRule(rule2);
+        rule.addRule(rule3);
+        
+        rules.add(rule);
     }
     
     
