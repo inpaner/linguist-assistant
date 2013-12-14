@@ -91,7 +91,6 @@ public class Constituent {
     }
     
 
-    
     public List<Feature> getAllFeatures() {
         List<Feature> result = new ArrayList<>(); 
         if (category == null) // root block
@@ -142,13 +141,13 @@ public class Constituent {
         System.out.println("New index = " + index);
         
         if (oldIndex != -1 
-                && (oldIndex == index || oldIndex + 1 == index) ) { // child is moved to same place 
-            System.out.println("1");
+                && (oldIndex == index || oldIndex + 1 == index) ) {
+            System.err.println("tried to move child to same index");
             return;
         }
         
         if (newChild.isAncestor(this)) {
-            System.out.println("2");
+            System.err.println("tried to move child to ancestor");
             return; 
         }
         if (newChild.parent != null) {
@@ -161,17 +160,21 @@ public class Constituent {
         
         try {
             children.add(index, newChild);
-            System.out.println("5");
+            System.out.println("successfully moved child");
         }
         catch (IndexOutOfBoundsException ex) {
-            System.out.println("6");
+            System.err.println("tried to move child outside of bounds");
             children.add(newChild);
             System.out.println(children.size());
         }
         
         newChild.parent = this;
     }
-
+    
+    public void moveToEnd(Constituent child) {
+        moveChild(child, children.size());
+    }
+    
     public void setCategory(Category category) {
         this.category = category;
     }

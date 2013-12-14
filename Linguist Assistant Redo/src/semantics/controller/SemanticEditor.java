@@ -16,6 +16,7 @@ import rule.model.input.HasChild;
 import rule.model.input.HasConcept;
 import rule.model.input.HasFeature;
 import rule.model.output.ForceTranslation;
+import rule.model.output.ReorderChildren;
 import rule.model.output.SetTranslation;
 import rule.spellout.SpelloutMaker;
 import semantics.model.Constituent;
@@ -80,6 +81,45 @@ public class SemanticEditor {
         rules.add(rule1);
     }
     
+    private void ruleTest2() {
+        // Rule 1
+        Category clause = Category.getByName("Clause");
+        Category np = Category.getByName("Noun Phrase");
+        Category noun = Category.getByName("Noun");
+        Category verb = Category.getByName("Verb");
+                
+        HasCategory hasClause = new HasCategory(clause);
+        HasCategory hasNP = new HasCategory(np);
+        HasCategory hasNoun = new HasCategory(noun);
+        HasCategory hasVerb = new HasCategory(verb);
+              
+        HasChild hasNounChild = new HasChild("NounChild", hasNoun);
+        HasChild hasVerbChild = new HasChild("VerbChild", hasVerb);
+        
+        And npConditions = new And();
+        npConditions.addRule(hasNP);
+        npConditions.addRule(hasNounChild);
+        npConditions.addRule(hasVerbChild);
+        
+        HasChild hasNPChild = new HasChild("NPChild", npConditions);
+                
+        And input1 = new And();
+        input1.addRule(hasClause);
+        input1.addRule(hasNPChild);
+        
+        ReorderChildren reorder = new ReorderChildren();
+        reorder.setKey("NPChild");
+        reorder.addChild("VerbChild");
+        reorder.addChild("NounChild");
+        
+        
+        Rule rule1 = new Rule();
+        rule1.setInput(input1);
+        rule1.addOutput(reorder);
+        
+        rules.add(rule1);
+    }
+    
     public SemanticEditor(MainFrame frame) {
         panel = new SemanticEditorPanel(frame);
         panel.addBlockListener(new ImpBlockListener());
@@ -91,7 +131,7 @@ public class SemanticEditor {
       
         panel.updateConstituent(con);
         
-        ruleTest();
+        ruleTest2();
     }
     
     private class ImpBlockListener implements BlockListener {
