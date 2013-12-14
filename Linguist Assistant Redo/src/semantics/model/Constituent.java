@@ -79,31 +79,42 @@ public class Constituent {
     public void updateFeature(Feature toUpdate, String newValue) {
         boolean setToDefault = toUpdate.getDefaultValue().equals(newValue);
         if (!features.contains(toUpdate)) { 
+        	
             toUpdate.setValue(newValue);
             features.add(toUpdate);
+            System.out.println("Feature "+toUpdate.getName()+" added to Constituent "+getLabel());
         }
         else if (setToDefault) {
+        	
             features.remove(toUpdate);
+            System.out.println("Feature removed!");
         }
         else {
             toUpdate.setValue(newValue);
+            System.out.println("Value changed!");
         }
     }
     
 
     public List<Feature> getAllFeatures() {
+    	//System.out.println("Getting all features");
         List<Feature> result = new ArrayList<>(); 
         if (category == null) // root block
+        {
+        	//System.out.println("No category set!");
             return result;
-        
+        }
+        //System.out.println(category.getName()+":"+category.getFeatures().size());
         for (Feature feature : category.getFeatures()) {
             boolean found = false;
             for (Feature ownFeature : features) {
                 if (ownFeature.equivalent(feature)) {
                     result.add(ownFeature);
+                    //System.out.println("Feature "+ownFeature+"added");
                     found = true;
                     break;
                 }
+                //else System.out.println("Feature "+ownFeature+" not in category ");
             }
             if (!found) {
                 result.add(feature);

@@ -67,6 +67,7 @@ public class SemanticEditorPanel extends JPanel {
     	
     	Constituent root = parser.read(filename); 	
      	updateConstituent(root);
+     	System.out.println("Constituent updated");
      	//applyRules();
 		txtTranslation.repaint();
     }
@@ -212,10 +213,10 @@ public class SemanticEditorPanel extends JPanel {
         @Override
         public void selectedConstituent(Constituent constituent) {
             selectedConstituent = constituent;
-            for(Feature f: constituent.getAllFeatures())
+            /*for(Feature f: constituent.getAllFeatures())
             {
             	System.out.println("Feature name: " +f.getName()+", values: "+f.getValue());
-            }
+            }*/
             featureValuesPanel.setConstituent(constituent);
         }
 

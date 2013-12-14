@@ -64,7 +64,9 @@ public class Feature {
     }
     
     public String getDefaultValue() {
-        return getPossibleValues().get(0);
+    	if(getPossibleValues()!=null&&getPossibleValues().size()>0)
+    		return getPossibleValues().get(0);
+    	return "No value listed";
     }
     
     public void setName(String name) {

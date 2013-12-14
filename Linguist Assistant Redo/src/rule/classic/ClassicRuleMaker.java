@@ -1,9 +1,13 @@
 package rule.classic;
 
 import java.awt.Dialog.ModalityType;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 import grammar.controller.SelectConstituent;
+import grammar.model.Category;
+import grammar.model.Feature;
 
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
@@ -40,6 +44,7 @@ public class ClassicRuleMaker {
         inputMgr.addListener(new DoneListener());
         view.addInputBlocksListener(new InputBlockListener());
         view.addOutputBlocksListener(new OutputBlockListener());
+        view.addCopyListener(new CopyListener());
         InputCons inputRoot = new InputCons();
         OutputCons outputRoot = new OutputCons();
         view.setInputRoot(inputRoot);
@@ -67,6 +72,38 @@ public class ClassicRuleMaker {
         return result;
     }
     
+    private void copyToOutput()
+    {
+    	InputCons input=view.getInputRoot();
+    	OutputCons clone=new OutputCons();
+    	for(Constituent orig: input.getChildren())
+    	{
+    		OutputCons copy=copyConstituent(orig); 
+    		clone.addChild(copy);
+    	}
+    	view.setOutputRoot(clone);
+    	view.refresh();
+    	
+    }
+    private OutputCons copyConstituent(Constituent orig)
+    {
+    	OutputCons copy = new OutputCons();
+        copy.setCategory(Category.copy(orig.getCategory()));
+        
+ 
+    	copy.setConcept(orig.getConcept());
+    	for(Feature f:orig.getAllFeatures())
+    	{
+    		copy.updateFeature(f, f.getValue()); //TODO: fix feature copying
+    	}
+    	for(Constituent c: orig.getChildren())
+    	{
+    		OutputCons newChild=copyConstituent(c);
+    		
+    		copy.addChild(newChild);
+    	}
+    	return copy;
+    }
     
     private class InputBlockListener implements BlockListener {
         @Override
@@ -155,5 +192,14 @@ public class ClassicRuleMaker {
         public void done() {
             view.refresh();
         }
+    }
+    private class CopyListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			copyToOutput();
+			
+		}
+    	
     }
 }
