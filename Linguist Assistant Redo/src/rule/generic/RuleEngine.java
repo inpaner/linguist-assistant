@@ -127,9 +127,9 @@ public class RuleEngine {
         SetFeature typeFocus = new SetFeature(np, "type", "focus");
         typeFocus.setKey("target");
         
-        //// Rule 1
         
-        // Noun: participant tracking = routine (used in other rules)
+        //// Rule 1
+        // Noun: participant tracking = routine
         Feature trackingRoutine = Feature.getEmpty(noun);
         trackingRoutine.setName("participant tracking");
         trackingRoutine.setValue("routine");
@@ -189,6 +189,7 @@ public class RuleEngine {
         
         And rule2Input = new And();
         rule2Input.addRule(hasClause);
+        rule2Input.addRule(npCOTUChild);
         rule2Input.addRule(npCDChild);
         
         Rule rule2 = new Rule();
@@ -204,11 +205,105 @@ public class RuleEngine {
         npCDTUConds.addRule(hasTypeUndefined);
         HasChild npCDTUChild = new HasChild("target", npCDTUConds);
         
+        // NP: complement type = actor (target)
+        Feature complementActor = Feature.getEmpty(np);
+        complementActor.setName("complement type");
+        complementActor.setValue("actor");
+        HasFeature hasComplementActor = new HasFeature(complementActor);
+        
+        And npCAConds = new And();
+        npCAConds.addRule(hasNP);
+        npCAConds.addRule(hasComplementActor);
+        npCAConds.addRule(routineNounChild);
+        HasChild npCAChild = new HasChild("target", npCAConds);
+        
+        And rule3Input = new And();
+        rule3Input.addRule(hasClause);
+        rule3Input.addRule(npCOTUChild);
+        rule3Input.addRule(npCDTUChild);
+        rule3Input.addRule(npCAChild);
+
+        Rule rule3 = new Rule();
+        rule3.setInput(rule3Input);
+        rule3.addOutput(typeFocus);
         
         
-        
-        
+        //// Rule Set
+        RuleSet rule = new RuleSet();
+        rule.addRule(rule1);
+        rule.addRule(rule2);
+        rule.addRule(rule3);
     }
+    
+    
+    private void rule3() {
+        Category verb = Category.getByName("Verb");
+        HasCategory hasVerb = new HasCategory(verb);
+        
+        // rule 1: semantic = imperfective -> surface = imperfective
+        Feature aspectImperfect = Feature.get(verb, "aspect", "imperfect");
+        HasFeature hasAspectImperfect = new HasFeature(aspectImperfect);
+        
+        And rule1Input = new And();
+        rule1Input.addRule(hasVerb);
+        rule1Input.addRule(hasAspectImperfect);
+        
+        SetFeature surfaceImperfect = new SetFeature(verb, "surface aspect", "imperfective");
+        
+        Rule rule1 = new Rule();
+        rule1.setInput(rule1Input);
+        rule1.addOutput(surfaceImperfect);
+        
+        
+        // rule 2: time = future -> surface = contemplative
+        Feature timeFuture = Feature.get(verb, "time", "future");
+        HasFeature hasTimeFuture = new HasFeature(timeFuture);
+        
+        And rule2Input = new And();
+        rule2Input.addRule(hasVerb);
+        rule2Input.addRule(hasTimeFuture);
+        
+        SetFeature surfaceContemplative = new SetFeature(verb, "surface aspect", "contemplative");
+        
+        Rule rule2 = new Rule();
+        rule2.setInput(rule2Input);
+        rule2.addOutput(surfaceContemplative);
+        
+        
+        // rule 3: time = past -> surface = perfective
+        Feature timePast = Feature.get(verb, "time", "past");
+        HasFeature hasTimePast = new HasFeature(timePast);
+        
+        And rule3Input = new And();
+        rule3Input.addRule(hasVerb);
+        rule3Input.addRule(hasTimePast);
+        
+        SetFeature surfacePerfective = new SetFeature(verb, "surface aspect", "perfective");
+        
+        Rule rule3 = new Rule();
+        rule3.setInput(rule3Input);
+        rule3.addOutput(surfacePerfective);
+        
+        
+        // rule 3: time = present -> surface = imperfective
+        Feature timePresent = Feature.get(verb, "time", "present");
+        HasFeature hasTimePresent = new HasFeature(timePresent);
+        
+        And rule4Input = new And();
+        rule4Input.addRule(hasVerb);
+        rule4Input.addRule(hasTimePresent);
+        
+        Rule rule4 = new Rule();
+        rule4.setInput(rule4Input);
+        rule4.addOutput(surfacePerfective);
+        
+        RuleSet rule = new RuleSet();
+        rule.addRule(rule1);
+        rule.addRule(rule2);
+        rule.addRule(rule3);
+        rule.addRule(rule4);
+    }
+    
     
     private void rule5() {
         

@@ -16,6 +16,13 @@ public class Feature {
         return new Feature(parent);
     }
     
+    
+    public static Feature get(Category category, String name, String value) {
+        return new Feature(name, value, category);
+    }
+    
+    
+    
     public static List<Feature> getAll(Category category) {
         DAOFactory factory = DAOFactory.getInstance();
         FeatureDAO dao = new FeatureDAO(factory);
@@ -23,7 +30,7 @@ public class Feature {
     }
     
     public static Feature copy(Feature toCopy) {
-        Feature result = getEmpty(toCopy.parent);
+        Feature result = getEmpty(toCopy.category);
         result.name = toCopy.name;
         result.value = toCopy.value;
         result.language = result.language;
@@ -34,18 +41,18 @@ public class Feature {
     private String name;
     private String value;
     private Language language;
-    private Category parent;
+    private Category category;
     private String description;
     private static Map<String, List<String>> possibleValues = new HashMap<>();
     
     private Feature(Category parent) {
-        this.parent = parent;
+        this.category = parent;
     }
     
     public Feature(String name, String value, Category parent) {
         this.name = name;
         this.value = value;
-        this.parent = parent;
+        this.category = parent;
     }
     
     protected Feature(Integer pk, String aName, Category aParent) {
@@ -102,7 +109,7 @@ public class Feature {
     }
 
     public Category getParent() {
-        return parent;
+        return category;
     }
     
     @Override
@@ -149,7 +156,7 @@ public class Feature {
         // Must be equal: name, value, language, category name
         if (name.equals(otherF.name)
                 && value.equals(otherF.value)
-                //&& parent.getName().equals(otherF.parent.getName())
+                && category.getName().equals(otherF.category.getName())
                         ) {
             
             
@@ -167,7 +174,7 @@ public class Feature {
     public boolean equivalent(Feature other) {
         boolean result = false;
         if (name.equals(other.name)
-                && parent.getName().equals(other.parent.getName())) {
+                && category.getName().equals(other.category.getName())) {
             
             if (language != null && language.equals(other.language)) {
                 result = true;
@@ -182,7 +189,7 @@ public class Feature {
     
     @Override
     public int hashCode() {
-        int result = parent.hashCode();
+        int result = category.hashCode();
         if (name != null) {
             result += name.hashCode();
         }
