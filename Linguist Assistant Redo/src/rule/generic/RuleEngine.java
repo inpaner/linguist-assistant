@@ -190,7 +190,7 @@ public class RuleEngine {
         And afImperfectiveInput = new And(); 
         afImperfectiveInput.addRule(hasVerb);
 
-        afImperfectiveInput.addRule(hasAF); // always changes
+        afImperfectiveInput.addRule(hasAF); // always  changes
         afImperfectiveInput.addRule(hasImperfective); // always changes
         
         SetFormTranslation afImperfectiveOutput = new SetFormTranslation("af imperfective"); // always changes
