@@ -114,6 +114,102 @@ public class RuleEngine {
     }
     
     
+    private void rule2() {
+        
+        Category clause = Category.getByName("Clause");
+        Category np = Category.getByName("Noun Phrase");
+        Category noun = Category.getByName("Noun");
+        
+        HasCategory hasClause = new HasCategory(clause);
+        HasCategory hasNP = new HasCategory(np);
+        HasCategory hasNoun = new HasCategory(noun);
+        
+        SetFeature typeFocus = new SetFeature(np, "type", "focus");
+        typeFocus.setKey("target");
+        
+        //// Rule 1
+        
+        // Noun: participant tracking = routine (used in other rules)
+        Feature trackingRoutine = Feature.getEmpty(noun);
+        trackingRoutine.setName("participant tracking");
+        trackingRoutine.setValue("routine");
+        HasFeature hasTrackingRoutine = new HasFeature(trackingRoutine);
+        
+        And nounConds = new And();
+        nounConds.addRule(hasNoun);
+        nounConds.addRule(hasTrackingRoutine);
+        HasChild routineNounChild = new HasChild("noun", nounConds);
+        
+        // NP: complement type = object (target)
+        Feature complementObject = Feature.getEmpty(np);
+        complementObject.setName("complement type");
+        complementObject.setValue("object");
+        HasFeature hasComplementObject = new HasFeature(complementObject);
+        
+        And npCOConds = new And();
+        npCOConds.addRule(hasNP);
+        npCOConds.addRule(hasComplementObject);
+        npCOConds.addRule(routineNounChild);
+        
+        HasChild npCOChild = new HasChild("target", npCOConds);
+        
+        And rule1Input = new And();
+        rule1Input.addRule(hasClause);
+        rule1Input.addRule(npCOChild);
+        
+        Rule rule1 = new Rule();
+        rule1.setInput(rule1Input);
+        rule1.addOutput(typeFocus);
+        
+        
+        //// Rule 2
+        // NP: complement type = object, type = undefined
+        Feature typeUndefined = Feature.getEmpty(np);
+        typeUndefined.setName("type");
+        typeUndefined.setValue("undefined");
+        HasFeature hasTypeUndefined = new HasFeature(typeUndefined);
+        
+        And npCOTUConds = new And();
+        npCOTUConds.addRule(hasNP);
+        npCOTUConds.addRule(hasComplementObject);
+        npCOTUConds.addRule(hasTypeUndefined);
+        HasChild npCOTUChild = new HasChild("co tu", npCOTUConds);
+        
+        // NP: complement type = directional (target)
+        Feature complementDirectional = Feature.getEmpty(np);
+        complementDirectional.setName("complement type");
+        complementDirectional.setValue("directional");
+        HasFeature hasComplementDirectional = new HasFeature(complementDirectional);
+        
+        And npCDConds = new And();
+        npCDConds.addRule(hasNP);
+        npCDConds.addRule(hasComplementDirectional);
+        npCDConds.addRule(routineNounChild);
+        HasChild npCDChild = new HasChild("target", npCDConds);
+        
+        And rule2Input = new And();
+        rule2Input.addRule(hasClause);
+        rule2Input.addRule(npCDChild);
+        
+        Rule rule2 = new Rule();
+        rule2.setInput(rule2Input);
+        rule2.addOutput(typeFocus);
+        
+        
+        //// Rule 3
+        // NP: complement type = directional, type = undefined
+        And npCDTUConds = new And();
+        npCDTUConds.addRule(hasNP);
+        npCDTUConds.addRule(hasComplementDirectional);
+        npCDTUConds.addRule(hasTypeUndefined);
+        HasChild npCDTUChild = new HasChild("target", npCDTUConds);
+        
+        
+        
+        
+        
+    }
+    
     private void rule5() {
         
         Category np = Category.getByName("Noun Phrase");
@@ -251,7 +347,6 @@ public class RuleEngine {
         // AF Imperfective
         And afImperfectiveInput = new And(); 
         afImperfectiveInput.addRule(hasVerb);
-
         afImperfectiveInput.addRule(hasAF); // always  changes
         afImperfectiveInput.addRule(hasImperfective); // always changes
         
@@ -266,7 +361,7 @@ public class RuleEngine {
         And afPerfectiveInput = new And();
         afImperfectiveInput.addRule(hasVerb);
         afPerfectiveInput.addRule(hasAF);
-        afPerfectiveInput.addRule(hasImperfective);
+        afPerfectiveInput.addRule(hasPerfective);
         
         SetFormTranslation afPerfectiveOutput = new SetFormTranslation("af perfective");
         
