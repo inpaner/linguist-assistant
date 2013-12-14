@@ -5,7 +5,6 @@ import grammar.model.Category;
 import grammar.model.Feature;
 
 public class SetFeature extends Output {
-    private String key = "root";
     private Feature feature;
     
     public SetFeature(Category category, String name, String value) {
@@ -13,11 +12,6 @@ public class SetFeature extends Output {
         this.feature.setName(name);
         this.feature.setValue(value);
     }
-    
-    public void setKey(String key) {
-        this.key = key;
-    }
-    
     
     @Override
     public void apply() {

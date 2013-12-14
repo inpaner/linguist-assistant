@@ -197,6 +197,7 @@ public class Constituent {
     public boolean evaluate(Rule rule) {
         boolean result = false;
         if (rule instanceof RuleSet) {
+            System.out.println("***************RULESET TIEM");
             RuleSet rs = (RuleSet) rule;
             
             for (Rule subRule : rs.getRules()) {

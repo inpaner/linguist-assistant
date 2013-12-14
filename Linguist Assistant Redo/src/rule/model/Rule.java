@@ -69,11 +69,17 @@ public class Rule {
     }
     
     public boolean evaluate(Constituent constituent) {
+        // empty rule
+        if (input == null) {
+            return true;
+        }
+        
         constituents = new HashMap<>();
         constituents.put("root", constituent);
         input.setRoot(this); // questionable
         System.out.println("------------------------------");
         System.out.println("Applying Rule on Constituent: " + constituent.getCategory());
+        
         boolean result = input.evaluate(constituent);
         System.out.println(result);
         System.out.println("Constituent keys: ");

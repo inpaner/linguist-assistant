@@ -6,15 +6,10 @@ import java.util.List;
 import semantics.model.Constituent;
 
 public class ReorderChildren extends Output {
-    private String key = "root";
     private List<String> childKeys = new ArrayList<>();
     
     public ReorderChildren() {
         
-    }
-    
-    public void setKey(String key) {
-        this.key = key;
     }
     
     public void addChild(String childKey) {

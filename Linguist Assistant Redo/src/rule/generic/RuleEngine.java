@@ -7,10 +7,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import rule.model.Rule;
+import rule.model.RuleSet;
 import rule.model.input.And;
 import rule.model.input.HasCategory;
 import rule.model.input.HasChild;
 import rule.model.input.HasFeature;
+import rule.model.input.Or;
+import rule.model.output.AddConstituent;
+import rule.model.output.ForceTranslation;
+import rule.model.output.Output;
 import rule.model.output.ReorderChildren;
 import semantics.model.Constituent;
 
@@ -21,7 +26,9 @@ public class RuleEngine {
     
     public RuleEngine(Constituent constituent) {
         this.constituent = constituent;
-        rule7();
+        rule5();
+        //rule7();
+        //rule8();
     }
     
     public void apply() {
@@ -32,6 +39,106 @@ public class RuleEngine {
     }
     
     
+    private void rule5() {
+        
+        Category np = Category.getByName("Noun Phrase");
+        Category noun = Category.getByName("Noun");
+        Category marker = Category.getByName("Marker");
+        
+        ////////Rule 1
+        // input
+       
+        HasCategory hasNP = new HasCategory(np);
+        
+        Feature typeFocus = Feature.getEmpty(np);
+        typeFocus.setName("type");
+        typeFocus.setValue("focus");
+        HasFeature hasTypeFocus = new HasFeature(typeFocus);
+        
+        //HasCategory hasNoun = new HasCategory(noun);
+        //HasChild nounChild = new HasChild("noun", hasNoun);
+        
+        And rule1Input = new And();
+        rule1Input.addRule(hasNP);
+        rule1Input.addRule(hasTypeFocus);
+        //rule1Input.addRule(nounChild);
+        
+        // output
+        AddConstituent addAng = new AddConstituent(marker, "root");
+        Output setAng = new ForceTranslation("ang");
+        addAng.addOutput(setAng);
+        
+        Rule angRule = new Rule();
+        angRule.setInput(rule1Input);
+        angRule.addOutput(addAng);
+        
+        ////////Rule 2 (complement type = actor | object) -> marker = ng
+        // input
+        Feature typeUndefined = Feature.getEmpty(np);
+        typeUndefined.setName("type");
+        typeUndefined.setValue("undefined");
+        HasFeature hasTypeUndefined = new HasFeature(typeUndefined);
+          
+        Feature complementActor = Feature.getEmpty(np);
+        complementActor.setName("complement type");
+        complementActor.setValue("actor");
+        HasFeature hasComplementActor = new HasFeature(complementActor);
+        
+        Feature complementObject = Feature.getEmpty(np);
+        complementObject.setName("complement type");
+        complementObject.setValue("object");
+        HasFeature hasComplementObject = new HasFeature(complementObject);
+        
+        Or actorOrObject = new Or();
+        actorOrObject.addRule(hasComplementActor);
+        actorOrObject.addRule(hasComplementObject);
+        
+        
+        And rule2Input = new And();
+        rule2Input.addRule(hasNP);
+        rule2Input.addRule(actorOrObject);
+        rule2Input.addRule(hasTypeUndefined);
+        //rule2Input.addRule(nounChild);
+        
+        // output
+        AddConstituent addNg = new AddConstituent(marker, "root");
+        Output setNg = new ForceTranslation("ng");
+        addNg.addOutput(setNg);
+        
+        Rule ngRule = new Rule();
+        ngRule.setInput(rule2Input);
+        ngRule.addOutput(addNg);
+       
+       
+        ////////Rule 3 (complement type = directional) -> marker = sa
+        // input
+        Feature complementDirectional = Feature.getEmpty(np);
+        complementDirectional.setName("complement type");
+        complementDirectional.setValue("directional");
+        HasFeature hasComplementDirectional = new HasFeature(complementDirectional);
+        
+        And rule3Input = new And();
+        rule3Input.addRule(hasNP);
+        rule3Input.addRule(hasComplementDirectional);
+        rule3Input.addRule(hasTypeUndefined);
+        //rule3Input.addRule(nounChild);
+        
+        // output
+        AddConstituent addSa = new AddConstituent(marker, "root");
+        Output setSa = new ForceTranslation("sa");
+        addNg.addOutput(setSa);
+        
+        
+        Rule saRule = new Rule();
+        saRule.setInput(rule3Input);
+        saRule.addOutput(addSa);
+        
+        RuleSet set = new RuleSet();
+        set.addRule(angRule);
+        set.addRule(ngRule);
+        set.addRule(saRule);
+        rules.add(set);
+    }
     
     private void rule7() {
         
@@ -133,11 +240,43 @@ public class RuleEngine {
         reorder.addChild("complement directional");
         reorder.addChild("type focus");
         
-        Rule rule7 = new Rule();
-        rule7.setInput(input);
-        rule7.addOutput(reorder);
+        Rule rule = new Rule();
+        rule.setInput(input);
+        rule.addOutput(reorder);
         
-        rules.add(rule7);
+        rules.add(rule);
+    }
+    
+
+    private void rule8() {
+
+        // input
+        Category np = Category.getByName("Noun Phrase");
+        Category noun = Category.getByName("Noun");
+        Category marker = Category.getByName("Marker");
+        
+        HasCategory hasNP = new HasCategory(np);
+        HasCategory hasNoun = new HasCategory(noun);
+        HasCategory hasMarker = new HasCategory(marker);
+        
+        HasChild markerChild = new HasChild("marker", hasMarker);
+        HasChild nounChild = new HasChild("noun", hasNoun);
+        
+        And input = new And();
+        input.addRule(hasNP);
+        input.addRule(markerChild);
+        input.addRule(nounChild);
+        
+        // output
+        ReorderChildren reorder = new ReorderChildren();
+        reorder.addChild("marker");
+        reorder.addChild("noun");
+        
+        Rule rule = new Rule();
+        rule.setInput(input);
+        rule.addOutput(reorder);
+        
+        rules.add(rule);
     }
     
 }

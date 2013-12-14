@@ -28,6 +28,7 @@ import rule.model.input.HasFeature;
 import rule.model.input.Input;
 import rule.model.input.Or;
 import rule.model.output.ForceTranslation;
+import rule.model.output.Output;
 import rule.spellout.view.ButtonColumn;
 import rule.spellout.view.SpelloutTableModel;
 import commons.main.MainFrame;
@@ -117,9 +118,8 @@ public class Table extends JPanel implements Spellout {
                     input.addRule(cornerInputs);
                 }
                 
-                ForceTranslation output = new ForceTranslation();
+                Output output = new ForceTranslation(translation);
                 output.setKey("root");
-                output.setTranslation(translation);
                 
                 Rule rule = new Rule();
                 rule.setInput(input);

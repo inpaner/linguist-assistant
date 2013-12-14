@@ -1,22 +1,13 @@
 package rule.model.output;
 
-import java.util.List;
-
-import lexicon.model.Entry;
-import ontology.model.Concept;
 import semantics.model.Constituent;
 import semantics.model.Target;
 
 public class ForceTranslation extends Output {
-    private String key = "root";
     private String translation;
     
-    public void setKey(String key) {
-        this.key = key;
-    }
-
-    public String getKey() {
-        return key;
+    public ForceTranslation(String translation) {
+        this.translation = translation;
     }
     
     public String getTranslation() {
@@ -29,7 +20,8 @@ public class ForceTranslation extends Output {
 
     @Override
     public void apply() {
-        Constituent constituent = root.getStored(key);        
+        System.out.println("Key = " + key);
+        Constituent constituent = root.getStored(key);
         Target target = constituent.getTarget();
         target.setTranslation(translation);
     }

@@ -6,15 +6,10 @@ import ontology.model.Concept;
 import semantics.model.Constituent;
 
 public class SetFormTranslation extends Output {
-    private String key = "root";
     private String formName;
     
     public SetFormTranslation(String formName) {
         this.formName = formName;
-    }
-    
-    public void setKey(String key) {
-        this.key = key;
     }
     
     @Override

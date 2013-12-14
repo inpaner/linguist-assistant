@@ -9,7 +9,6 @@ import semantics.model.Constituent;
 import semantics.model.Target;
 
 public class SetTranslation extends Output {
-    private String key;
     private Language language;
     
     public SetTranslation(String key, Language language) {
@@ -18,10 +17,6 @@ public class SetTranslation extends Output {
     }
         
 
-    public void setKey(String key) {
-        this.key = key;
-    }
-    
     public void setLanguage(Language language) {
         this.language = language;
     }
@@ -53,10 +48,6 @@ public class SetTranslation extends Output {
         Target target = constituent.getTarget();
         target.setEntry(firstMapping);
     }
-
-	public String getKey() {
-		return key;
-	}
 
 	public Language getLanguage() {
 		return language;
