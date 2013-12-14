@@ -14,6 +14,13 @@ public class Language {
      * Static factories
      */
     
+    
+    private static Language currentLanguage = Language.getInstance("Filipino");
+    
+    public static Language getCurrent() {
+        return currentLanguage;
+    }
+    
     public static void main(String[] args) {
         for (Language item : Language.getAll()) {
             System.out.println(item);

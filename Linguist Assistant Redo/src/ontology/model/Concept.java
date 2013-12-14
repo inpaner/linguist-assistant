@@ -145,6 +145,10 @@ public class Concept {
         return result;
     }
     
+    public Entry getFirstMapping() {
+        return getMappings(Language.getCurrent()).get(0);
+    }
+    
     public void addTag(Tag tag) {
         DAOFactory factory = DAOFactory.getInstance();
         ConceptDAO dao = new ConceptDAO(factory);

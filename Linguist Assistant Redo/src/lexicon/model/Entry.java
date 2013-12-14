@@ -96,6 +96,16 @@ public class Entry {
 	    return stem;
 	}
 	
+	public Form getForm(String name) {
+	    Form result = null;
+	    for (Form form : getForms()) {
+	        if (form.getName().equals(name)) {
+	            result = form;
+	        }
+	    }
+	    return result;
+	}
+	
 	public List<Form> getForms() {
 	    DAOFactory factory = DAOFactory.getInstance();
 	    FormDAO dao = new FormDAO(factory);
