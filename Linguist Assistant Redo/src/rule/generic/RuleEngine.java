@@ -17,6 +17,7 @@ import rule.model.output.AddConstituent;
 import rule.model.output.ForceTranslation;
 import rule.model.output.Output;
 import rule.model.output.ReorderChildren;
+import rule.model.output.SetFormTranslation;
 import semantics.model.Constituent;
 
 public class RuleEngine {
@@ -36,6 +37,18 @@ public class RuleEngine {
             constituent.evaluate(rule);
         }
         constituent.applyRules();
+    }
+    
+    private void rule1() {
+        Category np = Category.getByName("Noun Phrase");
+        HasCategory hasNP = new HasCategory(np);
+        
+        Feature typeFocus = Feature.getEmpty(np);
+        typeFocus.setName("semantic role");
+        typeFocus.setValue("focus");
+        HasFeature hasTypeFocus = new HasFeature(typeFocus);
+        
+        
     }
     
     
@@ -139,6 +152,77 @@ public class RuleEngine {
         set.addRule(saRule);
         rules.add(set);
     }
+    
+    
+    private void rule6() {
+        Category verb = Category.getByName("Verb");
+        HasCategory hasVerb = new HasCategory(verb);
+        
+        //////// List of Feature Rules
+        Feature af = Feature.getEmpty(verb);
+        af.setName("focus");
+        af.setValue("af");
+        HasFeature hasAF = new HasFeature(af);
+        
+        Feature of = Feature.getEmpty(verb);
+        of.setName("focus");
+        of.setValue("of");
+        HasFeature hasOF = new HasFeature(of);
+        
+        Feature df = Feature.getEmpty(verb);
+        of.setName("focus");
+        of.setValue("df");
+        HasFeature hasDF = new HasFeature(df);
+              
+        Feature imperfective = Feature.getEmpty(verb);
+        imperfective.setName("surface aspect");
+        imperfective.setValue("imperfective");
+        HasFeature hasImperfective = new HasFeature(imperfective);
+        
+        Feature perfective = Feature.getEmpty(verb);
+        perfective.setName("surface aspect");
+        perfective.setValue("perfective");
+        HasFeature hasPerfective = new HasFeature(perfective);
+        
+        
+        //////// Actual Rules
+        // AF Imperfective
+        And afImperfectiveInput = new And(); 
+        afImperfectiveInput.addRule(hasVerb);
+
+        afImperfectiveInput.addRule(hasAF); // always changes
+        afImperfectiveInput.addRule(hasImperfective); // always changes
+        
+        SetFormTranslation afImperfectiveOutput = new SetFormTranslation("af imperfective"); // always changes
+        
+        Rule afImperfective = new Rule();
+        afImperfective.setInput(afImperfectiveInput); 
+        afImperfective.addOutput(afImperfectiveOutput);
+        
+        
+        // AF Perfective
+        And afPerfectiveInput = new And();
+        afImperfectiveInput.addRule(hasVerb);
+        afPerfectiveInput.addRule(hasAF);
+        afPerfectiveInput.addRule(hasImperfective);
+        
+        SetFormTranslation afPerfectiveOutput = new SetFormTranslation("af perfective");
+        
+        Rule afPerfective = new Rule();
+        afPerfective.setInput(afPerfectiveInput);
+        afPerfective.addOutput(afPerfectiveOutput);
+        
+        
+        //////// RuleSet
+        RuleSet rule = new RuleSet();
+        rule.addRule(afImperfective);
+        rule.addRule(afPerfective);
+        
+        
+        
+        rules.add(rule);
+    }
+    
     
     private void rule7() {
         
