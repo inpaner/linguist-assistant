@@ -196,30 +196,20 @@ public class Constituent {
     }
     
     public boolean evaluate(Rule rule) {
-        boolean result = false;
         
-        if (rule instanceof RuleSet) {
-            RuleSet rs = (RuleSet) rule;
-            
-            for (Rule subRule : rs.getRules()) {
-                if (this.evaluate(subRule)) {
-                    result = true;
-                }
-            }
-            
-            return result;
-        }        
+        boolean ruleAdded = false;
+        
+        if (!appliedRules.contains(rule) && rule.evaluate(this)) {
+            newRules.add(rule);
+            ruleAdded = true;
+        }
         
         for (Constituent child : children) {
             child.evaluate(rule.createPassedRule());
         }
         
-        if (!appliedRules.contains(rule) && rule.evaluate(this)) {
-            newRules.add(rule);
-            result = true;
-        }
         
-        return result;
+        return ruleAdded;
     }
     
     

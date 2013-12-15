@@ -28,8 +28,12 @@ public class RuleEngine {
     
     public RuleEngine(Constituent constituent) {
         this.constituent = constituent;
-        rule1();
+        //rule1();
+        rule2();
+        //rule3();
+        //rule4();
         //rule5();
+        //rule6();
         //rule7();
         //rule8();
     }
@@ -37,11 +41,16 @@ public class RuleEngine {
     public void apply() {
         boolean ruleApplied;
         do {
+            System.out.println("**********Iterating");
             ruleApplied = false;
             for (Rule rule : rules) {
-                ruleApplied = constituent.evaluate(rule);
+                if (constituent.evaluate(rule)) {
+                    System.out.println("here");
+                    ruleApplied = true;
+                }
             }
             constituent.applyRules();
+            System.out.println("Rule applied: " + ruleApplied);
         } while (ruleApplied); 
         
         
@@ -104,6 +113,8 @@ public class RuleEngine {
         rule3.addOutput(rule3Output);
         
         RuleSet rule = new RuleSet();
+        rule.setName("rule 1");
+        
         rule.addRule(rule1);
         rule.addRule(rule2);
         rule.addRule(rule3);
@@ -131,9 +142,16 @@ public class RuleEngine {
         Feature trackingRoutine = Feature.get(noun, "participant tracking", "routine");
         HasFeature hasTrackingRoutine = new HasFeature(trackingRoutine);
         
+        Feature trackingInferable = Feature.get(noun, "participant tracking", "frame inferable");
+        HasFeature hasTrackingInferable = new HasFeature(trackingInferable);
+        
+        Or routineOrInferable = new Or();
+        routineOrInferable.addRule(hasTrackingRoutine);
+        routineOrInferable.addRule(hasTrackingInferable);
+        
         And nounConds = new And();
         nounConds.addRule(hasNoun);
-        nounConds.addRule(hasTrackingRoutine);
+        nounConds.addRule(routineOrInferable);
         HasChild routineNounChild = new HasChild("noun", nounConds);
         
         // NP: complement type = object (target)
@@ -202,7 +220,6 @@ public class RuleEngine {
         And npCAConds = new And();
         npCAConds.addRule(hasNP);
         npCAConds.addRule(hasComplementActor);
-        npCAConds.addRule(routineNounChild);
         HasChild npCAChild = new HasChild("target", npCAConds);
         
         And rule3Input = new And();
@@ -218,9 +235,12 @@ public class RuleEngine {
         
         //// Rule Set
         RuleSet rule = new RuleSet();
+        rule.setName("rule 2");
         rule.addRule(rule1);
         rule.addRule(rule2);
         rule.addRule(rule3);
+        
+        rules.add(rule);
     }
     
     
@@ -286,10 +306,14 @@ public class RuleEngine {
         rule4.addOutput(surfacePerfective);
         
         RuleSet rule = new RuleSet();
+        rule.setName("rule 3");
+        
         rule.addRule(rule1);
         rule.addRule(rule2);
         rule.addRule(rule3);
         rule.addRule(rule4);
+        
+        rules.add(rule);
     }
     
     
@@ -401,9 +425,13 @@ public class RuleEngine {
         rule3.addOutput(focusDF);
         
         RuleSet rule = new RuleSet();
+        rule.setName("rule 4");
+        
         rule.addRule(rule1);
         rule.addRule(rule2);
         rule.addRule(rule3);
+        
+        rules.add(rule);
     }
     
     
@@ -486,11 +514,13 @@ public class RuleEngine {
         saRule.setInput(rule3Input);
         saRule.addOutput(addSa);
         
-        RuleSet set = new RuleSet();
-        set.addRule(angRule);
-        set.addRule(ngRule);
-        set.addRule(saRule);
-        rules.add(set);
+        RuleSet rule = new RuleSet();
+        rule.setName("rule 5");
+        
+        rule.addRule(angRule);
+        rule.addRule(ngRule);
+        rule.addRule(saRule);
+        rules.add(rule);
     }
     
     
@@ -640,6 +670,8 @@ public class RuleEngine {
         
         //////// RuleSet
         RuleSet rule = new RuleSet();
+        rule.setName("rule 6");
+        
         rule.addRule(afImperfective);
         rule.addRule(afPerfective);
         rule.addRule(afContemplative);
@@ -746,6 +778,8 @@ public class RuleEngine {
         reorder.addChild("type focus");
         
         Rule rule = new Rule();
+        rule.setName("rule 7");
+        
         rule.setInput(input);
         rule.addOutput(reorder);
         
@@ -778,6 +812,8 @@ public class RuleEngine {
         reorder.addChild("noun");
         
         Rule rule = new Rule();
+        rule.setName("rule 8");
+        
         rule.setInput(input);
         rule.addOutput(reorder);
         
