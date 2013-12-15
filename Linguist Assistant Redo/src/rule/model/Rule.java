@@ -29,6 +29,7 @@ public class Rule {
     
     public Rule createLocalRule() {
         Rule result = new Rule();
+        result.name = this.name;
         result.constituents = this.constituents;
         result.input = this.input;
         result.outputs = this.outputs;
@@ -85,15 +86,10 @@ public class Rule {
         constituents.put("root", constituent);
         input.setRoot(this); // questionable
         System.out.println("------------------------------");
-        System.out.println("Applying Rule on Constituent: " + constituent.getCategory());
+        System.out.println("Constituent: " + constituent.getCategory());
         
         boolean result = input.evaluate(constituent);
         System.out.println(result);
-        System.out.println("Constituent keys: ");
-        
-        for (String key : constituents.keySet()) {
-            System.out.println(key);
-        }
         return result;
     }
 
@@ -151,5 +147,18 @@ public class Rule {
         return this.name.equals(other.name);
     }
     
-   
+    @Override
+    public String toString() {
+        return name;
+    }
+
+    
+    @Override
+    public int hashCode() {
+        return toString().hashCode();
+    }
+    
+    
+    
+    
 }

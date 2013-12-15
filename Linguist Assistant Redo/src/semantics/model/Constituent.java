@@ -205,8 +205,12 @@ public class Constituent {
         }
         
         if (!appliedRules.contains(rule) && rule.evaluate(this)) {
+            System.out.println("Adding: " + rule.toString());
             newRules.add(rule);
             ruleAdded = true;
+        }
+        else {
+            System.out.println(rule.toString());
         }
         
         return ruleAdded;

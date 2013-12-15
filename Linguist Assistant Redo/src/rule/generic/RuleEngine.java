@@ -31,19 +31,23 @@ public class RuleEngine {
         //rule1();
         //rule2();
         //rule3();
-        rule4();
-        //rule5();
+        //rule4();
+        rule5();
         //rule6();
         //rule7();
-        //rule8();
+        rule8();
     }
     
     public void apply() {
         boolean ruleApplied;
         do {
-            System.out.println("**********Iterating");
+            System.out.println();
+            System.out.println();
+            System.out.println("Iterating***************************************************");
             ruleApplied = false;
             for (Rule rule : rules) {
+                System.out.println();
+                System.out.println("Rule: " + rule.toString());
                 if (root.evaluate(rule)) {
                     ruleApplied = true;
                 }
@@ -530,7 +534,6 @@ public class RuleEngine {
     private void rule5() {
         
         Category np = Category.getByName("Noun Phrase");
-        Category noun = Category.getByName("Noun");
         Category marker = Category.getByName("Marker");
         
         ////////Rule 1
@@ -573,7 +576,6 @@ public class RuleEngine {
         rule2Input.addRule(hasNP);
         rule2Input.addRule(actorOrObject);
         rule2Input.addRule(hasTypeUndefined);
-        //rule2Input.addRule(nounChild);
         
         // output
         AddConstituent addNg = new AddConstituent(marker, "root");
@@ -594,13 +596,11 @@ public class RuleEngine {
         rule3Input.addRule(hasNP);
         rule3Input.addRule(hasComplementDirectional);
         rule3Input.addRule(hasTypeUndefined);
-        //rule3Input.addRule(nounChild);
         
         // output
         AddConstituent addSa = new AddConstituent(marker, "root");
         Output setSa = new ForceTranslation("sa");
-        addNg.addOutput(setSa);
-        
+        addSa.addOutput(setSa);
         
         Rule saRule = new Rule();
         saRule.setInput(rule3Input);

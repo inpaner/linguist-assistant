@@ -26,14 +26,15 @@ public class AddConstituent extends Output {
         Constituent target = root.getStored(key);
         
         Rule emptyRule = new Rule();
+        emptyRule.setName("custom");
         emptyRule.store("addcons", toAdd);
         
         for (Output output : outputs) {
             output.setKey("addcons");
             emptyRule.addOutput(output);
             toAdd.evaluate(emptyRule);
-            toAdd.applyRules();        
         }
+        toAdd.applyRules();
         target.addChild(toAdd);
     }
 
