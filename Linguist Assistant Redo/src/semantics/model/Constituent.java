@@ -198,16 +198,16 @@ public class Constituent {
     public boolean evaluate(Rule rule) {
         
         boolean ruleAdded = false;
+        for (Constituent child : children) {
+            if (child.evaluate(rule.createPassedRule())) {
+                ruleAdded = true;
+            }
+        }
         
         if (!appliedRules.contains(rule) && rule.evaluate(this)) {
             newRules.add(rule);
             ruleAdded = true;
         }
-        
-        for (Constituent child : children) {
-            child.evaluate(rule.createPassedRule());
-        }
-        
         
         return ruleAdded;
     }

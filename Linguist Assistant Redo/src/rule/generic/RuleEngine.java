@@ -23,14 +23,14 @@ import semantics.model.Constituent;
 
 public class RuleEngine {
     private List<Rule> rules = new ArrayList<>();
-    private Constituent constituent;
+    private Constituent root;
     
     
     public RuleEngine(Constituent constituent) {
-        this.constituent = constituent;
+        this.root = constituent;
         //rule1();
-        rule2();
-        //rule3();
+        //rule2();
+        rule3();
         //rule4();
         //rule5();
         //rule6();
@@ -44,13 +44,11 @@ public class RuleEngine {
             System.out.println("**********Iterating");
             ruleApplied = false;
             for (Rule rule : rules) {
-                if (constituent.evaluate(rule)) {
-                    System.out.println("here");
+                if (root.evaluate(rule)) {
                     ruleApplied = true;
                 }
             }
-            constituent.applyRules();
-            System.out.println("Rule applied: " + ruleApplied);
+            root.applyRules();
         } while (ruleApplied); 
         
         
@@ -248,7 +246,7 @@ public class RuleEngine {
         Category verb = Category.getByName("Verb");
         HasCategory hasVerb = new HasCategory(verb);
         
-        // rule 1: semantic = imperfective -> surface = imperfective
+        //// rule 1: aspect = imperfective -> surface = imperfective
         Feature aspectImperfect = Feature.get(verb, "aspect", "imperfect");
         HasFeature hasAspectImperfect = new HasFeature(aspectImperfect);
         
@@ -263,13 +261,54 @@ public class RuleEngine {
         rule1.addOutput(surfaceImperfect);
         
         
-        // rule 2: time = future -> surface = contemplative
-        Feature timeFuture = Feature.get(verb, "time", "future");
-        HasFeature hasTimeFuture = new HasFeature(timeFuture);
+        //// rule 2: time = future -> surface = contemplative
+        // Future features
+        Feature immediateFuture = Feature.get(verb, "time", "immediate");
+        HasFeature hasImmediateFuture = new HasFeature(immediateFuture);
         
+        Feature laterToday = Feature.get(verb, "time", "later today");
+        HasFeature hasLaterToday = new HasFeature(laterToday);
+        
+        Feature tomorrow = Feature.get(verb, "time", "tomorrow");
+        HasFeature hasTomorrow = new HasFeature(tomorrow);
+        
+        Feature twoDaysFrom = Feature.get(verb, "time", "2 days from now");
+        HasFeature hasTwoDaysFrom = new HasFeature(twoDaysFrom);
+        
+        Feature threeDaysFrom = Feature.get(verb, "time", "3 days from now");
+        HasFeature hasThreeDaysFrom = new HasFeature(threeDaysFrom);
+        
+        Feature weekFromNow = Feature.get(verb, "time", "week from now");
+        HasFeature hasWeekFromNow = new HasFeature(weekFromNow);
+        
+        Feature monthFromNow = Feature.get(verb, "time", "month from now");
+        HasFeature hasMonthFromNow = new HasFeature(monthFromNow);
+        
+        Feature yearFromNow = Feature.get(verb, "time", "year from now");
+        HasFeature hasYearFromNow = new HasFeature(yearFromNow);
+        
+        Feature unknownFuture = Feature.get(verb, "time", "unknown future");
+        HasFeature hasUnknownFuture = new HasFeature(unknownFuture);
+        
+        Feature timeless = Feature.get(verb, "time", "timeless");
+        HasFeature hasTimeless = new HasFeature(timeless);
+        
+        
+        Or hasFuture = new Or();
+        hasFuture.addRule(hasImmediateFuture);
+        hasFuture.addRule(hasLaterToday);
+        hasFuture.addRule(hasTomorrow);
+        hasFuture.addRule(hasTwoDaysFrom);
+        hasFuture.addRule(hasThreeDaysFrom);
+        hasFuture.addRule(hasWeekFromNow);
+        hasFuture.addRule(hasMonthFromNow);
+        hasFuture.addRule(hasYearFromNow);
+        hasFuture.addRule(hasUnknownFuture);
+        hasFuture.addRule(hasTimeless);
+
         And rule2Input = new And();
         rule2Input.addRule(hasVerb);
-        rule2Input.addRule(hasTimeFuture);
+        rule2Input.addRule(hasFuture);
         
         SetFeature surfaceContemplative = new SetFeature(verb, "surface aspect", "contemplative");
         
@@ -278,13 +317,61 @@ public class RuleEngine {
         rule2.addOutput(surfaceContemplative);
         
         
-        // rule 3: time = past -> surface = perfective
-        Feature timePast = Feature.get(verb, "time", "past");
-        HasFeature hasTimePast = new HasFeature(timePast);
+        //// rule 3: time = past -> surface = perfective
+        // past features
+        Feature immediatePast = Feature.get(verb, "time", "immediate past");
+        HasFeature hasImmediatePast = new HasFeature(immediatePast);
+        
+        Feature earlierToday = Feature.get(verb, "time", "earlier today");
+        HasFeature hasEarlierToday = new HasFeature(earlierToday);
+        
+        Feature yesterday = Feature.get(verb, "time", "yesterday");
+        HasFeature hasYesterday = new HasFeature(yesterday);
+        
+        Feature twoAgo = Feature.get(verb, "time", "2 days ago");
+        HasFeature hasTwoAgo = new HasFeature(twoAgo);
+        
+        Feature threeAgo = Feature.get(verb, "time", "3 days ago");
+        HasFeature hasThreeAgo = new HasFeature(threeAgo);
+        
+        Feature weekAgo = Feature.get(verb, "time", "week ago");
+        HasFeature hasWeekAgo = new HasFeature(weekAgo);
+        
+        Feature monthAgo = Feature.get(verb, "time", "month ago");
+        HasFeature hasMonthAgo = new HasFeature(monthAgo);
+        
+        Feature yearAgo = Feature.get(verb, "time", "year ago");
+        HasFeature hasYearAgo = new HasFeature(yearAgo);
+        
+        Feature speakerLifetime = Feature.get(verb, "time", "speaker lifetime");
+        HasFeature hasSpeakerLifetime = new HasFeature(speakerLifetime);
+        
+        Feature historicPast = Feature.get(verb, "time", "historic past");
+        HasFeature hasHistoricPast = new HasFeature(historicPast);
+        
+        Feature eternityPast = Feature.get(verb, "time", "eternity past");
+        HasFeature hasEternityPast = new HasFeature(eternityPast);
+        
+        Feature unknownPast = Feature.get(verb, "time", "unknown past");
+        HasFeature hasUnknownPast = new HasFeature(unknownPast);
+        
+        Or hasPast = new Or();
+        hasPast.addRule(hasImmediatePast);
+        hasPast.addRule(hasEarlierToday);
+        hasPast.addRule(hasYesterday);
+        hasPast.addRule(hasTwoAgo);
+        hasPast.addRule(hasThreeAgo);
+        hasPast.addRule(hasWeekAgo);
+        hasPast.addRule(hasMonthAgo);
+        hasPast.addRule(hasYearAgo);
+        hasPast.addRule(hasSpeakerLifetime);
+        hasPast.addRule(hasHistoricPast);
+        hasPast.addRule(hasEternityPast);
+        hasPast.addRule(hasUnknownPast);
         
         And rule3Input = new And();
         rule3Input.addRule(hasVerb);
-        rule3Input.addRule(hasTimePast);
+        rule3Input.addRule(hasPast);
         
         SetFeature surfacePerfective = new SetFeature(verb, "surface aspect", "perfective");
         
@@ -294,12 +381,19 @@ public class RuleEngine {
         
         
         // rule 3: time = present -> surface = imperfective
-        Feature timePresent = Feature.get(verb, "time", "present");
-        HasFeature hasTimePresent = new HasFeature(timePresent);
+        Feature present = Feature.get(verb, "time", "present");
+        HasFeature hasTimePresent = new HasFeature(present);
+        
+        Feature discourse = Feature.get(verb, "time", "discourse");
+        HasFeature hasDiscourse = new HasFeature(discourse);
+        
+        Or hasPresent = new Or();
+        hasPresent.addRule(hasTimePresent);
+        hasPresent.addRule(hasDiscourse);
         
         And rule4Input = new And();
         rule4Input.addRule(hasVerb);
-        rule4Input.addRule(hasTimePresent);
+        rule4Input.addRule(hasPresent);
         
         Rule rule4 = new Rule();
         rule4.setInput(rule4Input);
