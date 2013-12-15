@@ -6,6 +6,7 @@ import grammar.model.Feature;
 import java.util.ArrayList;
 import java.util.List;
 
+import lexicon.model.Language;
 import rule.model.Rule;
 import rule.model.RuleSet;
 import rule.model.input.And;
@@ -19,17 +20,22 @@ import rule.model.output.Output;
 import rule.model.output.ReorderChildren;
 import rule.model.output.SetFeature;
 import rule.model.output.SetFormTranslation;
+import rule.model.output.SetTranslation;
 import semantics.model.Constituent;
 
 public class RuleEngine {
+    
+    private List<Rule> translationRules = new ArrayList<>();
     private List<Rule> rules = new ArrayList<>();
     private Constituent root;
     
     
     public RuleEngine(Constituent constituent) {
         this.root = constituent;
+        translationRules();
+        
         //rule1();
-        //rule2();
+        rule2();
         //rule3();
         //rule4();
         rule5();
@@ -39,6 +45,11 @@ public class RuleEngine {
     }
     
     public void apply() {
+        for (Rule rule : translationRules) {
+            root.evaluate(rule);
+        }
+        root.applyRules();
+        
         boolean ruleApplied;
         do {
             System.out.println();
@@ -51,10 +62,42 @@ public class RuleEngine {
                 if (root.evaluate(rule)) {
                     ruleApplied = true;
                 }
+                root.applyRules();
             }
-            root.applyRules();
+            
         } while (ruleApplied); 
         
+        
+    }
+    
+    private void translationRules() {
+        // Noun
+        Category noun = Category.getByName("Noun");
+        HasCategory hasNoun = new HasCategory(noun);
+        
+        Language filipino = Language.getInstance("Filipino");
+        
+        SetTranslation translateNoun = new SetTranslation("root", filipino);
+        
+        Rule filNoun = new Rule();
+        filNoun.setName("noun translate");
+        filNoun.setInput(hasNoun);
+        filNoun.addOutput(translateNoun);
+        
+        translationRules.add(filNoun);
+        
+        // Verb
+        Category verb = Category.getByName("Verb");
+        HasCategory hasVerb = new HasCategory(verb);
+        
+        SetTranslation translateVerb = new SetTranslation("root", filipino);
+        
+        Rule filVerb = new Rule();
+        filNoun.setName("verb translate");
+        filVerb.setInput(hasVerb);
+        filVerb.addOutput(translateVerb);
+        
+        translationRules.add(filVerb);
         
     }
     
@@ -186,6 +229,7 @@ public class RuleEngine {
         npCOTUConds.addRule(hasComplementObject);
         npCOTUConds.addRule(hasTypeUndefined);
         HasChild npCOTUChild = new HasChild("co tu", npCOTUConds);
+        npCOTUChild.setOptional(true);
         
         // NP: complement type = directional (target)
         Feature complementDirectional = Feature.get(np, "complement type", "directional");
@@ -214,6 +258,7 @@ public class RuleEngine {
         npCDTUConds.addRule(hasComplementDirectional);
         npCDTUConds.addRule(hasTypeUndefined);
         HasChild npCDTUChild = new HasChild("target", npCDTUConds);
+        npCDTUChild.setOptional(true);
         
         // NP: complement type = actor (target)
         Feature complementActor = Feature.get(np, "complement type", "actor");
@@ -911,5 +956,4 @@ public class RuleEngine {
         
         rules.add(rule);
     }
-    
 }

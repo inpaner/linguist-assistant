@@ -79,7 +79,17 @@ public class Constituent {
     
     public void updateFeature(Feature toUpdate, String newValue) {
         boolean setToDefault = toUpdate.getDefaultValue().equals(newValue);
-        if (!features.contains(toUpdate)) { 
+        
+        boolean containsFeature = false;
+        
+        for (Feature feature : features) {
+            if (toUpdate.equivalent(feature)) {
+                containsFeature = true;
+                break;
+            }
+        }
+        
+        if (!containsFeature) { 
         	
             toUpdate.setValue(newValue);
             features.add(toUpdate);
@@ -105,6 +115,7 @@ public class Constituent {
         	//System.out.println("No category set!");
             return result;
         }
+        
         //System.out.println(category.getName()+":"+category.getFeatures().size());
         for (Feature feature : category.getFeatures()) {
             boolean found = false;

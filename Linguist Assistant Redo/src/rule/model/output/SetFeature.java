@@ -16,10 +16,6 @@ public class SetFeature extends Output {
     @Override
     public void apply() {
         Constituent constituent = root.getStored(key);
-        if (constituent == null) {
-            System.err.println("Key: " + key);
-            System.err.println("Constituent is null");
-        }
         constituent.updateFeature(feature, feature.getValue());
     }
     
