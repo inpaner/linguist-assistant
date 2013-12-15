@@ -207,9 +207,11 @@ public class XMLParser {
         }
         
         
-        Concept concept = new Concept(name, parent.getCategory());
-        concept.setSense(sense);
-        System.out.println(concept.getSense());
+        //Concept concept = new Concept(name, parent.getCategory());
+        //concept.setSense(sense);
+        Concept concept=Concept.getInstance(name, sense, parent.getCategory());
+        System.out.println("Stem: "+concept.getStem());
+        //System.out.println(concept.getSense());
         parent.setConcept(concept);
     }
     
