@@ -90,13 +90,11 @@ public class Constituent {
         }
         
         if (!containsFeature) { 
-        	
             toUpdate.setValue(newValue);
             features.add(toUpdate);
-            System.out.println("Feature "+toUpdate.getName()+" added to Constituent "+getLabel());
+            System.out.println("Feature " + toUpdate.getName() + " added to Constituent "+getLabel());
         }
         else if (setToDefault) {
-        	
             features.remove(toUpdate);
             System.out.println("Feature removed!");
         }
@@ -112,8 +110,7 @@ public class Constituent {
         List<Feature> result = new ArrayList<>(); 
         if (category == null) // root block
         {
-        	//System.out.println("No category set!");
-            return result;
+        	return result;
         }
         
         //System.out.println(category.getName()+":"+category.getFeatures().size());

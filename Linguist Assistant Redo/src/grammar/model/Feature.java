@@ -53,6 +53,9 @@ public class Feature {
         this.name = name;
         this.value = value;
         this.category = parent;
+        DAOFactory factory = DAOFactory.getInstance();
+        FeatureDAO dao = new FeatureDAO(factory);
+        pk = dao.getPk(this);
     }
     
     protected Feature(Integer pk, String aName, Category aParent) {
@@ -71,9 +74,13 @@ public class Feature {
     }
     
     public String getDefaultValue() {
-    	if(getPossibleValues()!=null&&getPossibleValues().size()>0)
+    	if(getPossibleValues() != null  &&  getPossibleValues().size()>0)
     		return getPossibleValues().get(0);
     	return "No value listed";
+    }
+    
+    public Category getCategory() {
+        return category;
     }
     
     public void setName(String name) {

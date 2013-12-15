@@ -148,7 +148,7 @@ public class XMLParser {
             Node childNode = featureList.item(i);
             
             switch (childNode.getNodeName()) {
-            case "feature": Feature feature = parseFeature(childNode, parent); //is there now a distinction between general and specific features? Features from loaded XMLs don't show up.--Andrew
+            case "feature": parseFeature(childNode, parent); //is there now a distinction between general and specific features? Features from loaded XMLs don't show up.--Andrew
                             
                             /*for(Feature f: parent.getAllFeatures())
             				{
@@ -182,8 +182,9 @@ public class XMLParser {
             }
         }
         
-        Feature feature = new Feature(name, value, parent.getCategory());
-        parent.updateFeature(feature,value);
+        Feature feature = Feature.get(parent.getCategory(), name, value);
+        System.out.println("Parsing " + feature.getName() + ": "+ feature.getValue());
+        parent.updateFeature(feature, value);
         return feature;
     }
     

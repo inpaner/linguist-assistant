@@ -20,7 +20,13 @@ public class FeatureDAO {
             "SELECT name " +
             "  FROM FeatureValue " +
             " WHERE featurePk = (?) ";
-            
+    
+    private static final String SQL_RETRIEVE_FEATURE_PK = 
+            "SELECT pk " +
+            "  FROM Feature " +
+            " WHERE name = (?) " +
+            "       AND categoryPk = (?)";
+    
     private static final String SQL_DEFAULT_VALUE = 
             "SELECT name " +
             "  FROM FeatureValue " +
@@ -83,7 +89,38 @@ public class FeatureDAO {
     public FeatureDAO(DAOFactory aDAOFactory) {
         factory = aDAOFactory;
     }
-
+    
+    int getPk(Feature feature) {
+        int pk = -1;
+        Object[] values = {
+                feature.getName(),
+                feature.getCategory().getPk()
+        };
+        List<Integer> list = new ArrayList<>();
+        list.add(3);
+        
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            String sql = SQL_RETRIEVE_FEATURE_PK;
+            conn = factory.getConnection();
+            ps = DAOUtil.prepareStatement(conn, sql, false, values);
+            rs = ps.executeQuery();
+            
+            rs.next();
+            pk = rs.getInt("pk");
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally {
+            DAOUtil.close(conn, ps, rs);
+        }
+        return pk;
+    
+    }
+    
     List<String> getPossibleValues(Feature feature) {
         List<String> possibleValues = new ArrayList<>();
         Object[] values = {
@@ -305,8 +342,8 @@ public class FeatureDAO {
         String value = getDefaultValue(feature);
         feature.setValue(value);
         feature.setDescription(rs.getString("description"));
-        Language language = Language.getInstance(rs.getInt("languagePk"));
-        feature.setLanguage(language);
+        //Language language = Language.getInstance(rs.getInt("languagePk"));
+        //feature.setLanguage(language);
         return feature;
     }
 }
