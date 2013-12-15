@@ -30,8 +30,8 @@ public class RuleEngine {
         this.root = constituent;
         //rule1();
         //rule2();
-        rule3();
-        //rule4();
+        //rule3();
+        rule4();
         //rule5();
         //rule6();
         //rule7();
@@ -416,13 +416,11 @@ public class RuleEngine {
     private void rule4() {
         Category clause = Category.getByName("Clause");
         Category np = Category.getByName("Noun Phrase");
-        Category noun = Category.getByName("Noun");
         Category vp = Category.getByName("Verb Phrase");
         Category verb = Category.getByName("Verb");
         
         HasCategory hasClause = new HasCategory(clause);
         HasCategory hasNP = new HasCategory(np);
-        HasCategory hasNoun = new HasCategory(noun);
         HasCategory hasVP = new HasCategory(vp);
         HasCategory hasVerb = new HasCategory(verb);
         
@@ -433,26 +431,25 @@ public class RuleEngine {
         Feature typeFocus = Feature.get(np, "type", "focus");
         HasFeature hasTypeFocus = new HasFeature(typeFocus);
         
-        Feature cTypeActor = Feature.get(np, "complement type", "actor");
-        HasFeature hasctypeActor= new HasFeature(cTypeActor);
+        Feature complementActor = Feature.get(np, "complement type", "actor");
+        HasFeature hascomplementActor= new HasFeature(complementActor);
         
         And tfcaConds = new And();
         tfcaConds.addRule(hasNP); 
         tfcaConds.addRule(hasTypeFocus); 
-        tfcaConds.addRule(hasctypeActor);
+        tfcaConds.addRule(hascomplementActor);
         HasChild tfcaChild = new HasChild("tf cp", tfcaConds);
         
         
         // Verb (target)
         And verbChildConds = new And();
         verbChildConds.addRule(hasVerb);
-        
         HasChild hasVerbChild = new HasChild("target", verbChildConds);
         
         
         // Verb Phrase
         And vpChildConds = new And();
-        vpChildConds.addRule(hasVerb);
+        vpChildConds.addRule(hasVP);
         vpChildConds.addRule(hasVerbChild);
         
         HasChild hasVPChild = new HasChild("vp", vpChildConds);
@@ -473,14 +470,14 @@ public class RuleEngine {
         //// Rule 2 
         
         // Noun Phrase: type = focus, complement type = object
-        Feature complementObject = Feature.get(np, "complement type", "actor");
+        Feature complementObject = Feature.get(np, "complement type", "object");
         HasFeature hasComplementObject= new HasFeature(complementObject);
         
         And tfcoConds = new And();
         tfcoConds.addRule(hasNP); 
         tfcoConds.addRule(hasTypeFocus); 
         tfcoConds.addRule(hasComplementObject);
-        HasChild tfcoChild = new HasChild("tf cp", tfcoConds);
+        HasChild tfcoChild = new HasChild("tf co", tfcoConds);
         
         And rule2Input = new And();
         rule2Input.addRule(hasClause);
@@ -493,27 +490,26 @@ public class RuleEngine {
         Rule rule2 = new Rule();
         rule2.setInput(rule2Input);
         rule2.addOutput(focusOF);
-        
-        
+
 
         //// Rule 3 
         
         // Noun Phrase: type = focus, complement type = directional
-        Feature complementDirectional = Feature.get(np, "complement type", "actor");
+        Feature complementDirectional = Feature.get(np, "complement type", "directional");
         HasFeature hasComplementDirectional= new HasFeature(complementDirectional);
         
         And tfcdConds = new And();
         tfcdConds.addRule(hasNP); 
         tfcdConds.addRule(hasTypeFocus); 
         tfcdConds.addRule(hasComplementDirectional);
-        HasChild tfcdChild = new HasChild("tf cp", tfcdConds);
+        HasChild tfcdChild = new HasChild("tf cd", tfcdConds);
         
         And rule3Input = new And();
         rule3Input.addRule(hasClause);
         rule3Input.addRule(tfcdChild);
         rule3Input.addRule(hasVPChild);
         
-        SetFeature focusDF = new SetFeature(clause, "focus", "DF");
+        SetFeature focusDF = new SetFeature(verb, "focus", "df");
         focusDF.setKey("target");
         
         Rule rule3 = new Rule();
