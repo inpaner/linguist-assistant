@@ -188,8 +188,28 @@ public class XMLParser {
     }
     
     private void parseConcept(Node conceptNode, Constituent parent) {
-        String name = conceptNode.getTextContent();
+    	 NodeList childNodes = conceptNode.getChildNodes();
+        String name = "";
+        String sense="A";
+        for (int i = 0; i < childNodes.getLength(); i++) {
+            Node childNode = childNodes.item(i);
+            
+            switch (childNode.getNodeName()) {
+            case "name":    name = childNode.getTextContent();
+                            break;
+            
+            case "sense":   sense = childNode.getTextContent();
+                            break;
+                            
+            default:        break;
+            
+            }
+        }
+        
+        
         Concept concept = new Concept(name, parent.getCategory());
+        concept.setSense(sense);
+        System.out.println(concept.getSense());
         parent.setConcept(concept);
     }
     
