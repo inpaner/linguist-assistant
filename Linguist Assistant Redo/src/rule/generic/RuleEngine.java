@@ -899,19 +899,19 @@ public class RuleEngine {
         //////// Clause
         And input = new And();
         input.addRule(hasClause);
-        input.addRule(typeFocusChild);
+        input.addRule(vpChild);
         input.addRule(complementActorChild);
         input.addRule(complementObjectChild);
-        input.addRule(complementDirectionalChild);        
-        input.addRule(vpChild);
+        input.addRule(complementDirectionalChild);
+        input.addRule(typeFocusChild);
         
         
         ReorderChildren reorder = new ReorderChildren();
         reorder.addChild("vp");
-        reorder.addChild("type focus");
         reorder.addChild("complement actor");
         reorder.addChild("complement object");
         reorder.addChild("complement directional");
+        reorder.addChild("type focus");
         
         Rule rule = new Rule();
         rule.setName("rule 7");
