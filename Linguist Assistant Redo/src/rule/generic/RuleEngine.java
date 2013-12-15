@@ -311,7 +311,7 @@ public class RuleEngine {
         
         //// rule 2: time = future -> surface = contemplative
         // Future features
-        Feature immediateFuture = Feature.get(verb, "time", "immediate");
+        Feature immediateFuture = Feature.get(verb, "time", "immediate future");
         HasFeature hasImmediateFuture = new HasFeature(immediateFuture);
         
         Feature laterToday = Feature.get(verb, "time", "later today");
