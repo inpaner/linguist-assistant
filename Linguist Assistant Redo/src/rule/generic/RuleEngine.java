@@ -33,14 +33,14 @@ public class RuleEngine {
     public RuleEngine(Constituent constituent) {
         this.root = constituent;
         translationRules();
-        rule1();
-        rule2();
-        rule3();
-        rule4();
-        rule5();
-        rule6();
-        rule7();
-        rule8();
+        rule1(); // set np complement
+        rule2(); // determine np focus
+        rule3(); // set verb surface
+        rule4(); // set verb focus
+        rule5(); // add marker
+        rule6(); // select form
+        rule7(); // reorder vp np np
+        rule8(); // reorder marker
     }
     
     public void apply() {
@@ -597,7 +597,7 @@ public class RuleEngine {
         Output setAng = new ForceTranslation("ang");
         addAng.addOutput(setAng);
         
-        Rule angRule = new Rule();
+        Rule angRule = new Rule();  
         angRule.setInput(rule1Input);
         angRule.addOutput(addAng);
         
