@@ -311,7 +311,7 @@ public class RuleEngine {
         
         //// rule 2: time = future -> surface = contemplative
         // Future features
-        Feature immediateFuture = Feature.get(verb, "time", "immediate");
+        Feature immediateFuture = Feature.get(verb, "time", "immediate future");
         HasFeature hasImmediateFuture = new HasFeature(immediateFuture);
         
         Feature laterToday = Feature.get(verb, "time", "later today");
@@ -884,7 +884,7 @@ public class RuleEngine {
         
         
         // complement: directional
-        Feature complementDirectional = Feature.get(np, "complement type", "object");
+        Feature complementDirectional = Feature.get(np, "complement type", "directional");
         HasFeature hasComplementDirectional = new HasFeature(complementDirectional);
         
         And complementDirectionalConds = new And();
@@ -908,10 +908,10 @@ public class RuleEngine {
         
         ReorderChildren reorder = new ReorderChildren();
         reorder.addChild("vp");
+        reorder.addChild("type focus");
         reorder.addChild("complement actor");
         reorder.addChild("complement object");
         reorder.addChild("complement directional");
-        reorder.addChild("type focus");
         
         Rule rule = new Rule();
         rule.setName("rule 7");

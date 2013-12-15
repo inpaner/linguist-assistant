@@ -21,12 +21,6 @@ public class Language {
         return currentLanguage;
     }
     
-    public static void main(String[] args) {
-        for (Language item : Language.getAll()) {
-            System.out.println(item);
-        }
-    }
-    
     public static List<Language> getAll() {
         DAOFactory factory = DAOFactory.getInstance();
         LanguageDAO dao = new LanguageDAO(factory);
