@@ -299,12 +299,22 @@ public class XMLParser {
         
         if (constituent.hasConcept()) {
             Element concept = xml.createElement("concept");
-            concept.appendChild(xml.createTextNode(constituent.getConcept().toString()));
+            
+            //concept.appendChild(xml.createTextNode(constituent.getConcept().toString()));
             mainElement.appendChild(concept);
-                   
-            Element word = xml.createElement("word");
+            
+            Element name = xml.createElement("name");
+            name.appendChild(xml.createTextNode(constituent.getConcept().getStem()));
+            concept.appendChild(name);
+            Element sense = xml.createElement("sense");
+            name.appendChild(xml.createTextNode(constituent.getConcept().getSense()));
+            concept.appendChild(sense);
+            
+           
+            
+           /* Element word = xml.createElement("word");
             word.appendChild(xml.createTextNode(constituent.getConcept().getStem())); //for the time being, until I know what to call to get the actual gloss--Andrew
-            mainElement.appendChild(word);
+            mainElement.appendChild(word);*/
             		
             // Element gloss = xml.createElement("gloss");
             // gloss.appendChild(xml.createTextNode(constituent.getConcept().getGloss/getWord()));
