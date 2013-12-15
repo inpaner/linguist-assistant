@@ -1,5 +1,7 @@
 package rule.model;
 
+import grammar.model.Feature;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,6 +14,7 @@ import semantics.model.Constituent;
 
 public class Rule {
     private Map<String, Constituent> constituents = new HashMap<>();
+    private String name = "";
     private Language language;
     private Input input;
     private List<Output> outputs = new ArrayList<>();
@@ -32,6 +35,10 @@ public class Rule {
         result.semanticSwitch = this.semanticSwitch;
         result.input.setRoot(this.input.getRoot());
         return result;
+    }
+    
+    public void setName(String name) {
+        this.name = name;
     }
     
     public Rule createPassedRule() {
@@ -130,6 +137,19 @@ public class Rule {
 	public Input getInput() {
 		return input;
 	}
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null)
+            return false;
+        if (obj == this)
+            return true;
+        if (!(obj instanceof Rule))
+            return false;
+        
+        Rule other = (Rule) obj;
+        return this.name.equals(other.name);
+    }
     
    
 }

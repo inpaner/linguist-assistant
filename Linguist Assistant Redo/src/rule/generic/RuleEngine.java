@@ -35,10 +35,16 @@ public class RuleEngine {
     }
     
     public void apply() {
-        for (Rule rule : rules) {
-            constituent.evaluate(rule);
-        }
-        constituent.applyRules();
+        boolean ruleApplied;
+        do {
+            ruleApplied = false;
+            for (Rule rule : rules) {
+                ruleApplied = constituent.evaluate(rule);
+            }
+            constituent.applyRules();
+        } while (ruleApplied); 
+        
+        
     }
     
     private void rule1() {
@@ -284,6 +290,120 @@ public class RuleEngine {
         rule.addRule(rule2);
         rule.addRule(rule3);
         rule.addRule(rule4);
+    }
+    
+    
+    private void rule4() {
+        Category clause = Category.getByName("Clause");
+        Category np = Category.getByName("Noun Phrase");
+        Category noun = Category.getByName("Noun");
+        Category vp = Category.getByName("Verb Phrase");
+        Category verb = Category.getByName("Verb");
+        
+        HasCategory hasClause = new HasCategory(clause);
+        HasCategory hasNP = new HasCategory(np);
+        HasCategory hasNoun = new HasCategory(noun);
+        HasCategory hasVP = new HasCategory(vp);
+        HasCategory hasVerb = new HasCategory(verb);
+        
+        
+        //// Rule 1
+        
+        // Noun Phrase: type = focus, complement type = actor
+        Feature typeFocus = Feature.get(np, "type", "focus");
+        HasFeature hasTypeFocus = new HasFeature(typeFocus);
+        
+        Feature cTypeActor = Feature.get(np, "complement type", "actor");
+        HasFeature hasctypeActor= new HasFeature(cTypeActor);
+        
+        And tfcaConds = new And();
+        tfcaConds.addRule(hasNP); 
+        tfcaConds.addRule(hasTypeFocus); 
+        tfcaConds.addRule(hasctypeActor);
+        HasChild tfcaChild = new HasChild("tf cp", tfcaConds);
+        
+        
+        // Verb (target)
+        And verbChildConds = new And();
+        verbChildConds.addRule(hasVerb);
+        
+        HasChild hasVerbChild = new HasChild("target", verbChildConds);
+        
+        
+        // Verb Phrase
+        And vpChildConds = new And();
+        vpChildConds.addRule(hasVerb);
+        vpChildConds.addRule(hasVerbChild);
+        
+        HasChild hasVPChild = new HasChild("vp", vpChildConds);
+
+        And rule1Input = new And();
+        rule1Input.addRule(hasClause);
+        rule1Input.addRule(tfcaChild);
+        rule1Input.addRule(hasVPChild);
+        
+        SetFeature focusAF = new SetFeature(verb, "focus", "af");
+        focusAF.setKey("target");
+        
+        Rule rule1 = new Rule();
+        rule1.setInput(rule1Input);
+        rule1.addOutput(focusAF);
+        
+        
+        //// Rule 2 
+        
+        // Noun Phrase: type = focus, complement type = object
+        Feature complementObject = Feature.get(np, "complement type", "actor");
+        HasFeature hasComplementObject= new HasFeature(complementObject);
+        
+        And tfcoConds = new And();
+        tfcoConds.addRule(hasNP); 
+        tfcoConds.addRule(hasTypeFocus); 
+        tfcoConds.addRule(hasComplementObject);
+        HasChild tfcoChild = new HasChild("tf cp", tfcoConds);
+        
+        And rule2Input = new And();
+        rule2Input.addRule(hasClause);
+        rule2Input.addRule(tfcoChild);
+        rule2Input.addRule(hasVPChild);
+        
+        SetFeature focusOF = new SetFeature(verb, "focus", "of");
+        focusOF.setKey("target");
+        
+        Rule rule2 = new Rule();
+        rule2.setInput(rule2Input);
+        rule2.addOutput(focusOF);
+        
+        
+
+        //// Rule 3 
+        
+        // Noun Phrase: type = focus, complement type = directional
+        Feature complementDirectional = Feature.get(np, "complement type", "actor");
+        HasFeature hasComplementDirectional= new HasFeature(complementDirectional);
+        
+        And tfcdConds = new And();
+        tfcdConds.addRule(hasNP); 
+        tfcdConds.addRule(hasTypeFocus); 
+        tfcdConds.addRule(hasComplementDirectional);
+        HasChild tfcdChild = new HasChild("tf cp", tfcdConds);
+        
+        And rule3Input = new And();
+        rule3Input.addRule(hasClause);
+        rule3Input.addRule(tfcdChild);
+        rule3Input.addRule(hasVPChild);
+        
+        SetFeature focusDF = new SetFeature(clause, "focus", "DF");
+        focusDF.setKey("target");
+        
+        Rule rule3 = new Rule();
+        rule3.setInput(rule3Input);
+        rule3.addOutput(focusDF);
+        
+        RuleSet rule = new RuleSet();
+        rule.addRule(rule1);
+        rule.addRule(rule2);
+        rule.addRule(rule3);
     }
     
     

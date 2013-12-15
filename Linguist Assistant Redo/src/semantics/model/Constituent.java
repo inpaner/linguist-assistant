@@ -15,7 +15,8 @@ import rule.model.RuleSet;
 public class Constituent {
     private ArrayList<Constituent> children = new ArrayList<>();
     private ArrayList<Feature> features = new ArrayList<>();
-    private ArrayList<Rule> rules = new ArrayList<>();
+    private ArrayList<Rule> newRules = new ArrayList<>();
+    private ArrayList<Rule> appliedRules = new ArrayList<>();
     private Constituent parent;
     private Category category;
     private Concept concept;
@@ -196,13 +197,12 @@ public class Constituent {
     
     public boolean evaluate(Rule rule) {
         boolean result = false;
+        
         if (rule instanceof RuleSet) {
-            System.out.println("***************RULESET TIEM");
             RuleSet rs = (RuleSet) rule;
             
             for (Rule subRule : rs.getRules()) {
                 if (this.evaluate(subRule)) {
-                    System.out.println("applied");
                     result = true;
                 }
             }
@@ -214,8 +214,8 @@ public class Constituent {
             child.evaluate(rule.createPassedRule());
         }
         
-        if (rule.evaluate(this)) {
-            rules.add(rule);
+        if (!appliedRules.contains(rule) && rule.evaluate(this)) {
+            newRules.add(rule);
             result = true;
         }
         
@@ -227,9 +227,13 @@ public class Constituent {
         for (Constituent child : children) {
             child.applyRules();
         }
-        for (Rule rule : rules) {
+        
+        for (Rule rule : newRules) {
             rule.apply();
         }
+        
+        appliedRules.addAll(newRules);
+        newRules.clear();
     }
 
     public Target getTarget() {
