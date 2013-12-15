@@ -395,9 +395,11 @@ public class RuleEngine {
         rule4Input.addRule(hasVerb);
         rule4Input.addRule(hasPresent);
         
+        SetFeature surfaceImperfective = new SetFeature(verb, "surface aspect", "imperfective");
+        
         Rule rule4 = new Rule();
         rule4.setInput(rule4Input);
-        rule4.addOutput(surfacePerfective);
+        rule4.addOutput(surfaceImperfective);
         
         RuleSet rule = new RuleSet();
         rule.setName("rule 3");
