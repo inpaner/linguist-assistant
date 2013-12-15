@@ -101,6 +101,7 @@ public class Entry {
 	    for (Form form : getForms()) {
 	        if (form.getName().equals(name)) {
 	            result = form;
+	            break;
 	        }
 	    }
 	    return result;

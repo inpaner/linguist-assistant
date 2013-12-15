@@ -88,7 +88,7 @@ public class FormDAO {
     public static void main(String[] args) {
         DAOFactory factory = DAOFactory.getInstance();
         FormDAO dao = new FormDAO(factory);
-        Entry entry = Entry.getInstance(5);
+        Entry entry = Entry.getInstance(10);
         for (Form form :dao.retrieveAll(entry)) {
             System.out.println(form.getName() + " " + form.getValue());
         }
@@ -122,15 +122,14 @@ public class FormDAO {
             ex.printStackTrace();
         }
         
-        
         for (Form form : result) {
             values = new Object[] {
                     entry.getPk(),
                     form.getPk()
             };
+            
             try {
                 String sql = SQL_RETRIEVE_VALUE;
-                conn = factory.getConnection();            
                 ps = DAOUtil.prepareStatement(conn, sql, false, values);
                 rs = ps.executeQuery();
                 rs.next();

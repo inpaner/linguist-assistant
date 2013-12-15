@@ -146,7 +146,7 @@ public class Concept {
     }
     
     public Entry getFirstMapping() {
-        return getMappings(Language.getCurrent()).get(0);
+        return getMappings().get(0);
     }
     
     public void addTag(Tag tag) {
