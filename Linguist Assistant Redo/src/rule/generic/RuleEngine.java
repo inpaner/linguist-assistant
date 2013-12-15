@@ -34,14 +34,14 @@ public class RuleEngine {
         this.root = constituent;
         translationRules();
         
-        //rule1();
+        rule1();
         rule2();
         //rule3();
         //rule4();
         rule5();
         //rule6();
         //rule7();
-        rule8();
+        //rule8();
     }
     
     public void apply() {

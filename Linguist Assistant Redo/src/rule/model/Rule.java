@@ -14,7 +14,7 @@ import semantics.model.Constituent;
 
 public class Rule {
     private Map<String, Constituent> constituents = new HashMap<>();
-    private String name = "";
+    protected String name = "";
     private Language language;
     private Input input;
     private List<Output> outputs = new ArrayList<>();

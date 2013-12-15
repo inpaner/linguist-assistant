@@ -19,6 +19,7 @@ public class RuleSet extends Rule {
     @Override
     public Rule createPassedRule() {
         RuleSet result = new RuleSet();
+        result.name = this.name;
         
         for (Rule rule : this.rules) {
             result.rules.add(rule.createPassedRule());

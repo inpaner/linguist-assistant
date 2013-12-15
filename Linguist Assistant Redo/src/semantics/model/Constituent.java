@@ -220,8 +220,8 @@ public class Constituent {
             newRules.add(rule);
             ruleAdded = true;
         }
-        else {
-            System.out.println(rule.toString());
+        else if (appliedRules.contains(rule)) {
+            System.out.println(rule.toString() + " skipped because in ruleset already");
         }
         
         return ruleAdded;
