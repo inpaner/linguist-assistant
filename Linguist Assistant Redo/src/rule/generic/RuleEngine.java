@@ -884,7 +884,7 @@ public class RuleEngine {
         
         
         // complement: directional
-        Feature complementDirectional = Feature.get(np, "complement type", "object");
+        Feature complementDirectional = Feature.get(np, "complement type", "directional");
         HasFeature hasComplementDirectional = new HasFeature(complementDirectional);
         
         And complementDirectionalConds = new And();
