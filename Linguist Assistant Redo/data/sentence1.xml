@@ -21,7 +21,7 @@
                             <features>
                                 <feature>
                                     <name>participant tracking</name>
-                                    <value>first mention</value>
+                                    <value>routine</value>
                                 </feature>  
                                 <feature>
                                     <name>person</name>
@@ -43,7 +43,7 @@
                             <features>
                                 <feature>
                                     <name>time</name>
-                                    <value>present</value>  
+                                    <value>present</value>   
                                 </feature>
                             </features>
                         </const>

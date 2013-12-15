@@ -1,0 +1,83 @@
+<root>
+    <subcons>
+        <const>
+            <label>Clause</label>
+            <subcons>
+                <const>
+                    <label>Noun Phrase</label>
+                    <features>
+                        <feature>
+                            <name>semantic role</name>
+                            <value>agent</value>
+                        </feature>
+                    </features>
+                    <subcons>
+                        <const>
+                            <label>Noun</label>
+                            <concept>
+                                <name>child</name>
+                                <sense>A</sense>
+                            </concept>
+                            <features>
+                                <feature>
+                                    <name>participant tracking</name>
+                                    <value>first mention</value>
+                                </feature>
+                                <feature>
+                                    <name>person</name>
+                                    <value>third</value>
+                                </feature>  
+                            </features>
+                        </const>
+                    </subcons>
+                </const>
+                <const>
+                    <label>Verb Phrase</label>
+                    <subcons>
+                        <const>
+                            <label>Verb</label>
+                            <concept>
+                                <name>kick</name>
+                                <sense>A</sense>
+                            </concept>
+                            <features>
+                                <feature>
+                                    <name>time</name>
+                                    <value>immediate past</value>   
+                                </feature>
+                            </features>
+                        </const>
+                    </subcons>
+                </const>
+                <const>
+                    <label>Noun Phrase</label>
+                    <features>
+                        <feature>
+                            <name>semantic role</name>
+                            <value>patient</value>
+                        </feature>
+                    </features>
+                    <subcons>
+                        <const>
+                            <label>Noun</label>
+                            <concept>   
+                                <name>man</name>
+                                <sense>A</sense>
+                            </concept>
+                            <features>
+                                <feature>
+                                    <name>participant tracking</name>
+                                    <value>routine</value>
+                                </feature>  
+                                <feature>
+                                    <name>person</name>
+                                    <value>third</value>
+                                </feature>
+                            </features>
+                        </const>
+                    </subcons>
+                </const>
+            </subcons>
+        </const>
+    </subcons>
+</root>
