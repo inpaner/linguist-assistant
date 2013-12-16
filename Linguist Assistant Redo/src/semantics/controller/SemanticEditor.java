@@ -106,6 +106,7 @@ public class SemanticEditor {
             
             RuleEngine engine = new RuleEngine(constituent);
             engine.apply();
+            displayTranslation(constituent);
             panel.refresh();
         }
         
