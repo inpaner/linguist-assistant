@@ -33,14 +33,14 @@ public class RuleEngine {
     public RuleEngine(Constituent constituent) {
         this.root = constituent;
         translationRules();
-        rule1(); // set np complement
-        rule2(); // determine np focus
-        rule3(); // set verb surface
-        rule4(); // set verb focus
-        rule5(); // add marker
+        //rule1(); // set np complement
+        //rule2(); // determine np focus
+        //rule3(); // set verb surface
+        //rule4(); // set verb focus
+        //rule5(); // add marker
         rule6(); // select form
-        rule7(); // reorder vp np np
-        rule8(); // reorder marker
+        //rule7(); // reorder vp np np
+        //rule8(); // reorder marker
     }
     
     public void apply() {

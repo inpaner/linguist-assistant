@@ -28,6 +28,7 @@ import commons.main.MainFrame;
 import commons.menu.HelpMenu;
 import commons.menu.ViewMenu;
 import net.miginfocom.swing.MigLayout;
+import java.awt.Font;
 
 @SuppressWarnings("serial")
 public class SemanticEditorPanel extends JPanel {
@@ -76,6 +77,8 @@ public class SemanticEditorPanel extends JPanel {
         if(root != null)
            parser.writeXML(filename,root);
     }
+
+    
     public void appendTranslation(String word)
     {
     	txtTranslation.append(word+" ");
@@ -87,7 +90,9 @@ public class SemanticEditorPanel extends JPanel {
     private void initComponents() {
     	parser = new XMLParser();
 		txtTranslation = new JTextArea();
+		txtTranslation.setFont(new Font("Palatino Linotype", Font.PLAIN, 25));
     	txtTranslation.setEditable(false);
+    
     	txtTranslation.setPreferredSize(new Dimension(400,50));
     	//browser = new FileBrowsing();
         blocksPanel = new BlocksPanel();
@@ -153,6 +158,7 @@ public class SemanticEditorPanel extends JPanel {
     {
     	for (Listener listener : listeners) {
 		    listener.generate(root);
+		    
 		}
     }
     private String getFile() {

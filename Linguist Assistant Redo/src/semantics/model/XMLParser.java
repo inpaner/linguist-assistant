@@ -310,7 +310,7 @@ public class XMLParser {
             name.appendChild(xml.createTextNode(constituent.getConcept().getStem()));
             concept.appendChild(name);
             Element sense = xml.createElement("sense");
-            name.appendChild(xml.createTextNode(constituent.getConcept().getSense()));
+            sense.appendChild(xml.createTextNode(constituent.getConcept().getSense()));
             concept.appendChild(sense);
             
            
@@ -322,6 +322,12 @@ public class XMLParser {
             // Element gloss = xml.createElement("gloss");
             // gloss.appendChild(xml.createTextNode(constituent.getConcept().getGloss/getWord()));
             // mainElement.appendChild(gloss);
+        }
+        if(constituent.getTarget()!=null)
+        {
+        	Element target=xml.createElement("target");
+        	target.appendChild(xml.createTextNode(constituent.getTarget().toString()));
+        	mainElement.appendChild(target);
         }
         
         if(constituent.hasChildren()){
