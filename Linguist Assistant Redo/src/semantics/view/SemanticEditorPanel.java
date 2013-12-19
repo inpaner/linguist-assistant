@@ -77,6 +77,8 @@ public class SemanticEditorPanel extends JPanel {
         if(root != null)
            parser.writeXML(filename,root);
     }
+
+    
     public void appendTranslation(String word)
     {
     	txtTranslation.append(word+" ");
