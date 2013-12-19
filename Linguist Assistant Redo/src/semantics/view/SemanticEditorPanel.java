@@ -174,17 +174,17 @@ public class SemanticEditorPanel extends JPanel {
     }
     
     private void addComponents() {
-        setLayout(new MigLayout("wrap 2"));
+        setLayout(new MigLayout("wrap 2", "[550][200]", ""));
         add(blocksPanel, "flowy");
         add(featureValuesPanel, "flowy");
         add(buttonPanel, "flowy, cell 0 0");
-        add(btnLoad);
-        add(btnSave);
-        add(btnGenerate);
-        add(btnGrammar);
-        add(btnLexicon);
         add(selectConstituent);
-		add(txtTranslation);
+        add(btnLoad);
+        add(btnGenerate);
+        add(btnSave);
+        //add(btnGrammar);
+        //add(btnLexicon);
+        add(txtTranslation);
         //add(browser);
     }
     

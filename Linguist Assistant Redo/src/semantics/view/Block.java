@@ -31,6 +31,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
+import javax.swing.border.EtchedBorder;
 
 import net.miginfocom.swing.MigLayout;
 import semantics.model.Constituent;
@@ -43,7 +44,9 @@ import semantics.model.Constituent;
 @SuppressWarnings("serial")
 public class Block extends Box {
     private static ArrayList<Color> colors;
-    private static DataFlavor blockFlavor;    
+    private static DataFlavor blockFlavor;
+    private static Block previousBlock;
+    
     private Constituent constituent;
     private int colorIndex;
     private List<Block> children;
@@ -57,6 +60,10 @@ public class Block extends Box {
     private List<BlockListener> listeners;
     private JButton btnDelete;
     Font translationFont;
+    
+    private final Border selectedBorder;
+    private final Border unselectedBorder;
+    
     static {
         try { // unsure why needed since Block.class is this
             blockFlavor = new DataFlavor(
@@ -97,8 +104,11 @@ public class Block extends Box {
         showChildren = false;
     
         colorIndex = colorIndex % colors.size();
-        Border lineEdge = BorderFactory.createLineBorder(colors.get(colorIndex));
-        setBorder(lineEdge);
+        unselectedBorder = BorderFactory.createLineBorder(colors.get(colorIndex));
+        setBorder(unselectedBorder);
+        
+        selectedBorder = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
+        
         
         nameLabel = new JLabel(constituent.getLabel());
         conceptLabel = new JLabel();
@@ -138,6 +148,11 @@ public class Block extends Box {
         textBox.add(nameLabel);
         textBox.add(targetLabel);
         
+        if (constituent.getCategory() == null) {
+            conceptLabel.setText("");
+            nameLabel.setText("");
+            targetLabel.setText("");
+        }
         
         contentBox = Box.createHorizontalBox();
         Border paneEdge = BorderFactory.createEmptyBorder(10, 10, 10, 10);
@@ -157,7 +172,15 @@ public class Block extends Box {
         ds.createDefaultDragGestureRecognizer(
                 this, DnDConstants.ACTION_COPY, new DragGestureListenerImp());
     }
-
+    
+    void select() {
+        setBorder(selectedBorder);
+    }
+    
+    void deselect() {
+        setBorder(unselectedBorder);
+    }
+    
     protected void addListeners(List<BlockListener> listeners) {
         this.listeners = listeners;
         for (Block child : children) {
@@ -226,20 +249,23 @@ public class Block extends Box {
         public void mousePressed(MouseEvent e) {
 
             if (e.getClickCount() == 1) {
-	            if(e.getButton()==e.BUTTON1)
-	            {
+                if (previousBlock != null) {
+                    previousBlock.deselect();
+                }
+                Block.this.select();
+                previousBlock = Block.this;
+                
+	            if(e.getButton() == MouseEvent.BUTTON1) {
 	                for (BlockListener listener : listeners) {
 	                    listener.selectedConstituent(constituent);
 	                }
 	            }
-	            else
-	            {
+	            else {
 	            	for (BlockListener listener : listeners) {
 	                    listener.rightClick(constituent);
 	                }
 	            }
             }
-            
         }
 
         public void mouseReleased(MouseEvent e) {}
